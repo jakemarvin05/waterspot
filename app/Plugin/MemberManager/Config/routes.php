@@ -1,0 +1,16 @@
+<?php
+Router::connect('/members/registration/*', array('controller' => 'members', 'action' => 'registration','plugin'=>'member_manager'));
+Router::connect('/members/login/*', array('controller' => 'members', 'action' => 'login','plugin'=>'member_manager'));
+Router::connect('/members/vendor_member_login/*', array('controller' => 'members', 'action' => 'vendor_member_login','plugin'=>'member_manager'));
+Router::connect('/members/logout', array('controller' => 'members', 'action' => 'logout','plugin'=>'member_manager'));
+Router::connect('/members/resetpassword', array('controller' => 'members', 'action' => 'resetpassword','plugin'=>'member_manager'));
+Router::connect('/members/home', array('controller' => 'members', 'action' => 'home','plugin'=>'member_manager'));
+Router::connect('/members/passwordurl/*', array('controller' => 'members', 'action' => 'passwordurl','plugin'=>'member_manager'));
+Router::connect('/members/changepassword', array('controller' => 'members', 'action' => 'changepassword','plugin'=>'member_manager'));
+Router::connect('/members/change_email', array('controller' => 'members', 'action' => 'change_email','plugin'=>'member_manager'));
+Router::connect('/members/edit_profile', array('controller' => 'members', 'action' => 'edit_profile','plugin'=>'member_manager'));
+Router::connect('/members/booking_list', array('controller' => 'bookings', 'action' => 'booking_list','plugin'=>'member_manager'));
+Router::connect('/members/dashboard', array('controller' => 'members', 'action' => 'dashboard','plugin'=>'member_manager'));
+Router::connect('/members/invite_booking/*', array('controller' => 'members', 'action' => 'invite_booking','plugin'=>'member_manager'));
+Router::connect('/members/booking_status', array('controller' => 'bookings', 'action' => 'booking_status','plugin'=>'member_manager'));
+?>

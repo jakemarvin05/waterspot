@@ -1,0 +1,20 @@
+App::import('Model', 'ContentManager.Page');
+    $Page = new Page();
+    $cmsPages = $Page->find('all');
+    
+if ($cmsPages)
+{
+    foreach ($cmsPages as $key => $value)
+    {
+        if ($value['Page']['id'] != '/')
+        {
+            if($value['Page']['seo_url'])
+                $link = $value['Page']['seo_url'];
+            else{
+                $link=strtolower($value['Page']['name']);
+                $link=str_replace(array('/',' '),'-',$link);
+            }
+            Router::connect('/'.$link, array('controller' => 'pages', 'action' => 'view', $value['Page']['id'], 'plugin'=>'content_manager'));
+        }
+    }
+}

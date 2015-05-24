@@ -1,0 +1,100 @@
+<? $payment_status=Configure::read('payment_status'); ?>
+<link rel="stylesheet" type="text/css" href="/css/fancybox/jquery.fancybox(new).css" />
+<script type="text/javascript" src="/js/jquery.fancybox.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+		 $( "#ActivityStartDate" ).click();
+		});
+		$(document).ready(function() {
+			$('.fancybox').fancybox();
+		});
+</script>
+
+<div class="hr-line"></div>
+  <div class="clear"></div>
+  <h2>Booking <span style="color:#000;"><strong>Details</strong></span></h2>
+	<?=$this->element('breadcrumbs');?>
+  
+	<div class="middle-area">
+		<? if(!empty($customer_detail)){ ?>
+			<h3 class="small">Order Details</h3>
+			 
+			<p class="details"><span>Order Number:</span> <?if(!empty($customer_detail['Booking']['ref_no'])){
+				echo $customer_detail['Booking']['ref_no'];
+				} ?></p>
+			<p class="details"><span>Order Status:</span> <?=$payment_status[ $customer_detail['Booking']['status']]?></p>
+			
+			<p class="details"><span>Transction ID:</span> <?if(!empty($customer_detail['Booking']['transaction_id'])){
+				echo $customer_detail['Booking']['transaction_id'];
+				} ?></p>
+		<? } ?>
+		<table width="100%" cellpadding="0" cellspacing="0">
+			<tr class="bg">
+				<td width="1%">&nbsp;</td>
+				<td width="5%">S. No.</td>
+				<td width="15%">Service Name</td>
+				<td width="15%">Location</td>
+				<td width="10%">From</td>
+				<td width="10%">To</td>
+				<td width="15%">Invited Members</td>
+				<td width="10%">Price ($) </td>
+				<td width="5%">Slots</td>
+				<td width="5%">VAS</td>
+			</tr>
+			<? if(!empty($order_details )){?>
+				<? foreach($order_details as $key=>$order_detail) { ?>
+					<tr>
+						<td class="border">&nbsp;</td>
+						<td class="border"><?=$key+1; ?>.</td>
+						<td class="border"><?=$order_detail['BookingOrder']['service_title']?></td>
+						<td class="border"><?=$order_detail['BookingOrder']['location_name']?></td>
+						<td class="border"><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['start_date'])); ?></td>
+						<td class="border"><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['end_date'])); ?></td>
+						<td class="border">
+							<? if($order_detail['BookingOrder']['no_participants']!=1){ ?>
+								
+								<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Member Details','title'=>'View Member Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_member_invite_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?>
+						
+								<span class="number">(<?=($order_detail['BookingOrder']['no_participants']-1)?>)</span>
+						<?} else{ 
+								echo "No Invited.";
+						}?>
+						</td>
+						<td class="border"><?=number_format(($order_detail['BookingOrder']['total_amount']),2); ?></td>
+						<td class="border">
+							<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Slots Details','title'=>'View Slots Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?>
+						</td>
+						
+						<td class="border"><?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View VAS Details','title'=>'View VAS Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
+					
+					</tr>
+				<? } ?>
+			<? }else{ ?>
+					<td colspan="10">There are no booking </td>
+			
+			<? }?>
+	 	</table>
+		<? if(!empty($order_details)) {?>
+			<h3 class="small">Customer Information</h3>
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr class="bg">
+					<td width="1%">&nbsp;</td>
+					<td width="19%">First Name</td>
+					<td width="20%">Last Name</td>
+					<td width="20%">Email</td>
+					<td width="20%">Phone</td>
+					<td width="20%">Pincode</td>
+				</tr>
+				<tr>
+					<td class="border">&nbsp;</td>
+					<td class="border"><?=$customer_detail['Booking']['fname']?></td>
+					<td class="border"><?=$customer_detail['Booking']['lname']?></td>
+					<td class="border"><a href="mailto:<?=$customer_detail['Booking']['email'];?>"><?=$customer_detail['Booking']['email'];?></a></td>
+					<td class="border"><a href="callto:<?=$customer_detail['Booking']['phone'];?>"><?=$customer_detail['Booking']['phone'];?></a></td>
+					<td class="border"><?=$customer_detail['Booking']['post_code'];?></td>
+					 
+				</tr>
+			</table>
+		<? }?>
+	</div><!--middle close-->
+ 

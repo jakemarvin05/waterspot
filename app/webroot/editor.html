@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<title>Output for Flash &mdash; CKEditor Sample</title>
+	<meta charset="utf-8">
+	<script src="js/editor1/ckeditor.js"></script>
+	<script>
+
+					
+					var editor = CKEDITOR.replace( 'editor', {
+						/*
+						 * Ensure that htmlwriter plugin, which is required for this sample, is loaded.
+						 */
+						extraPlugins: 'htmlwriter',
+
+						height: 290,
+						width: '50%',
+						toolbar: [
+							[ 'Source', '-', 'Bold', 'Italic','Plan test', 'Underline', '-', 'BulletedList', '-', 'Link', 'Unlink' ],
+							[ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ],
+							'/',
+							[ 'Font', 'FontSize' ]
+							
+						],
+
+						 
+
+						 
+					});
+ 
+	</script>		
+	
+</head>
+<body>
+	 
+	 
+
+		 
+			 
+			<textarea name="data[Service][description]" style="height: 200px">hghgh
+				ghghghghghghghg</textarea>
+		 
+
+	<script>
+		CKEDITOR.inline( 'data[Service][description]' );
+	</script>
+	 
+</body>
+</html>

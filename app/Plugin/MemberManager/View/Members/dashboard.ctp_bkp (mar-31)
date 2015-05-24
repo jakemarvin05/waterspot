@@ -1,0 +1,90 @@
+<div class="hr-line"></div>
+<div class="clear"></div>
+<h2>Dashboard</h2>
+<div class="bredcrum"> <?=$this->element('breadcrumbs');?></div>
+
+<?=$this->element('MemberManager.left-member-panel');?>
+<div class="right-area">
+	<div class="service">
+		<?php if(!empty($invite_details)){ ?>
+		<div class="service-hd">Pending Invites</div> 
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr class="bg">
+        	<td width="1%">&nbsp;</td>
+			<td width="10%">S.No.</td>
+			<td width="20%">Inviter Email ID</td>
+			<td width="30%">Service Title</td>
+			<td width="10%">Price($)</td>
+			<td width="9%">Payment</td>
+		</tr>
+		
+		<?php 
+		$i=1;
+		foreach($invite_details as $invite_detail){ ?>
+		<tr>
+        	<td class="border">&nbsp;</td>
+			<td class="border"><?=$i; ?></td>
+			<td class="border"><?=$invite_detail['BookingParticipate']['invite_email']; ?></td>
+			<td class="border"><?=$invite_detail['BookingOrder']['service_title']; ?></td>
+			<td  class="border">
+			<?=$invite_detail['BookingParticipate']['amount']; ?></td>
+			<td class="border"><?=$this->Html->link('Book Now',array('plugin'=>false,'controller'=>'members','action'=>'invite_booking',$invite_detail['BookingParticipate']['booking_order_id']),array('escape' => false));?></td>
+		</tr>
+		<?php } ?>
+		 <? $total_booking=$this->Paginator->counter(array('format' => '{:count}'));?>
+	<? } ?>
+    </table>
+	
+	<div class="clear"></div>
+    <div class="service-hd">My Booking</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr class="bg">
+				<td width="1%">&nbsp;</td>
+				<td width="5%"> S.No.</td>
+				<td width="10%"> Order No.</td>
+				<td width="20%"> Name</td>
+				<td width="15%"> Email</td>
+				<td width="15%"> Phone</td>
+				 
+				<td width="10%"> Status</td>
+				<td width="6%"> View</td>
+				 
+			</tr>
+			<? if(!empty($booking_details)){ ?>
+				<? foreach($booking_details as $key=>$booking_detail){ ?>
+					<tr>
+						<td class="border">&nbsp;</td>
+						<td class="border"> <?=$key+1;?></td>
+						<td class="border"> <?=$booking_detail['Booking']['ref_no']?></td>
+						<td class="border"> <?=$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname']?></td>
+						<td class="border"> <?=$booking_detail['Booking']['email']?></td>
+						<td class="border"> <?=$booking_detail['Booking']['phone']?></td>
+						 
+						<td class="border"> <?=($booking_detail['Booking']['status']==1)?'Completed':'Pending';?></td>
+						<td class="border"> 
+								<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Detail','title'=>'View Detail')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false));?>
+						</td>
+					
+					</tr>
+				<? } ?>
+				<? $total_booking=$this->Paginator->counter(array('format' => '{:count}'));?>
+	 
+				<? if($total_booking>=5){ ?>
+					<tr>
+						<td colspan="10"><div class="view-all"><?=$this->Html->link('View All',array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_list'));?></div></td>
+					</tr>	
+				<? } ?>	
+			<? } else {?>
+				<tr>
+					<td colspan="9"> &nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan='9' >There are no booking details</td>
+				</tr>
+			<? }?>
+		</table>
+	</div>
+	<div class="clear"></div>
+  
+  
+ </div>

@@ -1,0 +1,302 @@
+<div class="hr-line"></div>
+<div class="clear"></div>
+<?=$this->element('breadcrumbs');?>
+<h2 class="page-title">Check <span style="color:#000;">Out</span></h2>
+<?php echo $this->element('message');?>
+
+<div class="<?=(!empty($cart_details))?'ch-out':'middle-area'?>"> 
+
+<? $sub_total=0;
+ if(!empty($cart_details)) { ?>
+	<? if(empty($redirect_login)) {?>
+		<h6>Your Details</h6>
+		<div class="mark">We just need a few details from you to complete this transaction. Required fields marked (<span style="color:#F00;">*</span>)</div>
+		<?php echo $this->element('message');?>
+		<div class="registration-form-box">
+			<?php echo $this->Form->create('Cart',array('name'=>'check_out','action'=>'add_order','class'=>'registration-form','id'=>'CartId'))?>
+				<?php echo $this->Form->input('id');?>
+				<div class="registration-form-row">
+				      <div class="labelbox">
+					      <label>First name : <span style="color:#ff4142;">*</span></label>	
+				      </div>
+				      <div class="fieldbox">
+					      <?=$this->Form->input('fname',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				      </div>
+				</div>
+				<div class="registration-form-row">
+				      <div class="labelbox">
+					      <label>Last name : <span style="color:#ff4142;">*</span></label>
+				      </div>
+				      <div class="fieldbox">
+					      <?=$this->Form->input('lname',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				      </div>
+				</div>
+				<div class="registration-form-row">
+				      <div class="labelbox">
+					      <label>Email address : <span style="color:#ff4142;">*</span></label>
+				      </div>
+				      <div class="fieldbox">
+					      <?=$this->Form->input('email',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->error('email',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				      </div>
+				</div>
+				<div class="registration-form-row">
+				      <div class="labelbox">
+					      <label>Phone : <span style="color:#ff4142;"> *</span></label>  
+				      </div>
+				      <div class="fieldbox">
+					      <?=$this->Form->input('phone',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				      </div>
+				</div>
+				<div class="registration-form-row">
+				      <div class="labelbox">
+					      <label>Comments :</label>  
+				      </div>
+				      <div class="fieldbox">
+					      <?=$this->Form->textarea('order_message',array('label'=>false,'div'=>false));?> 
+					      <?=$this->Form->error('order_message',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				      </div>
+				</div>
+				<div class="registration-form-row" style="text-align: right;">
+					<input class="submit-button addtocart-button" value="Pay Now" type="submit">
+				</div>
+				<div class="registration-form-row" style="margin: 15px 0 0 175px; text-align: left;">
+					<?=$this->Html->image('asia-payment-logos.jpg',array('alt'=>'asiapay'));?>
+				</div>
+			<?php echo $this->Form->end();?>
+		</div>
+	<? } else {?>
+		<div style="padding: 10px;">
+			<?=$this->element('message');?>
+			<p style=margin:0;>Please <?=$this->Html->link('Login',array('plugin'=>'member_manager','controller'=>'members','action'=>'login?redirect_url='.$redirect_login)) ?> or <?=$this->Html->link('Register',array('plugin'=>'member_manager','controller'=>'members','action'=>'registration?redirect_url='.$redirect_login)) ?> to continue...</p>
+		</div>
+	<? } //end if else condition ?>	
+ <? } else {?>
+	<div>
+		<div class="service-hd">Your cart is empty</div>
+			 <?php echo $cart_page['Page']['page_longdescription'];?>
+			<p class="empty">
+				<?=$this->Html->link("Click here to add new activities.",array('controller'=>'activity','action'=>'activities')); ?>
+			</p>
+	</div>
+ <? } ?>
+</div>
+<? if(!empty($cart_details)) { ?>
+	<div class="your-booking">
+		<p class="add-more-to-cart"><?=$this->Html->link("Add More Activities",array('controller'=>'activity','action'=>'activities')); ?></p>
+		<h6>Your Booking</h6>
+		<? if(!empty($cart_details)) { 
+			$sub_total=0;
+			foreach($cart_details as $key=>$cart_detail){
+				$slot_price=0;	
+				$value_added_price=0; ?>
+				<div class="checkout-activity">
+					<div class="checkout-activity-header">
+						   <? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
+						$imgArr = array('source_path'=>$path,'img_name'=>$cart_detail['image'],'width'=>101,'height'=>64,'noimg'=>$setting['site']['site_noimage']);
+						$resizedImg = $this->ImageResize->ResizeImage($imgArr);
+						echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$cart_detail['Service']['service_title'])) ; ?>
+						<div class="checkout-activity-header-content">
+							<h6><?=$cart_detail['Service']['service_title']; ?></h6>
+							<div class="checkout-activity-date"><strong><?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date'])); ?> To <?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date'])); ?></strong></div>
+						</div>
+					</div>
+					<? if(!empty($cart_detail['Cart']['slots'])) { ?>
+						<div class="checkout-activity-slots">
+							<? foreach($cart_detail['Cart']['slots'] as $slot_key=>$slot_time) { ?>
+								<div class="checkout-activity-slot">
+									<?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']); ?>
+								</div>
+							<?php } ?>
+						</div>
+					<? } ?>
+					<div class="checkout-activity-details">
+						<div class="checkout-activity-row">
+							<div class="checkout-activity-left">Per Slot/Day Price </div>
+							<div class="checkout-activity-right"><?="$".number_format($cart_detail['Cart']['price'],2)?></div>
+						</div>
+						<div class="checkout-activity-row">
+							<div class="checkout-activity-left">No. of Days </div>
+							<div class="checkout-activity-right"><?=$cart_detail['Cart']['no_of_booking_days'];?></div>
+						</div>
+						<div class="checkout-activity-row">
+							<div class="checkout-activity-left"><?=$cart_detail['Cart']['no_participants']?> x Adult(s) </div>
+							<div class="checkout-activity-right"><?=$cart_detail['Cart']['no_participants'];?></div>
+						</div>
+						<? if(!empty($cart_detail['Cart']['value_added_price'])) { ?>
+						<div class="checkout-activity-row">
+							<div class="checkout-activity-left">Value Added Total( $<?=number_format($cart_detail['Cart']['value_added_price'],2);?>x<?=($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1 ?>)</div>
+							<div class="checkout-activity-right">$<?=number_format(($cart_detail['Cart']['value_added_price']*(($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1)),2);?></div>
+						</div>
+						<? } ?>
+						<? if(!empty($cart_detail['Cart']['price'])) { ?>
+						<? 
+							if($cart_detail['Cart']['no_of_booking_days']==1){
+								$no_interval=count($cart_detail['Cart']['slots']);
+								$interval_msg=($no_interval==1)?" Slot":" Slots";
+							}else{
+								$no_interval=$cart_detail['Cart']['no_of_booking_days'];
+								$interval_msg=($no_interval==1)?" Day":" Days";
+								 
+							}
+							
+						
+						
+						 ?>
+						<div class="checkout-activity-row">
+							<div class="checkout-activity-left">Service Price( $<?=number_format($cart_detail['Cart']['price'],2);?> x <?=($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1 ?>&nbsp;x&nbsp;<?=$no_interval;?>&nbsp;<?=$interval_msg;?>)</div>
+							<div class="checkout-activity-right">$<?=number_format(($cart_detail['Cart']['price']*(($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1)* $no_interval),2);?></div>
+						</div>
+						<? } ?>
+						<div class="checkout-activity-row checkout-activity-row-subtotal">
+							<div class="checkout-activity-left">Subtotal</div>
+							<div class="checkout-activity-right">
+								$<? $slot_price=$cart_detail['Cart']['price']+$value_added_price; 
+									echo number_format($cart_detail['Cart']['total_amount'],2);?>
+							</div>
+						</div>
+					</div>
+					<div class="checkout-activity-cancel">
+						<?=$this->Html->link($this->Html->image('cart_delete.png',array( 'alt'=>'Delete Cart')), array('plugin'=>false,'controller'=>'carts','action'=>'delete_cart',$cart_detail['Cart']['id']), array('escape' => false,"onclick"=>"return confirm('Are you sure want to remove this services?')"));?>
+					</div>
+				</div>
+			<? 
+			// total record count 
+				$sub_total+=$cart_detail['Cart']['total_amount'];
+			} //end of foreach ?>
+		<? } ?>
+		<div class="checkout-activity-totals checkout-activity-row-total">
+			<div class="checkout-activity-left">Total</div>
+			<div class="checkout-activity-right">$<?=number_format($sub_total,2);?></div>
+		</div>
+	</div>
+<? } ?>
+ 
+		<? if(empty($check_guest_status)){ ?>
+			<?php  echo $this->element('activity/cart_guest'); ?>
+		<? } ?>
+		
+<div class="clear"></div>
+
+<script type="text/javascript">
+<?php $path = $this->Html->webroot; ?>
+    $(document).ready(function(){
+		  $('#CartId').submit(function(){
+			 
+			//var data = $(this).serializeArray();
+			var data = new FormData(this);
+			var formData = $(this);
+            var status = 0;
+           
+           $.each(this,function(i,v){
+                $(v).removeClass('invalid form-error');
+                });
+            $('.error-message').remove();
+            $('#CartId > span#for_owner_cms').show();
+            $('#CartId > button[type=submit]').attr({'disabled':true});
+           
+           $.ajax({
+                url: '<?=$path?>carts/validation/check_out',
+                async: false,
+				data: data,
+                dataType:'json', 
+                type:'post',
+                cache: false,
+				contentType: false,
+				processData: false,
+                success: function(data) {
+					 
+                    if(data.error==1){
+                        $.each(data.errors,function(i,v){
+							$('#'+i).addClass("invalid form-error").after('<div class="error-message">'+v+'</div>');
+							$('#'+i).bind('click',function(){
+								$(this).removeClass('invalid form-error');
+								$(this).next().remove();
+								});
+                        });
+                    }else{
+                        status = 1;
+                    }
+                   
+                 }
+            });
+            if(status==0){
+               $("html, body").animate({ scrollTop: 0 }, "slow");
+               $('#CartId > button[type=submit]').attr({'disabled':false});
+               $('#CartId > span#for_owner_cms').hide();
+            }
+           return (status===1)?true:false; 
+            
+        });
+        <? if(empty($guest_email)){ ?>
+	 $('#guest_login').submit(function(){
+			
+			//var data = $(this).serializeArray();
+			var data = new FormData(this);
+			var formData = $(this);
+			
+			var status = 0;
+			$.each(this,function(i,v){
+				$(v).removeClass('invalid form-error');
+			});
+				   
+			$('.error-message').remove();
+			$('#add_invite > span#for_owner_cms').show();
+			$('input[type="submit"]').attr({'disabled':true});
+			
+			$.ajax({
+				url: '<?=$path?>carts/guest_validation',
+				async: false,
+				data: data,
+				dataType:'json', 
+				type:'post',
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data) {
+						 
+					if(data.error==1){
+						$.each(data.errors,function(i,v){
+							$('#'+i).addClass("invalid form-error").after('<div class="error-message" style="width:215px; margin-left:112px; text-align:left;">'+v+'</div>');
+							$('#'+i).bind('submit',function(){
+								$(this).removeClass('invalid form-error');
+								$(this).next().remove();
+								});
+						});
+					}else{
+						status = 1;
+					}
+					   
+				}
+				});
+				if(status==0){
+				   $("html, body").animate({ scrollTop: 0 }, "slow");
+				   $('input[type="submit"]').attr({'disabled':false});
+				 //  $('#add_invite > span#for_owner_cms').hide();
+				}
+			   
+			   return (status===1)?true:false; 
+				
+			}); 
+<? } ?>
+ 
+    });
+	function togelshow(id){
+		
+		if(id=='GuestLoginGuestLogin1'){
+			
+			$("#show_password").show();
+			
+			$(".guest-login-button-box #loginButton").val('Sign In');
+			
+		}else{
+			$("#show_password").hide();
+			$(".guest-login-button-box #loginButton").val('Continue');
+		}
+			
+	}
+</script>
+

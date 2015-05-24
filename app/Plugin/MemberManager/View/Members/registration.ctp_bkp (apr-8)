@@ -1,0 +1,102 @@
+<div class="hr-line"></div>
+  <div class="clear"></div>
+  <h2>Member <span style="color:#000;">Registration</span></h2>
+   <?=$this->element('breadcrumbs');?>
+  <div class="middle-area">
+      <div class="Registration member-reg">
+	<?php if ($this->Session->check('Message.register_error')): ?>
+		<div class="notification error">
+		<p><?=$this->Session->flash('register_error'); ?></p>
+		</div>
+	<?php endif;?>
+	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'quick-contacts1'));?>
+			<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?> 
+            <div class="form-row"><label>First name : <span style="color:#ff4142;">*</span></label>
+	      <?=$this->Form->text('first_name',array('required'=>false)); ?>
+	      <?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </div>
+            <div class="form-row"><label>Last name : <span style="color:#ff4142;">*</span></label>
+	      <?=$this->Form->text('last_name',array('required'=>false)); ?>
+	      <?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </div>
+            <div class="form-row"><label>Email address : <span style="color:#ff4142;">*</span></label>
+              <?=$this->Form->text('email_id',array('required'=>false)); ?>
+	      <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </div>
+            <div class="form-row"><label>Phone : <span style="color:#ff4142;"> *</span></label>  
+	      <?=$this->Form->text('phone',array('required'=>false)); ?>
+	      <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+	    </div>
+            <div class="form-row"><label>Password : <span style="color:#ff4142;">*</span></label>
+              <?=$this->Form->password('password',array('required'=>false)); ?>
+	      <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </div>
+            <div class="form-row"><label>Confirm password : <span style="color:#ff4142;">*</span></label>
+              <?=$this->Form->password('confirm_password',array('required'=>false)); ?>
+	      <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </div>
+             <input class="smt1" value="Register Now" type="submit">
+            
+        <?php echo $this->Form->end();?>
+      </div>
+      <div class="Registration-key">
+      <?php echo $this->Html->image("register-now-img.jpg",array("alt"=>""));?>
+      </div>
+      
+      <div class="clear"></div>
+      
+  
+  </div>
+
+ <script type="text/javascript">
+    <?php $path = $this->Html->webroot; ?>
+    $(document).ready(function(){
+        $('#MemberRegistration').submit(function(){
+	    //var data = $(this).serializeArray();
+	    var data = new FormData(this);
+	    var formData = $(this);
+            var status = 0;
+           
+	    $.each(this,function(i,v){
+                $(v).removeClass('invalid form-error');
+                });
+            $('.error-message').remove();
+            $('#MemberRegistration > span#for_owner_cms').show();
+            $('#MemberRegistration > button[type=submit]').attr({'disabled':true});
+           
+	    $.ajax({
+                url: '<?=$path?>member_manager/members/validation',
+                async: false,
+		data: data,
+                dataType:'json', 
+                type:'post',
+                cache: false,
+		contentType: false,
+		processData: false,
+                success: function(data) {
+					 
+                    if(data.error==1){
+                        $.each(data.errors,function(i,v){
+			  $('#'+i).addClass("invalid form-error").after('<div class="error-message">'+v+'</div>');
+			  $('#'+i).bind('click',function(){
+				  $(this).removeClass('invalid form-error');
+				  $(this).next().remove();
+				  });
+                        });
+                    }else{
+                        status = 1;
+                    }
+                   
+                 }
+            });
+            if(status==0){
+               $("html, body").animate({ scrollTop: 0 }, "slow");
+               $('#MemberRegistration > button[type=submit]').attr({'disabled':false});
+               $('#MemberRegistration > span#for_owner_cms').hide();
+            }
+	    return (status===1)?true:false; 
+        });
+    });
+ </script>
+
+

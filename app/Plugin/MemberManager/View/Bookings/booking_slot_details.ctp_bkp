@@ -1,0 +1,27 @@
+<h3 class="small">Slots Details</h3>
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr class="bg">
+			<td width="1%">&nbsp;</td>
+			<td width="12%">S. No.</td>
+			<td width="1%">&nbsp;</td>
+			<td width="30%">Date</td>
+			<td width="50%">Slot Timings</td>
+		</tr>
+		<? if(!empty($booking_slots)){?>
+			<? foreach($booking_slots as $key=>$booking_slot) {?>
+				<tr>
+					<td class="border">&nbsp;</td>
+					<td class="border"><?=($key+1); ?>.</td>
+					<td class="border">&nbsp;</td>
+					<td class="border"><?=date(Configure::read('Calender_format_php'),strtotime($booking_slot['BookingSlot']['start_time'])); ?></td>
+					
+					<td class="border"><? echo $this->Time->meridian_format($booking_slot['BookingSlot']['start_time']);?> To <?=$this->Time->end_meridian_format($booking_slot['BookingSlot']['end_time']);?></td>
+				</tr>
+			<? } ?>	
+		<? } else {?>
+			<tr>
+					<td class="border" colspan="5">There are no booking slots</td>
+			</tr>
+		<? } ?>	
+
+	</table>

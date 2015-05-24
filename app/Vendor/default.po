@@ -1,0 +1,1262 @@
+msgid "view_website"
+
+msgstr "view website" 
+msgid "logout"
+
+msgstr "Logout"
+msgid "dashboard"
+
+msgstr "Dashboard"
+msgid "content_manager"
+
+msgstr "Content Manager"
+msgid "owner_manager"
+
+msgstr "Owner Manager"
+msgid "language_manager"
+
+msgstr "Language Manager"
+msgid "add_sub_admin"
+
+msgstr "Add Sub Admin"
+msgid "manage_sub_admin"
+
+msgstr "Manage Sub Admin"
+msgid "message_manager"
+
+msgstr "Message Manager"
+msgid "mail_format_manager"
+
+msgstr "Mail Format Manager"
+msgid "site_configuration"
+
+msgstr "Site Configuration"
+msgid "change_password"
+
+msgstr "Change Password"
+msgid "sub_admin_manager"
+
+msgstr "Sub Admin Manager"
+msgid "setting"
+
+msgstr "Setting"
+msgid "publish"
+
+msgstr "Publish"
+msgid "unpublish"
+
+msgstr "Unpublish"
+msgid "delete"
+
+msgstr "Delete"
+msgid "new"
+
+msgstr "New"
+msgid "search"
+
+msgstr "Search"
+msgid "view"
+
+msgstr "View"
+msgid "title"
+
+msgstr "Title"
+msgid "action"
+
+msgstr "Action"
+msgid "no_record_found"
+
+msgstr "No Record Found"
+msgid "user_manager"
+
+msgstr "User Manager"
+msgid "name"
+
+msgstr "Name"
+msgid "email"
+
+msgstr "Email"
+msgid "permission"
+
+msgstr "Permission"
+msgid "update"
+
+msgstr "Update"
+msgid "content"
+
+msgstr "Content"
+msgid "cancel"
+
+msgstr "Cancel"
+msgid "add"
+
+msgstr "Add"
+msgid "page"
+
+msgstr "Page"
+msgid "keywords"
+
+msgstr "Keywords"
+msgid "description"
+
+msgstr "Description"
+msgid "long"
+
+msgstr "Long"
+msgid "or"
+
+msgstr "or"
+msgid "user"
+
+msgstr "User"
+msgid "first"
+
+msgstr "First"
+msgid "last"
+
+msgstr "Last"
+msgid "contact"
+
+msgstr "Contact"
+msgid "number"
+
+msgstr "Number"
+msgid "street"
+
+msgstr "Street"
+msgid "address"
+
+msgstr "Address"
+msgid "city"
+
+msgstr "City"
+msgid "state"
+
+msgstr "State"
+msgid "country"
+
+msgstr "Country"
+msgid "password"
+
+msgstr "Password"
+msgid "current"
+
+msgstr "Current"
+msgid "confirm"
+
+msgstr "Confirm"
+msgid "site"
+
+msgstr "Site"
+msgid "host"
+
+msgstr "Host"
+msgid "apartment"
+
+msgstr "Apartment"
+msgid "listing"
+
+msgstr "listing"
+msgid "limit"
+
+msgstr "limit"
+msgid "default"
+
+msgstr "default"
+msgid "link"
+
+msgstr "link"
+msgid "Save"
+
+msgstr "Save"
+msgid "Please"
+
+msgstr "Please"
+msgid "select"
+
+msgstr "select"
+msgid "to"
+
+msgstr "to"
+msgid "owner"
+
+msgstr "owner"
+msgid "surname"
+
+msgstr "Surname"
+msgid "mobile"
+
+msgstr "Mobile"
+msgid "VAT"
+
+msgstr "VAT"
+msgid "tax"
+
+msgstr "Tax"
+msgid "holder_c/c"
+
+msgstr "Holder c/c"
+msgid "enter"
+
+msgstr "Enter"
+msgid "property_manager"
+
+msgstr "Property Manager"
+msgid "nation"
+
+msgstr "Nation"
+msgid "sleeps"
+
+msgstr "Sleeps"
+msgid "typology"
+
+msgstr "Typology"
+msgid "rooms"
+
+msgstr "Number of beds"
+msgid "bath"
+
+msgstr "Bath"
+msgid "service"
+
+msgstr "Service"
+msgid "Bed"
+
+msgstr "Bed"
+msgid "Smoking_is_permitted"
+
+msgstr "Smoking is permitted"
+msgid "air_conditioning"
+
+msgstr "Air conditioning"
+msgid "heating"
+
+msgstr "Heating"
+msgid "building_with_elevator"
+
+msgstr "Building with elevator"
+msgid "Access_for_disabled"
+
+msgstr "Access for disabled"
+msgid "pool"
+
+msgstr "Pool"
+msgid "parking_included"
+
+msgstr "Parking included"
+msgid "porter"
+
+msgstr "Porter"
+msgid "gym"
+
+msgstr "Gym"
+msgid "sauna"
+
+msgstr "Sauna"
+msgid "whirlpool"
+
+msgstr "whirlpool"
+msgid "fireplace"
+
+msgstr "Fire place"
+msgid "washing_machine"
+
+msgstr "Washing machine"
+msgid "dryer"
+
+msgstr "Dryer"
+msgid "dishwasher"
+
+msgstr "Dishwasher"
+msgid "linens"
+
+msgstr "Linens"
+msgid "minimum_stay"
+
+msgstr "Minimum Stay"
+msgid "maximum_stay"
+
+msgstr "Maximum Stay"
+msgid "night"
+
+msgstr "Night"
+msgid "nights"
+
+msgstr "Nights"
+msgid "week"
+
+msgstr "Week"
+msgid "weeks"
+
+msgstr "Weeks"
+msgid "month"
+
+msgstr "Month"
+msgid "months"
+
+msgstr "Months"
+msgid "year"
+
+msgstr "Year"
+msgid "years"
+
+msgstr "Years"
+msgid "availability"
+
+msgstr "Availability"
+msgid "furniture"
+
+msgstr "Furniture"
+msgid "fair"
+
+msgstr "Fair"
+msgid "fashion"
+
+msgstr "Fashion"
+msgid "prices"
+
+msgstr "Prices"
+msgid "management"
+
+msgstr "Management"
+msgid "deposit"
+
+msgstr "Deposit"
+msgid "price"
+
+msgstr "Price"
+msgid "from"
+
+msgstr "From"
+msgid "for"
+
+msgstr "For"
+msgid "Owners_has_been_published_successfully"
+
+msgstr "Owners has been published successfully"
+msgid "Owners_has_been_unpublished_successfully"
+
+msgstr "Owners has been unpublished successfully"
+msgid "Owners_has_been_deleted_successfully"
+
+msgstr "Owners has been deleted successfully"
+msgid "has_been"
+
+msgstr "has been"
+msgid "updated"
+
+msgstr "updated"
+msgid "added"
+
+msgstr "added"
+msgid "successfully"
+
+msgstr "successfully"
+msgid "languages"
+
+msgstr "Language(s)"
+msgid "published"
+
+msgstr "Published"
+msgid "unpublished"
+
+msgstr "Unpublished"
+msgid "deleted"
+
+msgstr "Deleted"
+msgid "cleaning_costs"
+
+msgstr "Cleaning costs"
+msgid "message"
+
+msgstr "Message"
+msgid "mail_format"
+
+msgstr "Mail Format"
+msgid "mail"
+
+msgstr "Mail"
+msgid "subject"
+
+msgstr "Subject"
+msgid "body"
+
+msgstr "Body"
+msgid "Owner name should be less than 30 character(s)"
+
+msgstr "Owner name should be less than 30 character(s)"
+msgid "Please enter owner name"
+
+msgstr "Please enter owner name"
+msgid "Owner surname should be less than 30 character(s)"
+
+msgstr "Owner surname should be less than 30 character(s)"
+msgid "Please enter owner surname"
+
+msgstr "Please enter owner surname"
+msgid "Owner mobile should be less than 20 character(s)"
+
+msgstr "Owner mobile should be less than 20 character(s)"
+msgid "Please enter mobile number"
+
+msgstr "Please enter mobile number"
+msgid "Please enter numbers only"
+
+msgstr "Please enter numbers only"
+msgid "Owner email should be less than 30 character(s)"
+
+msgstr "Owner email should be less than 30 character(s)"
+msgid "Please enter owner email"
+
+msgstr "Please enter owner email"
+msgid "Please enter valid email address"
+
+msgstr "Please enter valid email address"
+msgid "Please enter owner address"
+
+msgstr "Please enter owner address"
+msgid "City name should be less than 30 character(s)"
+
+msgstr "City name should be less than 30 character(s)"
+msgid "Please enter city name"
+
+msgstr "Please enter city name"
+msgid "Cap should be less than 30 character(s)"
+
+msgstr "Cap should be less than 30 character(s)"
+msgid "Please enter Cap"
+
+msgstr "Please enter Cap"
+msgid "Vat should be less than 12 character(s)"
+
+msgstr "Vat should be less than 12 character(s)"
+msgid "Please enter vat"
+
+msgstr "Please enter vat"
+msgid "Tax code should be less than 12 character(s)"
+
+msgstr "Tax code should be less than 12 character(s)"
+msgid "Please enter Tax code"
+
+msgstr "Please enter Tax code"
+msgid "Iban should be less than 4 character(s)"
+
+msgstr "Iban should be less than 4 character(s)"
+msgid "Please enter iban"
+
+msgstr "Please enter iban"
+msgid "Please enter Bic swift"
+
+msgstr "Please enter Bic swift"
+msgid "Please enter Holders c/c"
+
+msgstr "Please enter Holders c/c"
+msgid "Please enter Notes"
+
+msgstr "Please enter Notes"
+msgid "SPECIAL PRICES"
+
+msgstr "SPECIAL PRICES"
+msgid "event"
+
+msgstr "Event"
+msgid "guest"
+
+msgstr "Guests"
+msgid "Please enter nation name"
+
+msgstr "Please enter nation name"
+msgid "Please enter city name"
+
+msgstr "Please enter city name"
+msgid "Please select typology"
+
+msgstr "Please select typology"
+msgid "Please select sleeps"
+
+msgstr "Please select sleeps"
+msgid "Please select Bed"
+
+msgstr "Please select Bed"
+msgid "Please enter description"
+
+msgstr "Please enter description"
+msgid "Please select rooms"
+
+msgstr "Please select rooms"
+msgid "Please enter Title"
+
+msgstr "Please enter Title"
+msgid "Please select services"
+
+msgstr "Please select services"
+msgid "Please enter address"
+
+msgstr "Please enter address"
+msgid "Please select minimum stay"
+
+msgstr "Please select minimum stay"
+msgid "Please select maximum stay"
+
+msgstr "Please select maximum stay"
+msgid "Please Select Availability Of Furniture Fair "
+
+msgstr "Please Select Availability Of Furniture Fair "
+msgid "Please Select Availability Of Fashion Weeks "
+
+msgstr "Please Select Availability Of Fashion Weeks "
+msgid "Please Select Availability Of Burgo"
+
+msgstr "Please Select Availability Of Burgo"
+msgid "Please enter deposit"
+
+msgstr "Please enter deposit"
+msgid "Please enter price one night"
+
+msgstr "Please enter price one night"
+msgid "Please enter cleaning costs"
+
+msgstr "Please enter cleaning costs"
+msgid "Please enter guest cost"
+
+msgstr "Please enter guest cost"
+msgid "Please enter event name"
+
+msgstr "Please enter event name"
+msgid "Book Now"
+
+msgstr "Book Now"
+msgid "Please enter title name"
+
+msgstr "Please enter title name"
+msgid "Title name should be less than 255 character(s)"
+
+msgstr "Title name should be less than 255 character(s)"
+msgid "Description should be less than 255 character(s)"
+
+msgstr "Description should be less than 255 character(s)"
+msgid "Bed description should be less than 255 character(s)"
+
+msgstr "Bed description should be less than 255 character(s)"
+msgid "Please enter bed description"
+
+msgstr "Please enter bed description"
+msgid "yes"
+
+msgstr "Yes"
+msgid "no"
+
+msgstr "No"
+msgid "calendar"
+
+msgstr "Calendar"
+msgid "House Rules"
+
+msgstr "House Rules"
+msgid "services"
+
+msgstr "Services"
+msgid "REVIEWS"
+
+msgstr "REVIEWS"
+msgid "entire_home"
+
+msgstr "Entire home"
+msgid "Tipologia_letto"
+
+msgstr "Bed Size"
+msgid "dimension"
+
+msgstr "Dimension"
+msgid "Cleaning_Fee"
+
+msgstr "Cleaning Fee"
+msgid "extra_people"
+
+msgstr "Extra people"
+msgid "town"
+
+msgstr "Town"
+msgid "photo"
+
+msgstr "photo"
+msgid "video"
+
+msgstr "Video"
+msgid "map"
+
+msgstr "Map"
+msgid "Subtotal"
+
+msgstr "Subtotal"
+msgid "location_manager"
+
+msgstr "Location Manager"
+msgid "Availability_manager"
+
+msgstr "Availability Manager"
+msgid "INSTANT_CONFIRMATION"
+
+msgstr "CONTINUE THE RESERVATION"
+msgid "Minimum"
+
+msgstr "Minimum"
+msgid "Maximum"
+
+msgstr "Maximum"
+msgid "View_detail"
+
+msgstr "View detail"
+msgid "booking_manager"
+
+msgstr "Booking Manager"
+msgid "phone_no."
+
+msgstr "Phone no."
+msgid "Province"
+
+msgstr "Province"
+msgid "Citizenship"
+
+msgstr "Citizenship"
+msgid "Passport number or Identity card"
+
+msgstr "Passport number or Identity card"
+msgid "Pay"
+
+msgstr "Booking"
+msgid "Booking Details"
+
+msgstr "Booking Details"
+msgid "Property Details"
+
+msgstr "Property Details"
+msgid "Check In Date"
+
+msgstr "Check In Date"
+msgid "Check Out Date"
+
+msgstr "Check Out Date"
+msgid "Service type"
+
+msgstr "Service type"
+msgid "No of Guest"
+
+msgstr "No of Guest"
+msgid "Total Charge"
+
+msgstr "Total Charge"
+msgid "Check in"
+
+msgstr "Check in"
+msgid "Check out"
+
+msgstr "Check out"
+msgid "Select Location"
+
+msgstr "Select Location"
+msgid "Search by Property Code"
+
+msgstr "Search by Property Code"
+msgid "status"
+
+msgstr "Status"
+msgid "Booking Date"
+
+msgstr "Booking Date"
+msgid "Payment Date"
+
+msgstr "Payment Date"
+msgid "Temporary House"
+
+msgstr "Temporary House"
+msgid "Regards"
+
+msgstr "Regards"
+msgid "Maximum number of guest"
+
+msgstr "Maximum number of guest"
+msgid "Copyright 2013 Temporary House s.a.s. di Guagnano Gianfranco &amp; C. P.IVA 08101820960 | Powered by"
+
+msgstr "Copyright 2013 Temporary House S.A.S. of Guagnano Gianfranco & C. - REA MI-2003704 - P.IVA 08101820960 | Powered by"
+msgid "View"
+
+msgstr "View"
+msgid "Edit"
+
+msgstr "Edit"
+msgid "View all"
+
+msgstr "View all"
+msgid "Content(s) has been published successfully"
+
+msgstr "Content(s) has been published successfully"
+msgid "Content(s) has been unpublished successfully"
+
+msgstr "Content(s) has been unpublished successfully"
+msgid "Content(s) has been deleted successfully"
+
+msgstr "Content(s) has been deleted successfully"
+msgid "Manage Sub Content"
+
+msgstr "Manage Sub Content"
+msgid "Typology bed"
+
+msgstr "Typology bed"
+msgid "No. of Guests"
+
+msgstr "No. of Guests"
+msgid "Relative to Website Base URL"
+
+msgstr "Relative to Website Base URL"
+msgid "Successful"
+
+msgstr "Successful"
+msgid "Cancel"
+
+msgstr "Cancel"
+msgid "Transtion Id"
+
+msgstr "Transtion Id"
+msgid "Account Settings and Profile Page"
+
+msgstr "Account Settings and Profile Page"
+msgid "Not Successful"
+
+msgstr "Not Successful"
+msgid "Show in top menu"
+
+msgstr "Show in top menu"
+msgid "Show in top menu"
+
+msgstr "Show in top menu"
+msgid "Url Key"
+
+msgstr "Url Key"
+msgid "Update Content"
+
+msgstr "Update Content"
+msgid "hide editor"
+
+msgstr "hide editor"
+msgid "show editor"
+
+msgstr "show editor"
+msgid "show editor"
+
+msgstr "show editor"
+msgid "Add Content"
+
+msgstr "Add Content"
+msgid "Please Enter Page Name"
+
+msgstr "Please Enter Page Name"
+msgid "Please Enter Page Title"
+
+msgstr "Please Enter Page Title"
+msgid "Please Enter Meta Keyword"
+
+msgstr "Please Enter Meta Keyword"
+msgid "Content has been updated successfully"
+
+msgstr "Content has been updated successfully"
+msgid "Content has been added successfully"
+
+msgstr "Content has been added successfully"
+msgid "Ospiti"
+
+msgstr "No. of guest"
+msgid "Minimum Stay"
+
+msgstr "Minimum Stay"
+msgid "Maximum Stay"
+
+msgstr "Maximum Stay"
+msgid "Back to Homepage"
+
+msgstr "Back to Homepage"
+msgid "Owner Manager"
+
+msgstr "Owner Manager" 
+msgid "Update Owner"
+
+msgstr "Update Owner"
+msgid "Notes"
+
+msgstr "Notes"
+msgid "No Record Found"
+
+msgstr "No Record Found"
+msgid "Last"
+
+msgstr "Last"
+msgid "Next"
+
+msgstr "Next"
+msgid "Previous"
+
+msgstr "Previous"
+msgid "First"
+
+msgstr "First"
+msgid "Location has been updated successfully"
+
+msgstr "Location has been updated successfully"
+msgid "Location has been added successfully"
+
+msgstr "Location has been added successfully"
+msgid "Location Manager"
+
+msgstr "Location Manager"
+msgid "Update Location"
+
+msgstr "Update Location"
+msgid "Add Location"
+
+msgstr "Add Location"
+msgid "Location has been deleted"
+
+msgstr "Location has been deleted"
+msgid "Please Enter  Name"
+
+msgstr "Please Enter  Name"
+msgid "Dear Customer"
+
+msgstr "Dear Customer"
+msgid "Booking Details"
+
+msgstr "Booking Details"
+msgid "Property Details"
+
+msgstr "Property Details"
+msgid "Deposit"
+
+msgstr "Deposit"
+msgid "GRAND TOTAL"
+
+msgstr "GRAND TOTAL"
+msgid "Cleaning Cost"
+
+msgstr "Cleaning Cost"
+msgid "Total Price"
+
+msgstr "Total Price"
+msgid "Price/Extra"
+
+msgstr "Price/Extra"
+msgid "No of Extra Guest"
+
+msgstr "No of Extra Guest"
+msgid "Price/night"
+
+msgstr "Price/night"
+msgid "Total number of nights"
+
+msgstr "Total number of nights"
+msgid "Total number of people"
+
+msgstr "Total number of people"
+msgid "Check Out Date"
+
+msgstr "Check Out Date"
+msgid "Check In Date"
+
+msgstr "Check In Date"
+msgid "Background Image Change Time"
+
+msgstr "Background Image Change Time"
+msgid "Please select a image file"
+
+msgstr "Please select a image file"
+msgid "Image upload Error"
+
+msgstr "Image upload Error"
+msgid "Slide has been Updated successfully."
+
+msgstr "Slide has been Updated successfully."
+msgid "Slide has been Added successfully."
+
+msgstr "Slide has been Added successfully."
+msgid "Slider has been published successfully"
+
+msgstr "Slider_has_been_published_successfully"
+msgid "Slider has been unpublished successfully"
+
+msgstr "Slider_has_been_unpublished_successfully"
+msgid "Slider_has_been_deleted_successfully"
+
+msgstr "Slider has been deleted successfully"
+msgid "Image"
+
+msgstr "Image"
+msgid "Title"
+
+msgstr "Title"
+msgid "slide_manager"
+
+msgstr "slide manager"
+msgid "Vodice Appartamento"
+
+msgstr "Vodice Appartamento"
+msgid "Property Code does not exist"
+
+msgstr "Property Code does not exist"
+msgid "Please enter property code no."
+
+msgstr "Please enter property code no."
+msgid "Select Location"
+
+msgstr "Select Location"
+msgid "Check in"
+
+msgstr "Check in"
+msgid "Our recommendation for<br />experiencing the city"
+
+msgstr "Our recommendation for<br />experiencing the city"
+msgid "Minimum Stay"
+
+msgstr "Minimum Stay"
+msgid "Maximum Stay"
+
+msgstr "Maximum Stay"
+msgid "per night"
+
+msgstr "Per Night"
+msgid "per month"
+
+msgstr "Per Month"
+msgid "Search"
+
+msgstr "Search"
+msgid "Search By"
+
+msgstr "Search By"
+msgid "Sort by Date"
+
+msgstr "Sort by Date"
+msgid "Booking"
+
+msgstr "Booking"
+msgid "Payment"
+
+msgstr "Payment"
+msgid "Sort by Date"
+
+msgstr "Sort by Date"
+msgid "Name"
+
+msgstr "Name"
+msgid "Transaction id"
+
+msgstr "Transaction id"
+msgid "Email"
+
+msgstr "Email"
+msgid "search by date"
+
+msgstr "search by date"
+msgid "image"
+
+msgstr "image"
+msgid "Full Permission"
+
+msgstr "Full Permission"
+msgid "View/Edit"
+
+msgstr "View/Edit"
+msgid "View Only"
+
+msgstr "View Only"
+msgid "Manager"
+
+msgstr "Manager"
+msgid "Please select user to"
+
+msgstr "Please select user to"
+msgid "Are you sure you want to"
+
+msgstr "Are you sure you want to"
+msgid "Username"
+
+msgstr "Username"
+msgid "Contact Number"
+
+msgstr "Contact Number"
+msgid "Address"
+
+msgstr "Address"
+msgid "City"
+
+msgstr "City"
+msgid "State"
+
+msgstr "State"
+msgid "Zip"
+
+msgstr "Zip"
+msgid "Country"
+
+msgstr "Country"
+msgid "Permission"
+
+msgstr "Permission"
+msgid "View"
+
+msgstr "View"
+msgid "View mail format"
+
+msgstr "View mail format"
+msgid "Dashboard"
+
+msgstr "Dashboard"
+msgid "*il prezzo diminuisce all'aumentare delle notti prenotate"
+
+msgstr "*The price includes the costs of cleaning"
+msgid "(mq)"
+
+msgstr "(sqm)"
+msgid "Code"
+
+msgstr "Code"
+msgid "extra people / night price"
+
+msgstr "extra people / night price"
+msgid "Terms & Conditions"
+
+msgstr "Terms & Conditions"
+msgid "Privacy policy"
+
+msgstr "Privacy policy"
+msgid "Payment Mode"
+
+msgstr "Payment Mode"
+msgid "codice Appartamento"
+
+msgstr "Apartment code"
+msgid "Passport No. or Identity Card"
+
+msgstr "Document Number"
+msgid "You have chosen the Apartment:\" %s  \" in the province of Province:\" %s \" at the following address: \" %s\""
+
+msgstr "You have chosen the Apartment \" %s \" in  \" %s \"  at the following address \"  %s \"" 
+msgid "Square Meter"
+
+msgstr "Square Meter"
+msgid "Heating"
+
+msgstr "Heating"
+msgid "internet wifi"
+
+msgstr "Internet wifi"
+msgid "tv"
+
+msgstr "TV"
+msgid "internet key"
+
+msgstr "Internet key"
+
+msgid "End date"
+
+msgstr "data di fine"
+msgid "Start date"
+
+msgstr "data di inizio"
+msgid "Show in Front"
+
+msgstr "Spettacolo di fronte"
+msgid "Logo"
+
+msgstr "Logo"
+msgid "Type"
+
+msgstr "Type"
+msgid "Update Availability"
+
+msgstr "Update Availability"
+msgid "Slide Show Manager"
+
+msgstr "Slide Show Manager"
+msgid "Update Slide"
+
+msgstr "Update Slide"
+msgid "extra guest per night prices"
+
+msgstr "Extra guest per night prices"
+msgid "maximum number of people"
+
+msgstr "Maximum number of people"
+msgid "people in more"
+
+msgstr "People in more"
+msgid "per night for each guest over"
+
+msgstr "Per night for each guest over"
+msgid "notte dopo"
+
+msgstr "night after"
+msgid "Gratis"
+
+msgstr "Free"
+msgid "per notte per ogni ospite  oltre"
+
+msgstr "Per night for each guest over"
+msgid "persone in più"
+
+msgstr "More people"
+msgid "Decreases as the price of nights increases"
+
+msgstr "Decreases as the number of nights increases"
+msgid "Please agree to our terms and conditions"
+
+msgstr "Please agree to our terms and conditions"
+msgid "Please check our privacy policy"
+
+msgstr "Please check our privacy policy"
+msgid "Total extra guest price"
+
+msgstr "Extra person cost"
+msgid "Code Apartment"
+
+msgstr "Code Apartment"
+msgid "* All fields are required"
+
+msgstr "* All fields are required"
+msgid "Total Online Payment"
+
+msgstr "Total Online Payment"
+msgid "Remaining amount will be paid at the time of check-in"
+
+msgstr "Remaining amount will be paid at the time of check-in"
+msgid "Please enter email address"
+
+msgstr "Please enter email address"
+msgid "Wire Transfer"
+
+msgstr "Bank Transfer"
+msgid "Passport"
+
+msgstr "Passport"
+msgid "Identity Card"
+
+msgstr "Identity Card"
+msgid "Remaining amount will be paid offline"
+
+msgstr "Remaining amount will be paid in periodic installments"
+msgid "Payment pending"
+
+msgstr "Payment pending"
+msgid "Please choosen between Passaporto or Carta D\'identità"
+
+msgstr "Please chosen between Passport or I-card"
+msgid "zone_manager"
+
+msgstr "Zone Manager"
+msgid "Zone Manager"
+
+msgstr "Zone Manager"
+msgid "Update Zone"
+
+msgstr "Update Zone"
+msgid "Add Zone"
+
+msgstr "Add Zone"
+msgid "Zone has been deleted"
+
+msgstr "Zone has been deleted"
+msgid "Please enter zone name"
+
+msgstr "Please enter zone name"
+msgid "zone"
+
+msgstr "Zone"
+msgid "Please select zone name"
+
+msgstr "Please select zone name"
+msgid "Regarding the wire transfer once the reservation is made, you have 48 hours to make the transfer or send us the REFER NUMBER; passed the 48 hours, if we do not receive payment or REFER NUMBER, the system will delete automatically the reservation."
+
+msgstr "Regarding the wire transfer once the reservation is made, you have 48 hours to make the transfer or send us the REFER NUMBER; passed the 48 hours, if we do not receive payment or REFER NUMBER, the system will delete automatically the reservation."
+msgid "Show Price Text"
+
+msgstr "Show Price Text"
+
+msgid "Yes"
+
+msgstr "Yes"
+
+msgid "No"
+
+msgstr "No"
+
+msgid "Please enter name"
+
+msgstr "Please enter name"
+
+msgid "name should be less than 125 character(s)"
+
+msgstr "name should be less than 125 character(s)"
+
+msgid "Please enter email id."
+
+msgstr "Please enter email id."
+
+msgid "Please enter email address in a correct format."
+
+msgstr "Please enter email address in a correct format."
+
+msgid "Please enter your phone number."
+
+msgstr "Please enter your phone number."
+
+msgid "Please enter valid phone number."
+
+msgstr "Please enter valid phone number."
+
+msgid "Phone number must be between 8 to 15 digits."
+
+msgstr "Phone number must be between 8 to 15 digits."
+
+msgid "Message should be less than 1000 Character(s)."
+
+msgstr "Message should be less than 1000 Character(s)."
+
+msgid "Please enter your message."
+
+msgstr "Please enter your message."
+
+msgid "Please enter your message."
+
+msgstr "Please enter your message."
+
+msgid "Please enter valid security code."
+
+msgstr "Please enter valid security code."
+
+msgid "Nome e Congnome (Ragione Sociale)"
+
+msgstr "Name and real last name (Company Name)"
+
+msgid "Telefono"
+
+msgstr "Phone"
+
+msgid "Email"
+
+msgstr "Email"
+
+msgid "Messaggio"
+
+msgstr "Message"
+
+msgid "Inserisci codice"
+
+msgstr "Please enter the code"
+
+msgid "INVIA"
+
+msgstr "SEND"
+
+msgid "Richiesta Informazioni/Preventivo"
+
+msgstr "Request for Information/Quote"
+
+

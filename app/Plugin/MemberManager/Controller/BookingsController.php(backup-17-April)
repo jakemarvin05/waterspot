@@ -1,0 +1,234 @@
+<?php 
+Class BookingsController extends MemberManagerAppController{
+		public $uses = array('Booking');
+		public $components = array('Email');
+	    public $paginate = array();
+	    public $ajax_session_name= "Ajax_Files";
+        public $id = null;
+	
+	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
+		$this->loadModel('BookingSlot');
+		$conditions=null;
+		$this->paginate = array();
+		$member_id = $this->MemberAuth->id;
+		if($this->request->is('post')){
+			$search=(!empty($this->request->data['Booking']['search']))?$this->request->data['Booking']['search']:'_blank';
+			$searchtext=(!empty($this->request->data['Booking']['searchtext']))?$this->request->data['Booking']['searchtext']:'_blank';
+			$search_by_date=(!empty($this->request->data['Booking']['search_by_date']))?$this->request->data['Booking']['search_by_date']:'_blank';
+			$searchbydate=(!empty($this->request->data['Booking']['search_by_date']))?$this->request->data['Booking']['searchbydate']:'_blank';
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_list',$search,$searchtext,$search_by_date,$searchbydate));
+        }else{
+			// conditions
+			if(($search!=null && $search!='_blank' && $searchtext!=null && $searchtext!='_blank')) {
+		        $searchtext = urldecode($searchtext);
+                if($search=='fname' || $search=='lname') {
+					$conditions['Booking.'.$search.' like'] = $searchtext.'%';
+				}else {
+					$conditions['Booking.'.$search] = $searchtext;
+				}
+				//assign in variable
+				$this->request->data['Booking']['search']=$search;
+				$this->request->data['Booking']['searchtext']=$searchtext;
+			}
+            if(($search_by_date!=null && $search_by_date!='_blank' && $searchbydate!=null && $searchbydate!='_blank')){
+				$search = urldecode($search);
+				if($search_by_date=='booking_date'){
+					$conditions['CAST(Booking.booking_date as DATE)'] = date('Y-m-d',strtotime($searchbydate));
+				}
+				if($search_by_date=='start_date'){
+					$conditions['BookingOrder.start_date'] = date('Y-m-d',strtotime($searchbydate));
+				}
+				//assign in variable
+				$this->request->data['Booking']['search_by_date']=$search_by_date;
+				$this->request->data['Booking']['searchbydate']=$searchbydate;
+            }
+		}
+		$this->paginate = array('joins'=>
+			array(
+				array(
+					'table'=>'booking_orders',
+					'alias'=>'BookingOrder',
+					'type'=>'LEFT',
+					'conditions'=>array('BookingOrder.ref_no = Booking.ref_no')
+				)
+			),
+			'conditions'=>array('Booking.member_id'=>$member_id,'Booking.status'=>array(0,1)),
+			'group'=>'BookingOrder.ref_no',
+		    'fields'=>array('Booking.*'),
+			'limit'=>20,
+			'order'=>array('Booking.ref_no'=>'DESC')
+		);
+		$booking_details=$this->paginate("Booking",$conditions);
+		// javascript set
+		array_push(self::$script_for_layout,'http://code.jquery.com/jquery-1.9.1.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js');
+		array_push(self::$css_for_layout,'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		self::$scriptBlocks[]='$(function() {
+		$( "#BookingSearchbydate" ).datepicker({
+		  dateFormat: "'.Configure::read('Calender_format').'",
+		  changeMonth: true,
+		  })
+		});' ;
+		$this->set('booking_details',$booking_details);
+		if($this->request->is('ajax')){
+                $this->layout = '';
+                $this->Render('ajax_booking_list');
+        }
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/members/dashboard/'),
+			'name'=>'Dashboard'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/members/booking_list'),
+			'name'=>'Booking List'
+		);
+	}
+	
+	function booking_details($ref_no=null){
+		if(empty($ref_no)){
+				 $this->redirect('/');
+		} 
+		$criteria = array();
+		$this->loadModel('BookingOrder');
+		$this->loadModel('BookingParticipate');
+		$this->loadModel('LocationManager.City');
+		$member_id=$this->MemberAuth->id;
+		$criteria['joins'] = array(
+				array(
+					'table' => 'bookings',
+					'alias' => 'Booking',
+					'type' => 'INNER',
+					'conditions' => array('Booking.ref_no = BookingOrder.ref_no')
+				) 
+			); 
+		$criteria['conditions'][]=array('Booking.member_id'=>$member_id,'BookingOrder.ref_no'=>$ref_no);
+		// get invite booking order details by ref_id
+		$booking_order_ids=$this->BookingParticipate->find('list',array('conditions'=>array('BookingParticipate.status'=>1,'BookingParticipate.ref_no'=>$ref_no,'BookingParticipate.booking_member_id'=>$member_id)));
+		if(!empty($booking_order_ids)){
+			//$criteria['conditions'][]=array('BookingOrder.id'=>$booking_order_ids);
+		}
+		$criteria['group']=array('BookingOrder.id');
+		$criteria['fields']=array('BookingOrder.*');
+		$criteria['order']=array('BookingOrder.id ASC');
+		$order_details=$this->BookingOrder->find('all',$criteria);
+		$customer_detail=$this->Booking->find('first',array('conditions'=>array('Booking.ref_no'=>$ref_no, 'OR' =>array('Booking.member_id'=>$member_id))));
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/members/dashboard/'),
+			'name'=>'Dashboard'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/members/booking_details/'.$ref_no),
+			'name'=>'Booking Details'
+		);
+		foreach($order_details as $key=>$order_detail){
+			$order_details[$key]['BookingOrder']['location_name']=(!empty($order_detail['BookingOrder']['location_id']))?$this->City->getLocationListCityID($order_detail['BookingOrder']['location_id']): "Location not available";
+		}
+		$this->set('customer_detail',$customer_detail);
+		$this->set('order_details',$order_details);
+	}
+
+	function booking_vas_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingOrder');
+		$value_added_services=$this->BookingOrder->find('first',array('conditions'=>array('BookingOrder.id'=>$booking_order_id),'fields'=>array('BookingOrder.value_added_services')));
+		$this->set('value_added_services',json_decode($value_added_services['BookingOrder']['value_added_services'],true));
+		 
+	}
+	
+	function booking_member_invite_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingParticipate');
+		$invites_friend_details=$this->BookingParticipate->find('all',array('conditions'=>array('BookingParticipate.booking_order_id'=>$booking_order_id)));
+		$this->set('invites_friend_details',$invites_friend_details);
+	}
+	
+	function booking_slot_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingSlot');
+		$booking_slots=$this->BookingSlot->find('all',array('conditions'=>array('BookingSlot.booking_order_id'=>$booking_order_id)));
+		$this->set('booking_slots',$booking_slots);
+	}
+	
+	function send_feedback($order_id=null){
+		$this->loadModel('VendorManager.ServiceReview');
+		$this->loadModel('VendorManager.Service');
+		$this->loadModel('BookingOrder');
+		$member_id = $this->MemberAuth->id;
+		$booking_order=$this->BookingOrder->find('first',array('fields'=>array('BookingOrder.id','BookingOrder.ref_no','BookingOrder.service_id','BookingOrder.member_id'),'conditions'=>array('BookingOrder.id'=>$order_id)));
+		$review_status=$this->ServiceReview->find('count',array('conditions'=>array('ServiceReview.member_id'=>$booking_order['BookingOrder']['member_id'],'ServiceReview.ref_no'=>$booking_order['BookingOrder']['ref_no'],'ServiceReview.service_id'=>$booking_order['BookingOrder']['service_id'])));
+		if(empty($booking_order)){
+			throw new NotFoundException('Could not find that booking');
+		}
+		array_push(self::$script_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
+		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
+		if(!empty($this->request->data) && self::validation()){
+			$this->request->data['ServiceReview']['service_id']=$booking_order['BookingOrder']['service_id'];
+			$this->request->data['ServiceReview']['ref_no']=$booking_order['BookingOrder']['ref_no'];
+			$this->request->data['ServiceReview']['member_id']= $member_id;
+			$this->request->data['ServiceReview']['vendor_id']= $this->Service->getVendor_idByService_id($booking_order['BookingOrder']['service_id']);
+			$this->request->data['ServiceReview']['status']=0;
+			$this->request->data['ServiceReview']['date']=date('Y-m-d H:i:s');
+			$this->request->data['ServiceReview']['ip_address']=$_SERVER['REMOTE_ADDR'];
+			$this->ServiceReview->create();
+			$this->ServiceReview->save($this->request->data);
+			if ($this->ServiceReview->id) {
+				$this->Session->setFlash(__('Your feedback has been successfully sent'));
+			} 
+			else { 
+				$this->Session->setFlash(__('Your feedback has not been successfully sent'));
+			}
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'bookings','action'=>'send_feedback',$order_id));
+		}
+        $this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url(array('controller'=>'members','action'=>'dashboard')),
+			'name'=>'Dashboard'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url(array('controller'=>'bookings','action'=>'booking_details',$booking_order['BookingOrder']['ref_no'])),
+			'name'=>'Booking Details'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url(array('controller'=>'bookings','action'=>'send_feedback',$order_id)),
+			'name'=>'Feedback'
+		);
+		unset($booking_order['BookingOrder']['id']);
+		$this->request->data['ServiceReview']=$booking_order['BookingOrder'];
+        $this->set('order_id',$order_id);  
+        $this->set('review_status',$review_status);  
+	}
+
+	function validation(){
+		$this->autoRender = false;
+		$this->loadModel('VendorManager.ServiceReview');
+		$this->ServiceReview->set($this->request->data);
+		$result = array();
+		if ($this->ServiceReview->validates()) {
+			$result['error'] = 0;
+		}else{
+			  $result['error'] = 1;
+		}
+		$result['errors'] = $this->ServiceReview->validationErrors;
+		$errors = array();
+		foreach($result['errors'] as $field => $data){
+			$errors['ServiceReview'.Inflector::camelize($field)] = array_pop($data);
+		}
+		$result['errors'] = $errors;
+		if($this->request->is('ajax')) {
+			echo json_encode($result);
+			return;
+		}
+		 return (int)($result['error'])?0:1;
+	}
+}
+?>

@@ -1,0 +1,374 @@
+<?php
+Class BookingsController extends VendorManagerAppController{
+	public $uses = array('Booking');
+	public $components = array('Email');
+	public $paginate = array();
+	public $ajax_session_name= "Ajax_Files";
+	public $id = null;
+	
+	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
+		$this->loadModel('BookingSlot');
+		$conditions=null;
+		$this->paginate = array();
+		$vendor_id=$this->VendorAuth->id();
+		if($this->request->is('post')){
+			$search=(!empty($this->request->data['Booking']['search']))?$this->request->data['Booking']['search']:'_blank';
+			$searchtext=(!empty($this->request->data['Booking']['searchtext']))?$this->request->data['Booking']['searchtext']:'_blank';
+			$search_by_date=(!empty($this->request->data['Booking']['search_by_date']))?$this->request->data['Booking']['search_by_date']:'_blank';
+			$searchbydate=(!empty($this->request->data['Booking']['search_by_date']))?$this->request->data['Booking']['searchbydate']:'_blank';
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_list',$search,$searchtext,$search_by_date,$searchbydate));
+        }else{
+			// conditions
+			if(($search!=null && $search!='_blank' && $searchtext!=null && $searchtext!='_blank')){
+		        $searchtext = urldecode($searchtext);
+                if($search=='fname' || $search=='lname') {
+					$conditions['Booking.'.$search.' like'] = $searchtext.'%';
+				}else {
+					$conditions['Booking.'.$search] = $searchtext;
+				}
+				//assign in variable
+				$this->request->data['Booking']['search']=$search;
+				$this->request->data['Booking']['searchtext']=$searchtext;
+		    }
+            if(($search_by_date!=null && $search_by_date!='_blank' && $searchbydate!=null && $searchbydate!='_blank')){
+				$search = urldecode($search);
+				if($search_by_date=='booking_date'){
+					$conditions['CAST(Booking.booking_date as DATE)'] = date('Y-m-d',strtotime($searchbydate));
+				}
+				if($search_by_date=='start_date'){
+					$conditions['BookingOrder.start_date'] = date('Y-m-d',strtotime($searchbydate));
+				}
+				//assign in variable
+				$this->request->data['Booking']['search_by_date']=$search_by_date;
+				$this->request->data['Booking']['searchbydate']=$searchbydate;
+            }
+		}
+		$this->paginate = array('joins'=>
+			array(
+				array(
+					'table'=>'booking_orders',
+					'alias'=>'BookingOrder',
+					'type'=>'LEFT',
+					'conditions'=>array('BookingOrder.ref_no = Booking.ref_no')
+				)
+	
+			),
+			'conditions'=>array('BookingOrder.vendor_id'=>$vendor_id),
+			'group'=>'BookingOrder.ref_no',
+		    'fields'=>array('Booking.*','BookingOrder.status'),
+			'limit'=>20,
+			'order'=>array('Booking.ref_no'=>'DESC')
+		);
+		$booking_details=$this->paginate("Booking",$conditions);
+		// javascript set
+		array_push(self::$script_for_layout,'http://code.jquery.com/jquery-1.9.1.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js');
+		array_push(self::$css_for_layout,'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		self::$scriptBlocks[]='$(function() {
+		$( "#BookingSearchbydate" ).datepicker({
+		  dateFormat: "'.Configure::read('Calender_format').'",
+		  changeMonth: true,
+		  })
+		});' ;
+		$this->set('booking_details',$booking_details);
+		if($this->request->is('ajax')){
+			$this->layout = '';
+            $this->Render('ajax_booking_list');
+        }
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/vendor/dashboard/'),
+			'name'=>'Dashboard'
+		);
+		$this->breadcrumbs[] = array(
+                    'url'=>Router::url('/vendor/booking_list'),
+                    'name'=>'Booking List'
+			);
+	}
+	
+	function booking_details($ref_no=null){
+		if(empty($ref_no)){
+			 $this->redirect('/');
+		} 
+		$criteria = array();
+		$this->loadModel('BookingOrder');
+		$this->loadModel('LocationManager.City');
+		$vendor_id=$this->VendorAuth->id();
+		$criteria['conditions']=array('BookingOrder.vendor_id'=>$vendor_id,'BookingOrder.ref_no'=>$ref_no);
+		$criteria['group']=array('BookingOrder.id');
+		$criteria['fields']=array('BookingOrder.*');
+		$criteria['order']=array('BookingOrder.id ASC');
+		//echo "<pre>";print_r($criteria);die;
+		$order_details=$this->BookingOrder->find('all',$criteria);
+		$customer_detail=$this->Booking->find('first',array('conditions'=>array('Booking.ref_no'=>$ref_no)));
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/vendor/dashboard/'),
+			'name'=>'Dashboard'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/vendor/booking_details/'.$ref_no),
+			'name'=>'Booking Details'
+		);
+		foreach($order_details as $key=>$order_detail){
+			$order_details[$key]['BookingOrder']['location_name']=(!empty($order_detail['BookingOrder']['location_id']))?$this->City->getLocationListCityID($order_detail['BookingOrder']['location_id']): "Location not available";
+		}
+		$this->set('customer_detail',$customer_detail);
+		$this->set('order_details',$order_details);
+	}
+	
+	function booking_vas_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingOrder');
+		$value_added_services=$this->BookingOrder->find('first',array('conditions'=>array('BookingOrder.id'=>$booking_order_id),'fields'=>array('BookingOrder.value_added_services')));
+		$this->set('value_added_services',json_decode($value_added_services['BookingOrder']['value_added_services'],true));
+	}
+	
+	function booking_member_invite_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingParticipate');
+		$invites_friend_details=$this->BookingParticipate->find('all',array('conditions'=>array('BookingParticipate.booking_order_id'=>$booking_order_id)));
+		$this->set('invites_friend_details',$invites_friend_details);
+	}
+	
+	function booking_slot_details($booking_order_id=null){
+		$this->layout='';
+		$this->loadModel('BookingSlot');
+		$booking_slots=$this->BookingSlot->find('all',array('conditions'=>array('BookingSlot.booking_order_id'=>$booking_order_id)));
+		$this->set('booking_slots',$booking_slots);
+	}
+	
+	function cancel_booking($ref_no=null){
+		$this->autoRender=false;
+		$this->loadModel('BookingOrder');
+		$criteria = array();
+			$criteria['joins'] = array(
+				array(
+					'table' => 'bookings',
+					'alias' => 'Booking',
+					'type' => 'INNER',
+					'conditions' => array('Booking.ref_no =BookingOrder.ref_no','Booking.status' => 1)
+				) 
+    		);
+			$criteria['conditions'] =array('BookingOrder.ref_no'=>$ref_no,'BookingOrder.status' => 1,'Booking.status' => 1,'BookingOrder.vendor_id' =>$this->VendorAuth->id());
+			$criteria['group'] =array('BookingOrder.id');
+			$booking_count_status=$this->BookingOrder->find('count',$criteria);
+		
+		if($booking_count_status>=1){
+			self::__cancel_booking_mail_to_vendor($ref_no);
+			$this->BookingOrder->updateAll(array('status'=>3), array('AND' => array('BookingOrder.ref_no'=>$ref_no,'BookingOrder.status' => 1,'BookingOrder.vendor_id' =>$this->VendorAuth->id())));
+			$this->Session->setFlash(__('Booking has been cancelled successfully.'));
+		}else{
+			$this->Session->setFlash('Booking is already cancelled or not completed.','','error');
+		}
+		$this->redirect(Controller::referer());
+	}
+	// this function is not used.
+	private function __cancel_booking_mail_to_vendor($ref_no=null){
+		$criteria = array();
+		$total_booking_price=0;
+		$service_slot_details='';
+		$vendor_details=($this->Session->read('VendorAuth.VendorAuth'));
+		$this->loadModel('BookingOrder');
+		$this->loadModel('Booking');
+		$this->loadModel('VendorManager.ServiceImage');
+		// find email whose booked status =1 
+		$booking_emails=$this->Booking->find('list',array('conditions'=>array('Booking.ref_no'=>$ref_no,'Booking.status' => 1),'fields'=>('Booking.email'),'group'=>('Booking.email')));
+		$booking_details=$this->BookingOrder->find('all',array('conditions'=>array('BookingOrder.ref_no'=>$ref_no,'BookingOrder.status' =>1,'BookingOrder.vendor_id'=>$this->VendorAuth->id())));
+		if(!empty($booking_details)){
+			foreach($booking_details as $booking_detail) {
+				$slots=json_decode($booking_detail['BookingOrder']['slots'],true);
+				
+				// clear slot_detials in loop
+				$slot_details=array();
+				if(!empty($slots['Slot'])){
+					foreach($slots['Slot'] as $key=>$slot) {
+						$slot_details[]=DATE("g:i A", STRTOTIME($slot['start_time']))." To ".DATE("g:i A", STRTOTIME($slot['end_time'])+1);
+					}
+				}
+				//get service image
+				$service_image=$this->ServiceImage->getOneimageServiceImageByservice_id($booking_detail['BookingOrder']['service_id']);
+				// load helper for image
+				App::uses('ImageResizeHelper', 'View/Helper');
+				$ImageComponent = new ImageResizeHelper(new View());
+				 $path=WWW_ROOT.'img'.DS.'service_images'.DS;
+				$siteurl=$this->setting['site']['site_url'];
+				$imgArr = array('source_path'=>$path,'img_name'=>$service_image,'width'=>80,'height'=>80);
+				$image_name = $siteurl."/img/".$ImageComponent->ResizeImage($imgArr);$service_slot_details.=' <tr>
+					<td width="1%">&nbsp;</td>
+					<td border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;"> <strong>'.$booking_detail['BookingOrder']['service_title'].'</strong>		<table width="90%" cellspacing="0" cellpadding="0" border="0">
+							<tr>
+								<td width="50%">Start Date</td>
+								<td width="50%">'.date(Configure::read('Calender_format_php'),strtotime($booking_detail['BookingOrder']['start_date'])).'</td>
+									</tr>
+									<tr>
+										<td>End Date</td>
+										<td>'.date(Configure::read('Calender_format_php'),strtotime($booking_detail['BookingOrder']['end_date'])).'</td>
+									</tr>
+									<tr>
+										<td>Slot Time</td>
+										<td>'.implode('<br>',$slot_details).'</td>
+									</tr>
+								</table>
+							</td>
+						  <td style="border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;">
+								 <img src="'.$image_name.'" alt="'.$booking_detail['BookingOrder']['service_title'].'"/>			
+							</td>
+						  <td align="center"  style="border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;">$'.number_format(($booking_detail['BookingOrder']['price']+$booking_detail['BookingOrder']['value_added_price']),2).'</td></tr>';
+				
+				$total_booking_price+=$booking_detail['BookingOrder']['price']+$booking_detail['BookingOrder']['value_added_price'];
+			
+			}
+			// send to Admin mail
+			$this->loadModel('MailManager.Mail');
+			$mail=$this->Mail->read(null,22);
+			$body=str_replace('{ORDERNO}',$booking_detail['BookingOrder']['ref_no'],$mail['Mail']['mail_body']);  
+			$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
+			$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+			$email = new CakeEmail();
+			$email->to(array($this->setting['site']['site_contact_email'],$vendor_details['email']),$mail['Mail']['mail_from']);
+			$email->subject($mail['Mail']['mail_subject']);
+			$email->from($vendor_details['email']);
+			$email->emailFormat('html');
+			$email->template('default');
+			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+			$email->send();
+			// send to user mail
+			$mail=$this->Mail->read(null,21);
+			$body=str_replace('{ORDERNO}',$booking_detail['BookingOrder']['ref_no'],$mail['Mail']['mail_body']);  
+			$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
+			$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+			
+			$email = new CakeEmail();
+			$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
+			$email->subject($mail['Mail']['mail_subject']);
+			$email->to($booking_emails);
+			$email->emailFormat('html');
+			$email->template('default');
+			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+			$email->send();
+		}		
+	} 
+	
+	function cancel_booking_by_id($order_id=null,$ref_no=null){
+		$this->autoRender=false;
+		$this->loadModel('BookingOrder');
+		$criteria = array();
+		//$criteria['fields']= array('Booking.status','BookingOrder.status');
+			$criteria['joins'] = array(
+				array(
+					'table' => 'bookings',
+					'alias' => 'Booking',
+					'type' => 'INNER',
+					'conditions' => array('Booking.ref_no =BookingOrder.ref_no','Booking.status' => 1)
+				) 
+                
+			);
+		
+			$criteria['conditions'] =array('BookingOrder.id'=>$order_id,'BookingOrder.status' => 1,'Booking.status' => 1,'BookingOrder.vendor_id' =>$this->VendorAuth->id());
+			$criteria['group'] =array('BookingOrder.id');
+		
+		$booking_count_status=$this->BookingOrder->find('count',$criteria);
+		if($booking_count_status>=1){
+			self::__cancel_booking_by_id_mail_to_vendor($order_id,$ref_no);
+			//$this->BookingOrder->updateAll(array('status'=>3), array('AND' => array('BookingOrder.id'=>$order_id,'BookingOrder.status' => 1,'BookingOrder.vendor_id' =>$this->VendorAuth->id())));
+			$this->Session->setFlash(__('Booking has been cancelled successfully.'));
+		}else{
+			$this->Session->setFlash('Booking is already cancelled or not completed.','','error');
+		}
+		$this->redirect(Controller::referer());
+	}
+	
+	private function __cancel_booking_by_id_mail_to_vendor($order_id=null,$ref_no=null){
+		$criteria = array();
+		$total_booking_price=0;
+		$service_slot_details='';
+		$inviter_email=$booking_emails=array();
+		$vendor_details=($this->Session->read('VendorAuth.VendorAuth'));
+		$this->loadModel('BookingOrder');
+		$this->loadModel('BookingParticipate');
+		$this->loadModel('VendorManager.ServiceImage');
+		// find email whose booked status =1 
+		$booking_emails=$this->BookingParticipate->find('all',array('conditions'=>array('BookingParticipate.booking_order_id'=>$order_id,'BookingParticipate.status' => 1),'fields'=>array('BookingParticipate.member_id','BookingParticipate.email'),'group'=>('BookingParticipate.email')));
+		//find inviter email id whose invited 
+		if(!empty($booking_emails)){
+			foreach($booking_emails as $booking_email){
+				$emails[]=$booking_email['BookingParticipate']['email'];
+			}
+			$inviter_email=$this->Booking->find('first',array('conditions'=>array('Booking.member_id'=>$booking_emails[0]['BookingParticipate']['member_id'],'Booking.status' => 1),'fields'=>array('Booking.email')));
+		}else{
+			$inviter_email=$this->Booking->find('first',array('conditions'=>array('Booking.ref_no'=>$ref_no,'Booking.status' => 1),'fields'=>array('Booking.email')));
+		}
+		if(!empty($inviter_email['Booking']['email'])){
+			$emails[]=$inviter_email['Booking']['email'];
+		}
+		$booking_detail=$this->BookingOrder->find('first',array('conditions'=>array('BookingOrder.id'=>$order_id,'BookingOrder.vendor_id'=>$this->VendorAuth->id())));$slots=json_decode($booking_detail['BookingOrder']['slots'],true);
+		foreach($slots['Slot'] as $key=>$slot) {
+			$slot_details[]=DATE("g:i A", STRTOTIME($slot['start_time']))." To ".DATE("g:i A", STRTOTIME($slot['end_time'])+1);
+		}
+		//get service image
+		$service_image=$this->ServiceImage->getOneimageServiceImageByservice_id($booking_detail['BookingOrder']['service_id']);
+		// load helper for image
+		App::uses('ImageResizeHelper', 'View/Helper');
+		$ImageComponent = new ImageResizeHelper(new View());
+		 $path=WWW_ROOT.'img'.DS.'service_images'.DS;
+		$siteurl=$this->setting['site']['site_url'];
+		$imgArr = array('source_path'=>$path,'img_name'=>$service_image,'width'=>80,'height'=>80);
+		$image_name = $siteurl."/img/".$ImageComponent->ResizeImage($imgArr);
+		$service_slot_details.=' <tr>
+			<td width="1%">&nbsp;</td>
+			<td border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;"> <strong>'.$booking_detail['BookingOrder']['service_title'].'</strong>		<table width="90%" cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td width="50%">Start Date</td>
+						<td width="50%">'.date(Configure::read('Calender_format_php'),strtotime($booking_detail['BookingOrder']['start_date'])).'</td>
+							</tr>
+							<tr>
+								<td>End Date</td>
+								<td>'.date(Configure::read('Calender_format_php'),strtotime($booking_detail['BookingOrder']['end_date'])).'</td>
+							</tr>
+							<tr>
+								<td>Slot Time</td>
+								<td>'.implode('<br>',$slot_details).'</td>
+							</tr>
+						</table>
+					</td>
+				  <td style="border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;">
+						 <img src="'.$image_name.'" alt="'.$booking_detail['BookingOrder']['service_title'].'"/>			
+					</td>
+				  <td align="center"  style="border-bottom: 1px solid #DFDFDF; color: #787878;  font-family:arial;  font-size: 12px;  padding: 10px 0;">$'.number_format(($booking_detail['BookingOrder']['price']+$booking_detail['BookingOrder']['value_added_price']),2).'</td></tr>';
+		$total_booking_price+=$booking_detail['BookingOrder']['price']+$booking_detail['BookingOrder']['value_added_price'];
+		// send to Admin mail
+		$this->loadModel('MailManager.Mail');
+		$mail=$this->Mail->read(null,22);
+		$body=str_replace('{ORDERNO}',$booking_detail['BookingOrder']['ref_no'],$mail['Mail']['mail_body']);  
+		$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
+		$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+		$email = new CakeEmail();
+		$email->to(array($this->setting['site']['site_contact_email'],$vendor_details['email']),$mail['Mail']['mail_from']);
+		$email->subject($mail['Mail']['mail_subject']);
+		$email->from($vendor_details['email']);
+		$email->emailFormat('html');
+		$email->template('default');
+		$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+		$email->send();
+		// send to user mail
+		$mail=$this->Mail->read(null,21);
+		$body=str_replace('{ORDERNO}',$booking_detail['BookingOrder']['ref_no'],$mail['Mail']['mail_body']);  
+		$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
+		$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+		$email = new CakeEmail();
+		$email->from($vendor_details['email'],$mail['Mail']['mail_from']);
+		$email->subject($mail['Mail']['mail_subject']);
+		$email->to($emails);
+		$email->emailFormat('html');
+		$email->template('default');
+		$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+		$email->send();
+	} 
+}
+?>

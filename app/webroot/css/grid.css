@@ -1,0 +1,145 @@
+/*  GRID OF TWELVE   ============================================================================= */
+
+.span_12_of_12 {
+	width: 100%;
+}
+
+.span_11_of_12 {
+	width: 91.63%;
+}
+
+.span_10_of_12{
+	width: 83.30%;
+}
+
+.span_9_of_12 {
+	width: 74.97%;
+}
+
+.span_8_of_12 {
+	width: 66.64%;
+}
+
+.span_7_of_12 {
+	width: 58.31%; 
+}
+
+.span_6_of_12 {
+	width: 49.92%; 
+}
+
+.footer-span_6_of_12 {
+	width: 49.92%; 
+}
+
+.footer1-span_6_of_12 {
+	width: 49.92%; 
+}
+
+.span_5_of_12 {
+	width: 41.65%; 
+}
+
+.span_4_of_12 {
+	width: 33.23%; 
+}
+
+.span_3_of_12 {
+	width: 24.99%;
+}
+
+.span_2_of_12 {
+	width: 16.66%; 
+}
+
+.span_1_of_12 {
+	width: 8.33%; 
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.span_12_of_12 {
+		width: 100%; 
+	}
+	.span_11_of_12 {
+		width: 100%; 
+	}
+	.span_10_of_12 {
+		width: 100%; 
+	}
+	.span_9_of_12 {
+		width: 100%; 
+	}
+	.span_8_of_12 {
+		width: 100%; 
+	}
+	.span_7_of_12 {
+		width: 100%; 
+	}
+	.span_6_of_12 {
+		width: 100%; 
+	}
+	.footer-span_6_of_12 {
+		width: 100%;
+		text-align: center;
+	}
+	
+	.footer1-span_6_of_12 {
+		width: 100%;
+		text-align: center;
+	}
+	.span_5_of_12 {
+		width: 100%; 
+	}
+	.span_4_of_12 {
+		width: 100%; 
+	}
+	.span_3_of_12 {
+		width: 100%; 
+	}
+	.span_2_of_12 {
+		width: 100%; 
+	}
+	.span_1_of_12 {
+		width: 100%; 
+	}
+}
+
+
+
+
+/*  GRID COLUMN SETUP   ============================================================================= */
+
+.col {
+	display: block;
+	float:left;
+	margin: 1% 0 1% 1.6%;
+}
+
+.col:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
+
+
+/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.col { 
+		margin: 1% 0 1% 0%;
+	}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 767px){
+	.footer-span_6_of_12 {
+		width: 59%; 
+	}
+	
+	.footer1-span_6_of_12 {
+		width: 40%; 
+	}
+}
+
+@media all screen and (min-width: 1025px) and (max-width: 1920px){
+	.fix-wrapper {
+    	width: 1000px;
+	}
+}
