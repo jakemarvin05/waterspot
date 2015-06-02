@@ -2,3 +2,7 @@
 app/tmp/
 .idea/
 lib/Cake/*
+/app/webroot/img/*
+/vendors/*
+/lib/*
+/plugin/*
