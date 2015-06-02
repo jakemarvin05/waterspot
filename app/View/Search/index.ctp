@@ -21,7 +21,10 @@
 			<label>Filter by:</label>
 			<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
 			<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+			<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
 			<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+
+			
 			
 			<?=$this->Form->end();?>
 		</div>
@@ -85,7 +88,7 @@
 			$("#loader_pagination").attr("disabled", false);
 			$('#loader_pagination').removeClass('no-more-activities').html('Load more results');
 		}
-		$('#SearchSortPrice,#SearchServiceTypeList,#SearchSortReview').bind("change",function(){
+		$('#SearchSortPrice,#SearchServiceTypeList,#SearchSortReview,#SearchLocationList').bind("change",function(){
 			$('#sort_by_price').show();
 			 
 		 	var SearchServiceTypeList = $("#SearchServiceTypeList").val();
@@ -93,6 +96,9 @@
 		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
 		 	
 		 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+
+		 	var SearchSortByLocation = ($("#SearchLocationList").val()=='')?'sortbylocation':$("#SearchLocationList").val();
+
 			if(SearchServiceTypeList=='' || SearchServiceTypeList==null){
 				$('#sort_by_price').hide();
 				alert('Please select service type');
@@ -100,7 +106,7 @@
 			}
 			 
 			$.ajax({
-			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortReview,
+			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortByLocation+"/"+SearchSortReview,
 				   success: function(res) {
 				   
 					   $( ".sun-text" ).remove();
