@@ -59,9 +59,9 @@ class DATABASE_CONFIG {
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'localhost',
-		'login' => 'waterspo_water',
-		'password' => 'ucNyZWks0;S5',
-		'database' => 'waterspo_spot',
+		'login' => 'root',
+		'password' => 'nvtM$ql3',
+		'database' => 'waterspot_local',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);

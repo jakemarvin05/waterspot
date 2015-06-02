@@ -34,9 +34,9 @@
  * In development mode, you need to click the flash message to continue.
  */
 	 
-	Configure::write('debug', 0); 
+	Configure::write('debug', 2); 
 	if($_SERVER['HTTP_USER_AGENT']=='Mozilla/5.0 (X11; Linux i686) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11' || $_SERVER['HTTP_USER_AGENT']=='Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:24.0) Gecko/20100101 Firefox/24.0') {
-	Configure::write('debug', 0);
+	Configure::write('debug', 2);
  }
  
 /**

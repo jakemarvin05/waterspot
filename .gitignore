@@ -1,1 +1,4 @@
-img/
+/app/webroot/img/*
+/vendors/*
+/lib/*
+/plugin/*
