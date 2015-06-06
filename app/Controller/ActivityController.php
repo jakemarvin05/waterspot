@@ -202,7 +202,10 @@ Class ActivityController extends AppController{
 				//die; 
 			}
 			$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
-			// print_r($new_service_slots);die();
+			if (empty($new_service_slots)) {
+				$recommended_dates = $this->VendorServiceAvailability->getRecomendedDates($_POST);
+				$this->set('recommended_dates',$recommended_dates);
+			}
 			$this->set('service_slots',$new_service_slots);
 		}
 	}
