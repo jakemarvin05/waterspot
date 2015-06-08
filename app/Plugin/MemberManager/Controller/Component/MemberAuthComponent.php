@@ -35,6 +35,7 @@ class MemberAuthComponent extends Component{
 	public function login(){
 		$conditions = array();
 		$model_name = self::_ext_model($this->model_use);
+		//print_r($model_name);die();
 		$conditions[$model_name.'.'.$this->fields[0]] = $this->request->data[$model_name][$this->fields[0]];
 		$conditions[$model_name.'.'.$this->fields[1]] = Security::hash(Configure::read('Security.salt').$this->request->data[$model_name][$this->fields[1]]);
 		if(empty($conditions)){
