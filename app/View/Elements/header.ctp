@@ -1,6 +1,6 @@
 <div id="logoWrapper">
-            <img id="whiteLogo" src="/waterspot/assets/img/logo-white.png">
-            <img id="coloredLogo" src="/waterspot/assets/img/logo-colored.png">
+            <img id="whiteLogo" src="/img/logo-white.png">
+            <img id="coloredLogo" src="/img/logo-colored.png">
         </div>
         <nav>
             <div class="navButtonOuter navActive">

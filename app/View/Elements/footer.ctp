@@ -15,10 +15,10 @@
                     <div class="footerContactBlock">
                         <p class="footerContactSmallHeader">FOLLOW US</p>
                         <div id="footerSocialRow">
-                            <a class="smIcons" href="<?=$setting['social']['facebook']?>"><img src="/waterspot/assets/img/sm-icons/facebook.png"><img src="/waterspot/assets/img/sm-icons/facebook.png"></a>
-                            <a class="smIcons" href="<?=$setting['social']['twitter']?>"><img src="/waterspot/assets/img/sm-icons/instagram.png"><img src="/waterspot/assets/img/sm-icons/instagram.png"></a>
-                            <a class="smIcons" href="<?=$setting['social']['twitter']?>"><img src="/waterspot/assets/img/sm-icons/twitter.png"><img src="/waterspot/assets/img/sm-icons/twitter.png"></a>
-                            <a class="smIcons" href="<?=$setting['social']['google_plus']?>"><img src="/waterspot/assets/img/sm-icons/googleplus.png"><img src="/waterspot/assets/img/sm-icons/googleplus.png"></a>
+                            <a class="smIcons" href="<?=$setting['social']['facebook']?>"><img src="/img/sm-icons/facebook.png"><img src="/img/sm-icons/facebook.png"></a>
+                            <a class="smIcons" href="<?=$setting['social']['twitter']?>"><img src="/img/sm-icons/instagram.png"><img src="/img/sm-icons/instagram.png"></a>
+                            <a class="smIcons" href="<?=$setting['social']['twitter']?>"><img src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>
+                            <a class="smIcons" href="<?=$setting['social']['google_plus']?>"><img src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                     <p><a href="/terms">Terms & Conditions</a> / <a href="privacypolicy">Privacy Policy</a>
                 </div>
                 <div id="paymentLogoCont" class="col-sm-6">
-                    <img src="/waterspot/assets/img/footer-payment.png">
+                    <img src="/img/footer-payment.png">
                 </div>
             </div>
         </div>
