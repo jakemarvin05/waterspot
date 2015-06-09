@@ -1,0 +1,282 @@
+/* generic stuff */
+.beforeHeader {
+    font-family: 'Crete Round', sans-serif;
+    font-style: italic;
+    color: #ff9700;
+    font-size: 19px;
+}
+
+
+/* remove bootstrap select blue outlines */
+.bootstrap-select>.btn:focus {
+    outline: none !important;
+}
+.bootstrap-select ul.dropdown-menu>li>a:focus {
+    outline: none !important;
+}
+
+#splashVideoCont {
+    position: relative;
+}
+#splashVideoCont img, #splashVideoCont video {
+    width: 100%;
+}
+    @media (min-width: 768px) {
+        #splashVideoCropper>img {
+            display: none;
+        }
+        #splashVideoCropper>video {
+            display: block;
+        }
+    }
+    @media (max-width: 767px) {
+        #splashVideoCropper>img {
+            display: block;
+        }
+        #splashVideoCropper>video {
+            display: none;
+        }
+    }
+#videoOverlayWrapper {
+    position: absolute;
+    height: 100%; width: 100%;
+    top: 0px; left: 0px;
+}
+
+/* SEARCH */
+#searchOuterWrapper {
+    height: 100%; width: 100%;
+    display: table;
+}
+#searchWrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 20%;
+}
+#searchContainer {
+    position: relative;
+    margin: auto;
+    display: inline-block; /* to make its content fill its width */
+}
+
+@media (min-width: 768px) {
+    #searchContainer {
+        height: 80px;
+        padding: 20px 15px; /* .searchInline classes have 5px left/right padding. 5+15 = 20 */
+    }
+}
+@media (max-width: 767px) {
+    #searchContainer {
+        padding: 10px 20px 20px;
+    } 
+}
+#searchBackground {
+    position: absolute;
+    top: 0px; left: 0px;
+    background-color: #fff;
+    width: 100%; height: 100%;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+    .searchInline {
+        position: relative;
+    }
+    @media (min-width: 768px) {
+        .searchInline {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0px 5px;
+        }
+    }
+    @media (max-width: 767px) {
+        .searchInline {
+            display: block;
+            padding: 0px;
+            margin-top: 10px;
+        }        
+    }
+
+
+    #searchContainer .bootstrap-select button, #searchDate, #startYourAdventure {
+        height: 40px !important;
+    }
+    @media (min-width: 768px) {
+        #searchContainer .bootstrap-select {
+            width: 250px !important;
+        }
+    }
+    @media (max-width: 767px) {
+        #searchContainer .bootstrap-select {
+            width: 100% !important;
+        }      
+    }
+        #searchContainer .bootstrap-select button {
+            border: 1px solid #ff9700;
+            border-radius: 0px;
+        }
+        #searchContainer .bootstrap-select button:hover, #searchContainer .bootstrap-select button:active, #searchContainer .bootstrap-select button:focus {
+            background-color: #fff !important;
+        }
+        #searchContainer .bootstrap-select .filter-option {
+            color: #ccc;
+        }
+
+    @media (min-width: 768px) {
+        #searchDate {
+            width: 170px;
+        }
+    }
+    @media (max-width: 767px) {
+        #searchDate {
+            width: 100%;
+        }    
+    }
+    #startYourAdventure {
+        margin: 0px;
+        border-radius: 0px;
+    }
+    @media (max-width: 767px) {
+        #startYourAdventure {
+            width: 100%;
+        }   
+    }
+
+
+/* ABOUT BLOCKS */
+
+#about {
+    background-color: #f7f7f7;
+    padding: 0px 70px 40px;
+}
+
+.aboutBlocks {
+    margin-top: 40px;
+}
+    .aboutHeaderIcon {
+        color: #ff9700;
+        font-size: 41px;
+    }
+    .aboutDescription {
+        font-family: 'Crete Round',serif;
+        font-style: italic;
+        color: #ccc;
+        font-size: 16px;
+        margin-top: 13px;
+    }
+    .aboutTitle {
+        text-transform: uppercase;
+        margin-top: 11px;
+        margin-bottom: 0px;
+        font-size: 20px;
+        line-height: 140%;
+    }
+
+/* ACTIVITIES */
+
+    /* Note: Activites block work by having its space filled by 1x1 images stretched to fill
+     *       the responsive widths, giving them heights. This also accurately computes
+     *       the size of the block when there is padding between blocks.
+     */
+
+#activities {
+    margin: 40px 0px;
+    text-align: center;
+}
+#activities h1 {
+    margin-top: 15px;
+}
+/* set consistent spacing between blocks */
+#activities, .activitiesOverlayOuter, .activitiesBlocks .activitiesFiller>div {
+    padding: 5px; /* desired spacing between blocks is 5px x 2 = 10px */
+}
+#activitiesContainer {
+    margin-top: 40px;
+}
+.activitiesBlocks {
+    float: left;
+    position: relative;
+    cursor: pointer;
+}
+
+/* block sizes */
+@media (min-width: 768px) {
+    .activities1x1 {
+        width: 25%;
+    }
+    .activities2x1, .activities2x2 {
+        width: 50%;
+    }
+}
+@media (max-width: 767px) {
+    .activities1x1 {
+        width: 50%;
+    }
+    .activities2x1, .activities2x2 {
+        width: 100%;
+    }
+}
+
+/* space fillers */
+.activitiesFiller {
+    width: 100%;
+}
+    .activitiesBlocks .activitiesFiller>div {
+        float: left;
+    }
+    .activities1x1 .activitiesFiller>div {
+        width: 100%;
+    }
+    .activities2x1 .activitiesFiller>div, .activities2x2 .activitiesFiller>div {
+        width: 50%;
+    }
+
+    .activitiesFiller img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* rest of the block */
+    .activitiesBlocks .activitiesFeaturedImg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px; left: 0px;
+    }
+
+    .activitiesOverlayOuter {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0px; left: 0px;
+    }
+    /* activitiesOverlayInner is introduced to help size 100% after factoring .activitiesOverlayOuter's padding */
+    .activitiesOverlayInner {
+        position: relative;
+        height: 100%; width: 100%;
+        overflow: hidden;
+    }
+
+        .activitiesTable {
+            position: relative;
+            height: 100%; 
+            width: 101%; /* width bug: http://stackoverflow.com/questions/9050345/selecting-last-element-in-javascript-array */
+            display: table;
+        }
+        .activitiesCell {
+            vertical-align: top;
+            display: table-cell;
+            position: relative;
+        }
+        .activitiesHeader {
+            text-transform: uppercase;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 0px
+        }
+
+
+
+
+
