@@ -14,18 +14,18 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 
 <!-- Bootstrap: JS is at the bottom -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="/waterspot/assets/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
 
 <!-- Other Library style sheets -->
-<link rel="stylesheet" href="/waterspot/assets/css/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/waterspot/assets/css/simple-line-icons/simple-line-icons.css">
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/simple-line-icons/simple-line-icons.css">
 
 <?=$this->Html->css('style.css');?>
-<link rel="stylesheet" type="text/css" href="/waterspot/assets/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
  <!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="/waterspot/assets/css/index.css">
+<link rel="stylesheet" href="/css/index.css">
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -55,7 +55,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
 <!-- Page specific scripts required for early rendering -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script>
-<script src="/waterspot/assets/js/page-specifics/index.js"></script>
+<script src="/js/page-specifics/index.js"></script>
 
 <!--End of Zopim Live Chat Script-->
 <!--[if IE]>
@@ -95,11 +95,11 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	<?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){?>
 	<section id="splashVideoCont">
                 <div id="splashVideoCropper">
-                    <video autoplay loop muted poster="/waterspot/assets/img/splash-statics/slide1.jpg">
-                      <source src="/waterspot/assets/media/watersports.mp4" type="video/mp4">
-                      <img src="/waterspot/assets/img/splash-statics/slide1.jpg">
+                    <video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
+                      <source src="/media/watersports.mp4" type="video/mp4">
+                      <img src="/img/splash-statics/slide1.jpg">
                     </video>
-                    <img src="/waterspot/assets/img/splash-statics/slide1.jpg">
+                    <img src="/img/splash-statics/slide1.jpg">
                 </div>
                 <div id="videoOverlayWrapper">
                     <div id="searchOuterWrapper">
@@ -184,23 +184,23 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
 	  <script>
         var frontPageActivities = activitiesBlockMaker.init($('#activitiesContainer'), [
-            { title: 'wakeboarding', imagePath: '/waterspot/assets/img/activities/wakeboarding.jpg', blockSize: '2x1'},
-            { title: 'diving', imagePath: '/waterspot/assets/img/activities/diving.jpg'},
-            { title: 'kayaking', imagePath: '/waterspot/assets/img/activities/kayaking.jpg'},
-            { title: 'fishing', imagePath: '/waterspot/assets/img/activities/fishing.jpg'},
-            { title: 'kitesurfing', imagePath: '/waterspot/assets/img/activities/kitesurfing.jpg'},
-            { title: 'boatcharter', imagePath: '/waterspot/assets/img/activities/boatcharter.jpg', blockSize: '2x2'},
-            { title: 'sailing', imagePath: '/waterspot/assets/img/activities/sailing.jpg'},
-            { title: 'stand up paddle', imagePath: '/waterspot/assets/img/activities/stand-up-paddle.jpg'}
+            { title: 'wakeboarding', imagePath: '/img/activities/wakeboarding.jpg', blockSize: '2x1'},
+            { title: 'diving', imagePath: '/img/activities/diving.jpg'},
+            { title: 'kayaking', imagePath: '/img/activities/kayaking.jpg'},
+            { title: 'fishing', imagePath: '/img/activities/fishing.jpg'},
+            { title: 'kitesurfing', imagePath: '/img/activities/kitesurfing.jpg'},
+            { title: 'boatcharter', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
+            { title: 'sailing', imagePath: '/img/activities/sailing.jpg'},
+            { title: 'stand up paddle', imagePath: '/img/activities/stand-up-paddle.jpg'}
         ]);
         </script>
 
         <!-- Javascripts -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-        <script src="/waterspot/assets/js/velocity/velocity.min.js"></script>
-        <script src="/waterspot/assets/js/velocity/velocity.ui.min.js"></script>
-        <script src="/waterspot/assets/js/lib.js"></script>
+        <script src="/js/velocity/velocity.min.js"></script>
+        <script src="/js/velocity/velocity.ui.min.js"></script>
+        <script src="/js/lib.js"></script>
 
 </body>
 </html>

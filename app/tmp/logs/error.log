@@ -15211,3 +15211,2424 @@ Request URL: /img-sys/headerbg.jpg
 Stack Trace:
 #0 /home/waterspo/public_html/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2015-06-09 09:54:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:26 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:48 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:48 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:55:48 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:56:34 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:01 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Regular.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Bold.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Arca-heavy-webfont.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:02 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/bullet-arrow.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:03 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:46 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:46 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:46 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:46 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:58:46 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:07 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:09 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:11 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:11 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:11 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:11 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:11 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:12 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 09:59:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:13 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:14 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/font-awesome/css/font-awesome.min.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/bootstrap-datetimepicker.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/simple-line-icons/simple-line-icons.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/style.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/css/index.css
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/page-specifics/index.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/velocity/velocity.ui.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/js/lib.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:00:43 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:27 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:28 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:28 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:28 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:28 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:28 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:34 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:34 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:34 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:34 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:35 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:35 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:35 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:01:38 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:40 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Regular.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/splash-statics/slide1.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Bold.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Crete-Round-Italic.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Arca-heavy-webfont.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/boatcharter.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/wakeboarding.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/kitesurfing.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/fishing.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/diving.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/kayaking.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/stand-up-paddle.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/activities/sailing.jpg
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class MediaController could not be found.
+Exception Attributes: array (
+  'class' => 'MediaController',
+  'plugin' => NULL,
+)
+Request URL: /media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/bullet-arrow.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:02:42 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Regular.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Bold.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:23 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Crete-Round-Italic.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:24 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Arca-heavy-webfont.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:24 Error: [MissingControllerException] Controller class MediaController could not be found.
+Exception Attributes: array (
+  'class' => 'MediaController',
+  'plugin' => NULL,
+)
+Request URL: /media/watersports.mp4
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:24 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:25 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/favicon.ico
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:44 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Bold.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Regular.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Crete-Round-Italic.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Arca-heavy-webfont.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:03:45 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Regular.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Lato-Bold.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Crete-Round-Italic.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:08 Error: [MissingControllerException] Controller class FontsController could not be found.
+Exception Attributes: array (
+  'class' => 'FontsController',
+  'plugin' => NULL,
+)
+Request URL: /fonts/Arca-heavy-webfont.woff2
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:41 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:04:43 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/favicon.ico
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery-1.10.2.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-white.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/instagram.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/twitter.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/facebook.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/sm-icons/googleplus.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:47 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/logo-colored.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:05:48 Error: [MissingControllerException] Controller class WaterspotController could not be found.
+Exception Attributes: array (
+  'class' => 'WaterspotController',
+  'plugin' => NULL,
+)
+Request URL: /waterspot/assets/img/footer-payment.png
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-06-09 10:06:52 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /js/jquery-1.10.2.min.js
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/waterspot/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
