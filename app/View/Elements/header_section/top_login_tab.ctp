@@ -11,6 +11,9 @@
   function statusChangeCallback(response) {
     if (response.status === 'connected') {
     	FB.api('/me', function(response) {
+    		if (getCookie('fb_remember') != 'true') {
+    			return;
+    		}
     		//alert(JSON.stringify(response));
     		email = response.email;
     		first_name = response.first_name;
@@ -26,6 +29,7 @@
     		document.getElementById('fb_fname').value = first_name;
     		document.getElementById('fb_lname').value = last_name;
     		document.getElementById('fb_login').submit();
+    		document.getElementById('fb_login').submit();
 		});
     } else if (response.status === 'not_authorized') {
     	// logged in facebook but not authorized
@@ -35,6 +39,7 @@
   }
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
+    	setCookie('fb_remember', 'true', 30);//expires in 30 days
       statusChangeCallback(response);
     });
   }

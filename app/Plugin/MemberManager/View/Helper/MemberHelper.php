@@ -44,7 +44,7 @@ class MemberHelper extends AppHelper {
 		$data .= '<li>'.$this->Html->link('Change Password',array('plugin'=>'member_manager','controller'=>'members','action'=>'changepassword')).'</li>';
 		$data .= "</ul>";
 		$data.= "</li>";
-		$data .= '<li>'.$this->Html->link('Logout',array('plugin'=>'member_manager','controller'=>'members','action'=>'logout')).'</li>';
+		$data .= '<li>'.$this->Html->link('Logout','#', ['onclick' => 'setCookie("fb_remember", "false", -30); window.location = "/members/logout";']).'</li>';
 		$data .= '<li style="border:none;">'.$this->Html->link('My Cart ('.$totalcart.')',array('plugin'=>false,'controller'=>'carts','action'=>'check_out')).'</li>';
 		 
 		$data.= "</ul>";
