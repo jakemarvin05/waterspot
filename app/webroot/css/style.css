@@ -311,7 +311,7 @@ padding: 0;width: 40%;  }
 .membor-vendor-links ul li a:hover{color: #272727;text-decoration: none;}
 .membor-vendor-links ul li a.active {font-weight:bold;color: #272727;}
 .day{ font-family: Merriweather; font-size:18px; color:#000; margin:0; padding:0 0 15px;}
-p{ font-family: Merriweather; font-size:14px; color:#787878; margin: 0; padding:0 0 15px; line-height:22px; }
+p{ font-size:14px; color:#787878; margin: 0; padding:0 0 15px; line-height:22px; }
 h3{font-family: Lato Bold; font-size:38px; color:#00B6F0; line-height:20px; margin:0; padding:0 0 20px;}
 .bredcrum { color: #787878; font-family: Merriweather; font-size: 14px;  margin: 0 0 10px;  padding: 5px;}
 .filtered-listing .bredcrum { float: left; }
