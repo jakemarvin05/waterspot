@@ -8,9 +8,16 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title><?=$title_for_layout?></title>
 <meta name="description" content="<?=$metadescription;?>" />
+<meta name="viewport" content="initial-scale=1">
 <meta name="keywords" content="<?=$metakeyword;?>" />
 <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+
+<!-- FaceBook Opengraph -->
+<meta property="og:image" content="">
+<meta property="og:site_name" content="Waterspot">
+<meta property="og:type" content="website">
 
 <!-- Bootstrap: JS is at the bottom -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -23,13 +30,16 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <?=$this->Html->css('style.css');?>
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
 
- <!-- Page specific style sheet -->
+<!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="/css/index.css">
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+<!-- Page specific scripts required for early rendering -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script>
+<script src="/js/page-specifics/index.js"></script>
 
 <?=$this->Html->css($css_for_layout); ?>
 <?=$this->Html->script('jquery-1.10.2.min.js'); ?>
@@ -53,9 +63,6 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 </script>
 
 
-<!-- Page specific scripts required for early rendering -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script>
-<script src="/js/page-specifics/index.js"></script>
 
 <!--End of Zopim Live Chat Script-->
 <!--[if IE]>
