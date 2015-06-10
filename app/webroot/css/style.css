@@ -78,7 +78,7 @@
  *************************/
 
 body {
-    font-family: 'Lato', sans-serif !important;
+    font-family: 'Lato', sans-serif;
     color: #606060; /* default dark font color */
 }
 h1, h2, h3, h4 {
@@ -89,7 +89,6 @@ h1 {
 }
 h2 {
     font-size: 25px;
-    color:#606060;
 }
 h3 {
   font-size: 19px;
@@ -111,12 +110,6 @@ a:focus, a:hover {
 ::selection { color: #fff; background: #ff9700; } /* default orange color */ 
 ::-moz-selection { color: #fff; background: #ff9700; }
 ::-webkit-selection { color: #fff; background: #ff9700; }
-
-/* bootstrap form-control border override */
-.form-control {
-    border: 1px solid #ff9700;
-    border-radius: 0px;
-}
 
 /* placeholder color */
 ::-webkit-input-placeholder { /* WebKit browsers */
@@ -140,7 +133,6 @@ button:focus, button:active, input:focus, input:active {
 }
 .form-control:focus {
     border: 1px solid #ff9700;
-    border-radius: 0px;
     -webkit-box-shadow: inset 0 0px;
     box-shadow: inset 0 0px;
 }
@@ -201,6 +193,9 @@ button:focus, button:active, input:focus, input:active {
     color: #fff;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+}
+#navWrapper:active {
+    opacity: 1;
 }
     /* full format navigation >768px */
     @media (min-width: 768px) {
@@ -275,43 +270,120 @@ button:focus, button:active, input:focus, input:active {
         top: 0px; left: 0px;
         opacity: 0;
     }
-
-    .navButtonOuter {
+    .navGroup {
         display: inline-block;
         vertical-align: middle;
-        text-shadow: 1px 1px 1px rgba(0,0,0,.2);
-        border: 1px solid transparent;
-        cursor: pointer;
+        position: relative;
     }
-        @media (min-width: 768px) {
-            .navButtonOuter {
-                padding: 10px 17px;
+        .navButtonOuter {
+            text-shadow: 1px 1px 1px rgba(0,0,0,.2);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+            @media (min-width: 768px) {
+                .navButtonOuter {
+                    padding: 10px 17px;
+                }
             }
+            @media (min-width: 568px) and (max-width: 767px) {
+                .navButtonOuter {
+                    padding: 2px 4px;
+                }            
+            }
+            @media (max-width: 567px) {
+                .navButtonOuter {
+                    padding: 2px 2px;
+                }            
+            }
+        .stickyCollapsed .navButtonOuter {
+            text-shadow: 0px 0px 0px;
         }
-        @media (min-width: 568px) and (max-width: 767px) {
-            .navButtonOuter {
-                padding: 2px 4px;
-            }            
-        }
-        @media (max-width: 567px) {
-            .navButtonOuter {
-                padding: 2px 2px;
-            }            
-        }
-    .stickyCollapsed .navButtonOuter {
-        text-shadow: 0px 0px 0px;
-    }
 
-    .navActive, .navButtonOuter:hover, .navButtonOuter:focus {
-        border: 1px solid rgba(255,255,255,0.5);
-        border-radius: 2px;
-    }
-    .stickyCollapsed .navActive, .stickyCollapsed .navButtonOuter:hover, .navButtonOuter:focus {
-        border-color: #ff9700;
-        color: #ff9700;
-    }
-        .navTextLabel {
-            margin-left: 7px;
+        .navActive, .navButtonOuter:hover, .navButtonOuter:focus {
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 2px;
+        }
+        .stickyCollapsed .navActive, .stickyCollapsed .navButtonOuter:hover, .navButtonOuter:focus {
+            border-color: #ff9700;
+            color: #ff9700;
+        }
+            .navTextLabel {
+                margin-left: 7px;
+            }
+        .navGroup .popover {
+            color: #606060;
+            min-width: 300px;
+            text-align: center;
+        }
+        .navGroup .popover-content {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 450px;
+            min-height: 450px;
+        }
+            .navGroup #popoverIAm {
+                margin: 6px 10px 0px 0px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .popoverCheckboxToggle {
+                margin-top: 5px;
+            }
+        .navGroup .popoverBlock {
+            margin-bottom: 26px;
+            display: none;
+        }
+            .navGroup .popoverBlockActive {
+                display: block;
+            }
+        .navGroup .popover-title-custom {
+            padding: 8px 14px;
+            margin: 0px -14px 0px; /* reverse the parent's wrapping */
+            font-size: 14px;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 5px 5px 0 0;
+        }
+        .navGroup .popover-title-custom-first {
+            margin-top: -8px!important; /* reverse the parent's wrapping */
+        }
+
+        /* login */
+        .popoverFormBlock button, .popoverBlock button {
+            width: 100%;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        .popoverInput {
+            margin-top: 5px;
+        }
+        .loginOrContainer {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .loginLine {
+            position: absolute;
+            height: 50%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            border-bottom: 1px solid #ccc;
+        }
+        .loginOr {
+            margin: auto;
+            background-color: #fff;
+            display: inline-block;
+            position: relative;
+            padding: 5px;
+        }
+
+        #loginFB {
+            background-color: #3B5998;
+        }
+        #loginFB:hover {
+            background-color: #5e76a6;
         }
 
 
@@ -485,4 +557,7 @@ a.smIcons {
             padding-top: 10px;
         }
 
-
+    /* Make sure the select tag is hidden */
+    select.selectpicker.bs-select-hidden {
+    display: none !important;
+    }
