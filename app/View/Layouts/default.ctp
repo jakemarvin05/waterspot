@@ -20,7 +20,7 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <meta property="og:type" content="website">
 
 <!-- Bootstrap: JS is at the bottom -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
 
 <!-- Other Library style sheets -->
@@ -35,14 +35,14 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <link rel="stylesheet" href="/css/index.css">
 
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/jquery-1.11.1/jquery.min.js"></script>
 
 <!-- Page specific scripts required for early rendering -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/js/bootstrap-select.min.js"></script>
+<script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script src="/js/page-specifics/index.js"></script>
 
+
 <?=$this->Html->css($css_for_layout); ?>
-<?=$this->Html->script('jquery-1.10.2.min.js'); ?>
 <?=$this->Html->script($script_for_layout); ?>
 <? foreach($scriptBlocks as $scriptBlock){
 	echo $this->Html->scriptBlock($scriptBlock);
@@ -69,11 +69,10 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	<link rel="stylesheet" type="text/css" href="css/ie.css" />
 <![endif]-->
 
-    <!-- FaceBook Opengraph -->
-    <meta property="og:image" content="">
-    <meta property="og:site_name" content="Waterspot">
-    <meta property="og:type" content="website">
 
+
+<!-- TEMPORARY DISABLE VIDEO -->
+<style> video { display: none!important;} #splashVideoCropper img {display: block!important; }</style>
 </head>
 
 <? // condition for Activity cart
@@ -100,83 +99,83 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
     </section>
 
 	<?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){?>
-	<section id="splashVideoCont">
-                <div id="splashVideoCropper">
-                    <video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
-                      <source src="/media/watersports.mp4" type="video/mp4">
-                      <img src="/img/splash-statics/slide1.jpg">
-                    </video>
-                    <img src="/img/splash-statics/slide1.jpg">
-                </div>
-                <div id="videoOverlayWrapper">
-                    <div id="searchOuterWrapper">
-                        <div id="searchWrapper">
-                            <div id="searchContainer">
-                                <div id="searchBackground"></div>
+	 <section id="splashVideoCont">
+            <div id="splashVideoCropper">
+                <video autoplay loop muted poster="img/splash-statics/slide1.jpg">
+                  <source src="media/watersports.mp4" type="video/mp4">
+                  <img src="img/splash-statics/slide1.jpg">
+                </video>
+                <img src="img/splash-statics/slide1.jpg">
+            </div>
+            <div id="videoOverlayWrapper">
+                <div id="searchOuterWrapper">
+                    <div id="searchWrapper">
+                        <div id="searchContainer">
+                            <div id="searchBackground"></div>
 
-                                <div class="searchInline" id="activityListWrap">
-                                    <select class="selectpicker" multiple title="What activity are you game for?" data-selected-text-format="count>2">
-                                        <option>Wakesurfing</option>
-                                        <option>Kayaking</option>
-                                        <option>Sailing</option>
-                                        <option>Windsurfing</option>
-                                        <option>Kitesurfing</option>
-                                        <option>Stand Up Paddle</option>
-                                        <option>Diving</option>
-                                        <option>Wakeboarding</option>
-                                        <option>Fishing</option>
-                                        <option>Berth Side Party</option>
-                                        <option>Chartering</option>
-                                    </select>
+                            <div class="searchInline" id="activityListWrap">
+                                <select class="selectpicker" multiple title="What activity are you game for?" data-selected-text-format="count>2">
+                                    <option>Wakesurfing</option>
+                                    <option>Kayaking</option>
+                                    <option>Sailing</option>
+                                    <option>Windsurfing</option>
+                                    <option>Kitesurfing</option>
+                                    <option>Stand Up Paddle</option>
+                                    <option>Diving</option>
+                                    <option>Wakeboarding</option>
+                                    <option>Fishing</option>
+                                    <option>Berth Side Party</option>
+                                    <option>Chartering</option>
+                                </select>
 
 
-                                    <script>
-                                    // init the selectpicker
-                                    $('.selectpicker').selectpicker();
+                                <script>
+                                // init the selectpicker
+                                $('.selectpicker').selectpicker();
 
-                                    // bind selection to toggling of text colors on the select
-                                    // so that the placeholder color is maintained
-                                    $(function() {
-                                        var $filterOption = $('#activityListWrap .filter-option');
-                                        var selectPlaceholder = $('#activityListWrap select').attr('title');
+                                // bind selection to toggling of text colors on the select
+                                // so that the placeholder color is maintained
+                                $(function() {
+                                    var $filterOption = $('#activityListWrap .filter-option');
+                                    var selectPlaceholder = $('#activityListWrap select').attr('title');
 
-                                        $('ul.dropdown-menu>li>a').on('click', function() {
-                                            setTimeout(function() {
-                                                if ($filterOption.html() === selectPlaceholder) $filterOption.css('color', '#ccc');
-                                                else $filterOption.css('color', '#606060');
-                                            },0);
-                                        });
-
+                                    $('ul.dropdown-menu>li>a').on('click', function() {
+                                        setTimeout(function() {
+                                            if ($filterOption.html() === selectPlaceholder) $filterOption.css('color', '#ccc');
+                                            else $filterOption.css('color', '#606060');
+                                        },0);
                                     });
-                                    </script>
 
-                                </div>
+                                });
+                                </script>
 
-                                <div class="searchInline">
-                                    <input id="searchDate" type='text' class="form-control" placeholder="On which date?">
+                            </div>
 
-                                    <script>
-                                      /*  $(function () {
-                                            $('#searchDate').datetimepicker({
-                                                format: 'DD-MMM-YYYY'
-                                            }).on('dp.hide', function() {
-                                                $(this).blur();
-                                            }).on('keydown', function(e) {
-                                                e.preventDefault();
-                                            });
-                                        }); */
-                                    </script>
+                            <div class="searchInline">
+                                <input id="searchDate" type='text' class="form-control" placeholder="On which date?">
 
-                                </div>
+                                <script>
+                                    $(function () {
+                                        $('#searchDate').datetimepicker({
+                                            format: 'DD-MMM-YYYY'
+                                        }).on('dp.hide', function() {
+                                            $(this).blur();
+                                        }).on('keydown', function(e) {
+                                            e.preventDefault();
+                                        });
+                                    });
+                                </script>
 
-                                <div class="searchInline">
-                                    <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="button">START YOUR ADVENTURE</button>
-                                </div>
+                            </div>
+
+                            <div class="searchInline">
+                                <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="button">START YOUR ADVENTURE</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
 	<?php } ?>
 
@@ -203,8 +202,8 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
         </script>
 
         <!-- Javascripts -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+        <script src="/js/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/js/moment/min/moment.min.js"></script>
         <script src="/js/velocity/velocity.min.js"></script>
         <script src="/js/velocity/velocity.ui.min.js"></script>
         <script src="/js/lib.js"></script>

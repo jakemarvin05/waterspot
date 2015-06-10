@@ -59,6 +59,11 @@
     margin: auto;
     display: inline-block; /* to make its content fill its width */
 }
+    /* bootstrap form-control border override */
+    #searchContainer .form-control {
+        border: 1px solid #ff9700;
+        border-radius: 0px;
+    }
 
 @media (min-width: 768px) {
     #searchContainer {
