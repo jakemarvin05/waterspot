@@ -70,11 +70,6 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 <![endif]-->
 
 
-
-<!-- TEMPORARY DISABLE VIDEO -->
-<style> video { display: none!important;} #splashVideoCropper img {display: block!important; }</style>
-</head>
-
 <? // condition for Activity cart
 	$css='';
 	$display_block='none';
