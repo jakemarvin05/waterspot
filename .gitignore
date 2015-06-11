@@ -1,3 +1,5 @@
+.DS_Store
+.idea/
 /app/webroot/img/*
 /app/tmp/*
 /vendors/*
