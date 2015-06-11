@@ -11,9 +11,6 @@
   function statusChangeCallback(response) {
     if (response.status === 'connected') {
     	FB.api('/me', function(response) {
-    		if (getCookie('fb_remember') != 'true') {
-    			return;
-    		}
     		//alert(JSON.stringify(response));
     		email = response.email;
     		first_name = response.first_name;
@@ -52,9 +49,9 @@
     version    : 'v2.2' // use version 2.2
   });
   // auto check if the user is logged in.
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
 
   };
   // Load the SDK asynchronously
