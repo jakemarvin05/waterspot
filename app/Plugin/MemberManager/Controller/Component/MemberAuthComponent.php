@@ -151,5 +151,15 @@ class MemberAuthComponent extends Component{
 	public function removeMemberSession(){
 		$this->Session->delete(self::$sessionKey);
 	}
+
+	public function login_facebook()
+	{
+		$model_name = self::_ext_model($this->model_use);
+		$Model = ClassRegistry::init($this->model_use);
+		$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['fb_id']);
+		$results = $Model->find('first',$criteria);
+		$this->updateMemberSession($results[$model_name]);
+		$this->controller->redirect('/');
+	}
 }
 ?>

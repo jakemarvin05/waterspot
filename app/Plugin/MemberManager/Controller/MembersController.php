@@ -564,20 +564,20 @@ class MembersController extends MemberManagerAppController{
 		$phone = $_POST['phone'];
 		$criteria['conditions'] = array('Member.fb_id'=>$fb_id);
 		$member_details =  $this->Member->find('first', $criteria);
-		$this->request->data['Member']['password'] = $fb_id;
+		//$this->request->data['Member']['password'] = $fb_id;
 		$this->request->data['Member']['email_id'] = $email;
 		//print_r($this->request->data);die();
 		if (!$member_details){
-			//set password as the fb id
-			$this->request->data['password'] = $fb_id;
-			$this->request->data['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['password']);
-			$this->request->data['created_at']=date('Y-m-d H:i:s');
-			$this->request->data['active']='1';
+			$this->request->data['Member']['fb_id']      = $fb_id;
+			$this->request->data['Member']['first_name'] = $first_name;
+			$this->request->data['Member']['last_name']  = $last_name;
+			$this->request->data['Member']['created_at'] = date('Y-m-d H:i:s');
+			$this->request->data['Member']['active']     = '1';
 			
-			$this->Member->save($this->request->data);print_r($this->request->data);die();
+			$this->Member->save($this->request->data);
 
 		}
-		$this->MemberAuth->login();
+		$this->MemberAuth->login_facebook();
 	}
 }
 ?>
