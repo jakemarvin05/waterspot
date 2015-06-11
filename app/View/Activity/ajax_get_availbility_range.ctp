@@ -1,6 +1,7 @@
 <h3>Available slots on chosen dates</h3>
 
 <? if(!empty($service_slots)) {?>
+	<?php foreach($service_slots as $service_slots) { ?>
 		<div class="dt">
 			<div class="dates"><?=$service_slots['start_date']; ?></div>
 				<? if(!empty($service_slots['slotindex'] ))	{
@@ -20,6 +21,7 @@
 
 			<div class="clear"></div>
 		</div>
+		<?php } ?>
 		<span id="ActivitySlots" style="width:100%;"></span>
 	<?  
 }
@@ -28,4 +30,12 @@ else{ 	?>
 
 	<?=$this->Form->hidden('Activity.slots.',array('value'=>'','type'=>'checkbox','class'=>'check-box','label'=>false,'div'=>false));?>	
 	<div class="check"> There are no slots </div>
+	<?php if ($recommended_dates) { ?>
+		<h5>Recommended Dates:</h5>
+		<ul>
+		<?php foreach($recommended_dates as $date) {
+			echo "<li>$date</li>";
+		} ?>
+		</ul>
+	<?php } ?>
 <? }?>

@@ -553,5 +553,31 @@ class MembersController extends MemberManagerAppController{
 			}
 		}
 	}
+
+	public function fb_login()
+	{
+		$criteria = array();
+		$fb_id = $_POST['fb_id'];
+		$first_name = $_POST['first_name'];
+		$last_name = $_POST['last_name'];
+		$email = $_POST['email_id'];
+		$phone = $_POST['phone'];
+		$criteria['conditions'] = array('Member.fb_id'=>$fb_id);
+		$member_details =  $this->Member->find('first', $criteria);
+		//$this->request->data['Member']['password'] = $fb_id;
+		$this->request->data['Member']['email_id'] = $email;
+		//print_r($this->request->data);die();
+		if (!$member_details){
+			$this->request->data['Member']['fb_id']      = $fb_id;
+			$this->request->data['Member']['first_name'] = $first_name;
+			$this->request->data['Member']['last_name']  = $last_name;
+			$this->request->data['Member']['created_at'] = date('Y-m-d H:i:s');
+			$this->request->data['Member']['active']     = '1';
+			
+			$this->Member->save($this->request->data);
+
+		}
+		$this->MemberAuth->login_facebook();
+	}
 }
 ?>

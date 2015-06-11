@@ -1,4 +1,5 @@
-.DS_Store
-app/tmp/
-.idea/
-lib/Cake/*
+/app/webroot/img/*
+/app/tmp/*
+/vendors/*
+/lib/*
+/plugin/*

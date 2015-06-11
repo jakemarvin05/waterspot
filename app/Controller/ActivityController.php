@@ -183,6 +183,7 @@ Class ActivityController extends AppController{
 		$this->layout='';
 		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
+
 		if(!empty($_POST)) {
 			$_POST['start_date'] = date("Y-m-d",strtotime($_POST['start_date']));
 			if(!empty($_POST['end_date'])){
@@ -197,12 +198,16 @@ Class ActivityController extends AppController{
 			$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 			$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
 			if($days>0){
-				$this->render=false;
-				die; 
+				//$this->render=false;
+				//die; 
 			}
-			//$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST); 
+			$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
+			if (empty($new_service_slots)) {
+				$recommended_dates = $this->VendorServiceAvailability->getRecomendedDates($_POST);
+				$this->set('recommended_dates',$recommended_dates);
+			}
 			$this->set('service_slots',$new_service_slots);
-		 }
+		}
 	}
 		
 	function add_to_card(){
