@@ -85,8 +85,6 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
     }
     return "";
 	}
-
-    
 </script>
 </head>
 
@@ -109,7 +107,6 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	 
 
 <body class="<?=$css?>">
-
   <section id="navWrapper">
         <?=$this->element('header');?>
     </section>

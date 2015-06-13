@@ -18,7 +18,7 @@
 		    <label>First Name : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-			<?=$this->Form->text('first_name',array('required'=>false)); ?>
+			<?=$this->Form->text('first_name',array('value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -27,7 +27,7 @@
 		    <label>Last Name : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-			<?=$this->Form->text('last_name',array('required'=>false)); ?>
+			<?=$this->Form->text('last_name',array('value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -36,7 +36,7 @@
 		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->text('email_id',array('required'=>false)); ?>
+		    <?=$this->Form->text('email_id',array('value'=>(isset($_POST['email_id'])) ? $_POST['email_id'] : '', 'required'=>true)); ?>
 		    <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -45,7 +45,7 @@
 		    <label>Phone : <span style="color:#ff4142;"> *</span></label>  
 		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->text('phone',array('required'=>false)); ?>
+		    <?=$this->Form->text('phone',array('value'=>(isset($_POST['phone'])) ? $_POST['phone'] : '', 'required'=>false)); ?>
 		    <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -54,7 +54,7 @@
 		    <label>Password : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('password',array('required'=>false)); ?>
+		    <?=$this->Form->password('password',array('required'=>true)); ?>
 		    <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -63,13 +63,14 @@
 		    <label>Confirm Password : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('confirm_password',array('required'=>false)); ?>
+		    <?=$this->Form->password('confirm_password',array('required'=>true)); ?>
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
             <div class="registration-form-row" style="text-align: right;">
 		<input class="submit-button" value="Register Now" type="submit">
             </div>
+    <?=$this->Form->hidden('fb_id',array('value'=>(isset($_POST['fb_id'])) ? $_POST['fb_id'] : '', 'required'=>false)); ?>
 	<?php echo $this->Form->end();?>
     </div>
     

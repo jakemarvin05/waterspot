@@ -36,7 +36,6 @@
   }
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
-    	setCookie('fb_remember', 'true', 30);//expires in 30 days
       statusChangeCallback(response);
     });
   }

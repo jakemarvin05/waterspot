@@ -8,6 +8,9 @@ class MembersController extends MemberManagerAppController{
 	
 	function registration($email=null) {
 		$member_id = $this->MemberAuth->id();
+		if(isset($_POST['facebook_login'])) {
+			return;
+		}
 		if($member_id) {
 			$this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>'member_manager'));
 		} 
@@ -368,38 +371,40 @@ class MembersController extends MemberManagerAppController{
 		}
 	}
 	
-	function validation($action=null) {	
-		 if($this->request->data['Member']['form-name']=='LoginForm'){
-			$this->Member->setValidation('Login');
-		}else if($this->request->data['Member']['form-name']=='change_email'){
-			$this->Member->setValidation('change_email');
-		}else if($this->request->data['Member']['form-name']=='RegistrationForm'){
-			//$this->request->data['Member']['id'] = $this->MemberAuth->id;
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='EditProfileForm'){
-			//$this->request->data['Member']['id'] = $this->MemberAuth->id;
-			unset($this->request->data['Member']['email_id']);
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='Admin-member-registration'){			
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='Change-Password'){
-			$this->Member->setValidation('Changepassword');
-		}
-		else if($this->request->data['Member']['form-name']=='ForgotForm'){
-			$this->Member->setValidation('Forgot');
-		}
-		else if($this->request->data['Member']['form-name']=='PasswordUrlForm'){	
-			$this->Member->setValidation('PasswordUrl');
-		} 
-		$this->Member->set($this->request->data);
-		$result = array();
-		if ($this->Member->validates()) {
-			$result['error'] = 0;
-		}else{
-			$result['error'] = 1;
+	function validation($action=null) {
+		if (!isset($_POST['facebook_login'])) {
+			if($this->request->data['Member']['form-name']=='LoginForm'){
+				$this->Member->setValidation('Login');
+			}else if($this->request->data['Member']['form-name']=='change_email'){
+				$this->Member->setValidation('change_email');
+			}else if($this->request->data['Member']['form-name']=='RegistrationForm'){
+				//$this->request->data['Member']['id'] = $this->MemberAuth->id;
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='EditProfileForm'){
+				//$this->request->data['Member']['id'] = $this->MemberAuth->id;
+				unset($this->request->data['Member']['email_id']);
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='Admin-member-registration'){			
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='Change-Password'){
+				$this->Member->setValidation('Changepassword');
+			}
+			else if($this->request->data['Member']['form-name']=='ForgotForm'){
+				$this->Member->setValidation('Forgot');
+			}
+			else if($this->request->data['Member']['form-name']=='PasswordUrlForm'){	
+				$this->Member->setValidation('PasswordUrl');
+			} 
+			$this->Member->set($this->request->data);
+			$result = array();
+			if ($this->Member->validates()) {
+				$result['error'] = 0;
+			}else{
+				$result['error'] = 1;
+			}
 		}
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
