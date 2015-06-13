@@ -83,9 +83,12 @@
                  </div>
              </div>
             <div class="navGroup">
-             <div class="navButtonOuter" data-toggle="popover" data-placement="bottom">
-                 <i class="fa fa-user"></i><span class="navTextLabel">LOGIN/SIGNUP</span>
-             </div>
+            <?php if($this->LoginMenu->isLogin()){ echo $this->LoginMenu->show(); ?>
+                <?php } else { ?>
+                    <div class="navButtonOuter" data-toggle="popover" data-placement="bottom">
+                        <i class="fa fa-user"></i><span class="navTextLabel">LOGIN/SIGNUP</span>
+                    </div>
+            <?php  } ?>
              <script>
              $(function () {
           
