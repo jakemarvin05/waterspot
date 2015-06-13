@@ -9,6 +9,11 @@ class MembersController extends MemberManagerAppController{
 	function registration($email=null) {
 		$member_id = $this->MemberAuth->id();
 		if(isset($_POST['facebook_login'])) {
+			$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['Member']['fb_id']);
+			$member_details =  $this->Member->find('first', $criteria);
+			if ($member_details){
+				$this->MemberAuth->login_facebook();
+			}
 			return;
 		}
 		if($member_id) {
@@ -580,7 +585,6 @@ class MembersController extends MemberManagerAppController{
 			$this->request->data['Member']['active']     = '1';
 			
 			$this->Member->save($this->request->data);
-
 		}
 		$this->MemberAuth->login_facebook();
 	}
