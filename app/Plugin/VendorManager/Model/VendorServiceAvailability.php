@@ -228,10 +228,55 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		$service_id = $options['service_id'];
 		$selected_date = strtotime($options['start_date']);
 		
-		$slots = $this->getAllDates($options)[0];
-		
-		$start_date = strtotime($slots['VendorServiceAvailability']['start_date']);
-		$end_date = strtotime($slots['VendorServiceAvailability']['end_date']);
+		$ahead_days = $this->find('all', array(
+			'VendorServiceAvailability.service_id'     =>$options['service_id'],
+			'VendorServiceAvailability.unavailable'    =>0,
+			'? < VendorServiceAvailability.start_date' => array($options['start_date']
+		)))[0];
+		$late_days = $this->find('all', array(
+			'VendorServiceAvailability.service_id'     =>$options['service_id'],
+			'VendorServiceAvailability.unavailable'    =>0,
+			'? > VendorServiceAvailability.end_date' => array($options['start_date']
+		)))[0];
+
+		$start_date = strtotime($ahead_days['VendorServiceAvailability']['start_date']);
+		$end_date = strtotime($ahead_days['VendorServiceAvailability']['end_date']);
+		$dates = array();
+		$one_day = 86400;
+		$date = $start_date;
+		while ($date != $end_date) {
+			$dates[] = date('d M Y', $date);
+			$date += $one_day;
+		}
+		$date_count = count($dates);
+
+		$recommended = array();
+		$c = 0;
+		$i = 0;
+		if ($start_date > $selected_date) {
+			while ($i < 3 && $c < $date_count) {
+				if ($this->getDateAvailablity($dates[$c])) {
+					$recommended[] = $dates[$c];
+					$i++;
+				}
+				$c++;
+			}
+		} else if ($selected_date > $end_date) {
+			$c = $date_count-1;
+			while ($i < 3 && $c > 0) {
+				if ($this->getDateAvailablity($dates[$c])) {
+					$recommended[] = $dates[$c];
+					$i++;
+				}
+				$c--;
+			}
+		} else {
+			return false;
+		}
+
+
+		$start_date = strtotime($late_days['VendorServiceAvailability']['start_date']);
+		$end_date = strtotime($late_days['VendorServiceAvailability']['end_date']);
 		$dates = array();
 		$one_day = 86400;
 		$date = $start_date;
@@ -268,7 +313,7 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		return $recommended;
 	}
 
-	public function getDateAvailablity($date) {
+	public function getDateAvailablity($service_id, $date) {
 		return true;
 	}
 
