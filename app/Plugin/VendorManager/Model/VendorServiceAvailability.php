@@ -221,9 +221,20 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		return $this->find('all', $criteria); 
 	}
 
-
 	// function gets recommended slots
 	// by po
+	public function isDateAvailable($service_id, $date)
+	{
+		return $this->find('all', array(
+			'conditions' => array(
+				'VendorServiceAvailability.service_id'=>$service_id,
+				'VendorServiceAvailability.unavailable'=>0, // 0 for available
+				'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$date]
+				)
+			)
+		);
+	}
+
 	public function getRecomendedDates($options = array()) {
 		$service_id = $options['service_id'];
 		$selected_date = strtotime($options['start_date']);
