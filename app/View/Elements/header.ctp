@@ -4,18 +4,18 @@
         </div>
         <nav>
           <div class="navGroup">
-                 <div class="navButtonOuter navActive">
-                    <i class="fa fa-home"></i><span class="navTextLabel">HOME</span>
+                 <div class="navButtonOuter <?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){ echo "navActive"; }?>">
+                     <a href="/"><i class="fa fa-home"></i><span class="navTextLabel">HOME</span></a>
                  </div>
             </div>
           <div class="navGroup">
-               <div class="navButtonOuter">
-                    <i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span>
+               <div class="navButtonOuter <?php echo (!empty($this->params['action']) && ($this->params['action']=='vendor/vendor_list') )?'navActive' :'' ?>">
+                   <a href="/vendor/vendor_list">  <i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
                 </div>
            </div>
           <div class="navGroup">
-                 <div class="navButtonOuter">
-                    <i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span>
+                 <div class="navButtonOuter <?php echo (!empty($this->params['action']) && ($this->params['action']=='activities') )?'navActive' :'' ?>">
+                     <a href="/activities"><i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span></a>
                  </div>
              </div>
             <div class="navGroup">

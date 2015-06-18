@@ -561,3 +561,23 @@ a.smIcons {
     select.selectpicker.bs-select-hidden {
     display: none !important;
     }
+
+
+
+section#navWrapper.stickyCollapsed div.navButtonOuter a{
+    color: rgb(96, 96, 96);
+}
+section#navWrapper.stickyCollapsed div.navButtonOuter.navActive a{
+    color: #ff9700;
+}
+section#navWrapper.stickyCollapsed div.navButtonOuter a:hover{
+    color: #ff9700;
+}
+
+
+section#navWrapper div.navButtonOuter a{
+    color: #fff;
+}
+section#navWrapper div.navButtonOuter a:hover{
+    color: #fff;
+}
