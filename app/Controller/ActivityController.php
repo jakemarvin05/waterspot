@@ -197,7 +197,7 @@ Class ActivityController extends AppController{
 				eval('$slots = ' . $service['slots'] . ';');
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
-				if (!empty($new_service_slots) || false) {
+				if (!empty($new_service_slots)) {
 					$this->set('service_slots',$new_service_slots);
 				} else {
 					$dates = [];
@@ -244,11 +244,10 @@ Class ActivityController extends AppController{
 						}
 					}
 
-					print_r($recommended);
+					$this->set('recommended_dates',$recommended);
 				}
 			}
 		}
-		die('end');
 	}
 		
 	function add_to_card(){
