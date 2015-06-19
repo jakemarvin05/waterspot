@@ -84,7 +84,7 @@ Class ActivityController extends AppController{
 		stLight.options({publisher: "5d0165c7-537f-40b4-8ecd-7ef5d49cceb2"});' ;
 		$service_detail = array();
 		$service_detail=$this->Service->servieDetailByService_id($service_id);
-		
+
 		// get vendor service details
 		
 		if(!empty($service_detail)){
@@ -435,7 +435,7 @@ Class ActivityController extends AppController{
                 'name'=>'Home'
             );
             $this->breadcrumbs[] = array(
-                'url'=>Router::url(array('contorller'=>'activity','action'=>'index')),
+                'url'=>Router::url(array('controller'=>'activity','action'=>'index')),
                 'name'=>"Activities"
             );
         $this->set('sort_by_price',$sort_by_price);
