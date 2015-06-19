@@ -430,7 +430,7 @@ Class ActivityController extends AppController{
                 'name'=>'Home'
             );
             $this->breadcrumbs[] = array(
-                'url'=>Router::url(array('contorller'=>'activity','action'=>'index')),
+                'url'=>Router::url(array('controller'=>'activity','action'=>'index')),
                 'name'=>"Activities"
             );
         $this->set('sort_by_price',$sort_by_price);
