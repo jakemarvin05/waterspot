@@ -68,7 +68,7 @@
         </div>
         <nav>
           <div class="navGroup">
-                 <div class="navButtonOuter navActive">
+                 <div class="navButtonOuter <?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){ echo "navActive";}?>">
                     <i class="fa fa-home"></i><span class="navTextLabel">HOME</span>
                  </div>
             </div>
@@ -78,7 +78,7 @@
                 </div>
            </div>
           <div class="navGroup">
-                 <div class="navButtonOuter">
+                 <div class="navButtonOuter <?php if($this->params['controller']=="activity" && $this->params['action']=="index" ){ echo "navActive"; }?>">
                     <i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span>
                  </div>
              </div>
