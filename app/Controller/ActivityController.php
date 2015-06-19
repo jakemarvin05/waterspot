@@ -84,7 +84,7 @@ Class ActivityController extends AppController{
 		stLight.options({publisher: "5d0165c7-537f-40b4-8ecd-7ef5d49cceb2"});' ;
 		$service_detail = array();
 		$service_detail=$this->Service->servieDetailByService_id($service_id);
-		
+
 		// get vendor service details
 		
 		if(!empty($service_detail)){

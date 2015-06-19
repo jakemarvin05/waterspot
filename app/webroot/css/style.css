@@ -638,3 +638,93 @@ div.spacer{
     border-bottom: 1px solid #cccccc;
     box-shadow: 0px 2px 0px #fff;
 }
+
+/* Activity Page - Right Sidebar */
+.activity-price-info {
+    background-color: #feab32;
+    color: #fff;
+    position: relative;
+    width: 60%;
+    padding: 23px 22px 13px;
+    height: 50px;
+    top: -50px;
+    z-index: 99;
+    left: -15px;
+}
+
+.activity-price-info .unit {
+    font-family: "Crete Round";
+    float: right;
+}
+section.right-section {
+    border: 1px solid #d0d0d0;
+    border-top: 2px solid #FEAB32;
+    background-color: #fff;
+}
+section.right-section .blocks {
+    top: -20px;
+    position: relative;
+    color: #606060;
+    font-size: 14pt;
+}
+.completion {
+    position: relative;
+    width: 200px;
+    height: 29px;
+    background-color: #ddd;
+    margin-bottom: 20px;
+    float: left;
+    margin-right: 15px;
+}
+
+.progressbar {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    background-color: rgb(254, 171, 50);
+}
+
+.rating {
+    position: relative;
+    background-image: url('../img/rating.png');
+    height: 41px;
+    width: 169px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: -130px 10px;
+}
+div#rating h4 {
+    float: left;
+    width: 82px;
+}
+
+p.info {
+    padding: 20px 0px 20px 31px;
+    background: url('../img/infoicon.png') no-repeat left center;
+}
+.progressinfo {
+    font-family: "Lato";
+    font-weight: bold;
+    color: #FEAB32;
+    display: block;
+    float: left;
+    width: 127px;
+    height: 25px;
+    margin-top: 7px;
+}
+
+.progressinfo .current {
+    color: #606060;
+}
+
+section.right-section h4{
+    text-transform: uppercase;
+}
+input#loginButton {
+    background-color: #ff9700;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 17px;
+    margin-top: 20px;
+}
