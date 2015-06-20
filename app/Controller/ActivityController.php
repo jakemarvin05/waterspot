@@ -45,21 +45,22 @@ Class ActivityController extends AppController{
 			 get_service_availability();
 			});
 		$(function() {
-			$( "#ActivityStartDate" ).datepicker({
-			dateFormat: "'.Configure::read('Calender_format').'",
+		$( "#startdatepicker" ).datepicker({
+		dateFormat: "'.Configure::read('Calender_format').'",
 			minDate: 0,
-			changeMonth: true,
 			onSelect:function(selectedDate){
+			$( "#ActivityStartDate" ).val(selectedDate);
 			$( "#ActivityEndDate" ).datepicker( "option", "minDate", selectedDate );
-			 $(this).change();
-		  }
-		});
-		$( "#ActivityEndDate" ).datepicker({
+			$(this).change();
+			 }
+		}
+		);
+		$( "#enddatepicker" ).datepicker({
 			dateFormat: "'.Configure::read('Calender_format').'",
 			minDate: 0,
-			changeMonth: true,
 			onSelect:function(selectedDate){
-			$( "#ActivityStartDate" ).datepicker( "option", "maxDate", selectedDate );
+			$( "#ActivityEndDate" ).val(selectedDate);
+			$( "#startdatepicker" ).datepicker( "option", "maxDate", selectedDate );
 			$(this).change();
 		  }
 		});	

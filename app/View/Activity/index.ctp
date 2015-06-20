@@ -53,11 +53,12 @@
 						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
 						<br>
 						<div class="start-date">
-							<h4>2. Start Date</h4><br /><?=$this->Form->text('start_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
+							<h4>2. Start Date</h4><br /><?=$this->Form->text('start_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="startdatepicker"></div>
 						<br>
-						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="enddatepicker"></div>
 						<div class="clear"></div>
-
 						<div class="clear"></div>
 						<div id='loader_slots' class="ajax-loder" style="display:none">
 							<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
