@@ -169,4 +169,13 @@ $config['HTTP_PATH']=HTTP_PROTOCOL."://".HTTP_HOST."/";
 define('HTTP_PATH',$config['HTTP_PATH']);
 * */
 
-
+/*----------------------------------------------------------
+ *Scheduled tasks
+ *
+ *cron scheduled task
+ * "0 * * * * cd /path/to/app && Console/cake Scheduler.Scheduler"
+ *----------------------------------------------------------*/
+Configure::write('SchedulerShell.jobs', array(
+    //'warning_email' => array('interval' => 'PT60M', 'task' => 'warning_email'), //every 60 minutes
+    'Test' => array('interval' => 'PT1M', 'task' => 'Test'),
+));
