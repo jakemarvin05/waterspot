@@ -11,3 +11,4 @@ lib/*
 plugin/*
 app/config/config.php
 app/config/database.php
+*.log
