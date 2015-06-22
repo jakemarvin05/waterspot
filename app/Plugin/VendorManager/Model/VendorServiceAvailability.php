@@ -144,7 +144,7 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 	}		
 	function getSlotByServiceID($options = array()){
 		$start_date=date('Y-m-d',strtotime($options['start_date']));
-		$end_date=date('Y-m-d',strtotime($options['end_date']));
+		$end_date=$start_date;//simulates 1 day
 		$criteria=array();
 		$available_slots=array();
 		$filtre_slots=array();
@@ -152,18 +152,11 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		$criteria['conditions'] = array(
 			'VendorServiceAvailability.service_id'=>$options['service_id'],
 			'VendorServiceAvailability.unavailable'=>0, // 0 for available
-			'Or'=>array(
-				array('VendorServiceAvailability.p_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				//array('VendorServiceAvailability.start_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				//array('VendorServiceAvailability.end_date BETWEEN ? AND ? '=>array($options['start_date'] ,$options['end_date'])),
-				array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['start_date'])),
-				//array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['end_date'])),
-				),
-			 
+			'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$start_date]
 			);
 		//find all slots between start and end date
 		$available_slots = $this->find('all', $criteria); 
-		
+
 		foreach($available_slots as $key=>$available_slot) {
 			
 			if(!empty($available_slot['VendorServiceAvailability']['start_date'])){
@@ -221,100 +214,18 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		return $this->find('all', $criteria); 
 	}
 
-
 	// function gets recommended slots
 	// by po
-	public function getRecomendedDates($options = array()) {
-		$service_id = $options['service_id'];
-		$selected_date = strtotime($options['start_date']);
-		
-		$ahead_days = $this->find('all', array(
-			'VendorServiceAvailability.service_id'     =>$options['service_id'],
-			'VendorServiceAvailability.unavailable'    =>0,
-			'? < VendorServiceAvailability.start_date' => array($options['start_date']
-		)))[0];
-		$late_days = $this->find('all', array(
-			'VendorServiceAvailability.service_id'     =>$options['service_id'],
-			'VendorServiceAvailability.unavailable'    =>0,
-			'? > VendorServiceAvailability.end_date' => array($options['start_date']
-		)))[0];
-
-		$start_date = strtotime($ahead_days['VendorServiceAvailability']['start_date']);
-		$end_date = strtotime($ahead_days['VendorServiceAvailability']['end_date']);
-		$dates = array();
-		$one_day = 86400;
-		$date = $start_date;
-		while ($date != $end_date) {
-			$dates[] = date('d M Y', $date);
-			$date += $one_day;
-		}
-		$date_count = count($dates);
-
-		$recommended = array();
-		$c = 0;
-		$i = 0;
-		if ($start_date > $selected_date) {
-			while ($i < 3 && $c < $date_count) {
-				if ($this->getDateAvailablity($dates[$c])) {
-					$recommended[] = $dates[$c];
-					$i++;
-				}
-				$c++;
-			}
-		} else if ($selected_date > $end_date) {
-			$c = $date_count-1;
-			while ($i < 3 && $c > 0) {
-				if ($this->getDateAvailablity($dates[$c])) {
-					$recommended[] = $dates[$c];
-					$i++;
-				}
-				$c--;
-			}
-		} else {
-			return false;
-		}
-
-
-		$start_date = strtotime($late_days['VendorServiceAvailability']['start_date']);
-		$end_date = strtotime($late_days['VendorServiceAvailability']['end_date']);
-		$dates = array();
-		$one_day = 86400;
-		$date = $start_date;
-		while ($date != $end_date) {
-			$dates[] = date('d M Y', $date);
-			$date += $one_day;
-		}
-		$date_count = count($dates);
-
-		$recommended = array();
-		$c = 0;
-		$i = 0;
-		if ($start_date > $selected_date) {
-			while ($i < 3 && $c < $date_count) {
-				if ($this->getDateAvailablity($dates[$c])) {
-					$recommended[] = $dates[$c];
-					$i++;
-				}
-				$c++;
-			}
-		} else if ($selected_date > $end_date) {
-			$c = $date_count-1;
-			while ($i < 3 && $c > 0) {
-				if ($this->getDateAvailablity($dates[$c])) {
-					$recommended[] = $dates[$c];
-					$i++;
-				}
-				$c--;
-			}
-		} else {
-			return false;
-		}
-
-		return $recommended;
-	}
-
-	public function getDateAvailablity($service_id, $date) {
-		return true;
+	public function isDateAvailable($service_id, $date)
+	{
+		return $this->find('all', array(
+			'conditions' => array(
+				'VendorServiceAvailability.service_id'=>$service_id,
+				'VendorServiceAvailability.unavailable'=>0, // 0 for available
+				'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$date]
+				)
+			)
+		);
 	}
 
 	public function getAllDates($options = array()){

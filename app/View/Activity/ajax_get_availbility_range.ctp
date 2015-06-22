@@ -30,7 +30,7 @@ else{ 	?>
 
 	<?=$this->Form->hidden('Activity.slots.',array('value'=>'','type'=>'checkbox','class'=>'check-box','label'=>false,'div'=>false));?>	
 	<div class="check"> There are no slots </div>
-	<?php if ($recommended_dates) { ?>
+	<?php if (isset($recommended_dates)) { ?>
 		<h5>Recommended Dates:</h5>
 		<ul>
 		<?php foreach($recommended_dates as $date) {
