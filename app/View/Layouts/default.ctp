@@ -40,7 +40,7 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <!-- Page specific scripts required for early rendering -->
 <script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script src="/js/page-specifics/index.js"></script>
-
+<script src="/js/jquery.sticky.js"></script>
 
 <?=$this->Html->css($css_for_layout); ?>
 <?=$this->Html->script($script_for_layout); ?>

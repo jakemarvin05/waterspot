@@ -1,4 +1,4 @@
-<div id="logoWrapper">
+<div id="logoWrapper" xmlns="http://www.w3.org/1999/html">
 <div id="fb-root"></div>
 <form id="fb_login" style="display:none;" action="/members/registration" method="post">
     <input type="hidden" name="first_name" id="fb_fname">
@@ -69,17 +69,17 @@
         <nav>
           <div class="navGroup">
                  <div class="navButtonOuter <?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){ echo "navActive";}?>">
-                    <i class="fa fa-home"></i><span class="navTextLabel">HOME</span>
+                    <a href="/"> <i class="fa fa-home"></i><span class="navTextLabel">HOME</span></a>
                  </div>
             </div>
           <div class="navGroup">
-               <div class="navButtonOuter">
-                    <i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span>
+               <div class="navButtonOuter <?php if($this->params['controller']=="vendor" ){ echo "navActive"; }?>">
+                    <a href="/vendor/list/"><i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
                 </div>
            </div>
           <div class="navGroup">
-                 <div class="navButtonOuter <?php if($this->params['controller']=="activity" && $this->params['action']=="index" ){ echo "navActive"; }?>">
-                    <i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span>
+                 <div class="navButtonOuter <?php if($this->params['controller']=="activity" ){ echo "navActive"; }?>">
+                   <a href="/activities/"><i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span></a>
                  </div>
              </div>
             <div class="navGroup">

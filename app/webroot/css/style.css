@@ -562,7 +562,9 @@ select.selectpicker.bs-select-hidden {
     display: none !important;
 }
 
-
+.container{
+    max-width: 1024px;
+}
 
 section#navWrapper.stickyCollapsed div.navButtonOuter a{
     color: rgb(96, 96, 96);
@@ -644,12 +646,14 @@ div.spacer{
     background-color: #feab32;
     color: #fff;
     position: relative;
-    width: 60%;
+    width: 71%;
     padding: 23px 22px 13px;
     height: 50px;
     top: -50px;
+    font-size: 12pt;
     z-index: 99;
     left: -15px;
+    min-width: 180px;
 }
 
 .activity-price-info .unit {
@@ -660,6 +664,9 @@ section.right-section {
     border: 1px solid #d0d0d0;
     border-top: 2px solid #FEAB32;
     background-color: #fff;
+    margin-left: 2%;
+    width: 31.33%;
+    max-width: 360px;
 }
 section.right-section .blocks {
     top: -20px;
@@ -701,6 +708,7 @@ div#rating h4 {
 p.info {
     padding: 20px 0px 20px 31px;
     background: url('../img/infoicon.png') no-repeat left center;
+    font-size: 11pt;
 }
 .progressinfo {
     font-family: "Lato";
@@ -719,6 +727,7 @@ p.info {
 
 section.right-section h4{
     text-transform: uppercase;
+    font-size: 12pt;
 }
 input#loginButton {
     background-color: #ff9700;
@@ -728,3 +737,51 @@ input#loginButton {
     padding: 17px;
     margin-top: 20px;
 }
+
+/* Restyle Date Picker */
+.ui-datepicker {
+    border-radius: 0px !important;;
+    border-color: #cccccc !important;
+    font-family: "Lato" !important;
+    font-size: 14pt !important;
+    width: 100% !important;
+    color: #595959 !important;
+    text-align: center!important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    border: none !important;
+    background: none !important;
+}
+
+.ui-widget-header .ui-datepicker-prev .ui-icon {
+    background-image: url("../img/arrow-left-fade.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: -5px;
+}
+.ui-widget-header .ui-datepicker-next .ui-icon {
+    background-image: url("../img/arrow-right-fade.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: -6px;
+}
+
+.ui-widget-content .ui-state-hover {
+    background: none!important;
+
+}
+.ui-widget-content .ui-state-default{
+    text-align: center;
+    background: none!important;
+    border: none!important;
+    padding: 8px 0px;
+    font-size: 12pt;
+}
+
+.ui-widget-content .ui-state-default.ui-state-active{
+    background: #f69431!important;
+    color: #fff!important;
+    border-radius: 5px;
+}
+
