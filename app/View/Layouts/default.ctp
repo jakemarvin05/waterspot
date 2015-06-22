@@ -123,22 +123,17 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
             <div id="videoOverlayWrapper">
                 <div id="searchOuterWrapper">
                     <div id="searchWrapper">
+                    <form method="get" action="/search/index">
                         <div id="searchContainer">
                             <div id="searchBackground"></div>
 
                             <div class="searchInline" id="activityListWrap">
-                                <select class="selectpicker" multiple title="What activity are you game for?" data-selected-text-format="count>2">
-                                    <option>Wakesurfing</option>
-                                    <option>Kayaking</option>
-                                    <option>Sailing</option>
-                                    <option>Windsurfing</option>
-                                    <option>Kitesurfing</option>
-                                    <option>Stand Up Paddle</option>
-                                    <option>Diving</option>
-                                    <option>Wakeboarding</option>
-                                    <option>Fishing</option>
-                                    <option>Berth Side Party</option>
-                                    <option>Chartering</option>
+                                <select name="activity" class="selectpicker" title="What activity are you game for?" data-selected-text-format="count>2">
+                                    <?php
+                                        foreach($service_type_list as $key => $name) {
+                                            echo "<option value='$key'>$name</option>";
+                                        }
+                                    ?>
                                 </select>
 
 
@@ -165,7 +160,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                             </div>
 
                             <div class="searchInline">
-                                <input id="searchDate" type='text' class="form-control" placeholder="On which date?">
+                                <input id="searchDate" name="date" type='text' class="form-control" placeholder="On which date?">
 
                                 <script>
                                     $(function () {
@@ -182,9 +177,10 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                             </div>
 
                             <div class="searchInline">
-                                <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="button">START YOUR ADVENTURE</button>
+                                <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="submit">START YOUR ADVENTURE</button>
                             </div>
                         </div>
+                    </form>
                     </div>
                 </div>
             </div>
