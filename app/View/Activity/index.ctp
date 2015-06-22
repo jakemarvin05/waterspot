@@ -24,7 +24,7 @@
 				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
 			</div>
 		</section>
-		<section id="stickysidebar" class="right-section col-sm-4">
+		<section id="stickysidebar" class="right-section col-sm-4 col-xs-12">
 				<aside class="cart-box">
 						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
 						<div id="rating" class="blocks">
@@ -55,12 +55,17 @@
 						<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
 						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
 						<br>
+						<div class="startDate">
 						<div class="start-date">
 							<h4>2. Start Date</h4><br /><?=$this->Form->text('start_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
 						<div id="startdatepicker"></div>
 						<br>
+						</div>
+
+						<div class="endDate">
 						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
 						<div id="enddatepicker"></div>
+						</div>
 						<div class="clear"></div>
 						<div class="clear"></div>
 						<div id='loader_slots' class="ajax-loder" style="display:none">
@@ -299,8 +304,15 @@ function get_service_availability()	{
         });
 
 		if($(window).width()>768) {
-			var rightOffset = $(window).width() - ($('#stickysidebar').offset().left + $('#stickysidebar').width())-30;
-			var sidebarWidth = $('#stickysidebar').width()+30;
+			var rightOffset = $(window).width() - ($('#stickysidebar').offset().left + $('#stickysidebar').width());
+			var sidebarWidth = $('#stickysidebar').width();
+			rightOffset = rightOffset - (rightOffset * .18);
+			if ($(window).width() < 800) {
+				rightOffset = rightOffset - (rightOffset * .205)
+			}
+
+
+			sidebarWidth = sidebarWidth + (sidebarWidth * .107);
 
 			$(window).scroll(function () {
 
@@ -312,7 +324,12 @@ function get_service_availability()	{
 				}
 
 			});
-			$("#stickysidebar").sticky({topSpacing: -170, bottomSpacing: 500});
+			if ($(window).width() < 800) {
+				$("#stickysidebar").sticky({topSpacing: -170, bottomSpacing: 600});
+			}
+			else {
+				$("#stickysidebar").sticky({topSpacing: -170, bottomSpacing: 500});
+			}
 		}
       
     });

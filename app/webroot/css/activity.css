@@ -49,6 +49,97 @@ div#splashVideoCropper {
     height: 540px;
 }
 
+
+@media (max-width: 900px) {
+    .ui-datepicker table {
+        font-size: 0.6em!important;
+    }
+    .fotorama__stage{
+        height: 300px!important;
+    }
+    .slider-holder {
+        height: 410px!important;
+    }
+    .whitebg {
+        height: 520px;
+    }
+}
+
 @media (max-width: 767px) {
+    .whitebg {
+        height: 480px!important;
+    }
+
+    section.right-section {
+        max-width: 767px;
+        width: 100%;
+
+
+        margin-top: 80px;
+    }
+    .startDate, .endDate {
+        width: 45%;
+        margin-right:5%;
+        float:left
+    }
+
+    input#loginButton {
+        width: 45%;
+        clear: both;
+        margin-top: 20px;
+        float: left;
+    }
+    .activity-price-info {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 320px) {
+    div#videoOverlayWrapper {
+        height: 300px!important;
+    }
+
+    section#splashVideoCont {
+        max-height: 210px!important;
+    }
+
+    .wrapper h2 {
+        text-align: center;
+    }
+
+    .slider-holder {
+        height: 287px !important;
+    }
+
+    .fotorama__stage {
+        height: 180px !important;
+    }
+
+    .whitebg {
+        height: 420px !important;
+    }
+
+    .fotorama__arr.fotorama__arr--next {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+
+    .fotorama__arr.fotorama__arr--prev {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+    section#splashVideoCont {
+        max-height: 210px;
+    }
+    .startDate, .endDate {
+        width: 100%;
+    }
+
+    input#loginButton {
+        width: 100%;
+    }
+
 
 }
