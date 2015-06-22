@@ -650,8 +650,10 @@ div.spacer{
     padding: 23px 22px 13px;
     height: 50px;
     top: -50px;
+    font-size: 12pt;
     z-index: 99;
     left: -15px;
+    min-width: 180px;
 }
 
 .activity-price-info .unit {
@@ -725,6 +727,7 @@ p.info {
 
 section.right-section h4{
     text-transform: uppercase;
+    font-size: 12pt;
 }
 input#loginButton {
     background-color: #ff9700;
