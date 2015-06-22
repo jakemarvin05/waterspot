@@ -768,9 +768,11 @@ input#loginButton {
 }
 
 .ui-widget-content .ui-state-hover {
-    background: none!important;
+    background: #ccc!important;
+    border:none!important;
 
 }
+
 .ui-widget-content .ui-state-default{
     text-align: center;
     background: none!important;
