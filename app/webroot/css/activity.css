@@ -44,9 +44,6 @@ div#splashVideoCropper {
     position: relative;
     top: -120px;
 }
-.map-holder.container-fluid {
-    padding: 0;
-}
 
 .slider-holder {
     height: 540px;
