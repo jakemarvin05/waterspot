@@ -51,3 +51,7 @@ div#splashVideoCropper {
 .slider-holder {
     height: 540px;
 }
+
+@media (max-width: 767px) {
+
+}

@@ -660,6 +660,9 @@ section.right-section {
     border: 1px solid #d0d0d0;
     border-top: 2px solid #FEAB32;
     background-color: #fff;
+    margin-left: 2%;
+    width: 31.33%;
+    max-width: 360px;
 }
 section.right-section .blocks {
     top: -20px;
@@ -727,4 +730,50 @@ input#loginButton {
     width: 100%;
     padding: 17px;
     margin-top: 20px;
+}
+
+/* Restyle Date Picker */
+.ui-datepicker {
+    border-radius: 0px !important;;
+    border-color: #cccccc !important;
+    font-family: "Lato" !important;
+    font-size: 16pt !important;
+    width: 100% !important;
+    color: #595959 !important;
+    text-align: center!important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    border: none !important;
+    background: none !important;
+}
+
+.ui-widget-header .ui-datepicker-prev .ui-icon {
+    background-image: url("../img/arrow-left-fade.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: -5px;
+}
+.ui-widget-header .ui-datepicker-next .ui-icon {
+    background-image: url("../img/arrow-right-fade.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin-left: -6px;
+}
+
+.ui-widget-content .ui-state-hover {
+    background: none!important;
+
+}
+.ui-widget-content .ui-state-default{
+    text-align: center;
+    background: none!important;
+    border: none!important;
+    padding: 16px 0px;
+}
+
+.ui-widget-content .ui-state-default.ui-state-active{
+    background: #f69431!important;
+    color: #fff!important;
+    border-radius: 5px;
 }
