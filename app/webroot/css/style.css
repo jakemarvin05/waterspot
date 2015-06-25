@@ -294,6 +294,13 @@ button:focus, button:active, input:focus, input:active {
     .navButtonOuter {
         padding: 2px 2px;
     }
+    .contenthover .short-desc {
+        display: none;
+    }
+
+    .contenthover .view-description {
+        margin: 29% auto;
+    }
 }
 .stickyCollapsed .navButtonOuter {
     text-shadow: 0px 0px 0px;
@@ -787,3 +794,194 @@ input#loginButton {
     border-radius: 5px;
 }
 
+
+.stickyCollapsedFix .navButtonOuter {
+    text-shadow: 0px 0px 0px!important;
+    color: rgb(96, 96, 96);
+}
+.stickyCollapsedFix .navActive, .stickyCollapsedFix .navButtonOuter:hover, .navButtonOuter:focus {
+    border-color: #ff9700!important;;
+    color: #ff9700!important;;
+}
+section#navWrapper.stickyCollapsedFix div.navButtonOuter a{
+    color: rgb(96, 96, 96)!important;;
+}
+section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
+    color: #ff9700!important;;
+}
+section#navWrapper.stickyCollapsedFix div.navButtonOuter a:hover{
+    color: #ff9700!important;;
+}
+section#navWrapper.stickyCollapsedFix {
+    background-color: #fff;
+    padding-top: 5px;
+}
+section#navWrapper.stickyCollapsedFix  img#whiteLogo{
+    opacity: 0!important;
+}
+section#navWrapper.stickyCollapsedFix img#coloredLogo {
+    opacity: 1!important;
+}
+.container-fluid.wrapper.activities-page {
+    margin-top: 50px;
+    background-color: #fff;
+}
+.filter select {
+    display: none;
+}
+.filter .btn {
+    border: 1px solid #ff9700;
+    border-radius: 0px;
+}
+.filter .btn:hover, .filter .open .btn {
+    background: #fff;
+    border: 1px solid #ff9700;
+}
+.btn-default, .btn-default:focus{
+    color:#ccc;
+    background: #fff;
+
+}
+
+.activities-page header{
+    text-align: center;
+}
+.activities-page .page-header {
+    background-color: #fff;
+    padding: 40px;
+    margin: 0;
+}
+.activities-page .page-header h1 {
+    text-align:center;
+    display:block;
+    width:100%;
+    margin: 30px auto;
+}
+.activities-listing {
+    padding-bottom: 15px;
+}
+.activities-listing .tile{
+    overflow: hidden;
+    background-color: #FFF;
+    border: solid 1px #EEE;
+    position: relative;
+}
+.activities-listing .tile img {
+    width: 100%;
+
+}
+.activities-page .row {
+    padding: 15px;
+}
+.activities-listing .tile .price {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.69);
+    padding: 14px;
+    font-family: "Lato";
+}
+
+.activities-listing .tile-info h4 {
+    font-weight: normal;
+    color: #696B6E;
+    font-size: 12pt;
+    float: left;
+}
+.activities-page .middle-area {
+    background-color: #F9F9F9;
+}
+.tile-info .rating {
+    background-image: url('../img/rating-small.png');
+    float: right;
+    width: 100px;
+    height: 20px;
+    background-position: -100px 0px;
+    margin: 14px 0px;
+}
+.tile-info .activity-rating-wrapper {
+    float: right;
+    width: 43%;
+}
+
+.tile-info .activity-rating-wrapper .rating-label {
+    margin-top: 12px;
+    display: block;
+    float: left;
+    font-size: 12pt;
+    color: #969696;
+}
+
+.contenthover .short-desc {
+    color: #fff;
+    font-weight: normal;
+    font-family: "Lato";
+    font-size: 11pt;
+    line-height: 20px;
+    display: block;
+    padding: 28px;
+}
+.contenthover .view-description{
+    display:block;
+    background-color: #F79E34;
+    color: #fff;
+    max-width: 180px;
+    text-transform: uppercase;
+    font-size: 16pt;
+    padding: 18px;
+    margin-left: 30px;
+}
+.ch_hover {
+    background-color: rgba(0, 0, 0, 0.71)!important;
+}
+button#loader_pagination {
+    background-color: #F7941E;
+    color: #fff;
+    border: none;
+    padding: 16px 20px 20px;
+    font-size: 12pt;
+    border-radius: 2px;
+    max-width: 170px;
+    margin: 15px;
+    width: 100%;
+}
+.activities .no-record {
+    padding: 20px;
+}
+.load-more-listings {
+    clear: both;
+}
+.ch_element.ch_wrapper {
+    min-height: 295px;
+}
+.ch_hover {
+    min-height: 330px;
+}
+@media (max-width: 480px) {
+    .contenthover .short-desc {
+        display: none;
+    }
+
+    .contenthover .view-description {
+        margin: 29% auto;
+    }
+    .tile-info .activity-rating-wrapper {
+        width: 100%;
+        clear: both;
+        float: none;
+        display: block;
+    }
+
+    .tile-info .rating {
+        float: left;
+        margin-left: 20px;
+    }
+
+    .activities-listing .tile-info h4 {
+        width: 100%;
+    }
+    .filter .btn {
+        margin-top: 10px;
+    }
+}
