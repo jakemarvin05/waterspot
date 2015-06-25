@@ -62,10 +62,11 @@
 						<br>
 						</div>
 
+						<!--
 						<div class="endDate">
 						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
 						<div id="enddatepicker"></div>
-						</div>
+						</div>-->
 						<div class="clear"></div>
 						<div class="clear"></div>
 						<div id='loader_slots' class="ajax-loder" style="display:none">
