@@ -35,6 +35,7 @@ class MemberAuthComponent extends Component{
 	public function login(){
 		$conditions = array();
 		$model_name = self::_ext_model($this->model_use);
+		//print_r($model_name);die();
 		$conditions[$model_name.'.'.$this->fields[0]] = $this->request->data[$model_name][$this->fields[0]];
 		$conditions[$model_name.'.'.$this->fields[1]] = Security::hash(Configure::read('Security.salt').$this->request->data[$model_name][$this->fields[1]]);
 		if(empty($conditions)){
@@ -149,6 +150,16 @@ class MemberAuthComponent extends Component{
 	
 	public function removeMemberSession(){
 		$this->Session->delete(self::$sessionKey);
+	}
+
+	public function login_facebook()
+	{
+		$model_name = self::_ext_model($this->model_use);
+		$Model = ClassRegistry::init($this->model_use);
+		$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['fb_id']);
+		$results = $Model->find('first',$criteria);
+		$this->updateMemberSession($results[$model_name]);
+		$this->controller->redirect('/');
 	}
 }
 ?>

@@ -45,21 +45,22 @@ Class ActivityController extends AppController{
 			 get_service_availability();
 			});
 		$(function() {
-			$( "#ActivityStartDate" ).datepicker({
-			dateFormat: "'.Configure::read('Calender_format').'",
+		$( "#startdatepicker" ).datepicker({
+		dateFormat: "'.Configure::read('Calender_format').'",
 			minDate: 0,
-			changeMonth: true,
 			onSelect:function(selectedDate){
+			$( "#ActivityStartDate" ).val(selectedDate);
 			$( "#ActivityEndDate" ).datepicker( "option", "minDate", selectedDate );
-			 $(this).change();
-		  }
-		});
-		$( "#ActivityEndDate" ).datepicker({
+			$(this).change();
+			 }
+		}
+		);
+		$( "#enddatepicker" ).datepicker({
 			dateFormat: "'.Configure::read('Calender_format').'",
 			minDate: 0,
-			changeMonth: true,
 			onSelect:function(selectedDate){
-			$( "#ActivityStartDate" ).datepicker( "option", "maxDate", selectedDate );
+			$( "#ActivityEndDate" ).val(selectedDate);
+			$( "#startdatepicker" ).datepicker( "option", "maxDate", selectedDate );
 			$(this).change();
 		  }
 		});	
@@ -84,7 +85,7 @@ Class ActivityController extends AppController{
 		stLight.options({publisher: "5d0165c7-537f-40b4-8ecd-7ef5d49cceb2"});' ;
 		$service_detail = array();
 		$service_detail=$this->Service->servieDetailByService_id($service_id);
-		
+
 		// get vendor service details
 		
 		if(!empty($service_detail)){
@@ -182,27 +183,72 @@ Class ActivityController extends AppController{
 	function ajax_get_availbility_range(){
 		$this->layout='';
 		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
+
 		if(!empty($_POST)) {
-			$_POST['start_date'] = date("Y-m-d",strtotime($_POST['start_date']));
-			if(!empty($_POST['end_date'])){
-				$_POST['end_date'] = date("Y-m-d",strtotime($_POST['end_date']));
-			}else {
-				$_POST['end_date'] = date("Y-m-d",strtotime($_POST['start_date']));
+			//Inputs
+			$selected_date = date("Y-m-d",strtotime($_POST['start_date']));
+			$capacity      = $_POST['no_participants'];
+			$service_id    = $_POST['service_id'];
+
+			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
+			if (count($service) !== 0) {
+				$service = $service[0]['VendorServiceAvailability'];
+				eval('$slots = ' . $service['slots'] . ';');
+
+				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
+				if (!empty($new_service_slots)) {
+					$this->set('service_slots',$new_service_slots);
+				} else {
+					$dates = [];
+					$one_day = 60*60*24;
+					$start = strtotime($service['start_date']);
+					$end = strtotime($service['end_date']);
+					$date = $start;
+					while ($date != $end) {
+						$dates[] = date('Y-m-d', $date);
+						$date = $date + $one_day;
+					}
+
+					$key = array_search($selected_date, $dates);
+					$recommended = []; //sets as array
+
+					$before_dates = array_reverse(array_slice($dates, 0, $key));
+					foreach ($before_dates as $date) {
+						foreach ($slots as $slot) {
+							$time = explode('_', $slot);
+							$start_time = $time[0];
+							$end_time   = $time[1];
+							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) { // almost same function as the availablility of selected date.
+								$recommended[] = $date;
+							}
+						}
+						if (count($recommended) === 3) {
+							break;
+						}
+					}
+					$recommended = array_reverse($recommended);
+
+					$after_dates = array_slice($dates, $key+1);
+					foreach ($after_dates as $date) {
+						foreach ($slots as $slot) {
+							$time = explode('_', $slot);
+							$start_time = $time[0];
+							$end_time   = $time[1];
+							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) {
+								$recommended[] = $date;
+							}
+						}
+						if (count($recommended) === 6) {
+							break;
+						}
+					}
+
+					$this->set('recommended_dates',$recommended);
+				}
 			}
-			// component
-			$new_service_slots=$this->ServiceFilter->activities_filter($_POST);
-			$diff = abs(strtotime($_POST['end_date']) - strtotime($_POST['start_date']));
-			$years = floor($diff / (365*60*60*24));
-			$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-			$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-			if($days>0){
-				$this->render=false;
-				die; 
-			}
-			//$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST); 
-			$this->set('service_slots',$new_service_slots);
-		 }
+		}
 	}
 		
 	function add_to_card(){
@@ -430,7 +476,7 @@ Class ActivityController extends AppController{
                 'name'=>'Home'
             );
             $this->breadcrumbs[] = array(
-                'url'=>Router::url(array('contorller'=>'activity','action'=>'index')),
+                'url'=>Router::url(array('controller'=>'activity','action'=>'index')),
                 'name'=>"Activities"
             );
         $this->set('sort_by_price',$sort_by_price);

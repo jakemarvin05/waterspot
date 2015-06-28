@@ -1,119 +1,96 @@
-<div class="wrapper">
-	<div class="hr-line"></div>
-	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
-	<div style="float: left; width: 100%;">
-		<h2 class="page-title" style="float: left;">Activity <span style="color:#000;">
-		<strong>Details</strong></span></h2>
-		
-		<div style="float: right;" class="social-share-box">
-			<span class='st_facebook_large' displayText='Facebook'></span>
-			<span class='st_twitter_large' displayText='Tweet'></span>
-			<span class='st_linkedin_large' displayText='LinkedIn'></span>
-			<span class='st_pinterest_large' displayText='Pinterest'></span>
-			<span class='st_email_large' displayText='Email'></span>
+	<section id="splashVideoCont">
+		<div id="splashVideoCropper">
+			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
+				<source src="/media/watersports.mp4" type="video/mp4">
+				<img src="/img/splash-statics/slide1.jpg">
+			</video>
+			<img src="/img/splash-statics/slide1.jpg">
 		</div>
-	</div>
-		
-		<? // if javascript disable then show these invite form  ?>
-		
-		<div class="activity-details">
-			<section class="activity-left">
-				<article class="gallery-box">
-					<header class="title-header">
-						<h2><?=ucfirst($service_detail['Service']['service_title']);?></h2>
-						<h6><?=$service_detail['location_name'];?></h6>
-					</header>
-					<?=$this->element('activity/slider');?>
-					 
-				</article>
-				<?=$this->element('activity/serviceDescriptiontabs');?>
-			</section>
+		<div id="videoOverlayWrapper">
+		</div>
+	</section>
 
-			<section class="activity-right">
-			<aside class="cart-box">
-				<header class="title-header">
-					<div class="activity-price-info">Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span></div>
-					<!--
-					<div class="per-slot-price">Per Slot Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span></div>
-                                        <div class="per-day-price">Per Day Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['full_day_amount'],2);?></span></div>
-					<div class="activity-price-note">The above prices are per person</div>
-                                        -->
-				</header>
-				<div class="slot-booking-form">
-					<?php echo $this->element('message');?>
-					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
-					<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
-					<div class="start-date">Start Date<br /><?=$this->Form->text('start_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
-					<div class="end-date">End Date<br /><?=$this->Form->text('end_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
-					<div class="clear"></div>
-					<div class="select-participant">
-						<span class="select-participant-txt">Select No. of Participant(s)</span>
-						<?
+
+<div class="wrapper">
+	<div class="whitebg"></div>
+	<div class="container">
+		<section class="left-section col-sm-8">
+			<h2 class="activity-title"><?=ucfirst($service_detail['Service']['service_title']);?></h2>
+			<div class="slider-holder">
+				<?=$this->element('activity/slider');?>
+			</div>
+			<?=$this->element('activity/serviceDescriptiontabs');?>
+			<div class="map-holder row">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
+			</div>
+		</section>
+		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
+				<aside class="cart-box">
+						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
+						<div id="rating" class="blocks">
+							<h4>RATING:</h4>
+							<div class="rating"></div>
+							<div class="clearfix"></div>
+							<p class="info">Event has a minimum-to-go of 30 pax.</p>
+							<div class="completion">
+								<div class="progressbar" style="width:40%;"></div>
+							</div>
+							<div class="progressinfo"><span class="current">12</span> out of 30</div>
+							<div class="clearfix"></div>
+						</div>
+					<div class="blocks">
+					<div class="slot-booking-form">
+						<div class="select-participant">
+							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
+							<?
 							$no_participants = array();
 							foreach (range(1,$service_detail['Service']['no_person']) as $r){
 								$no_participants[$r] = $r;
 							}
-						?>
-						<?=$this->Form->input('no_participants',array('type' =>'select', 'options' => $no_participants,'empty' => 'Select','div'=>false,'label'=>false)); ?>
-					</div>
-					<div class="clear"></div> 
-					<div id='loader_slots' class="ajax-loder" style="display:none">
-						<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
-					</div>
-					<div id='slots_form' style="display:none"></div>
-					<div class="cart-btn">
-						<input type="submit" value="Add To Cart" class="addtocart-button" id="loginButton" />
-					</div>
-					<?=$this->Form->end(); ?>
-				</div>
-			</aside>
-			<aside class="vendor-quick-info">
-				<header class="title-header">
-					<?php 
-					/* Resize Image */
-						if(isset($vendor_details['Vendor']['image'])) {
-							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_details['Vendor']['image'],'width'=>325,'height'=>247,'noimg'=>$setting['site']['site_noimage']);
-							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>(!empty($vendor_details['Vendor']['bname'])?$vendor_details['Vendor']['bname']:$vendor_details['Vendor']['fname']." ".$vendor_details['Vendor']['lname'])));
-						}
-					?>
-				</header>
-				<div class="content">
-					<h3>
-						<?=ucfirst(!empty($vendor_details['Vendor']['bname'])?$vendor_details['Vendor']['bname']:$vendor_details['Vendor']['fname']." ".$vendor_details['Vendor']['lname']); ?>
-					</h3>
-					<div class="rating-info">
-						<span class="rating-txt">Ratings:</span>
-						<div class="rating-stars">
-						<? if(!empty($vendor_details['Vendor']['rating'])){ ?>
-							<?php $ratings = range(1,10); ?>
-								<?php $vratings = range(1,10); ?>
-								<?php foreach($vratings as $vrating){ ?>
-									<input type="radio" value="<?php //echo $vrating; ?>" name="test-vendor" class="star {split:2}" disabled="disabled" <?php echo ($vendor_details['Vendor']['rating']==$vrating)?'checked="checked"':'';?> />
-								<?php } ?>
-								<? }else{ ?>
-									<div class="no-rating">No feedback yet</div>
-								<? } ?>	
-						</div>	
-					</div>	
-		<!--
-					<div class="vendor-activity-tags">
-						<? if(!empty($vendor_details['Service'])){
-							foreach($vendor_details['Service'] as $key=>$service) {
 							?>
-								<span><?php echo $this->Html->link(ucfirst($service['Service']['service_title']),array('plugin'=>false,'controller'=>'activity','action'=>'index',$service['Service']['id']),array('escape'=>false));?></span>
-							<? } ?>
-						<? } ?>
-					</div>
-		-->
-				</div>
-			</aside>
-			<?=$this->element('activity/similar-listings');?>
-		</section>
+							<?=$this->Form->input('no_participants',array('type' =>'select', 'options' => $no_participants,'empty' => 'Select','div'=>false,'label'=>false)); ?>
+						</div>
+						<?php echo $this->element('message');?>
 
+						<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
+						<br>
+						<div class="startDate">
+						<div class="start-date">
+							<h4>2. Start Date</h4><br /><?=$this->Form->text('start_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="startdatepicker"></div>
+						<br>
+						</div>
+
+						<!--
+						<div class="endDate">
+						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="enddatepicker"></div>
+						</div>-->
+						<div class="clear"></div>
+						<div class="clear"></div>
+						<div id='loader_slots' class="ajax-loder" style="display:none">
+							<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
+						</div>
+						<div id='slots_form' style="display:none"></div>
+						<div class="cart-btn">
+							<input type="submit" value="Book Now" class="addtocart-button" id="loginButton" />
+						</div>
+						<?=$this->Form->end(); ?>
+					</div>
+					</div>
+				</aside>
+
+			</section>
+
+		<div class="clear spacer"></div>
+
+	</div>
+
+	<div class="clear"></div>
 </div>
-</div>
+
+
 <div class="clear"></div>
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
@@ -325,14 +302,24 @@ function get_service_availability()	{
 		   
            return (status===1)?true:false; 
             
-        }); 
-   
+        });
+
+		if($(window).width()>768) {
+			$('.container, #sidebar').theiaStickySidebar({
+				// Settings
+				 additionalMarginTop: -60,
+				// additionalMarginBottom: 50,
+				scrollThrough: ['container']
+			});
+		}
+
+
       
     });
  
  </script>
  
- <script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function(){
 	    $('#tab-scrollable').slimScroll({
 		position: 'right',
@@ -351,7 +338,7 @@ function get_service_availability()	{
 		railVisible: true
 	    });
 	});
-</script>
+</script>-->
 
 
 <script type="text/javascript">

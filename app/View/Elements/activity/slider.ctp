@@ -1,8 +1,8 @@
 <? if(!empty($service_detail['image'])) { ?>
 	<? if(count($service_detail['image'])>1){?>
-		<div class="fotorama" data-nav="thumbs" data-width="600" data-height="400">
+		<div class="fotorama" data-nav="thumbs" data-width="730" data-height="468">
 		<? }else {?>
-			<div data-width="600" data-height="400">
+			<div data-width="730" data-height="468">
 		<? }?>
 		
 			<? foreach($service_detail['image'] as $key=>$image){ ?>

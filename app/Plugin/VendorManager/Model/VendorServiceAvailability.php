@@ -144,7 +144,7 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 	}		
 	function getSlotByServiceID($options = array()){
 		$start_date=date('Y-m-d',strtotime($options['start_date']));
-		$end_date=date('Y-m-d',strtotime($options['end_date']));
+		$end_date=$start_date;//simulates 1 day
 		$criteria=array();
 		$available_slots=array();
 		$filtre_slots=array();
@@ -152,19 +152,11 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 		$criteria['conditions'] = array(
 			'VendorServiceAvailability.service_id'=>$options['service_id'],
 			'VendorServiceAvailability.unavailable'=>0, // 0 for available
-			'Or'=>array(
-				 array('VendorServiceAvailability.p_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				array('VendorServiceAvailability.start_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				array('VendorServiceAvailability.end_date BETWEEN ? AND ? '=>array($options['start_date'] ,$options['end_date'])),
-				array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['start_date'])),
-				array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['end_date'])),
-               
-				),
-			 
+			'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$start_date]
 			);
 		//find all slots between start and end date
 		$available_slots = $this->find('all', $criteria); 
-		
+
 		foreach($available_slots as $key=>$available_slot) {
 			
 			if(!empty($available_slot['VendorServiceAvailability']['start_date'])){
@@ -209,12 +201,38 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 			'VendorServiceAvailability.service_id'=>$options['service_id'],
 			'VendorServiceAvailability.unavailable'=>0, // 0 for available
 			'Or'=>array(
-				 array('VendorServiceAvailability.p_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				array('VendorServiceAvailability.start_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
-				array('VendorServiceAvailability.end_date BETWEEN ? AND ? '=>array($options['start_date'] ,$options['end_date'])),
-				array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['start_date'])),
-				array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['end_date'])),
+				array('VendorServiceAvailability.p_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
+			 	array('VendorServiceAvailability.start_date BETWEEN ? AND ?'=>array($options['start_date'],$options['end_date'])),
+			 	array('VendorServiceAvailability.end_date BETWEEN ? AND ? '=>array($options['start_date'] ,$options['end_date'])),
+			 	array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['start_date'])),
+			 	array('? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date '=>array($options['end_date'])),
 			),
+		);
+		if(!empty($options['order'])){
+			$criteria['order'] = $options['order'];
+		}
+		return $this->find('all', $criteria); 
+	}
+
+	// function gets recommended slots
+	// by po
+	public function isDateAvailable($service_id, $date)
+	{
+		return $this->find('all', array(
+			'conditions' => array(
+				'VendorServiceAvailability.service_id'=>$service_id,
+				'VendorServiceAvailability.unavailable'=>0, // 0 for available
+				'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$date]
+				)
+			)
+		);
+	}
+
+	public function getAllDates($options = array()){
+		$criteria = array();
+		$criteria['conditions'] = array(
+			'VendorServiceAvailability.service_id'=>$options['service_id'],
+			'VendorServiceAvailability.unavailable'=>0, // 0 for available
 		);
 		if(!empty($options['order'])){
 			$criteria['order'] = $options['order'];

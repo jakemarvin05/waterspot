@@ -30,7 +30,7 @@
 				<div class="leftContentBox">
 					<div class="cart-payment-method">
 						<h4>Cost Sharing</h4>
-						<? $options = array('0' => '<span>Friends will pay their share</span><br />','1'=> '<span>I will pay for my friends</span>');
+						<? $options = array('0' => '<span>Go Dutch</span><br />','1'=> '<span>Single Payment</span>');
 						$attributes = array(
 							'legend' => false,
 							'label' => true,
@@ -42,14 +42,15 @@
 						?>
 					</div>
 					
-					<div class="cart-invite-frnds">
+					<div class="cart-invite-frnds" id="go_dutch_field" style="display:none;">
 						<h4>Invite your Friends</h4>
 						<span id='CartEmail'></span>
 						<div id="cart-email-scrollable" style="max-height:152px;">
 							<span id='CartEmail'></span>
-							<? for($i=1;$i<$cart_details['Cart']['no_participants'];$i++) { ?>
-								<?=$this->Form->text('email.',array('placeholder'=>'Enter email address')); ?>
-							<? }?>
+							I will pay for # of my friends
+							<select id="participants_count"></select>
+							<div id='email_inputs'>
+							</div>
 						</div>
 					</div>
 					
@@ -142,3 +143,37 @@
 			updateTotal();
 		});
 </script>
+<script type="text/javascript">
+						//for the go dutch script
+						function payment_method(method) {
+							if (method == 'go_dutch') {
+								var participants = <?php echo $cart_details['Cart']['no_participants']; ?>;
+								var options = '';
+								for(i = 1; i <= participants; i++) {
+									options += '<option value="'+ i +'">'+ i +'</option>';
+								}
+								$('#participants_count').html(options);
+								$('#go_dutch_field').css('display','block');
+							} else {
+								$('#go_dutch_field').css('display','none');
+								$('#email_inputs').html('');
+								$('#participants_count').html('');
+							}
+						}
+
+						$('#CartInvitePaymentStatus0').click(function(){payment_method('go_dutch');});
+						$('#CartInvitePaymentStatus1').click(function(){payment_method('pay_all');});
+
+						function email_inputs(){
+							var participants = <?php echo $cart_details['Cart']['no_participants']; ?>;
+							count = $('#participants_count').val();
+							var texts = '';
+							for(i = count; i < participants; i++) {
+								texts += '<input name="data[Cart][email][]" placeholder="Enter email address" type="text" ><br />';
+							}
+							$('#email_inputs').html(texts);
+						}
+
+						$('#participants_count').change(function(){email_inputs();});
+
+					</script>
