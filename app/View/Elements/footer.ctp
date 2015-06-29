@@ -20,10 +20,6 @@
                             <a class="smIcons" href="<?=$setting['social']['twitter']?>"><img src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>
                             <a class="smIcons" href="<?=$setting['social']['google_plus']?>"><img src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>
                         </div>
-                        <p class="footerContactSmallHeader">SHARE OUR PAGE</p>
-                        <div id="footerSocialRow">
-                            <div class="fb-share-button" data-href="http://waterspot.local/" data-layout="box_count"></div>
-                        </div>
                     </div>
                 </div>
 

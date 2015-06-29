@@ -1,0 +1,14 @@
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-25 23:00:03 
+Run WarnUnpaidUsers function
+Warned 1 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-29 20:00:03 
+Run WarnUnpaidUsers function
+Warned 1 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 1 expired booking slots
+

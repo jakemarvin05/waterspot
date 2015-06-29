@@ -179,6 +179,12 @@ Class ActivityController extends AppController{
 		$this->set('vendor_details',$vendor_details);
 		$this->set('service_detail',$service_detail);
 		$this->set('member_id',$this->member_data['MemberAuth']['id']);
+
+		$this->set('web_title', 'Waterspot Activity | ' . $this->title_for_layout);
+		$this->set('web_type', 'website');
+		$this->set('web_url', 'http://128.199.214.85' . $_SERVER['REQUEST_URI']);
+		$this->set('web_image', $service_detail['image'][0]);
+		$this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
 	}
 	function ajax_get_availbility_range(){
 		$this->layout='';
