@@ -16,7 +16,7 @@ Class BookingSlot extends VendorManagerAppModel {
 		);
 		if (!empty($bookings)) {
 			$data = new stdClass();
-			$data->price = $bookings['BookingSlot']['price'];
+			$data->price = $bookings[0]['BookingSlot']['price'];
 			$data->date = $date;
 			return $data;
 		}
