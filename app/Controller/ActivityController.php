@@ -205,7 +205,8 @@ Class ActivityController extends AppController{
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
 				if (!empty($new_service_slots)) {
-					$this->set('service_slots',$new_service_slots);
+					return json_encode($new_service_slots);
+					// $this->set('service_slots',$new_service_slots);
 				} else {
 					$dates = [];
 					$one_day = 60*60*24;
@@ -252,8 +253,8 @@ Class ActivityController extends AppController{
 							break;
 						}
 					}
-
-					$this->set('recommended_dates',$recommended);
+					return json_encode($recommended);
+					// $this->set('recommended_dates',$recommended);
 				}
 			}
 		}
