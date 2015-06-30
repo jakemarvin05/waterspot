@@ -14,8 +14,13 @@ Class BookingSlot extends VendorManagerAppModel {
 				)
 			)
 		);
-
-		return !empty($bookings);
+		if (!empty($bookings)) {
+			$data = new stdClass();
+			$data->price = $bookings['BookingSlot']['price'];
+			$data->date = $date;
+			return $data;
+		}
+		return false;
 	}
 }
 ?>

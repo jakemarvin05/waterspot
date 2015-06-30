@@ -226,8 +226,9 @@ Class ActivityController extends AppController{
 							$time = explode('_', $slot);
 							$start_time = $time[0];
 							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) { // almost same function as the availablility of selected date.
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							if (!$data) { // almost same function as the availablility of selected date.
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 3) {
@@ -242,8 +243,9 @@ Class ActivityController extends AppController{
 							$time = explode('_', $slot);
 							$start_time = $time[0];
 							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) {
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							if (!$data) {
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 6) {
