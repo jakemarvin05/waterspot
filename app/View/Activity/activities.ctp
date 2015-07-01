@@ -1,35 +1,96 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
-			data_selector: '.contenthover',
-			effect:'slide',
-			slide_direction: 'left',
-			slide_speed:300,
-			overlay_opacity: 1
+		$('.tile').contenthover({
+			//data_selector: '.contenthover',
+			//effect:'slide',
+			//slide_direction: 'left',
+			//slide_speed:300,
+			overlay_background:'#000',
+			overlay_opacity:1
+
 		});
 	});
 </script>
-<div class="hr-line"></div>
-<div class="clear"></div>
+<div class="container-fluid wrapper activities-page">
+
+	<section class="row">
+
+
 <div class="search-listing-header">
-<?=$this->element('breadcrumbs');?>
 </div>
 <div style="margin-top: 10px;" class="search-listing">
-	<h2 class="page-title" style="float: left;">Activities</h2>
+	<header class="page-header">
+		<p class="beforeHeader">Ready to enjoy exciting adventures?</p>
+		<h1 class=" headerAlt" style="float: left;"> Select Activities</h1>
+		<div class="filter">
+			<? $action=(implode('/',$this->params->pass));?>
+			<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
+			<label>Filter by:</label>
+			<?=$this->Form->hidden('vendor_list');?>
+			<?  //=$this->Form->input('vendor_list',array('options'=>$vendor_list,'empty'=>'Select any Vendor','label'=>false,'div'=>false,'required'=>false));?>
+			<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
+			<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Select price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+			<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+			<?=$this->Form->end();?>
+
+			<script>
+				// init the selectpicker
+				$('#SearchServiceTypeList').selectpicker();
+
+				// bind selection to toggling of text colors on the select
+				// so that the placeholder color is maintained
+				$(function() {
+					var $filterOption = $('#activityListWrap .filter-option');
+					var selectPlaceholder = $('#activityListWrap select').attr('title');
+
+					$('ul.dropdown-menu>li>a').on('click', function() {
+						setTimeout(function() {
+							if ($filterOption.html() === selectPlaceholder) $filterOption.css('color', '#ccc');
+							else $filterOption.css('color', '#606060');
+						},0);
+					});
+
+				});
+				$('#SearchSortPrice').selectpicker();
+
+				// bind selection to toggling of text colors on the select
+				// so that the placeholder color is maintained
+				$(function() {
+					var $filterOption = $('#activityListWrap .filter-option');
+					var selectPlaceholder = $('#activityListWrap select').attr('title');
+
+					$('ul.dropdown-menu>li>a').on('click', function() {
+						setTimeout(function() {
+							if ($filterOption.html() === selectPlaceholder) $filterOption.css('color', '#ccc');
+							else $filterOption.css('color', '#606060');
+						},0);
+					});
+
+				});
+				$('#SearchSortReview').selectpicker();
+
+				// bind selection to toggling of text colors on the select
+				// so that the placeholder color is maintained
+				$(function() {
+					var $filterOption = $('#activityListWrap .filter-option');
+					var selectPlaceholder = $('#activityListWrap select').attr('title');
+
+					$('ul.dropdown-menu>li>a').on('click', function() {
+						setTimeout(function() {
+							if ($filterOption.html() === selectPlaceholder) $filterOption.css('color', '#ccc');
+							else $filterOption.css('color', '#606060');
+						},0);
+					});
+
+				});
+			</script>
+		</div>
+	</header>
+
 	<div class="filtered-listing">
 		<!-- <div class="search"><span> Search</span><input type="search"></div>-->
 		<div class="activity-filter">
-			<div class="filter">
-				<? $action=(implode('/',$this->params->pass));?>
-				<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
-					<label>Filter by:</label>
-					<?=$this->Form->hidden('vendor_list');?>
-					<?  //=$this->Form->input('vendor_list',array('options'=>$vendor_list,'empty'=>'Select any Vendor','label'=>false,'div'=>false,'required'=>false));?>
-					<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
-					<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Select price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
-					<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
-				<?=$this->Form->end();?> 
-			</div>
+
 		</div>
 	</div>
 
@@ -38,6 +99,7 @@
 			<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
 		</div>
 		<div class="activities">
+			<div class="row">
 			<? if(!empty($activity_service_list)) { ?>
 				<?php echo $this->element('activity/listing',array('search_service_lists'=>$activity_service_list)); ?>
 			<? } else { ?>
@@ -47,6 +109,9 @@
 				</script>
 				<div class="sun-text no-record"> There are no record found.</div>
 			<? } ?>
+				<div class="clearfix"></div>
+				</div>
+
 		</div>
 		<div class="load-more-listings">
 			<div class="load-more-row">
@@ -99,15 +164,17 @@
 			   success: function(res) {
 			   $( ".sun-text" ).remove();
 			   $("div.activities-listing").remove();
-			   $(".activities").html(res);
+			   $(".activities").html('<div class="row">'+res+'</div>');
 			   $('#sort_by_price').hide();
-			   $('.contentselector').contenthover({
-					data_selector: '.contenthover',
-					effect:'slide',
-					slide_direction: 'left',
-					slide_speed:300,
-					overlay_opacity: 1
-				});
+				   $('.tile').contenthover({
+					   //data_selector: '.contenthover',
+					   //effect:'slide',
+					   //slide_direction: 'left',
+					   //slide_speed:300,
+					   overlay_background:'#000',
+					   overlay_opacity:1
+
+				   });
 			      
 				}           
 			});
@@ -145,12 +212,13 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.activities-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
-								overlay_opacity: 1
+							$('.tile').contenthover({
+								//data_selector: '.contenthover',
+								//effect:'slide',
+								//slide_direction: 'left',
+								//slide_speed:300,
+								overlay_background:'#000',
+								overlay_opacity:1
 							});
 							
                             if(page >= pages){
@@ -165,7 +233,7 @@
 								 alert('Failed from timeout');         
 								//do something. Try again perhaps?
 							}
-						},
+						}
                     });
                 }
             }
@@ -173,4 +241,7 @@
 		});
 	});
 	
-</script>	
+</script>
+	</section>
+	<div class="clearfix"></div>
+</div>

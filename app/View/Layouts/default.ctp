@@ -50,7 +50,6 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <!-- Page specific scripts required for early rendering -->
 <script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script src="/js/page-specifics/index.js"></script>
-<script src="/js/jquery.sticky.js"></script>
 
 <?=$this->Html->css($css_for_layout); ?>
 <?=$this->Html->script($script_for_layout); ?>
@@ -117,7 +116,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	 
 
 <body class="<?=$css?>">
-  <section id="navWrapper">
+  <section id="navWrapper" class="<?php if($this->params['controller']=="activity" ){ echo "stickyCollapsedFix"; }?>">
         <?=$this->element('header');?>
     </section>
 
@@ -225,6 +224,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
         <script src="/js/moment/min/moment.min.js"></script>
         <script src="/js/velocity/velocity.min.js"></script>
         <script src="/js/velocity/velocity.ui.min.js"></script>
+        <script src="/js/iaStickySidebar.js"></script>
         <script src="/js/lib.js"></script>
 
 </body>
