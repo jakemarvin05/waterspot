@@ -33,9 +33,11 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <!-- jQuery -->
 <script src="/js/jquery-1.11.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!-- Page specific scripts required for early rendering -->
 <script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
