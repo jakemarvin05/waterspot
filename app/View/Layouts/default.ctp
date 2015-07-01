@@ -6,6 +6,16 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en-US"> <!--<![endif]-->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- FACEBOOK -->
+<meta property="og:title" content="<?php echo $web_title ? $web_title : 'Waterspot'; ?>">
+<meta property="og:type" content="<?php echo $web_type ? $web_type : 'website'; ?>">
+<meta property="og:url" content="<?php echo $web_url ? $web_url : 'http://128.199.214.85'; ?>">
+<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$web_image['image'],'width'=>600,'height'=>400,'noimg'=>$setting['site']['site_noimage']);
+$resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($imgArr);
+?>
+<meta property="og:image" content="<?php echo $web_image ? $resizedImg : 'http://128.199.214.85/img/logo-colored.png'; ?>">
+<meta property="og:site_name" content="<?php echo $web_site_name ? $web_site_name : 'Waterspot'; ?>">
+<!-- FACEBOOK -->
 <title><?=$title_for_layout?></title>
 <meta name="description" content="<?=$metadescription;?>" />
 <meta name="viewport" content="initial-scale=1">

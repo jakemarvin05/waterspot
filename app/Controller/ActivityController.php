@@ -426,6 +426,12 @@ Class ActivityController extends AppController{
 		$this->set('vendor_details',$vendor_details);
 		$this->set('service_detail',$service_detail);
 		$this->set('member_id',$this->member_data['MemberAuth']['id']);
+
+		$this->set('web_title', 'Waterspot Activity | ' . $this->title_for_layout);
+		$this->set('web_type', 'website');
+		$this->set('web_url', 'http://128.199.214.85' . $_SERVER['REQUEST_URI']);
+		$this->set('web_image', $service_detail['image'][0]);
+		$this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
 	}
 	function ajax_get_availbility_range(){
 		$this->layout='';
@@ -446,7 +452,8 @@ Class ActivityController extends AppController{
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
 				if (!empty($new_service_slots)) {
-					$this->set('service_slots',$new_service_slots);
+					return json_encode($new_service_slots);
+					// $this->set('service_slots',$new_service_slots);
 				} else {
 					$dates = [];
 					$one_day = 60*60*24;
@@ -467,8 +474,9 @@ Class ActivityController extends AppController{
 							$time = explode('_', $slot);
 							$start_time = $time[0];
 							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) { // almost same function as the availablility of selected date.
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							if (!$data) { // almost same function as the availablility of selected date.
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 3) {
@@ -483,16 +491,17 @@ Class ActivityController extends AppController{
 							$time = explode('_', $slot);
 							$start_time = $time[0];
 							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) {
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							if (!$data) {
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 6) {
 							break;
 						}
 					}
-
-					$this->set('recommended_dates',$recommended);
+					return json_encode($recommended);
+					// $this->set('recommended_dates',$recommended);
 				}
 			}
 		}

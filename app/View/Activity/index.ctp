@@ -70,6 +70,7 @@
 						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
 						<div id="enddatepicker"></div>
 						</div>-->
+
 						<div class="clear"></div>
 						<div class="clear"></div>
 						<div id='loader_slots' class="ajax-loder" style="display:none">
@@ -81,6 +82,9 @@
 						</div>
 						<?=$this->Form->end(); ?>
 					</div>
+					</div>
+					<div class="fb-share">
+						<div class="fb-share-button" data-href="<?php echo $web_url ? $web_url : 'http://128.199.214.85'; ?>" data-layout="box_count"></div>
 					</div>
 				</aside>
 
