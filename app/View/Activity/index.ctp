@@ -8,6 +8,8 @@
 		</div>
 		<div id="videoOverlayWrapper">
 		</div>
+		</div>
+
 	</section>
 
 
@@ -23,6 +25,7 @@
 			<div class="map-holder row">
 				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
 			</div>
+
 		</section>
 		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
 				<aside class="cart-box">
@@ -86,8 +89,74 @@
 		<div class="clear spacer"></div>
 
 	</div>
+	<div class="container-fluid suggestion">
+	<div class="container">
+		<div class="suggestion-holder row">
+			<h2 class="suggestion-title">Check other slots</h2>
+			<div id="tabs">
+				<ul>
+					<?php
+					$n = 1;
+					foreach($recommendedActivities as $recommend){
 
-	<div class="clear"></div>
+						echo "<li><a href=\"#fragment-$n\"><span>".date("M j, Y", strtotime($recommend['date']))."</span></a></li>
+						";
+						$n++;
+					}
+
+
+					?>
+				</ul>
+
+				<?php
+				$n = 1;
+				foreach($recommendedActivities as $recommend){
+				$slots = $recommend['slots'];
+				echo "<div id=\"fragment-$n\">
+<div class=\"row\">
+								<div class=\"col-sm-5\"><h3>Time Slot</h3></div>
+								<div class=\"col-sm-2\"><h3>Price</h3></div>
+								<div class=\"col-sm-3\"><h3>Status</h3></div>
+								<div class=\"col-sm-2\"><h3></h3></div>
+							</div>
+							<div class='record-holder'>
+";
+
+				foreach($slots as $slot){
+				//	var_dump($slot);
+				?>
+				<div class="row">
+					<div class="time col-sm-5"><?php echo $slot->{'start_time'}; ?> - <?php echo $slot->{'end_time'}; ?></div>
+					<div class="price col-sm-2">SGD<?php echo $slot->{'price'}; ?></div>
+					<div class="status col-sm-3">
+						<?php if($slot->{'status'}=="available"){?>
+						<span class="status av"><i class="fa fa-check-square-o"></i> Available</span></div>
+					<?php }
+					else{
+					?>	<span class="status notav"><i class="fa fa-times"></i>Not Available</span></div>
+
+			<?php }?>
+				<div class="book col-sm-2"><a href="#" class="btn-default"> book now</a></div>
+			</div>
+			<?php
+			//var_dump($slot);
+			}
+			echo "</div></div>";
+			$n++;
+			}
+
+
+			?>
+
+			<script>
+				$( "#tabs" ).tabs({
+					active: <?=$currentDateIndex; ?>
+				});
+			</script>
+		</div>
+		<br><br>
+	</div>
+		</div>
 </div>
 
 
