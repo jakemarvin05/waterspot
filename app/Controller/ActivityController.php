@@ -254,9 +254,10 @@ Class ActivityController extends AppController{
 	function index($service_id=null,$cart_id=null){
 
 		//test
-		$this->set('date',$this->request->query['date']);
-		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$this->request->query['date']));
-		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$this->request->query['date']));
+		$thisDate = isset($this->request->query['date'])? $this->request->query['date']: "now";
+		$this->set('date',$thisDate);
+		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
+		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));
 
 		//load model
 		$this->loadModel('VendorManager.Vendor');

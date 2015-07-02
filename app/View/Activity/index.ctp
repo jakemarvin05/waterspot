@@ -93,6 +93,7 @@
 		<div class="clear spacer"></div>
 
 	</div>
+	<?php if ($recommendedActivities): ?>
 	<div class="container-fluid suggestion">
 	<div class="container">
 		<div class="suggestion-holder row">
@@ -161,6 +162,7 @@
 		<br><br>
 	</div>
 		</div>
+	<?php endif; ?>
 </div>
 
 
