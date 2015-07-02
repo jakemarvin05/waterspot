@@ -301,6 +301,9 @@ button:focus, button:active, input:focus, input:active {
     .contenthover .view-description {
         margin: 29% auto;
     }
+    .contenthover .view-all-tags {
+        margin: 29% auto;
+    }
 }
 .stickyCollapsed .navButtonOuter {
     text-shadow: 0px 0px 0px;
@@ -889,7 +892,45 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     font-size: 12pt;
     float: left;
 }
+/* vendors listings */
+
+.vendor-listing {
+    padding-bottom: 15px;
+}
+.vendor-listing .tile{
+    overflow: hidden;
+    background-color: #FFF;
+    border: solid 1px #EEE;
+    position: relative;
+}
+.vendor-listing .tile img {
+    width: 100%;
+
+}
+.vendors-page .row {
+    padding: 15px;
+}
+.vendor-listing .tile .price {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.69);
+    padding: 14px;
+    font-family: "Lato";
+}
+
+.vendor-listing .tile-info h4 {
+    font-weight: normal;
+    color: #696B6E;
+    font-size: 12pt;
+    float: left;
+}
+
 .activities-page .middle-area {
+    background-color: #F9F9F9;
+}
+.vendors-page .middle-area {
     background-color: #F9F9F9;
 }
 .tile-info .rating {
@@ -900,12 +941,12 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     background-position: -100px 0px;
     margin: 14px 0px;
 }
-.tile-info .activity-rating-wrapper {
+.tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
     float: right;
     width: 43%;
 }
 
-.tile-info .activity-rating-wrapper .rating-label {
+.tile-info .activity-rating-wrapper .rating-label, .tile-info .vendor-rating-wrapper .rating-label {
     margin-top: 12px;
     display: block;
     float: left;
@@ -922,7 +963,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     display: block;
     padding: 28px;
 }
-.contenthover .view-description{
+.contenthover .view-description,.contenthover .view-all-tags{
     display:block;
     background-color: #F79E34;
     color: #fff;
@@ -931,6 +972,10 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     font-size: 16pt;
     padding: 18px;
     margin-left: 30px;
+}
+
+.contenthover .view-all-tags{
+    max-width: 250px;
 }
 .ch_hover {
     background-color: rgba(0, 0, 0, 0.71)!important;
@@ -958,7 +1003,42 @@ button#loader_pagination {
 .ch_hover {
     min-height: 330px;
 }
+.contenthover .activity-tags span {
+    display: block;
+    margin-right: 6px;
+    background-color: rgba(0, 0, 0, 0.36);
+    padding: 9px;
+    font-size: 12pt;
+    max-width: 47%;
+    border-radius: 4px;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    float: left;
+}
+
+.contenthover .activity-tags span:first-child {
+    margin-top: 0;
+}
+
+.contenthover .activity-tags span a {
+    color: #D8D8D8;
+}
+
+.activity-tags {
+    padding: 29px;
+}
+
+.contenthover .activity-tags span:hover {
+    background-color: rgba(0, 0, 0, 0.68);
+}
+
 @media (max-width: 480px) {
+    .activity-tags {
+        display: none;
+    }
+    .ch_element.ch_wrapper {
+        min-height: 200px;
+    }
     .contenthover .short-desc {
         display: none;
     }
@@ -966,12 +1046,19 @@ button#loader_pagination {
     .contenthover .view-description {
         margin: 29% auto;
     }
-    .tile-info .activity-rating-wrapper {
+    .contenthover .view-all-tags {
+        margin: 18% auto;
+        font-size: 12pt;
+        text-align: center;
+        max-width: 210px;
+    }
+    .tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
         width: 100%;
         clear: both;
         float: none;
         display: block;
     }
+
 
     .tile-info .rating {
         float: left;
@@ -979,6 +1066,9 @@ button#loader_pagination {
     }
 
     .activities-listing .tile-info h4 {
+        width: 100%;
+    }
+    .vendor-listing .tile-info h4 {
         width: 100%;
     }
     .filter .btn {

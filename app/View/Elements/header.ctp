@@ -73,7 +73,7 @@
                  </div>
             </div>
           <div class="navGroup">
-               <div class="navButtonOuter <?php if($this->params['controller']=="vendor" ){ echo "navActive"; }?>">
+               <div class="navButtonOuter <?php if($this->params['controller']=="vendors" ){ echo "navActive"; }?>">
                     <a href="/vendor/vendor_list/"><i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
                 </div>
            </div>
