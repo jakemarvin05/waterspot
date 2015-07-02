@@ -210,14 +210,14 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
 	  <script>
         var frontPageActivities = activitiesBlockMaker.init($('#activitiesContainer'), [
-            { title: 'wakeboarding', imagePath: '/img/activities/wakeboarding.jpg', blockSize: '2x1'},
-            { title: 'diving', imagePath: '/img/activities/diving.jpg'},
-            { title: 'kayaking', imagePath: '/img/activities/kayaking.jpg'},
-            { title: 'fishing', imagePath: '/img/activities/fishing.jpg'},
-            { title: 'kitesurfing', imagePath: '/img/activities/kitesurfing.jpg'},
-            { title: 'boatcharter', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
-            { title: 'sailing', imagePath: '/img/activities/sailing.jpg'},
-            { title: 'stand up paddle', imagePath: '/img/activities/stand-up-paddle.jpg'}
+            { title: 'wakeboarding',urlPath:'/service-type-details/32', imagePath: '/img/activities/wakeboarding.jpg', blockSize: '2x1'},
+            { title: 'diving',urlPath:'/service-type-details/27', imagePath: '/img/activities/diving.jpg'},
+            { title: 'kayaking',urlPath:'/service-type-details/41', imagePath: '/img/activities/kayaking.jpg'},
+            { title: 'fishing',urlPath:'/service-type-details/25', imagePath: '/img/activities/fishing.jpg'},
+            { title: 'kitesurfing',urlPath:'/service-type-details/42', imagePath: '/img/activities/kitesurfing.jpg'},
+            { title: 'boatcharter',urlPath:'/service-type-details/26', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
+            { title: 'sailing',urlPath:'/service-type-details/44', imagePath: '/img/activities/sailing.jpg'},
+            { title: 'stand up paddle',urlPath:'/service-type-details/39', imagePath: '/img/activities/stand-up-paddle.jpg'}
         ]);
         </script>
 
