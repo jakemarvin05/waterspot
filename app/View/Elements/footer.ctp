@@ -40,11 +40,11 @@
                 <div class="footerCol col-sm-4">
                     <h4 class="headerAlt">POPULAR ACTIVITIES</h4>
                     <ul id="footerPopularList">
-                        <li><a href="#">Stand Up Paddle</a></li>
-                        <li><a href="#">Diving</a></li>
-                        <li><a href="#">Kitesurfing</a></li>
-                        <li><a href="#">Kayaking</a></li>
-                        <li><a href="#">Boat Charter</a></li>
+                        <li><a href="/service-type-details/39">Stand Up Paddle</a></li>
+                        <li><a href="/service-type-details/27">Diving</a></li>
+                        <li><a href="/service-type-details/42">Kitesurfing</a></li>
+                        <li><a href="/service-type-details/41">Kayaking</a></li>
+                        <li><a href="/service-type-details/26">Boat Charter</a></li>
                     </ul>
                 </div>
             </div>
