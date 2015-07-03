@@ -15,9 +15,11 @@
 
 	<section class="row">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>	
-<h2 class="page-title">Vendors</h2>
+<div class="clear"></div><header class="page-header">
+			<p class="beforeHeader">See what we have for you?</p>
+			<h1 class=" headerAlt">Select Vendors</h1>
+		</header>
+		<div class="clearfix"></div>
 <div class="middle-area">
 	<?php $i = $this->paginator->counter('{:start}'); ?>
 	<? foreach($vendor_services as $key=>$vendor_service) { ?>
