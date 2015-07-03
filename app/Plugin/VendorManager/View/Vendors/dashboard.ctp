@@ -1,7 +1,7 @@
 <? $payment_status=Configure::read('payment_status');?>
 <? $total_service=$this->Paginator->counter(array('format' => '{:count}'));?>
 <div class="hr-line"></div>
-<div class="clear"></div>
+<div class="clear" style="margin-top:80px;"></div>
 <div class="bredcrum"> <?=$this->element('breadcrumbs');?></div>
 <h2 class="page-title">Dashboard</h2>
 
@@ -10,11 +10,11 @@
 <div class="right-area">
     <div class="service">
 		<div class="dashboard-form-row">
-			<h3 class="dashboard-heading" style="float: left;">My Services</h3> 
-			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons','style'=>'margin-bottom:20px;'));?>
+			<h3 class="dashboard-heading" style="float: left;">My Services</h3>
+			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'btn btn-primary','style'=>'margin-bottom:20px; float:right;'));?>
 		</div>
 		<div class="clear"></div>
-		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 			<tr>
 				<th width="15%">Type</th>
 				<th width="20%">Title</th>
@@ -61,7 +61,7 @@
 		
 	<h3 class="dashboard-heading">My Booking</h3>
 	<?=$this->element('message');?>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
 		<tr>
 			<th width="5%">S.No.</th>
 			<th width="12%">Order No.</th>

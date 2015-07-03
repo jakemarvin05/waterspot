@@ -40,6 +40,24 @@
 	</div>
 	<div class="dashboard-form-row">
 		<div class="labelbox">
+			<label>Private? <span style="color:#ff0000;">*</span></label>
+		</div>
+		<div class="fieldbox">
+			<?=$this->Form->checkbox('is_private',array('label'=>false,'div'=>false));?>
+			<?=$this->Form->error('is_private',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+		</div>
+	</div>
+	<div class="dashboard-form-row">
+		<div class="labelbox">
+			<label>Minimum Participants (0 for no minimum): <span style="color:#ff0000;">*</span></label>
+		</div>
+		<div class="fieldbox">
+			<?=$this->Form->input('min_participants',array('type'=>'text','label'=>false,'div'=>false));?>
+			<?=$this->Form->error('min_participants',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+		</div>
+	</div>
+	<div class="dashboard-form-row">
+		<div class="labelbox">
 			<label>Description:</label>
 		</div>
 		<div class="fieldbox">
