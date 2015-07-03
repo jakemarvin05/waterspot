@@ -1087,3 +1087,17 @@ button#loader_pagination {
     display: inline-block;
     width: 70%;
 }
+.registration-form-box {
+    padding: 15px;
+    background-color: #f5f5f5;
+}
+
+.middle-area {
+}
+
+.login-form-box {
+    padding: 15px;
+}
+h6{
+font-size: 14pt;
+}
