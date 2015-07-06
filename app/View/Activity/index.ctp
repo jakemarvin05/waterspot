@@ -34,7 +34,9 @@
 							<h4>RATING:</h4>
 							<div class="rating"></div>
 							<div class="clearfix"></div>
-							<p class="info">Event has a minimum-to-go of 30 pax.</p>
+						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
+							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
+						<?php } ?>
 							<div class="completion">
 								<div class="progressbar" style="width:40%;"></div>
 							</div>

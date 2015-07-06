@@ -61,6 +61,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 		/* check slot time IF both are not equals Start */
 		$criteria=array();
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id,
+		'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
 		'Or'=>array(
 				array('ServiceSlot.start_time BETWEEN ? AND ?'=>array($start_time,$end_time)),
 				array('ServiceSlot.end_time BETWEEN ? AND ? '=>array($start_time,$end_time)),
@@ -70,7 +71,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 		);
 		
 		$service_available_status= $this->find('count',$critria);
-	
+
 		if($service_available_status>0) {
 		  return false;
 		}
@@ -80,7 +81,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 	}
 	function getService_slotByservice_id($service_id=null) {
 		$critria = array();
-		$critria['fields'] = array('ServiceSlot.id','ServiceSlot.end_time','ServiceSlot.start_time');
+		$critria['fields'] = array('ServiceSlot.id','ServiceSlot.end_time','ServiceSlot.start_time','ServiceSlot.price');
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id);
 		$critria['order'] = array('ServiceSlot.start_time ASC');
 		$slots = $this->find('all', $critria);
@@ -105,7 +106,7 @@ Class ServiceSlot extends VendorManagerAppModel {
         foreach($slots as $key=>$slot) 
         {
 			//$service_slots[$slot['ServiceSlot']['id']]=DATE("g:i A", STRTOTIME($slot['ServiceSlot']['start_time'].":"."00"))." To ".DATE("g:i A", STRTOTIME($slot['ServiceSlot']['end_time'].":"."00"));
-			$service_slots_index[$slot['ServiceSlot']['id']]=$slot['ServiceSlot']['start_time']."_".$slot['ServiceSlot']['end_time'];
+			$service_slots_index[$slot['ServiceSlot']['id']]=$slot['ServiceSlot']['start_time']."_".$slot['ServiceSlot']['end_time']."_".$slot['ServiceSlot']['price'];
         }
         $slot_data['service_slots']=$service_slots;
         $slot_data['service_slots_index']=$service_slots_index;

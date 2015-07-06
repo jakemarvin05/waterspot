@@ -85,7 +85,7 @@
 							 ?>
 							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?>
 							<label for="<?=$key?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
-								echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]);?></label>
+								echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])." Price:".$slot_time[2];?></label>
 						</span>
 						<? $i++;
 					}
