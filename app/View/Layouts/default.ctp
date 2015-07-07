@@ -24,11 +24,6 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
 
-<!-- FaceBook Opengraph -->
-<meta property="og:image" content="">
-<meta property="og:site_name" content="Waterspot">
-<meta property="og:type" content="website">
-
 <!-- Bootstrap: JS is at the bottom -->
 <link rel="stylesheet" href="/js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
