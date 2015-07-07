@@ -13,3 +13,4 @@ app/config/config.php
 app/config/database.php
 /lib/
 *.log
+/nbproject/private/

@@ -113,6 +113,8 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	 
 
 <body class="<?=$css?>">
+
+
   <section id="navWrapper" class="<?php if($this->params['controller']!="pages" ){ echo "stickyCollapsedFix"; }?>">
         <?=$this->element('header');?>
     </section>
