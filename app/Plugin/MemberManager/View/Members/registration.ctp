@@ -5,6 +5,7 @@
 <div class="row">
 <div class="col-md-8">
 <h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
+
 <div class="middle-area">
     <div class="registration-form-box">
 	<?php if ($this->Session->check('Message.register_error')): ?>
@@ -73,6 +74,8 @@
 	<?php echo $this->Form->end();?>
     </div>
     </div>
+
+</div>
 </div>
     
     <div class="col-md-4" id="logwrapper">
@@ -111,7 +114,6 @@
 	<?php echo $this->Form->end();?>
     </div>
     </div>
-</div>
 </div>
 
 

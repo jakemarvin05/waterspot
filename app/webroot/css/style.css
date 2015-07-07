@@ -1134,3 +1134,41 @@ div#share.blocks h4 {
 h2.page-title {
     text-align: center;
 }
+.registration-form-box {
+    margin-right: 30%;
+}
+input#VendorBname {
+    width: 100%;
+    height: 30px;
+}
+
+input#VendorFname {
+    height: 30px;
+    width: 249px;
+}
+
+input#VendorLname {
+    height: 30px;
+    width: 249px;
+}
+
+.fieldbox {
+}
+
+input#VendorEmail {
+    height: 30px;
+    width: 100%;
+}
+
+input#VendorPhone {
+    height: 30px;
+    width: 100%;
+}
+
+input#VendorPassword {
+    height: 30px;    width: 100%;
+}
+
+input#VendorConfirmPassword {
+    height: 30px;    width: 100%;
+}

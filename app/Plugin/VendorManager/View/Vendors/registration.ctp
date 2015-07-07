@@ -2,6 +2,8 @@
 <div class="clear"></div>
 <?=$this->element('breadcrumbs');?>
 
+<div class="row">
+<div class="col-md-8">
 <h2 class="page-title">Vendor <span style="color:#000;">Registration</span></h2>
 
 <div class="middle-area">
@@ -82,7 +84,8 @@
 	<?php echo $this->Form->end();?>
     </div>
 </div>
-     
+
+</div>
 </div>
  
  
