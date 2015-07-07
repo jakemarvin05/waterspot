@@ -20,11 +20,11 @@
                </div>
                <div class="namefieldbox">
 		    <label class="namefield">
-			<?=$this->Form->text('first_name',array("placeholder"=>"First", 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
+			<?=$this->Form->text('first_name',array("placeholder"=>"First Name", 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                     <label class="namefield2">
-			<?=$this->Form->text('last_name',array("placeholder"=>"Last", 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
+			<?=$this->Form->text('last_name',array("placeholder"=>"Last Name", 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                </div>
@@ -78,24 +78,6 @@
     <?=$this->Form->hidden('fb_id',array('value'=>(isset($_POST['fb_id'])) ? $_POST['fb_id'] : '', 'required'=>false)); ?>
 	<?php echo $this->Form->end();?>
     </div>
-    </div>
-    
-    <div class="col-md-4" id="logwrapper">
-    <div class="login-form-box">
-	<?=$this->element('message');?>
-	<h6 style="border: 0; text-align: center; padding: 0; margin: 0 0 25px 0;">Login to your account</h6>
-	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberLogin','controller'=>'members','novalidate'=>true,'class'=>'login-form'));?>
-	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>
-	    <div class="login-form-row">
-		   <div class="labelbox">
-		      <label>Email Address : <span style="color:#ff0000">*</span></label>
-		   </div>
-		   <div class="fieldbox">
-		      <?=$this->Form->email('email_id',array('required'=>false)); ?>
-		      <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		   </div>
-	    </div>
-</div>
     </div>
 
 

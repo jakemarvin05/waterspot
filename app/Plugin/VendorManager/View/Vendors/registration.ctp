@@ -33,11 +33,11 @@
                </div>
                <div class="namefieldbox">
                     <label class="namefield">
-                        <?=$this->Form->text('fname',array("placeholder"=>"First", 'required'=>false)); ?>
+                        <?=$this->Form->text('fname',array("placeholder"=>"First Name", 'required'=>false)); ?>
                         <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
                     </label>
                     <label class="namefield2">
-                        <?=$this->Form->text('lname',array("placeholder"=>"Last", 'required'=>false)); ?>
+                        <?=$this->Form->text('lname',array("placeholder"=>"Last Name", 'required'=>false)); ?>
                         <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                 </div>
