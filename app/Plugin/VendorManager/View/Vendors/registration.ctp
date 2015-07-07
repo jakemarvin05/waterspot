@@ -1,6 +1,7 @@
 <div class="hr-line"></div>
 <div class="clear"></div>
 <?=$this->element('breadcrumbs');?>
+
 <h2 class="page-title">Vendor <span style="color:#000;">Registration</span></h2>
 
 <div class="middle-area">
@@ -10,7 +11,7 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
-	<h6 style="border: 0; text-align: center; padding: 0; margin: 0 0 25px 0;">Create New Account</h6>
+	<h6>Create New Account</h6>
 	<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
         <div class="registration-form-row">
@@ -24,23 +25,20 @@
 			</div>
         </div>
 		
-        <div class="registration-form-row">
-			<div class="labelbox">
-				<label>First Name : <span style="color:#ff4142;">*</span></label>
-			</div>
-			<div class="fieldbox">
-				<?=$this->Form->text('fname',array('required'=>false)); ?>
-				<?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
-			</div>
-        </div>
-        <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Last Name : <span style="color:#ff4142;">*</span></label>
-		</div>
-		<div class="fieldbox">
-		    <?=$this->Form->text('lname',array('required'=>false)); ?>
-		    <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
+            <div class="registration-form-row">
+               <div class="labelbox">
+                <label>Name : </label>
+               </div>
+               <div class="fieldbox">
+                    <label>
+                        <?=$this->Form->text('fname',array("placeholder"=>"First", 'required'=>false)); ?>
+                        <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
+                    </label>
+                    <label>
+                        <?=$this->Form->text('lname',array("placeholder"=>"Last", 'required'=>false)); ?>
+                        <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </label>
+                </div>
             </div>
             <div class="registration-form-row">
 		<div class="labelbox">
@@ -83,45 +81,7 @@
             </div>
 	<?php echo $this->Form->end();?>
     </div>
-    <div class="login-form-box">
-	<?php if ($this->Session->check('Message.login_error')): ?>
-	    <div class="notification error">
-		<a rel="tooltip" title="Hide Notification" href="#" class="close-notification close">X</a> 
-		<div class="message" id="errorMessage"><?=$this->Session->flash('login_error'); ?></div> 
-	    </div>
-	<?php endif;?>
-	<h6 style="border: 0; text-align: center; padding: 0; margin: 0 0 25px 0;">Login to your account</h6>
-	<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form'));?>
-	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>
-	    <div class="login-form-row">
-		   <div class="labelbox">
-		      <label>Email Address : <span style="color:#ff0000">*</span></label>
-		   </div>
-		   <div class="fieldbox">
-		      <?=$this->Form->email('emailid',array('required'=>false)); ?>
-		      <?=$this->Form->error('emailid',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		   </div>
-	    </div>
-	    <div class="login-form-row">
-		   <div class="labelbox">
-		      <label>Password : <span style="color:#ff0000">*</span></label>
-		   </div>
-		   <div class="fieldbox">
-		      <?=$this->Form->password('pass',array('required'=>false)); ?>
-		      <?=$this->Form->error('pass',null,array('wrap' => 'div', 'class' => 'error-message')); ?> 
-		   </div>
-	    </div>
-	    <div class="login-form-row keep-me-login" style="text-align: left;">
-		   <p style="margin-left: 200px;">
-			<?php echo $this->Form->input('keep_me_login',array('type'=>'checkbox','label' => __('Keep me logged in', true)));?>
-		   </p>
-		   <p style="margin-left: 200px;">Forgot Password? <?=$this->Html->link('Click here',array('controller'=>'accounts','action'=>'resetpassword'))?></p>
-	    </div>
-	    <div class="login-form-row" style="text-align: right;">
-		   <input class="submit-button" value="Login" type="submit">
-	    </div>
-	<?php echo $this->Form->end();?>
-    </div>
+</div>
      
 </div>
  

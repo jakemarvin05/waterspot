@@ -1,8 +1,10 @@
 <div class="hr-line"></div>
 <div class="clear"></div>
 <?=$this->element('breadcrumbs');?>
-<h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
 
+<div class="row">
+<div class="col-md-8">
+<h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
 <div class="middle-area">
     <div class="registration-form-box">
 	<?php if ($this->Session->check('Message.register_error')): ?>
@@ -10,26 +12,23 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
-	<h6 style="border: 0; text-align: center; padding: 0; margin: 0 0 25px 0;">Create New Account</h6>
+	<h6>Create New Account</h6>
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>First Name : <span style="color:#ff4142;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->text('first_name',array('value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true)); ?>
+               <div class="labelbox">
+                <label>Name : </label>
+               </div>
+               <div class="fieldbox">
+		    <label>
+			<?=$this->Form->text('first_name',array("placeholder"=>"First", 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
-            </div>
-            <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Last Name : <span style="color:#ff4142;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->text('last_name',array('value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
+                    </label>
+		    <label>
+			<?=$this->Form->text('last_name',array("placeholder"=>"Last", 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
+                    </label>
+               </div>
             </div>
             <div class="registration-form-row">
 		<div class="labelbox">
@@ -73,7 +72,10 @@
     <?=$this->Form->hidden('fb_id',array('value'=>(isset($_POST['fb_id'])) ? $_POST['fb_id'] : '', 'required'=>false)); ?>
 	<?php echo $this->Form->end();?>
     </div>
+    </div>
+</div>
     
+    <div class="col-md-4" id="logwrapper">
     <div class="login-form-box">
 	<?=$this->element('message');?>
 	<h6 style="border: 0; text-align: center; padding: 0; margin: 0 0 25px 0;">Login to your account</h6>
@@ -108,7 +110,8 @@
 	    </div>
 	<?php echo $this->Form->end();?>
     </div>
-
+    </div>
+</div>
 </div>
 
 
