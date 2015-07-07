@@ -95,28 +95,8 @@
 		      <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		   </div>
 	    </div>
-	    <div class="login-form-row">
-		   <div class="labelbox">
-		      <label>Password : <span style="color:#ff0000">*</span></label>
-		   </div>
-		   <div class="fieldbox">
-		      <?=$this->Form->password('password',array('required'=>false)); ?>
-		      <?=$this->Form->error('password',null,array('wrap'=>'div','class'=>'error-message'));?>
-		   </div>
-	    </div>
-	    <div class="login-form-row keep-me-login" style="text-align: left;">
-		<p style="margin-left: 200px;">
-			<?php echo $this->Form->input('keep_me_login',array('type'=>'checkbox','label' => __('Keep me logged in', true)));?>
-		</p>
-		<p style="margin-left: 200px;">Forgot Password? <?php echo $this->Html->link('Click here',array('controller'=>'members','action'=>'resetpassword','plugin'=>'member_manager'),array('escape'=>false,'target'=>'_blank'));?></p>
-	    </div>
-	    <div class="login-form-row" style="text-align: right;">
-		   <input class="submit-button" value="Login" type="submit">
-	    </div>
-	<?php echo $this->Form->end();?>
-    </div>
-    </div>
 </div>
+    </div>
 
 
  <script type="text/javascript">
