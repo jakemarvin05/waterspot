@@ -1203,3 +1203,27 @@ h3.dashboard-heading {
     display: inline-block;
     width: 70%;
 }
+
+.navButtonOuter.dropdown {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.navButtonOuter.dropdown button {
+    padding: 10px 17px;
+    border: 1px solid;
+    text-transform: uppercase;
+    color: #606060;
+}
+
+.navButtonOuter.dropdown button:hover {
+    background-color: #fff;
+    color: #FF9700;
+}
+.open>.dropdown-toggle.btn-default{
+    background-color: #fff;
+    color: #FF9700;
+    border: 1px solid  #FF9700;
+
+}

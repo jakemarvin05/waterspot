@@ -86,7 +86,7 @@
                 <?php if($this->LoginMenu->isLogin()){ ?>
                     <div class="navButtonOuter dropdown" data-placement="bottom">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Vendor Menu
+                        <i class="fa fa-user"></i> Vendor Menu
     <span class="caret"></span>
   </button>
                     <?php echo $this->LoginMenu->show(); ?>
