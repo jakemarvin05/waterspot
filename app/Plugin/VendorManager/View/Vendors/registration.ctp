@@ -2,8 +2,6 @@
 <div class="clear"></div>
 <?=$this->element('breadcrumbs');?>
 
-<div class="row">
-<div class="col-md-8">
 <h2 class="page-title">Vendor <span style="color:#000;">Registration</span></h2>
 
 <div class="middle-area">
@@ -26,22 +24,25 @@
 				<?=$this->Form->error('bname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
 			</div>
         </div>
+        
+        <br/>
 		
             <div class="registration-form-row">
                <div class="labelbox">
-                <label>Name : </label>
+                <label>Name : <span style="color:#ff4142;">*</span></label>
                </div>
-               <div class="fieldbox">
-                    <label>
+               <div class="namefieldbox">
+                    <label class="namefield">
                         <?=$this->Form->text('fname',array("placeholder"=>"First", 'required'=>false)); ?>
                         <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
                     </label>
-                    <label>
+                    <label class="namefield2">
                         <?=$this->Form->text('lname',array("placeholder"=>"Last", 'required'=>false)); ?>
                         <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                 </div>
             </div>
+        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
@@ -51,6 +52,7 @@
 		    <?=$this->Form->error('email',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Phone : <span style="color:#ff4142;"> *</span></label>  
@@ -60,6 +62,7 @@
 		    <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Password : <span style="color:#ff4142;">*</span></label>
@@ -69,6 +72,7 @@
 		    <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Confirm Password : <span style="color:#ff4142;">*</span></label>
@@ -78,15 +82,14 @@
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="registration-form-row" style="text-align: right;">
+        <br/>
+            <div class="registration-form-row">
 		<input class="submit-button" value="Register Now" type="submit">
             </div>
 	<?php echo $this->Form->end();?>
     </div>
 </div>
 
-</div>
-</div>
  
  
 	 

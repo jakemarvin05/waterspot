@@ -2,8 +2,6 @@
 <div class="clear"></div>
 <?=$this->element('breadcrumbs');?>
 
-<div class="row">
-<div class="col-md-8">
 <h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
 
 <div class="middle-area">
@@ -18,14 +16,14 @@
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
                <div class="labelbox">
-                <label>Name : </label>
+                <label>Name :  <span style="color:#ff4142;">*</span></label>
                </div>
-               <div class="fieldbox">
-		    <label>
+               <div class="namefieldbox">
+		    <label class="namefield">
 			<?=$this->Form->text('first_name',array("placeholder"=>"First", 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
-		    <label>
+                    <label class="namefield2">
 			<?=$this->Form->text('last_name',array("placeholder"=>"Last", 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
@@ -67,16 +65,13 @@
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="registration-form-row" style="text-align: right;">
+            <div class="registration-form-row">
 		<input class="submit-button" value="Register Now" type="submit">
             </div>
     <?=$this->Form->hidden('fb_id',array('value'=>(isset($_POST['fb_id'])) ? $_POST['fb_id'] : '', 'required'=>false)); ?>
 	<?php echo $this->Form->end();?>
     </div>
     </div>
-
-</div>
-</div>
     
     <div class="col-md-4" id="logwrapper">
     <div class="login-form-box">
