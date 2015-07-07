@@ -5,6 +5,8 @@
 /* Lato */
 
 /* latin-ext */
+@charset "utf-8";
+
 @font-face {
     font-family: 'Lato';
     font-style: normal;
@@ -1082,6 +1084,7 @@ div#share.blocks h4 {
 
 .container-fluid.vendor-panel {
     margin-bottom: 15px;
+    background-color: #fff;
 }
 
 .member-vendor-info {
@@ -1101,13 +1104,13 @@ div#share.blocks h4 {
 }
 
 .membor-vendor-links ul li:after {
-    content: "»";
+    content: "Â»";
     display: block;
     float: right;
     margin-right: 10px;
     font-size: 19pt;
     margin: 0;
-    top: -10px;
+    top: 0px;
     position: relative;
     color: #999999;
 }
@@ -1192,6 +1195,8 @@ h3.dashboard-heading {
     background: #F5F5F5;
     border: 1px solid #ddd;
     border-top: 1px solid #fff;
+    font-size: 11pt;
+    line-height: 18pt;
 }
 
 .right-area {

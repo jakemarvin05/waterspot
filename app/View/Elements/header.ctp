@@ -126,7 +126,7 @@
                          content += '<form>';
                              content += '<input name="data[Login][login_type]" type="hidden" value="0">';
                              content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                             content += '<input class="form-control popoverInput name="data[Login][password]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
                          content += '</form>';
           
@@ -154,10 +154,11 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<form>';
-                             content += '<input name="data[Login][login_type]" type="hidden" value="1">';
-                             content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                         content += '<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form'));?>';
+                             content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
+                             content += '<input name="data[Vendor][login_type]" type="hidden" value="1">';
+                             content += '<input class="form-control popoverInput name="data[Vendor][emailid]" placeholder="Email" type="email">';
+                             content += '<input class="form-control popoverInput" name="data[Vendor][pass]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
                          content += '</form>';
           
