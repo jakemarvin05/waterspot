@@ -1,6 +1,6 @@
 <div class="hr-line"></div>
 <div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+
 
 <h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
 
@@ -29,6 +29,7 @@
                     </label>
                </div>
             </div>
+                <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
@@ -38,6 +39,7 @@
 		    <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+                        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Phone : <span style="color:#ff4142;"> *</span></label>  
@@ -47,6 +49,7 @@
 		    <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+                                <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Password : <span style="color:#ff4142;">*</span></label>
@@ -56,6 +59,7 @@
 		    <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+                                        <br/>
             <div class="registration-form-row">
 		<div class="labelbox">
 		    <label>Confirm Password : <span style="color:#ff4142;">*</span></label>
@@ -65,9 +69,12 @@
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
+                                                <br/>
             <div class="registration-form-row">
 		<input class="submit-button" value="Register Now" type="submit">
             </div>
+                                                        <br/>
+                                                                <br/>
     <?=$this->Form->hidden('fb_id',array('value'=>(isset($_POST['fb_id'])) ? $_POST['fb_id'] : '', 'required'=>false)); ?>
 	<?php echo $this->Form->end();?>
     </div>

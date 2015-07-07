@@ -1,6 +1,6 @@
 <div class="hr-line"></div>
 <div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+
 
 <h2 class="page-title">Vendor <span style="color:#000;">Registration</span></h2>
 
@@ -86,6 +86,8 @@
             <div class="registration-form-row">
 		<input class="submit-button" value="Register Now" type="submit">
             </div>
+                <br/>
+                        <br/>
 	<?php echo $this->Form->end();?>
     </div>
 </div>
