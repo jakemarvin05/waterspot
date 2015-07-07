@@ -5,6 +5,8 @@
 /* Lato */
 
 /* latin-ext */
+@charset "utf-8";
+
 @font-face {
     font-family: 'Lato';
     font-style: normal;
@@ -1069,6 +1071,78 @@ a#shareFB {
 div#share.blocks h4 {
     float: left;
 }
+
+.vendor-panel h2.page-title {
+    text-transform: uppercase;
+    background-color: #F5F5F5;
+    padding: 11px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    font-size: 16pt;
+    margin-bottom: 0;
+}
+
+.container-fluid.vendor-panel {
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+.member-vendor-info {
+    text-transform: uppercase;
+    color: #F7941E;
+}
+
+.membor-vendor-links ul li {
+    display: block;
+    padding: 12px 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.membor-vendor-links ul {
+    padding: 0;
+    margin: 0;
+}
+
+.membor-vendor-links ul li:after {
+    content: "Â»";
+    display: block;
+    float: right;
+    margin-right: 10px;
+    font-size: 19pt;
+    margin: 0;
+    top: 0px;
+    position: relative;
+    color: #999999;
+}
+
+.membor-vendor-links li a img {
+    margin-right: 16px;
+}
+h3.dashboard-heading {
+    padding-left: 10px;
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #337AB7;
+}
+
+.no-details {
+    padding-left: 10px;
+}
+
+.right-area .dashboard-form-row .btn {
+    margin: 8px 0px 0px !important;
+    text-transform: uppercase;
+    border: 0px;
+    border-radius: 0;
+    font-weight: bold;
+    padding: 7px 12px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.37);
+    box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.16);
+}
+
+
+
+/* ------- For Mobile --------- */
 @media (max-width: 480px) {
     .activity-tags {
         display: none;
@@ -1116,8 +1190,13 @@ div#share.blocks h4 {
 .left-area {
     display: inline-block;
     width: 30%;
-    padding: 0 20px;
+    padding: 20px;
     float: left;
+    background: #F5F5F5;
+    border: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    font-size: 11pt;
+    line-height: 18pt;
 }
 
 .right-area {
