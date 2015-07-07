@@ -156,11 +156,12 @@
                          //inputs
                          content += '<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form'));?>';
                              content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
-                             content += '<input name="data[Vendor][login_type]" type="hidden" value="1">';
-                             content += '<input class="form-control popoverInput name="data[Vendor][emailid]" placeholder="Email" type="email">';
+                             content += '<?=$this->Form->email('emailid',array('required'=>false,'class'=>'form-control popoverInput')); ?>';
+                             content += '<?=$this->Form->error('emailid',null,array('wrap' => 'div', 'class' => 'error-message form-control popoverInput')); ?>';
+                            // content += '<input class="form-control popoverInput" name="data[Vendor][emailid]" placeholder="Email" type="email">';
                              content += '<input class="form-control popoverInput" name="data[Vendor][pass]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
-                         content += '</form>';
+                         content += '<?php echo $this->Form->end();?>';
           
                      content += '</div>'; // .popoverFormBlock
                  content += '</div>'; // .popoverBlock

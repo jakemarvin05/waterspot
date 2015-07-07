@@ -165,7 +165,6 @@
                         });
                     }else{
                         status = 1;
-						alert('success');
                     }
                    
                  }
@@ -181,7 +180,6 @@
         });
         
         $('#VendorRegistration').submit(function(){
-			
 			//var data = $(this).serializeArray();
 			var data = new FormData(this);
 			var formData = $(this);
