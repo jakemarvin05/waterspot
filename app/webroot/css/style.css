@@ -1104,15 +1104,16 @@ div#share.blocks h4 {
 }
 
 .membor-vendor-links ul li:after {
-    content: "Â»";
+    content: "\f101";
     display: block;
     float: right;
     margin-right: 10px;
-    font-size: 19pt;
+    font-size: 13pt;
     margin: 0;
     top: 0px;
     position: relative;
     color: #999999;
+    font-family: FontAwesome;
 }
 
 .membor-vendor-links li a img {
