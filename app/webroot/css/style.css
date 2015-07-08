@@ -1291,7 +1291,6 @@ h2.page-title {
     text-align: center;
 }
 .registration-form-box {
-    margin: 0 300px;
 }
 input#VendorBname{
     width: 100%;
@@ -1422,6 +1421,7 @@ input.submit-button {
 label.namefield {
     width: 48.5%;
     margin-right: 2%;
+    float: left;
 }
 label.namefield2 {
     width: 47%;
