@@ -67,9 +67,11 @@
 			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons','style'=>'margin-bottom:20px;'));?>
 		</div>
 		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 5px;">
-			<a href="javascript:" onClick="return formsubmit('Activate');" class="dashboard-quick-buttons">Activate</a>
-			<a href="javascript:" onClick="return formsubmit('Deactivate');" class="dashboard-quick-buttons">Deactivate</a>
-			<a href="javascript:" onClick="return formsubmit('Delete');" class="dashboard-quick-buttons">Delete</a>
+                        <div id="servicebuttons">
+			<a href="javascript:" onClick="return formsubmit('Activate');" class="dashboard-quick-buttons btn orange" id="servicebuttons1">Activate</a>
+			<a href="javascript:" onClick="return formsubmit('Deactivate');" class="dashboard-quick-buttons btn orange" id="servicebuttons2">Deactivate</a>
+			<a href="javascript:" onClick="return formsubmit('Delete');" class="dashboard-quick-buttons btn orange" id="servicebuttons3">Delete</a>
+                        </div>
 		</div>
 		<div class="clear"></div>
 		<?=$this->Form->create('Service', array('name' => 'service', 'action' => 'delete/' , 'id' => 'ServiceDeleteForm', 'onSubmit' => 'return validate(this)', 'class' => 'table-form')); ?>
