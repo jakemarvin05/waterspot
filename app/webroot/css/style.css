@@ -1569,7 +1569,7 @@ form#ServiceReviewReviewsForm .btn.orange {
 
 table#service_reviews td {
     font-size: 14px;
-
+}
 td {
     border: 1px solid #ccc;
 }
@@ -1623,5 +1623,4 @@ a#servicebuttons3 {
     background-color: #F73535;
     border-radius: 2px;
     margin: 0 5px !important;
-
 }
