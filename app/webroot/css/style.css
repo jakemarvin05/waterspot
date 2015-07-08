@@ -5,6 +5,8 @@
 /* Lato */
 
 /* latin-ext */
+@charset "utf-8";
+
 @font-face {
     font-family: 'Lato';
     font-style: normal;
@@ -810,8 +812,10 @@ input#loginButton {
     border-color: #ff9700!important;;
     color: #ff9700!important;;
 }
-section#navWrapper.stickyCollapsedFix div.navButtonOuter a{
+ul.dropdown-menu{
     color: rgb(96, 96, 96)!important;;
+    padding-bottom: 0px;
+    overflow: hidden;
 }
 section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
     color: #ff9700!important;;
@@ -819,9 +823,9 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
 section#navWrapper.stickyCollapsedFix div.navButtonOuter a:hover{
     color: #ff9700!important;;
 }
-section#navWrapper.stickyCollapsedFix {
-    background-color: #fff;
-    padding-top: 5px;
+.navButtonOuter {
+    /* background-color: #fff; */
+    padding-top: 10px;
 }
 section#navWrapper.stickyCollapsedFix  img#whiteLogo{
     opacity: 0!important;
@@ -865,6 +869,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .container-fluid.wrapper.vendors-page {
     background-color: #fff;
+    padding-top: 120px;
 }
 .activities-page .page-header h1, .vendors-page .page-header h1 {
     text-align:center;
@@ -1069,6 +1074,79 @@ a#shareFB {
 div#share.blocks h4 {
     float: left;
 }
+
+.vendor-panel h2.page-title {
+    text-transform: uppercase;
+    background-color: #F5F5F5;
+    padding: 11px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+    font-size: 16pt;
+    margin-bottom: 0;
+}
+
+.container-fluid.vendor-panel {
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+.member-vendor-info {
+    text-transform: uppercase;
+    color: #F7941E;
+}
+
+.membor-vendor-links ul li {
+    display: block;
+    padding: 12px 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.membor-vendor-links ul {
+    padding: 0;
+    margin: 0;
+}
+
+.membor-vendor-links ul li:after {
+    content: "\f101";
+    display: block;
+    float: right;
+    margin-right: 10px;
+    font-size: 13pt;
+    margin: 0;
+    top: 0px;
+    position: relative;
+    color: #999999;
+    font-family: FontAwesome;
+}
+
+.membor-vendor-links li a img {
+    margin-right: 16px;
+}
+h3.dashboard-heading {
+    padding-left: 10px;
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #337AB7;
+}
+
+.no-details {
+    padding-left: 10px;
+}
+
+.right-area .dashboard-form-row .btn {
+    margin: 8px 0px 0px !important;
+    text-transform: uppercase;
+    border: 0px;
+    border-radius: 0;
+    font-weight: bold;
+    padding: 7px 12px;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.37);
+    box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.16);
+}
+
+
+
+/* ------- For Mobile --------- */
 @media (max-width: 480px) {
     .activity-tags {
         display: none;
@@ -1116,14 +1194,96 @@ div#share.blocks h4 {
 .left-area {
     display: inline-block;
     width: 30%;
-    padding: 0 20px;
+    padding: 20px;
     float: left;
+    background: #F5F5F5;
+    border: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    font-size: 11pt;
+    line-height: 18pt;
 }
 
 .right-area {
     display: inline-block;
     width: 70%;
 }
+
+.navButtonOuter.dropdown {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.navButtonOuter.dropdown button {
+    padding: 10px 17px;
+    border: 1px solid;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+.navButtonOuter.dropdown button:hover {
+    background-color: transparent;
+    color: #FF9700;
+}
+.open>.dropdown-toggle.btn-default{
+    background-color: #fff;
+    color: #FF9700;
+    border: 1px solid  #FF9700;
+
+}
+
+.open>.dropdown-menu li a {
+    padding: 5px 20px 6px;
+    border-bottom: solid 1px #ccc;
+}
+
+
+.open>.dropdown-menu li:last-child a {
+    border: none;
+}
+
+ul.dropdown-menu ul {
+    padding: 0px 0px 10px 0px;
+    margin: 0;
+    border-bottom: solid 1px #D1D1D1;
+}
+
+ul.dropdown-menu ul li {
+    display: block;
+    padding: 0;
+}
+
+ul.dropdown-menu ul li a {
+    display: block;
+    padding: 6px 0px 0px 20px !important;
+    border: none!important;
+}
+
+ul.dropdown-menu ul li a:before {
+    content: "\f105";
+    font-family: "FontAwesome";
+    display: block;
+    float: left;
+    margin-right: 8px;
+    color: #B3B3B3;
+}
+section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
+    color: #606060;
+}
+.stickyCollapsed .navButtonOuter.dropdown button {
+    color: #626A68;
+}
+.stickyCollapsed .open>.dropdown-toggle.btn-default {
+    color: #F29C14;
+}
+.stickyCollapsedFix .navButtonOuter.dropdown button {
+    color: #626A68;
+}
+
+.stickyCollapsedFix .open>.dropdown-toggle.btn-default {
+    color: #F29C14;
+
 .middle-area {
     padding: 15px;
     background-color: #F9F9F9;

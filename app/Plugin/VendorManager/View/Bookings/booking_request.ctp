@@ -4,10 +4,8 @@
 //$search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked Date');
 ?>
 
-<div class="wrapper">
-	<div class="hr-line"></div>
-	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
+<div class="wrapper vendor-panel container-fluid">
+	<br><br><br><br>
 	<h2 class="page-title">Booking <span style="color: #000;">Request</span></h2>
 	
 	<?=$this->element('VendorManager.left-vendor-panel');?>
@@ -98,7 +96,8 @@
  </div>
 
 	</div>
-<div class="clear"></div>
+<div class="clearfix"></div>
+
 
 </div>
 <script type='text/javascript'>

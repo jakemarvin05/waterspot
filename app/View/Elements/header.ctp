@@ -86,7 +86,7 @@
                 <?php if($this->LoginMenu->isLogin()){ ?>
                     <div class="navButtonOuter dropdown" data-placement="bottom">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Vendor Menu
+                        <i class="fa fa-user"></i> Vendor Menu
     <span class="caret"></span>
   </button>
                     <?php echo $this->LoginMenu->show(); ?>
@@ -126,7 +126,7 @@
                          content += '<form>';
                              content += '<input name="data[Login][login_type]" type="hidden" value="0">';
                              content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                             content += '<input class="form-control popoverInput name="data[Login][password]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
                          content += '</form>';
           
@@ -154,12 +154,14 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<form>';
-                             content += '<input name="data[Login][login_type]" type="hidden" value="1">';
-                             content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                         content += '<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form'));?>';
+                             content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
+                             content += '<?=$this->Form->email('emailid',array('required'=>false,'class'=>'form-control popoverInput')); ?>';
+                             content += '<?=$this->Form->error('emailid',null,array('wrap' => 'div', 'class' => 'error-message form-control popoverInput')); ?>';
+                            // content += '<input class="form-control popoverInput" name="data[Vendor][emailid]" placeholder="Email" type="email">';
+                             content += '<input class="form-control popoverInput" name="data[Vendor][pass]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
-                         content += '</form>';
+                         content += '<?php echo $this->Form->end();?>';
           
                      content += '</div>'; // .popoverFormBlock
                  content += '</div>'; // .popoverBlock
