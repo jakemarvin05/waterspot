@@ -112,7 +112,7 @@ Class BookingsController extends VendorManagerAppController{
 	
 	
 	function booking_request() {
-		$this->bookingNotification();
+	//	$this->bookingNotification();
 		$this->paginate = array();
 		$this->loadModel('Cart');
 		$this->breadcrumbs[] = array(
