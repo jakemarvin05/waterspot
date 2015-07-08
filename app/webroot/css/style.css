@@ -1086,7 +1086,7 @@ div#share.blocks h4 {
 }
 
 .container-fluid.vendor-panel {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     background-color: #fff;
 }
 
@@ -1127,6 +1127,8 @@ h3.dashboard-heading {
     text-transform: uppercase;
     font-weight: normal;
     color: #337AB7;
+    font-size: 19px!important;
+    font-family: "Lato" !important;
 }
 
 .no-details {
@@ -1134,7 +1136,7 @@ h3.dashboard-heading {
 }
 
 .right-area .dashboard-form-row .btn {
-    margin: 8px 0px 0px !important;
+    margin: 8px 1% 0px !important;
     text-transform: uppercase;
     border: 0px;
     border-radius: 0;
@@ -1201,11 +1203,15 @@ h3.dashboard-heading {
     border-top: 1px solid #fff;
     font-size: 11pt;
     line-height: 18pt;
+    border-right: none;
 }
 
 .right-area {
     display: inline-block;
     width: 70%;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    background-color: #fff;
 }
 
 .navButtonOuter.dropdown {
@@ -1283,7 +1289,7 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 
 .stickyCollapsedFix .open>.dropdown-toggle.btn-default {
     color: #F29C14;
-
+}
 .middle-area {
     padding: 15px;
     background-color: #F9F9F9;
@@ -1361,7 +1367,7 @@ input#VendorConfirmPassword {
 }
 
 input#MemberFirstName {
-    height: 40px;      
+    height: 40px;
     width: 100%;
     border: 1px solid #ff9700;
     padding: 5px 10px;
@@ -1370,7 +1376,7 @@ input#MemberFirstName {
 }
 
 input#MemberLastName {
-    height: 40px;      
+    height: 40px;
     width: 100%;
     border: 1px solid #ff9700;
     padding: 5px 10px;
@@ -1410,19 +1416,19 @@ input#MemberConfirmPassword {
     font-weight: 100;
 }
 input.submit-button {
- display:block;
+    display:block;
     background-color: #F79E34;
     color: #fff;
     max-width: 180px;
     text-transform: uppercase;
     font-size: 14pt;
     padding: 18px;
-    
+
     font-weight: bold;
     text-align: center;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
- border: none;
+    border: none;
 }
 
 label.namefield {
@@ -1437,4 +1443,80 @@ label.namefield2 {
 .namefieldbox {
     display: inline-block;
     width: 100%;
+}
+
+.vendor-panel .table {
+    width: 98%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    margin: 1%;
+}
+
+.membor-vendor-links ul li:last-child {
+    border: none;
+}
+
+.right-area .dashboard-form-row .btn.dropdown-toggle {
+    border: 1px solid #F79E34;
+    font-weight: normal;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.dashboard-form-row input[type=text] {
+    border: 1px solid #F79E34;
+    padding: 10px 12px 7px;
+    font-size: 14px;
+    text-transform: uppercase;
+    top: 6px;
+    position: relative;
+    min-width: 195px;
+    margin: 0px 0px 0px 3px;
+    font-weight: normal;
+}
+
+.dashboard-form-row {
+    padding: 0px 1% 8px;
+    margin-bottom: 15px;
+    border-bottom: solid 1px #ddd;
+    min-height: 50px;
+}
+.btn-group.bootstrap-select {
+    max-width: 150px;
+}
+.btn.orange {
+    background-color: #ff9700;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 17px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.39);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.16);
+}
+
+input.dashboard-buttons.btn.orange {
+    float: right;
+    max-width: 130px;
+    padding: 8px;
+    margin: 8px 0!important;
+}
+table#booking_list th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.right-area table {
+    margin: 0 1%;
+    width: 98%;
+}
+
+table#booking_list td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
 }

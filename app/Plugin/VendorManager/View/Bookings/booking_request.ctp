@@ -159,5 +159,8 @@
 		var selected = $("#"+id+" :selected").text();
 		$("#BookingSearchbydate").attr("placeholder", "Select "+selected);
 	}
+
+
+	sameHeight('left-area','right-area');
   
 </script>

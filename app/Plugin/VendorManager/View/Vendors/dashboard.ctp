@@ -102,3 +102,8 @@
     </div>
 </div>
 	</div>
+
+<script type='text/javascript'>
+	sameHeight('left-area','right-area');
+
+</script>
