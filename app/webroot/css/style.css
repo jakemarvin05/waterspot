@@ -1274,7 +1274,6 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 .stickyCollapsed .navButtonOuter.dropdown button {
     color: #626A68;
 }
-
 .stickyCollapsed .open>.dropdown-toggle.btn-default {
     color: #F29C14;
 }
