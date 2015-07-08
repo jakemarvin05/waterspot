@@ -85,9 +85,15 @@
 						<?=$this->Form->end(); ?>
 					</div>
 					</div>
-					<div class="fb-share">
-						<div class="fb-share-button" data-href="<?php echo $web_url ? $web_url : 'http://128.199.214.85'; ?>" data-layout="box_count"></div>
+					<div id="share" class="blocks"><br><br>
+						<h4>Share: </h4>
+						<div class="socialicons">
+							<a id="shareFB" href="https://www.facebook.com/sharer/sharer.php?app_id=381957422009700&sdk=joey&u=<?php echo  (isset($web_url) ? urlencode($web_url) : urlencode('http://128.199.214.85')); ?>&display=popup&ref=plugin&src=share_button" >facebook</a>
+						</div>
+
+					<div class="clearfix"></div>
 					</div>
+
 				</aside>
 
 			</section>
@@ -417,8 +423,7 @@ function get_service_availability()	{
 	});
 </script>-->
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(function()
 	{
 		$('.scroll-pane').jScrollPane({
@@ -427,3 +432,18 @@ function get_service_availability()	{
 		});
 	});
 </script>
+	<script language="javascript" type="text/javascript">
+
+		function openInPopUp(url) {
+			newwindow=window.open(url,'name','height=500,width=550');
+			if (window.focus) {newwindow.focus()}
+			return false;
+		}
+
+		$('#shareFB').click(function(e){
+			e.preventDefault();
+			openInPopUp($(this).attr("href"));
+
+		});
+
+	</script>

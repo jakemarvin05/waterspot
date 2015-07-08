@@ -203,4 +203,6 @@
       });
       
     });
+
+	sameHeight('left-area','right-area');
 </script>

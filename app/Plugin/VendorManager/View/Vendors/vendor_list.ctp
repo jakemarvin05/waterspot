@@ -15,9 +15,11 @@
 
 	<section class="row">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>	
-<h2 class="page-title">Vendors</h2>
+<div class="clear"></div><header class="page-header">
+			<p class="beforeHeader">See what we have for you?</p>
+			<h1 class=" headerAlt">Select Vendors</h1>
+		</header>
+		<div class="clearfix"></div>
 <div class="middle-area">
 	<?php $i = $this->paginator->counter('{:start}'); ?>
 	<? foreach($vendor_services as $key=>$vendor_service) { ?>
@@ -26,11 +28,13 @@
 				<div class="tile">
 					<?php 
 					/* Resize Image */
+					
 						if(isset($vendor_service['Vendor']['image'])) {
 							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_service['Vendor']['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
 							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0'));
+							echo urldecode($this->Html->image($resizedImg,array('border'=>'0')));
 						}
+						
 					?>
 				</div>
 				<div class="contenthover">

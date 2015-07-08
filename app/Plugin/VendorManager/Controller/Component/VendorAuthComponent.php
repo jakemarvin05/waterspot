@@ -49,7 +49,7 @@ class VendorAuthComponent extends Component{
 		
 	}
 	public function login($action=null){
-	
+
 		$conditions = array();
 		$model_name = self::_ext_model($this->model_use);
 		

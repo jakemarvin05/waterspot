@@ -1,8 +1,9 @@
+<div class="container-fluid vendor-panel">
 <? $payment_status=Configure::read('payment_status');?>
 <? $total_service=$this->Paginator->counter(array('format' => '{:count}'));?>
 <div class="hr-line"></div>
 <div class="clear" style="margin-top:80px;"></div>
-<div class="bredcrum"> <?=$this->element('breadcrumbs');?></div>
+
 <h2 class="page-title">Dashboard</h2>
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
@@ -100,3 +101,9 @@
 	<div class="clear"></div>
     </div>
 </div>
+	</div>
+
+<script type='text/javascript'>
+	sameHeight('left-area','right-area');
+
+</script>

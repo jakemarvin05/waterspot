@@ -1,13 +1,14 @@
+<div class="container-fluid vendor-panel">
 <? $payment_status=Configure::read('payment_status');?>
 <? // create array for searching list
 $search_type=array('ref_no'=>'Order id','transaction_id'=>'Transaction Id','phone'=>'Phone No.','email'=>'Email','fname'=>'First Name','lname'=>'Last Name');
 $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked Date');
 ?>
+<br><br><br>
 
 <div class="wrapper">
 	<div class="hr-line"></div>
 	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
 	<h2 class="page-title">Booking <span style="color: #000;">List</span></h2>
 	
 	<?=$this->element('VendorManager.left-vendor-panel');?>
@@ -18,13 +19,11 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 			<?=$this->element('message');?>
 			<?=$this->Form->create('Booking',array('class'=>'dashboard-form','id'=>'Booking','action'=>'booking_list','novalidate' => true)); ?>
 				<div class="dashboard-form-row">
-					<?=$this->Form->input('search',array('type' =>'select', 'options' => $search_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace(this.id)'));?>
+					<?=$this->Form->input('search',array('type' =>'select','class'=>'selectpicker', 'options' => $search_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace(this.id)'));?>
 					<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your Order id')); ?>
-					<?=$this->Form->input('search_by_date',array('type' =>'select', 'options' => $search_by_date_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace_date(this.id)'));?>    
+					<?=$this->Form->input('search_by_date',array('type' =>'select','class'=>'selectpicker', 'options' => $search_by_date_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace_date(this.id)'));?>
 					<?=$this->Form->input('searchbydate',array('div'=>false,'label'=>false,'Placeholder'=>'Select booking date','class'=>'form-last-field')); ?>
-				</div>
-				<div class="dashboard-form-row">
-					<input type="submit" value="Search" class="dashboard-buttons">
+					<input type="submit" value="Search" class="dashboard-buttons btn orange">
 				</div>
 		       <?=$this->Form->end();?>
 		       
@@ -100,6 +99,8 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 <div class="clear"></div>
 
 </div>
+	</div>
+
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll
@@ -159,5 +160,15 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		var selected = $("#"+id+" :selected").text();
 		$("#BookingSearchbydate").attr("placeholder", "Select "+selected);
 	}
-  
+
+
+	sameHeight('left-area','right-area');
+
+
+
+
+</script>
+<script type="text/javascript">
+	$('.selectpicker').selectpicker();
+
 </script>
