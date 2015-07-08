@@ -1123,6 +1123,9 @@ h3.dashboard-heading {
     color: #337AB7;
     font-size: 19px!important;
     font-family: "Lato" !important;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .no-details {
@@ -1524,4 +1527,41 @@ th {
     vertical-align: top;
     background-color: #F5F5F5;
     padding: 8px;
+}
+.dashboard-form-row .dashboard-heading {
+    border: none;
+}
+table#service_reviews th {
+    border: 1px solid #ddd;
+    font-size: 14px;
+    padding: 8px;
+    height: auto;
+    background-color: #f9f9f9;
+}
+
+tr.no-details td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.right-area input[type=text] {
+    border: 1px solid #F79E34;
+    padding: 10px 8px 7px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+input#ServiceReviewSearchtext {
+    width: 210px;
+    margin: 8px 1%;
+    float: left;
+}
+
+form#ServiceReviewReviewsForm .btn.orange {
+    float: left;
+    border-radius: 0px;
+}
+
+table#service_reviews td {
+    font-size: 14px;
 }
