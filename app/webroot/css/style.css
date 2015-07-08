@@ -1127,6 +1127,8 @@ h3.dashboard-heading {
     text-transform: uppercase;
     font-weight: normal;
     color: #337AB7;
+    font-size: 19px!important;
+    font-family: "Lato" !important;
 }
 
 .no-details {
@@ -1209,6 +1211,7 @@ h3.dashboard-heading {
     width: 70%;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
+    background-color: #fff;
 }
 
 .navButtonOuter.dropdown {
@@ -1451,4 +1454,69 @@ label.namefield2 {
 
 .membor-vendor-links ul li:last-child {
     border: none;
+}
+
+.right-area .dashboard-form-row .btn.dropdown-toggle {
+    border: 1px solid #F79E34;
+    font-weight: normal;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.dashboard-form-row input[type=text] {
+    border: 1px solid #F79E34;
+    padding: 10px 12px 7px;
+    font-size: 14px;
+    text-transform: uppercase;
+    top: 6px;
+    position: relative;
+    min-width: 195px;
+    margin: 0px 0px 0px 3px;
+    font-weight: normal;
+}
+
+.dashboard-form-row {
+    padding: 0px 1% 8px;
+    margin-bottom: 15px;
+    border-bottom: solid 1px #ddd;
+    min-height: 50px;
+}
+.btn-group.bootstrap-select {
+    max-width: 150px;
+}
+.btn.orange {
+    background-color: #ff9700;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 17px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.39);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.16);
+}
+
+input.dashboard-buttons.btn.orange {
+    float: right;
+    max-width: 130px;
+    padding: 8px;
+    margin: 8px 0!important;
+}
+table#booking_list th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.right-area table {
+    margin: 0 1%;
+    width: 98%;
+}
+
+table#booking_list td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
 }
