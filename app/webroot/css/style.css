@@ -1569,7 +1569,7 @@ form#ServiceReviewReviewsForm .btn.orange {
 
 table#service_reviews td {
     font-size: 14px;
-
+}
 td {
     border: 1px solid #ccc;
 }
@@ -1608,6 +1608,7 @@ a#servicebuttons1 {
     background-color: #40D753;
     border-radius: 2px;
     margin: 0 5px !important;
+    margin-top: 8px !important;
 }
 
 a#servicebuttons2 {
@@ -1615,6 +1616,8 @@ a#servicebuttons2 {
     background-color: grey;
     border-radius: 2px;
     margin: 0 5px !important;
+    margin-top: 8px !important;
+    padding-top: 8px;
 
 }
 
@@ -1623,5 +1626,25 @@ a#servicebuttons3 {
     background-color: #F73535;
     border-radius: 2px;
     margin: 0 5px !important;
+    margin-top: 8px !important;
+}
+h2.page-title {
+    text-transform: uppercase;    background-color: #F5F5F5;    padding: 11px;    font-weight: normal;    border: 1px solid #ddd;    font-size: 16pt;    margin-bottom: 0;
+}
+a.dashboard-buttons.btn.orange {
+    display: inline-block;
+    width: auto;
+    float: right;
+    border-radius: 2px;
+    margin: 5px !important;
+}
+div#service_container {
+    margin: 0 !important;
+}
+div#servicebuttons {
+    padding-top: 14px;
+}
 
+div#servicebutton_container {
+    border: none;
 }
