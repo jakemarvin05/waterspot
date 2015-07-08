@@ -48,7 +48,7 @@
 		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
 		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->email('email',array('required'=>false)); ?>
+		    <?=$this->Form->email('email',array("placeholder"=>"@", 'required'=>false)); ?>
 		    <?=$this->Form->error('email',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
