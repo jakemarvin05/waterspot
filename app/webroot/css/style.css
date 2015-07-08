@@ -1134,7 +1134,7 @@ h3.dashboard-heading {
 }
 
 .right-area .dashboard-form-row .btn {
-    margin: 8px 0px 0px !important;
+    margin: 8px 1% 0px !important;
     text-transform: uppercase;
     border: 0px;
     border-radius: 0;
@@ -1208,6 +1208,7 @@ h3.dashboard-heading {
     display: inline-block;
     width: 70%;
     border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
 .navButtonOuter.dropdown {
@@ -1442,8 +1443,12 @@ label.namefield2 {
 }
 
 .vendor-panel .table {
-    width: 99%;
+    width: 98%;
     max-width: 100%;
     margin-bottom: 20px;
-    margin-left: 1%;
+    margin: 1%;
+}
+
+.membor-vendor-links ul li:last-child {
+    border: none;
 }
