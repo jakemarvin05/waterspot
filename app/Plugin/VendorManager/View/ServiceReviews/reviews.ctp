@@ -1,7 +1,9 @@
+<div class="container-fluid vendor-panel">
+
+	<br><br><br>
 <div class="wrapper">
 	<div class="hr-line"></div>
 	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
 	<h2 class="page-title">Service Reviews</h2>
 	<?=$this->element('VendorManager.left-vendor-panel');?>
 	<div class="right-area">
@@ -12,7 +14,7 @@
 			<?=$this->element('message');?>
 			<?=$this->Form->create('ServiceReview',array('class'=>'dashboard-form','action'=>'reviews',$service_id,'novalidate' => true)); ?>
 				<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your message here...')); ?>
-				<input type="submit" value="Search" class="dashboard-buttons">
+				<input type="submit" value="Search" class="dashboard-buttons btn orange">
 			<?=$this->Form->end();?>
 			
 		<div class="clear"></div>
@@ -88,6 +90,7 @@
 <div class="clear"></div>
 
 </div>
+	</div>
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll
