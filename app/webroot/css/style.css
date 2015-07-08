@@ -1274,7 +1274,6 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 .stickyCollapsed .navButtonOuter.dropdown button {
     color: #626A68;
 }
-
 .stickyCollapsed .open>.dropdown-toggle.btn-default {
     color: #F29C14;
 }
@@ -1284,4 +1283,158 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 
 .stickyCollapsedFix .open>.dropdown-toggle.btn-default {
     color: #F29C14;
+
+.middle-area {
+    padding: 15px;
+    background-color: #F9F9F9;
+    border-top: 1px solid #EEEEEE;
+}
+
+.middle-area h6 {
+    font-size: 14pt;
+}
+h2.page-title {
+    text-align: center;
+}
+.registration-form-box {
+    margin: 0 300px;
+}
+input#VendorBname{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorFname{
+    height: 40px;
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorLname{
+    height: 40px;
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorEmail {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorPhone {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorPassword {
+    height: 40px;    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#VendorConfirmPassword {
+    height: 40px;    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberFirstName {
+    height: 40px;      
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberLastName {
+    height: 40px;      
+    width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberEmailId {
+    height: 40px;      width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberPhone {
+    height: 40px;      width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberPassword {
+    height: 40px;      width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+input#MemberConfirmPassword {
+    height: 40px;      width: 100%;
+    border: 1px solid #ff9700;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 100;
+}
+input.submit-button {
+ display:block;
+    background-color: #F79E34;
+    color: #fff;
+    max-width: 180px;
+    text-transform: uppercase;
+    font-size: 14pt;
+    padding: 18px;
+    
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+ border: none;
+}
+
+label.namefield {
+    width: 48.5%;
+    margin-right: 2%;
+}
+label.namefield2 {
+    width: 47%;
+    margin-left: 2%;
+}
+
+.namefieldbox {
+    display: inline-block;
+    width: 100%;
 }

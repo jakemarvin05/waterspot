@@ -11,8 +11,9 @@ $i = $this->paginator->counter('{:start}');
 				<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
 				$imgArr = array('source_path'=>$path,'img_name'=>$search_service_list['image'],'width'=>293,'height'=>223,'noimg'=>$setting['site']['site_noimage']);
 				$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-				echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$search_service_list['Service']['service_title'])) ; ?>
+				echo urldecode($this->Html->image($resizedImg,array('border'=>'0','alt'=>$search_service_list['Service']['service_title'])) ); ?>
 				<div class="price">$<?= number_format($search_service_list['Service']['service_price'],2)?></div>
+
 			</div>
 			<div class="contenthover">
 				<div class="short-desc"><?php echo $this->Format->Headingsubstring(strip_tags($search_service_list['Service']['description']),250);?></div>
