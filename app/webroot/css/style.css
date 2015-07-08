@@ -80,7 +80,6 @@
  *************************/
 
 body {
-    font-family: 'Lato', sans-serif;
     color: #606060; /* default dark font color */
 }
 h1, h2, h3, h4 {
@@ -602,15 +601,10 @@ div.wrapper h2{
     margin-top: 20px;
 }
 div.wrapper H3{
-    font-size: 18pt;
-    font-family: 'Arca Majora';
 
-    margin-top: 40px;
 }
 div.wrapper{
     color: #606060;
-    font-family: 'Lato';
-    font-size: 14pt;
 
     line-height: 10pt;
     background-color: #f5f5f5;
@@ -1437,4 +1431,13 @@ label.namefield2 {
 .namefieldbox {
     display: inline-block;
     width: 100%;
+}
+h3.dashboard-heading {}
+
+th {
+    border: 1px solid #ccc;
+    height: 57px;
+    vertical-align: top;
+    background-color: #F5F5F5;
+    padding: 8px;
 }
