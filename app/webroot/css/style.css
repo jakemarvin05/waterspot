@@ -80,7 +80,6 @@
  *************************/
 
 body {
-    font-family: 'Lato', sans-serif;
     color: #606060; /* default dark font color */
 }
 h1, h2, h3, h4 {
@@ -602,15 +601,10 @@ div.wrapper h2{
     margin-top: 20px;
 }
 div.wrapper H3{
-    font-size: 18pt;
-    font-family: 'Arca Majora';
 
-    margin-top: 40px;
 }
 div.wrapper{
     color: #606060;
-    font-family: 'Lato';
-    font-size: 14pt;
 
     line-height: 10pt;
     background-color: #f5f5f5;
@@ -1303,7 +1297,6 @@ h2.page-title {
     text-align: center;
 }
 .registration-form-box {
-    margin: 0 300px;
 }
 input#VendorBname{
     width: 100%;
@@ -1434,6 +1427,7 @@ input.submit-button {
 label.namefield {
     width: 48.5%;
     margin-right: 2%;
+    float: left;
 }
 label.namefield2 {
     width: 47%;
@@ -1444,6 +1438,7 @@ label.namefield2 {
     display: inline-block;
     width: 100%;
 }
+
 
 .vendor-panel .table {
     width: 98%;
@@ -1519,4 +1514,14 @@ table#booking_list td {
     border: 1px solid #ddd;
     padding: 10px;
     font-size: 14px;
+}
+
+h3.dashboard-heading {}
+
+th {
+    border: 1px solid #ccc;
+    height: 57px;
+    vertical-align: top;
+    background-color: #F5F5F5;
+    padding: 8px;
 }
