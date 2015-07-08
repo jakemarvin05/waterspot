@@ -91,6 +91,8 @@
 	    <div id="messageBox" class="dashboard-file-uploader-msg"></div>
       </div>
 
+	<div class="clearfix"></div>
+
 </div>
 
   <script type="text/javascript">
@@ -180,6 +182,8 @@
                         }, '');                  
               });
                });
+
+		  sameHeight('left-area','right-area');
  	</script>
 
 <script>
