@@ -47,6 +47,7 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <!-- Page specific scripts required for early rendering -->
 <script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script src="/js/page-specifics/index.js"></script>
+<script src="/js/app.js"></script>
 
 <?=$this->Html->css($css_for_layout); ?>
 <?=$this->Html->script($script_for_layout); ?>
