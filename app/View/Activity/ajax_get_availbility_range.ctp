@@ -7,10 +7,10 @@
 				<? if(!empty($service_slots['slotindex'] ))	{
 					foreach($service_slots['slotindex'] as $slotkey=>$slot) { 
 						//slot date,service_id,service_time
-						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot;
+						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot->start_time."_".$slot->end_time;
 						?>
-						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
-						echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]);
+						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
+						echo $this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time);
 						?></label></div>
 				<? } } // end if 
 					else {?>

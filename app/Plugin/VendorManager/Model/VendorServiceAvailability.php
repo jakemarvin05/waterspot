@@ -175,7 +175,7 @@
 					 $filtre_slots[$index]['service_id']=$options['service_id'];
 					$filtre_slots[$index]['start_date']=date(Configure::read('Calender_format_php'),$index);
 					$filtre_slots[$index]['end_date']=date(Configure::read('Calender_format_php'),$index);
-					$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode($available_slot['VendorServiceAvailability']['slots']):array();
+					$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode('{'.substr($available_slot['VendorServiceAvailability']['slots'], 1, -1).'}'):array();
 				}
 			}
 			 
@@ -185,7 +185,7 @@
 				$filtre_slots[$index]['service_id']=$options['service_id'];
 				$filtre_slots[$index]['start_date']=date(Configure::read('Calender_format_php'),$index);
 				$filtre_slots[$index]['end_date']=date(Configure::read('Calender_format_php'),$index);
-				$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode($available_slot['VendorServiceAvailability']['slots']):array();
+				$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode('{'.substr($available_slot['VendorServiceAvailability']['slots'], 1, -1).'}'):array();
 			} 
 		}	
 		

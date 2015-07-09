@@ -34,7 +34,9 @@
 							<h4>RATING:</h4>
 							<div class="rating"></div>
 							<div class="clearfix"></div>
-							<p class="info">Event has a minimum-to-go of 30 pax.</p>
+						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
+							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
+						<?php } ?>
 							<div class="completion">
 								<div class="progressbar" style="width:40%;"></div>
 							</div>
@@ -43,6 +45,7 @@
 						</div>
 					<div class="blocks">
 					<div class="slot-booking-form">
+					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
 						<div class="select-participant">
 							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
 							<?
@@ -55,7 +58,7 @@
 						</div>
 						<?php echo $this->element('message');?>
 
-						<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+						
 						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
 						<br>
 						<div class="startDate">
@@ -245,7 +248,6 @@ function get_service_availability()	{
  
 	var service_id=$( "#ActivityServiceId" ).val();
 	var startdate=$( "#ActivityStartDate" ).val();
-	var enddate=$( "#ActivityEndDate" ).val();
 	var no_participants=$( "#ActivityNoParticipants" ).val();
 				
 	if(startdate=='' || service_id=='' || no_participants<=0) {
@@ -259,7 +261,7 @@ function get_service_availability()	{
  $.ajax({
 		 url :'<?=$path?>activity/ajax_get_availbility_range',
 		 type:'POST',
-		 data:{'service_id':service_id,'start_date':startdate,'end_date':enddate,'no_participants':no_participants},
+		 data:{'service_id':service_id,'start_date':startdate,'no_participants':no_participants},
 		 success: function (result)
 		 {
 			 
@@ -272,8 +274,9 @@ function get_service_availability()	{
 		 }
 	}); 
 //alert(service_id+startdate+enddate)
-} 
+}
 </script>
+
 <script>
 <?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){

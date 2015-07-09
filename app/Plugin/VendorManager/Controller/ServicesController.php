@@ -438,6 +438,7 @@ Class ServicesController extends VendorManagerAppController{
 	function add_service_slots($service_id=null) {
 		
 		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.Service');
 		// checking vendor is login or not
 		$vendor_id=$this->VendorAuth->id();
 		// check service_id owner 
@@ -445,6 +446,8 @@ Class ServicesController extends VendorManagerAppController{
 			$this->Session->setFlash(__('Are you doing something wrong?', false));
 			$this->redirect($this->VendorAuth->loginRedirect);
 		}
+		$service = $this->Service->find('first',['conditions'=>['id'=>$service_id]]);
+		$default_service_price = $service['Service']['service_price'];
 		//$this->layout='';
 		$hours=range(0,23);		
 		$hours_format=array();
@@ -498,6 +501,7 @@ Class ServicesController extends VendorManagerAppController{
 		);
 		 
 		$this->set('service_id',$service_id);
+		$this->set('default_service_price',$default_service_price);
 		$this->set('service_title',$service_title);
 		$this->set('hours_format',$hours_format);
 		$this->set('end_hours_format',$end_hours_format);

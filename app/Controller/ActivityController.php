@@ -300,6 +300,7 @@ Class ActivityController extends AppController{
 			onSelect:function(selectedDate){
 			$( "#ActivityStartDate" ).val(selectedDate);
 			$( "#ActivityEndDate" ).datepicker( "option", "minDate", selectedDate );
+			get_service_availability();
 			$(this).change();
 			 }
 		}
@@ -450,12 +451,12 @@ Class ActivityController extends AppController{
 			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
 			if (count($service) !== 0) {
 				$service = $service[0]['VendorServiceAvailability'];
-				eval('$slots = ' . $service['slots'] . ';');
+
+				$slots = json_decode('{'.substr($service['slots'], 1, -1).'}');
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
 				if (!empty($new_service_slots)) {
-					return json_encode($new_service_slots);
-					// $this->set('service_slots',$new_service_slots);
+					$this->set('service_slots',$new_service_slots);
 				} else {
 					$dates = [];
 					$one_day = 60*60*24;
@@ -473,10 +474,7 @@ Class ActivityController extends AppController{
 					$before_dates = array_reverse(array_slice($dates, 0, $key));
 					foreach ($before_dates as $date) {
 						foreach ($slots as $slot) {
-							$time = explode('_', $slot);
-							$start_time = $time[0];
-							$end_time   = $time[1];
-							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $slot->start_time, $slot->end_time);
 							if (!$data) { // almost same function as the availablility of selected date.
 								$recommended[] = $data;
 							}
@@ -502,8 +500,8 @@ Class ActivityController extends AppController{
 							break;
 						}
 					}
-					return json_encode($recommended);
-					// $this->set('recommended_dates',$recommended);
+					// return json_encode($recommended);
+					$this->set('recommended_dates',$recommended);
 				}
 			}
 		}
