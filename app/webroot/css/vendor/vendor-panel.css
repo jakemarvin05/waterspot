@@ -192,7 +192,7 @@ label.namefield2 {
 }
 
 .dashboard-form-row {
-    padding: 0px 1% 8px;
+    padding: 0px 0 8px;
     margin-bottom: 15px;
     border-bottom: solid 1px #ddd;
     min-height: 50px;
@@ -374,4 +374,8 @@ div#servicebutton_container {
 
 pre.cake-error {
     display: none;
+}
+
+.with-padding.dashboard-form-row {
+    padding: 0px 1% 8px;
 }
