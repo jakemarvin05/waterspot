@@ -8,7 +8,7 @@
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
     <div class="service">
 		<div class="dashboard-form-row">
 			<h3 class="dashboard-heading" style="float: left;">My Services</h3>

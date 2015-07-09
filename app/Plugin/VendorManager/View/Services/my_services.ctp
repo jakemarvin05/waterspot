@@ -1,4 +1,5 @@
-
+<div class="container-fluid vendor-panel">
+	<br><br><br>
 <script type="text/javascript">
 	function formsubmit(action) {
 		var flag = true;
@@ -57,7 +58,7 @@
 
 <h2 class="page-title">My Services</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
    
    <?=$this->element('message');?>
@@ -157,7 +158,7 @@
 	</div>
 </div>
 	
-
+</div>
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll

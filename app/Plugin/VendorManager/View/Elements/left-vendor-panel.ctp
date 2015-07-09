@@ -1,4 +1,4 @@
-<div class="left-area">
+<div class="left-area col-sm-3 col-xs-12">
 	<div class="member-vendor-info">
 		<p>
 			Hello <br/><?php echo ucfirst($this->Session->read('VendorAuth.VendorAuth.fname'))." ".ucfirst($this->Session->read('VendorAuth.VendorAuth.lname')); ?>
