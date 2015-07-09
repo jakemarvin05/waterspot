@@ -58,7 +58,7 @@
 
 <h2 class="page-title">My Services</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
    
    <?=$this->element('message');?>

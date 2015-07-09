@@ -1,0 +1,56 @@
+///- - - Header - - -///
+h2.page-title {
+  text-transform: uppercase;
+  background-color: #F5F5F5;
+  padding: 11px;
+  font-weight: normal;
+  border: 1px solid #ddd;
+  font-size: 16pt;
+  margin-bottom: 0;
+  font-family: "Arca Majora";
+  color: #606060;
+  text-align: center;
+}
+///- - - - - - - - -///
+
+/// - - - Body - - -///
+body {
+  color: #606060;
+  font-family: "Lato";
+}
+.middle-area {
+  padding: 15px;
+  background-color: #F9F9F9;
+}
+.middle-area h6 {
+  font-size: 14pt;
+  font-family: "Crete Round";
+}
+.registration_inputbox{
+    display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+input.submit-button.btn.orange.registration_button {
+  width: 30%;
+  padding: 10px 22px;
+  margin: 0;
+}
+/// - - - - - - - -///
+
+
+
+

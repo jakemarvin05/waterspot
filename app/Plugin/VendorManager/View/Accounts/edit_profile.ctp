@@ -4,7 +4,7 @@
 <h2 class="page-title">Vendor</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
       <h3 class="dashboard-heading">Edit Profile</h3>
       <?=$this->element('message');?>
       <?php echo $this->Form->create('Vendor', array('id'=>'VendorRegistration','url'=>array('plugin'=>'vendor_manager','controller'=>'accounts','action'=>'editProfile'),'class'=>'dashboard-edit-form','novalidate' => true,'type'=>'file'));?>

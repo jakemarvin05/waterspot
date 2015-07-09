@@ -12,15 +12,13 @@
 	    </div>
 	<?php endif;?>
 	<h6>Create New Account</h6>
+        <br/>
 	<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
         <div class="registration-form-row">
-			<div class="labelbox">
-				<label>Business Name : <span style="color:#ff4142;">*</span></label>
-			</div>
 			<div class="fieldbox">
 				<? // b_name is used for Business name?>
-				<?=$this->Form->text('bname',array('required'=>false)); ?>
+				<?=$this->Form->text('bname',array("placeholder"=>"Your Business Name Here :" ,'required'=>false, 'class'=>'registration_inputbox')); ?>
 				<?=$this->Form->error('bname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
 			</div>
         </div>
@@ -28,63 +26,49 @@
         <br/>
 		
             <div class="registration-form-row">
-               <div class="labelbox">
-                <label>Name : <span style="color:#ff4142;">*</span></label>
-               </div>
+
                <div class="namefieldbox">
                     <label class="namefield">
-                        <?=$this->Form->text('fname',array("placeholder"=>"First Name", 'required'=>false)); ?>
+                        <?=$this->Form->text('fname',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
                         <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
                     </label>
                     <label class="namefield2">
-                        <?=$this->Form->text('lname',array("placeholder"=>"Last Name", 'required'=>false)); ?>
+                        <?=$this->Form->text('lname',array("placeholder"=>"Last Name :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
                         <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                 </div>
             </div>
         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->email('email',array("placeholder"=>"@", 'required'=>false)); ?>
+		    <?=$this->Form->email('email',array("placeholder"=>"Email :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
 		    <?=$this->Form->error('email',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Phone : <span style="color:#ff4142;"> *</span></label>  
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->tel('phone',array('required'=>false)); ?>
+		    <?=$this->Form->tel('phone',array("placeholder"=>"Phone Number :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
 		    <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Password : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('password',array('required'=>false)); ?>
+		    <?=$this->Form->password('password',array("placeholder"=>"Password :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
 		    <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Confirm Password : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('confirm_password',array('required'=>false)); ?>
+		    <?=$this->Form->password('confirm_password',array("placeholder"=>"Confirm Password :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
         <br/>
             <div class="registration-form-row">
-		<input class="submit-button" value="Register Now" type="submit">
+		<input class="submit-button btn orange registration_button" value="Register Now" type="submit">
             </div>
                 <br/>
                         <br/>
