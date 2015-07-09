@@ -15,63 +15,48 @@
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
-               <div class="labelbox">
-                <label>Name :  <span style="color:#ff4142;">*</span></label>
-               </div>
                <div class="namefieldbox">
 		    <label class="namefield">
-			<?=$this->Form->text('first_name',array("placeholder"=>"First Name", 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
+			<?=$this->Form->text('first_name',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                     <label class="namefield2">
-			<?=$this->Form->text('last_name',array("placeholder"=>"Last Name", 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
+			<?=$this->Form->text('last_name',array("placeholder"=>"Last Name :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </label>
                </div>
             </div>
                 <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Email Address : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->text('email_id',array('value'=>(isset($_POST['email_id'])) ? $_POST['email_id'] : '', 'required'=>true)); ?>
+		    <?=$this->Form->text('email_id',array("placeholder"=>"Email :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['email_id'])) ? $_POST['email_id'] : '', 'required'=>true)); ?>
 		    <?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
                         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Phone : <span style="color:#ff4142;"> *</span></label>  
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->text('phone',array('value'=>(isset($_POST['phone'])) ? $_POST['phone'] : '', 'required'=>false)); ?>
+		    <?=$this->Form->text('phone',array("placeholder"=>"Phone Number :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['phone'])) ? $_POST['phone'] : '', 'required'=>false)); ?>
 		    <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
                                 <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Password : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('password',array('required'=>true)); ?>
+		    <?=$this->Form->password('password',array("placeholder"=>"Password :", 'class'=>'registration_inputbox', 'required'=>true)); ?>
 		    <?=$this->Form->error('password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
                                         <br/>
             <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Confirm Password : <span style="color:#ff4142;">*</span></label>
-		</div>
 		<div class="fieldbox">
-		    <?=$this->Form->password('confirm_password',array('required'=>true)); ?>
+		    <?=$this->Form->password('confirm_password',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'required'=>true)); ?>
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
                                                 <br/>
             <div class="registration-form-row">
-		<input class="submit-button" value="Register Now" type="submit">
+		<input class="submit-button btn orange registration_button" value="Register Now" type="submit">
             </div>
                                                         <br/>
                                                                 <br/>
