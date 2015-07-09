@@ -59,7 +59,15 @@ input.submit-button.btn.orange.registration_button {
     padding: 10px 22px;
     margin: 0;
 }
+label.namefield {
+    width: 48%;
+}
 
+.namefieldbox {
+    width: 100%;
+}
 
-
-
+label.namefield2 {
+    width: 48%;
+    float: right;
+}
