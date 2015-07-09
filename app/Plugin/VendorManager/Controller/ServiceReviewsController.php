@@ -265,6 +265,7 @@ class ServiceReviewsController extends VendorManagerAppController {
     }
     
     function reviews($service_id=null,$search=null){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$vendor_id=$this->VendorAuth->id();
 		$service_reviews=array();
 		$condition = null;
