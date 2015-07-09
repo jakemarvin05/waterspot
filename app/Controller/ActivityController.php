@@ -645,6 +645,7 @@ Class ActivityController extends AppController{
 	
 	function activities($vendor_id=null,$service_type_id=null,$sort_by_price=null,$sort_by_review=null){
 		// load model
+            array_push(self::$css_for_layout,'pages.css');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.Vendor');
