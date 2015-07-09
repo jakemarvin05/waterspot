@@ -1,8 +1,6 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
+<div class="container-fluid vendor-panel">
 
-
-<h2 class="page-title">Vendor <span style="color:#000;">Registration</span></h2>
+<br/><br/><br/>
 
 <div class="middle-area">
     <div class="registration-form-box">
@@ -11,7 +9,9 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
-	<h6>Create New Account</h6>
+        <br/>
+	<p class="beforeHeader">Register and Start selling Services</p>
+        <h1 class="headerAlt">Create a New Vendor account</h1>
         <br/>
 	<?php echo $this->Form->create('Vendor',array('name'=>'vendors','id'=>'VendorRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
@@ -183,5 +183,5 @@
         
     });
  </script>
-
+</div>
 
