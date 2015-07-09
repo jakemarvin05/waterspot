@@ -1,18 +1,22 @@
 /* Stylesheet for Vendor Registration Page */
 
 /*- - - Header - - */
-h2.page-title {
-    text-transform: uppercase;
-    background-color: #F5F5F5;
-    padding: 11px;
-    font-weight: normal;
-    border: 1px solid #ddd;
-    font-size: 16pt;
-    margin-bottom: 0;
-    font-family: "Arca Majora";
-    color: #606060;
-    text-align: center;
+.beforeHeader {
+  font-family: 'Crete Round', sans-serif;
+  font-style: italic;
+  color: #ff9700;
+  font-size: 19px;
+  text-align: center;
 }
+h1.headerAlt, h2.headerAlt, h3.headerAlt {
+  font-family: 'Arca Majora';
+  letter-spacing: 1px;
+  text-align: center;
+}
+h1 {
+  font-size: 29px;
+}
+
 
 /* - - - Body - - */
 body {
@@ -26,6 +30,11 @@ body {
 .middle-area h6 {
     font-size: 14pt;
     font-family: "Crete Round";
+}
+.registration-form-box {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 .registration_inputbox{
     display: block;

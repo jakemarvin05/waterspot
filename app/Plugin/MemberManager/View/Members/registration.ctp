@@ -1,8 +1,6 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
+<div class="container-fluid vendor-panel">
 
-
-<h2 class="page-title">Member <span style="color:#000;">Registration</span></h2>
+<br/><br/>
 
 <div class="middle-area">
     <div class="registration-form-box">
@@ -11,7 +9,9 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
-	<h6>Create New Account</h6>
+        <br/>
+	<p class="beforeHeader">Register and be a Member</p>
+        <h1 class="headerAlt">CREATE A MEMBER ACCOUNT</h1>
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
@@ -165,6 +165,7 @@
 			});
 		});
 </script>
+</div>
 
  
 
