@@ -5,7 +5,7 @@
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
    <h3 class="dashboard-heading">Change your Password</h3>
    <?=$this->element('message');?>
    

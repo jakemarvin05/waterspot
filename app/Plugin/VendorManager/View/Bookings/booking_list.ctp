@@ -12,7 +12,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 	<h2 class="page-title">Booking <span style="color: #000;">List</span></h2>
 	
 	<?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
 		<div class="service">
 			<h3 class="dashboard-heading">Bookings</h3>

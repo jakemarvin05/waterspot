@@ -6,7 +6,7 @@
 	<div class="clear"></div>
 	<h2 class="page-title">Service Reviews</h2>
 	<?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
 		<div class="service">
 			<?=$this->element('message');?>
