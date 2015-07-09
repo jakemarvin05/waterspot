@@ -1,6 +1,6 @@
 <div class="container-fluid vendor-panel">
 
-<br/><br/><br/>
+<br/><br/><br/><br><br>
 
 <div class="middle-area">
     <div class="registration-form-box">
