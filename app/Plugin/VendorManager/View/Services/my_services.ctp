@@ -54,7 +54,7 @@
 
 <div class="hr-line"></div>
 <div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+
 <h2 class="page-title">My Services</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
 	<div class="right-area">
@@ -62,11 +62,11 @@
    
    <?=$this->element('message');?>
     <div class="service">
-		<div class="dashboard-form-row">
+		<div class="dashboard-form-row" id="service_container">
 			<h3 class="dashboard-heading" style="float: left;">Services</h3> 
-			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons','style'=>'margin-bottom:20px;'));?>
+			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons btn orange'));?>
 		</div>
-		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 5px;">
+		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 0; padding-bottom: 0;" id="servicebutton_container">
                         <div id="servicebuttons">
 			<a href="javascript:" onClick="return formsubmit('Activate');" class="dashboard-quick-buttons btn orange" id="servicebuttons1">Activate</a>
 			<a href="javascript:" onClick="return formsubmit('Deactivate');" class="dashboard-quick-buttons btn orange" id="servicebuttons2">Deactivate</a>
