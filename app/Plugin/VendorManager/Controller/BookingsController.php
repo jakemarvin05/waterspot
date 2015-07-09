@@ -113,6 +113,7 @@ Class BookingsController extends VendorManagerAppController{
 	
 	function booking_request() {
 	//	$this->bookingNotification();
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->paginate = array();
 		$this->loadModel('Cart');
 		$this->breadcrumbs[] = array(
@@ -248,6 +249,7 @@ Class BookingsController extends VendorManagerAppController{
 	}
 	
 	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('BookingSlot');
 		$conditions=null;
 		$this->paginate = array();

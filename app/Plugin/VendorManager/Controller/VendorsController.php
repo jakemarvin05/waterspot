@@ -275,6 +275,8 @@ Class VendorsController extends VendorManagerAppController{
 	}
 	
 	function registration(){
+		array_push(self::$css_for_layout,'vendor/registration.css');
+
 		if($this->VendorAuth->id()){
 			$this->redirect($this->VendorAuth->loginRedirect);
 		}
@@ -316,7 +318,8 @@ Class VendorsController extends VendorManagerAppController{
 		$this->metadescription = 'Vendor login';
 	}
 
-	function dashboard(){ 
+	function dashboard(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('MemberManager.Member');
 		$this->loadModel('LocationManager.City');
