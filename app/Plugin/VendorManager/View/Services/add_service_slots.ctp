@@ -14,12 +14,14 @@
 			<tr>
 				<th>Start Time</th>
 				<th>End Time</th>
+				<th>Price</th>
 				<th>Cancel</th>
 			</tr>
 			<?php foreach($service_slots as $service_slot){?>
 				<tr> 
 					<td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
 					<td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
+					<td class="align-center"><?=$service_slot['price']?></td>
 					<td class="align-center"><?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
 				</tr> 
 			<?php }?> 
@@ -34,7 +36,8 @@
 		<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
 		<?=$this->Form->input('start_time',array('type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
 		<span class="txt">to</span>
-		<?=$this->Form->input('end_time',array('type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>	
+		<?=$this->Form->input('end_time',array('type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
+		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=>false,'div'=>false, 'placeholder'=>'price'));?>
 		<input class="dashboard-buttons" type="submit" value="Add Slot" />
 	<?php echo $this->Form->end();?>
 
