@@ -1,4 +1,5 @@
-
+<div class="container-fluid vendor-panel">
+	<br><br><br>
 <script type="text/javascript">
 	function formsubmit(action) {
 		var flag = true;
@@ -157,7 +158,7 @@
 	</div>
 </div>
 	
-
+</div>
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll
