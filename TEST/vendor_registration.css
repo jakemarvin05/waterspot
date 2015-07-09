@@ -1,4 +1,4 @@
-///- - - Header - - -///
+/*- - - Header - - */
 h2.page-title {
   text-transform: uppercase;
   background-color: #F5F5F5;
@@ -11,9 +11,8 @@ h2.page-title {
   color: #606060;
   text-align: center;
 }
-///- - - - - - - - -///
 
-/// - - - Body - - -///
+/* - - - Body - - */
 body {
   color: #606060;
   font-family: "Lato";
@@ -49,7 +48,6 @@ input.submit-button.btn.orange.registration_button {
   padding: 10px 22px;
   margin: 0;
 }
-/// - - - - - - - -///
 
 
 
