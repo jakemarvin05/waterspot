@@ -309,7 +309,7 @@ Class BookingsController extends VendorManagerAppController{
 		self::$scriptBlocks[]='$(function() {
 		$( "#BookingSearchbydate" ).datepicker({
 		  dateFormat: "'.Configure::read('Calender_format').'",
-		  changeMonth: true,
+		  changeMonth: false
 		  })
 		});' ;
 		$this->set('booking_details',$booking_details);

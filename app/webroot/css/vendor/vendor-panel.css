@@ -1,1 +1,5 @@
 /* Stylesheet for Vendor Booking List Page */
+
+div#ui-datepicker-div {
+    max-width: 310px;
+}
