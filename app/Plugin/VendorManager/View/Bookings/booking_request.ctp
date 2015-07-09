@@ -6,7 +6,7 @@
 
 <div class="wrapper vendor-panel container-fluid">
 	<br><br><br><br>
-	<h2 class="page-title">Booking <span style="color: #000;">Request</span></h2>
+	<h2 class="page-title">Booking Request</h2>
 	
 	<?=$this->element('VendorManager.left-vendor-panel');?>
 	<div class="right-area col-sm-9 col-xs-12">

@@ -10,7 +10,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 $(function() {
 	$( "#BookingSearchbydate" ).datepicker({
 	dateFormat: "dd-mm-yy",
-	changeMonth: true,
+	changeMonth: false
 	})
 });
 </script>
@@ -107,7 +107,7 @@ $(function() {
             <h2>Booking Lists</h2>
         </header>
     </article> 
-<div>
+
    <?=$this->Form->create('Booking',array('class'=>'query-from','id'=>'Booking','action'=>'admin_index','novalidate' => true));
 	?>
     <div class="input text" style="overflow:hidden;">
