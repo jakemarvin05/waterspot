@@ -300,6 +300,7 @@ Class ServicesController extends VendorManagerAppController{
 	} 
    
     function my_services(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		// checking login 
 		$vendor_id=$this->VendorAuth->id();
 		$this->loadModel('LocationManager.City');

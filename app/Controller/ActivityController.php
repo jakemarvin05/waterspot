@@ -252,6 +252,7 @@ Class ActivityController extends AppController{
 
 
 	function index($service_id=null,$cart_id=null){
+		array_push(self::$css_for_layout,'activity/activity.css');
 
 		//test
 		$thisDate = isset($this->request->query['date'])? $this->request->query['date']: "now";
