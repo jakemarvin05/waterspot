@@ -18,7 +18,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 			<h3 class="dashboard-heading">Bookings</h3>
 			<?=$this->element('message');?>
 			<?=$this->Form->create('Booking',array('class'=>'dashboard-form','id'=>'Booking','action'=>'booking_list','novalidate' => true)); ?>
-				<div class="dashboard-form-row">
+				<div class="dashboard-form-row with-padding">
 					<?=$this->Form->input('search',array('type' =>'select','class'=>'selectpicker', 'options' => $search_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace(this.id)'));?>
 					<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your Order id')); ?>
 					<?=$this->Form->input('search_by_date',array('type' =>'select','class'=>'selectpicker', 'options' => $search_by_date_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace_date(this.id)'));?>
