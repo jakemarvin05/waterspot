@@ -25,6 +25,11 @@ body {
   font-size: 14pt;
   font-family: "Crete Round";
 }
+.registration-form-box {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
 .registration_inputbox{
     display: block;
   width: 100%;
