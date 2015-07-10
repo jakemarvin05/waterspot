@@ -896,13 +896,6 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     padding: 14px;
     font-family: "Lato";
 }
-
-.activities-listing .tile-info h4 {
-    font-weight: normal;
-    color: #696B6E;
-    font-size: 12pt;
-    float: left;
-}
 /* vendors listings */
 
 .vendor-listing {
@@ -953,12 +946,12 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     background-position: -100px 0px;
     margin: 14px 0px;
 }
-.tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
+.tile-info .vendor-rating-wrapper {
     float: right;
     width: 43%;
 }
 
-.tile-info .activity-rating-wrapper .rating-label, .tile-info .vendor-rating-wrapper .rating-label {
+.tile-info .vendor-rating-wrapper .rating-label {
     margin-top: 12px;
     display: block;
     float: left;
