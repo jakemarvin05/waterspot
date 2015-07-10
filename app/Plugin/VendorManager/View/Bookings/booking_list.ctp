@@ -52,7 +52,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 					<td><?=$booking_detail['Booking']['email']?></td>
 					<td><?=$booking_detail['Booking']['phone']?></td>
 					<td><?=($payment_status[$booking_detail['Booking']['status']]);?></td>
-					<td class="align-center"><?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Detail','title'=>'View Detail')),array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false));?></td>
+					<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?></td>
 					 
 				</tr>
 			<? } ?>
