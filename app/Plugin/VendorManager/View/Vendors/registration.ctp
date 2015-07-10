@@ -1,6 +1,6 @@
 <div class="container-fluid vendor-panel">
 
-<br/><br/><br/>
+<br/><br/><br/><br><br>
 
 <div class="middle-area">
     <div class="registration-form-box">
@@ -68,7 +68,7 @@
             </div>
         <br/>
             <div class="registration-form-row">
-		<input class="submit-button btn orange registration_button" value="Register Now" type="submit">
+		<input class="submit-button btn btnDefaults btnFillOrange registration_button" value="Register Now" type="submit">
             </div>
                 <br/>
                         <br/>
