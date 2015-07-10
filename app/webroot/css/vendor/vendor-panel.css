@@ -242,7 +242,7 @@ h3.dashboard-heading {}
 
 th {
     border: 1px solid #ccc;
-    height: 57px;
+    height: auto;
     vertical-align: top;
     background-color: #F5F5F5;
     padding: 8px;
@@ -378,4 +378,20 @@ pre.cake-error {
 
 .with-padding.dashboard-form-row {
     padding: 0px 1% 8px;
+}
+
+input.check-all {
+    display: block;
+    margin: 4px auto 0px;
+}
+
+i.success {
+    font-size: 22px;
+    color: #09C520;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.22);
+}
+i.error {
+    font-size: 22px;
+    color: #DD5656;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.22);
 }

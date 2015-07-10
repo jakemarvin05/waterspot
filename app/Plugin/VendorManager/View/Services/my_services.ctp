@@ -116,9 +116,9 @@
 						</td>
 						<td style="text-align: center;">
 							<?php if($service['status']=='1'){ 
-								echo $this->Html->image('admin/icons/icon_success.png', array());
+								echo "<i class=\"success fa fa-check\"></i>"; //$this->Html->image('admin/icons/icon_success.png', array());
                                 }else{
-									echo $this->Html->image('admin/icons/icon_error.png', array());
+									"<i class=\"error fa fa-times\"></i>"; //echo $this->Html->image('admin/icons/icon_error.png', array());
 								}
 							?>
 						</td>

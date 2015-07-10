@@ -1146,3 +1146,10 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 .stickyCollapsedFix .open>.dropdown-toggle.btn-default {
     color: #F29C14;
 }
+
+.error-message {
+    border: 1px solid #f00;
+    margin: 10px 0px;
+    border-radius: 3px;
+    font-size: 12px;
+}
