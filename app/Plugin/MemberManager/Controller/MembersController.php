@@ -7,6 +7,7 @@ class MembersController extends MemberManagerAppController{
 	public $paginate = array();
 	
 	function registration($email=null) {
+        array_push(self::$css_for_layout,'vendor/registration.css');
 		$member_id = $this->MemberAuth->id();
 		if(isset($_POST['facebook_login'])) {
 			$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['Member']['fb_id']);
