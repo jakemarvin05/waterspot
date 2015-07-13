@@ -25,11 +25,11 @@
 			<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
 		</div>
 
-		<div class="listing-boxes">
+		<div class="listing-boxes row">
 			<? if(!empty($vendor_service_list)) { ?>
 				<?php $i = $this->paginator->counter('{:start}'); ?>
 				<? foreach($vendor_service_list as $service_list) { ?>
-					<div class="vendorwise-listing">
+					<div class="vendorwise-listing col-sm-4 col-xs-12">
 						<div class="contentvisible contentselector">
 							<div class="tile">
 								<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
