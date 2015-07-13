@@ -888,7 +888,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 .activities-page .row {
     padding: 15px;
 }
-.activities-listing .tile .price {
+.activities-listing .tile .price, .vendorwise-listing .tile .price {
     position: absolute;
     top: 60%;
     left: 0;
@@ -977,6 +977,20 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     text-transform: uppercase;
     font-size: 14pt;
     padding: 18px;
+    margin-left: 30px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+}
+.vendorwise-listing .contenthover .view-description{
+    display:block;
+    background-color: #F79E34;
+    color: #fff;
+    max-width: 180px;
+    text-transform: uppercase;
+    font-size: 14pt;
+    padding: 10px;
     margin-left: 30px;
     font-weight: bold;
     text-align: center;
