@@ -22,7 +22,7 @@
 				<th width="15%">Image</th>
 				<th width="15%">Location</th>
 				<th width="10%">Price (<?=Configure::read('currency'); ?>)</th>
-				<th width="20%">Action</th>
+				<th width="20%" class="text-center">Action</th>
 			</tr>
 			<?php if(!empty($services)){ ?>
 			<?php foreach($services as $service){ ?>
@@ -35,12 +35,12 @@
 						       echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service['service_title'])) ; ?> </td>
 					<td><?=ucfirst($service['location_details']); ?></td>
 					<td class="align-right">$<?=$service['service_price']; ?></td>
-					<td class="align-center">
-						<?=$this->Html->link($this->Html->image('add.png',array('alt'=>'edit')),array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Edit Service'));?>
-						<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'View Service'));?>
-						<?=$this->Html->link($this->Html->image('slots.gif',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Add/Update Slots'));?>
-						<?=$this->Html->link($this->Html->image('add-avail.png',array('alt'=>'Add/Update Availablity')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Manage Slot Availability'));?>
-						<?=$this->Html->link($this->Html->image('service_review-icon.png',array('alt'=>'View Review')),array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'View Review'));?>
+					<td class="align-center" style="text-align: center;" valign="middle">
+						<?=$this->Html->link("<i class=\"fa fa-plus-square\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
+						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'tooltip','actions'=>'View Service'));?>
+						<?=$this->Html->link("<i class=\"fa fa-calendar\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Add/Update Slots'));?>
+						<?=$this->Html->link("<i class=\"fa fa-sitemap\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Manage Slot Availability'));?>
+						<?=$this->Html->link("<i class=\"fa fa-comments\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Review'));?>
 					</td>
 				</tr>
 			<?php }
@@ -82,7 +82,7 @@
 					<td><?=$booking_detail['Booking']['email']?></td>
 					<td><?=$booking_detail['Booking']['phone']?></td>
 					<td><?=($payment_status[$booking_detail['Booking']['status']]); ?></td>
-					<td class="align-center"><?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Detail','title'=>'View Detail')),array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false));?></td>
+					<td class="align-center" style="text-align: center;"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?></td>
 					 
 				</tr>
 			<? } ?>
