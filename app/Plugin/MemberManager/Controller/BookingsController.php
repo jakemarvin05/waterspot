@@ -114,6 +114,7 @@ Class BookingsController extends MemberManagerAppController{
 	
 	function booking_status(){
 		//die('sdfsd');
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->bookingNotification();
 		$this->loadModel('Cart');
 		$criteria = array();
@@ -158,6 +159,8 @@ Class BookingsController extends MemberManagerAppController{
 	}
 	
 	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
+                        array_push(self::$css_for_layout,'member/member-panel.css');
+
 		$this->loadModel('BookingSlot');
 		$conditions=null;
 		$this->paginate = array();
