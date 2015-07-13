@@ -1,7 +1,7 @@
 	<section id="splashVideoCont">
 		<div id="splashVideoCropper">
 			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
-				<source src="/media/watersports.mp4" type="video/mp4">
+				<!-- <source src="/media/watersports.mp4" type="video/mp4"> -->
 				<img src="/img/splash-statics/slide1.jpg">
 			</video>
 			<img src="/img/splash-statics/slide1.jpg">
@@ -103,73 +103,8 @@
 
 	</div>
 	<?php if ($recommendedActivities): ?>
-	<div class="container-fluid suggestion">
-	<div class="container">
-		<div class="suggestion-holder row">
-			<h2 class="suggestion-title">Check other slots</h2>
-			<div id="tabs">
-				<ul>
-					<?php
-					$n = 1;
-					foreach($recommendedActivities as $recommend){
+	<div class="container-fluid suggestion" id="recommended_slots">
 
-						echo "<li><a href=\"#fragment-$n\"><span>".date("M j, Y", strtotime($recommend['date']))."</span></a></li>
-						";
-						$n++;
-					}
-
-
-					?>
-				</ul>
-
-				<?php
-				$n = 1;
-				foreach($recommendedActivities as $recommend){
-				$slots = $recommend['slots'];
-				echo "<div id=\"fragment-$n\">
-<div class=\"row\">
-								<div class=\"col-sm-5\"><h3>Time Slot</h3></div>
-								<div class=\"col-sm-2\"><h3>Price</h3></div>
-								<div class=\"col-sm-3\"><h3>Status</h3></div>
-								<div class=\"col-sm-2\"><h3></h3></div>
-							</div>
-							<div class='record-holder'>
-";
-
-				foreach($slots as $slot){
-				//	var_dump($slot);
-				?>
-				<div class="row">
-					<div class="time col-sm-5"><?php echo $slot->{'start_time'}; ?> - <?php echo $slot->{'end_time'}; ?></div>
-					<div class="price col-sm-2">SGD<?php echo $slot->{'price'}; ?></div>
-					<div class="status col-sm-3">
-						<?php if($slot->{'status'}=="available"){?>
-						<span class="status av"><i class="fa fa-check-square-o"></i> Available</span></div>
-					<?php }
-					else{
-					?>	<span class="status notav"><i class="fa fa-times"></i>Not Available</span></div>
-
-			<?php }?>
-				<div class="book col-sm-2"><a href="#" class="btn-default"> book now</a></div>
-			</div>
-			<?php
-			//var_dump($slot);
-			}
-			echo "</div></div>";
-			$n++;
-			}
-
-
-			?>
-
-			<script>
-				$( "#tabs" ).tabs({
-					active: <?=$currentDateIndex; ?>
-				});
-			</script>
-		</div>
-		<br><br>
-	</div>
 		</div>
 	<?php endif; ?>
 </div>
@@ -274,6 +209,19 @@ function get_service_availability()	{
 		 }
 	}); 
 //alert(service_id+startdate+enddate)
+}
+
+function get_recommended_dates() {
+	var service_id = $("#ActivityServiceId").val();
+	var startdate  = $("#ActivityStartDate").val();
+	$.ajax({
+		 url :'<?=$path?>activity/ajax_get_recommended_dates',
+		 type:'POST',
+		 data:{'service_id':service_id,'start_date':startdate},
+		 success: function (result) {
+			$("#recommended_slots").html(result);
+		}
+	});
 }
 </script>
 

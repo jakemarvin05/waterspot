@@ -753,5 +753,15 @@ Class ActivityController extends AppController{
 			$this->metadescription = $page['Page']['page_metadescription'];
 		}
 	}
+
+	public function ajax_get_recommended_dates()
+	{
+		$this->layout = '';
+		$thisDate = isset($_POST['start_date'])? $_POST['start_date']: "now";
+		$service_id = $_POST['service_id'];
+		$this->set('date',$thisDate);
+		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
+		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));
+	}
 }
 ?>

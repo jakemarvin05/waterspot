@@ -22,21 +22,17 @@ class WarnUnpaidUsersTask extends Shell {
 		$users = [];
 		$count = $result->num_rows;
 	    while($row = $result->fetch_assoc()) {
-	        $user[] = $row;
+	        $users[] = $row;
 	    }
 		$conn->close();
-
 		foreach ($users as $user) {
-            App::import('Core', 'Controller');
-            App::import('Component', 'Email');
-            $controller =& new Controller();
-            $email =& new EmailComponent();
-            $email->initialize($controller);
-
-            $email->from = 'po.cruz17@gmail.com';
-            $email->to = 'jake@gmail.com'; // don't use the members email yet to avoid spamming
-            $email->content = 'test email, you forgot to pay your reserved booking at waterspot';
-            $email->send();
+	        App::uses('CakeEmail', 'Network/Email');
+	        $email = new CakeEmail();
+	        $email->config('gmail');
+	        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
+	        $email->to($user['email']); // don't use the members email yet to avoid spamming
+	        $email->subject('test email, you forgot to pay your reserved booking at waterspot');
+	        $email->send('please to continue pay the booking you have made');
 		}
 		return "Warned $count unpaid members with bookings\n";
     }
