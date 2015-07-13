@@ -22,9 +22,31 @@
 				<?=$this->element('activity/slider');?>
 			</div>
 			<?=$this->element('activity/serviceDescriptiontabs');?>
-			<div class="map-holder row">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
-			</div>
+			<div id="map-canvas" style="height:400px; width:100%;"></div>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+		    <script>
+		      function initialize() {
+		        geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(-34.397, 150.644);
+			    var mapOptions = {
+			      zoom: 15,
+			      center: latlng
+			    }
+			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			        map.setCenter(results[0].geometry.location);
+			        var marker = new google.maps.Marker({
+			            map: map,
+			            position: results[0].geometry.location
+			        });
+			      } else {
+			        alert("Geocode was not successful for the following reason: " + status);
+			      }
+			    });
+		      }
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		    </script>
 
 		</section>
 		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
