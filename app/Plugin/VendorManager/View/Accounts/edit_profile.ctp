@@ -2,7 +2,6 @@
 
 	<br><br><br>
 <div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
 <h2 class="page-title">Vendor</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
@@ -76,7 +75,7 @@
 			</div>
 	    </div>
 
-	    <div class="dashboard-form-row">
+	    <div class="dashboard-form-row row">
 		  <input class="dashboard-buttons" value="Update Profile" type="submit">
 	    </div>
 		</div>
