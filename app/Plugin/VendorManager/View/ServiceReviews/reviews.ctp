@@ -43,7 +43,7 @@
 									echo $this->Html->image('admin/icons/icon_error.png', array());
 							?>
 						</td>
-						<td class="align-center"><?=$this->Html->link('View', array('controller' => 'service_reviews', 'action' => 'view', $review['ServiceReview']['id']), array('escape' => false,'class'=>'dashboard-links fancybox fancybox.iframe','title'=> __('View'),'rel'=>'tooltip'))?></td>
+						<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>", array('controller' => 'service_reviews', 'action' => 'view', $review['ServiceReview']['id']), array('escape' => false,'class'=>'dashboard-links actions fancybox fancybox.iframe','title'=> __('View'),'rel'=>'tooltip'))?></td>
 					</tr>
 				<? } ?>
 			<? } else {?>

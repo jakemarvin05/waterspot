@@ -4,7 +4,7 @@ div#ui-datepicker-div {
     max-width: 310px;
 }
 
-.vendor-panel h2.page-title {
+h2.page-title {
     text-transform: uppercase;
     background-color: #F5F5F5;
     padding: 11px;
@@ -14,7 +14,7 @@ div#ui-datepicker-div {
     text-align: left;
 }
 
-.container-fluid.vendor-panel {
+.container-fluid.member-panel {
     margin-bottom: 0px;
     background-color: #fff;
     margin-top: 30px;
@@ -52,13 +52,12 @@ div#ui-datepicker-div {
 .membor-vendor-links li a img {
     margin-right: 16px;
 }
-
 h3.dashboard-heading {
     padding-left: 10px;
     text-transform: uppercase;
     font-weight: normal;
     color: #337AB7;
-    font-size: 19px !important;
+    font-size: 19px!important;
     font-family: "Lato" !important;
     border-bottom: 1px solid #ddd;
     padding-bottom: 8px;
@@ -73,23 +72,23 @@ h3.dashboard-heading {
     margin: 8px 1% 0px !important;
     text-transform: uppercase;
     border: 0px;
-    border-radius: 3px;
+    border-radius: 0;
     font-weight: bold;
     padding: 7px 12px;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.37);
     box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.16);
 }
 
+
+
 /* ------- For Mobile --------- */
 @media (max-width: 480px) {
     .activity-tags {
         display: none;
     }
-
     .ch_element.ch_wrapper {
         min-height: 200px;
     }
-
     .contenthover .short-desc {
         display: none;
     }
@@ -97,20 +96,19 @@ h3.dashboard-heading {
     .contenthover .view-description {
         margin: 29% auto;
     }
-
     .contenthover .view-all-tags {
         margin: 18% auto;
         font-size: 12pt;
         text-align: center;
         max-width: 210px;
     }
-
     .tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
         width: 100%;
         clear: both;
         float: none;
         display: block;
     }
+
 
     .tile-info .rating {
         float: left;
@@ -120,11 +118,9 @@ h3.dashboard-heading {
     .activities-listing .tile-info h4 {
         width: 100%;
     }
-
     .vendor-listing .tile-info h4 {
         width: 100%;
     }
-
     .filter .btn {
         margin-top: 10px;
     }
@@ -149,13 +145,11 @@ h3.dashboard-heading {
     background-color: #fff;
     padding: 0;
 }
-
 label.namefield {
     width: 48.5%;
     margin-right: 2%;
     float: left;
 }
-
 label.namefield2 {
     width: 47%;
     margin-left: 2%;
@@ -165,6 +159,7 @@ label.namefield2 {
     display: inline-block;
     width: 100%;
 }
+
 
 .vendor-panel .table {
     width: 98%;
@@ -182,7 +177,6 @@ label.namefield2 {
     font-weight: normal;
     text-shadow: none;
     box-shadow: none;
-    border-radius: 0PX;
 }
 
 .dashboard-form-row input[type=text] {
@@ -203,11 +197,9 @@ label.namefield2 {
     border-bottom: solid 1px #ddd;
     min-height: 50px;
 }
-
 .btn-group.bootstrap-select {
     max-width: 150px;
 }
-
 .btn.orange {
     background-color: #ff9700;
     color: #fff;
@@ -225,9 +217,8 @@ input.dashboard-buttons.btn.orange {
     float: right;
     max-width: 130px;
     padding: 8px;
-    margin: 8px 0 !important;
+    margin: 8px 0!important;
 }
-
 table#booking_list th {
     border: 1px solid #ddd;
     padding: 10px;
@@ -247,12 +238,11 @@ table#booking_list td {
     font-size: 14px;
 }
 
-h3.dashboard-heading {
-}
+h3.dashboard-heading {}
 
 th {
     border: 1px solid #ccc;
-    height: auto;
+    height: 57px;
     vertical-align: top;
     background-color: #F5F5F5;
     padding: 8px;
@@ -261,7 +251,6 @@ th {
 .dashboard-form-row .dashboard-heading {
     border: none;
 }
-
 table#service_reviews th {
     border: 1px solid #ddd;
     font-size: 14px;
@@ -284,30 +273,26 @@ tr.no-details td {
 
 input#ServiceReviewSearchtext {
     width: 210px;
-    margin: 8px 1% 0px 0px;
+    margin: 8px 1%;
     float: left;
 }
 
 form#ServiceReviewReviewsForm .btn.orange {
     float: left;
-    border-radius: 3px;
+    border-radius: 0px;
 }
 
 table#service_reviews td {
     font-size: 14px;
 }
-
 td {
     border: 1px solid #ccc;
 }
-
 form#ServiceReviewReviewsForm {
-    padding: 10px;
+    padding: 15px;
 }
-
 input.dashboard-buttons {
-    color: #fff;
-    background-color: #fda424;
+    color: #fff;    background-color: #fda424;
     border: none;
     display: inline-block;
     padding: 6px 12px;
@@ -336,7 +321,7 @@ input.dashboard-buttons {
 a#servicebuttons1 {
     display: inline;
     background-color: #40D753;
-    border-radius: 3px;
+    border-radius: 2px;
     margin: 0 5px !important;
     margin-top: 8px !important;
 }
@@ -358,32 +343,26 @@ a#servicebuttons3 {
     margin: 0 5px !important;
     margin-top: 8px !important;
 }
-
 h2.page-title {
     text-transform: uppercase;
     background-color: #F5F5F5;
-    padding: 11px;
-    font-weight: normal;
+    padding: 11px;    font-weight: normal;
     border: 1px solid #ddd;
     font-size: 16pt;
     margin-bottom: 0;
     font-family: "Arca Majora";
-    color: black;
 }
-
 a.dashboard-buttons.btn.orange {
     display: inline-block;
     width: auto;
     float: right;
-    border-radius: 3px;
+    border-radius: 2px;
     margin: 5px !important;
     background-color: #337AB7;
 }
-
 div#service_container {
     margin: 0 !important;
 }
-
 div#servicebuttons {
     padding-top: 14px;
 }
@@ -398,109 +377,4 @@ pre.cake-error {
 
 .with-padding.dashboard-form-row {
     padding: 0px 1% 8px;
-}
-
-input.check-all {
-    display: block;
-    margin: 4px auto 0px;
-}
-
-i.success {
-    font-size: 22px;
-    color: #09C520;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.22);
-}
-
-i.error {
-    font-size: 22px;
-    color: #DD5656;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.22);
-}
-
-td.action a, td a.actions {
-    display: inline-block;
-    font-size: 16px;
-    margin: 7px;
-}
-
-form.dashboard-edit-form .row {
-    margin: 0px;
-    border-bottom: none;
-    padding-bottom: 19px;
-}
-
-.labelbox {
-    font-family: "Lato";
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-form.dashboard-edit-form .row input[type=text],form.dashboard-edit-form .row input[type=password] {
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    margin: 0;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1);
-}
-
-form.dashboard-edit-form .row .col-sm-6 {
-    padding: 0px;
-    width: 48%;
-}
-
-form.dashboard-edit-form .row .col-sm-6:last-child {
-    margin-left: 4%;
-}
-
-.dashboard-file-uploader {
-    max-width: 150px;
-    padding-top: 6px;
-}
-
-a#uploadFile {
-    margin-top: 10px;
-    width: 100%;
-    margin: 8px 1% 0px !important;
-    text-transform: uppercase;
-    border: 0px;
-    border-radius: 3px;
-    font-weight: bold;
-    padding: 7px 12px;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.37);
-    box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.16);
-}
-
-.dashboard-file-uploader img {
-    border: 1px solid #ddd;
-}
-
-.dashboard-edit-form input.dashboard-buttons {
-    width: 100%;
-    margin: 8px 1% 0px 0px !important;
-    text-transform: uppercase;
-    border: 0px;
-    border-radius: 3px;
-    font-weight: bold;
-    padding: 7px 12px;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.37);
-    box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.16);
-    max-width: 168px;
-}
-
-.frame {
-    padding: 15px;
-    max-width: 50%;
 }

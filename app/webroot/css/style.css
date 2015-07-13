@@ -163,6 +163,7 @@ button:focus, button:active, input:focus, input:active {
 }
 .btnFillOrange {
     background-color: #ff9700;
+    text-transform: uppercase;
 }
 .btnFillOrange:hover {
     color: #fff;
@@ -887,7 +888,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 .activities-page .row {
     padding: 15px;
 }
-.activities-listing .tile .price {
+.activities-listing .tile .price, .vendorwise-listing .tile .price {
     position: absolute;
     top: 60%;
     left: 0;
@@ -976,6 +977,20 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     text-transform: uppercase;
     font-size: 14pt;
     padding: 18px;
+    margin-left: 30px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+}
+.vendorwise-listing .contenthover .view-description{
+    display:block;
+    background-color: #F79E34;
+    color: #fff;
+    max-width: 180px;
+    text-transform: uppercase;
+    font-size: 14pt;
+    padding: 10px;
     margin-left: 30px;
     font-weight: bold;
     text-align: center;
@@ -1138,4 +1153,24 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 
 .stickyCollapsedFix .open>.dropdown-toggle.btn-default {
     color: #F29C14;
+}
+
+
+.vendorwise-listing.col-sm-4.col-xs-12 {
+    padding: 0 15px 15px 15px;
+}
+
+.listing-boxes.row {
+    padding: 15px;
+}
+
+.search-listing {
+    padding: 15px;
+}
+
+.error-message {
+    border: 1px solid #f00;
+    margin: 10px 0px;
+    border-radius: 3px;
+    font-size: 12px;
 }

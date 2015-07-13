@@ -1,6 +1,6 @@
 .tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
-  float: right;
-  width: 43%;
+    float: right;
+    width: 43%;
 }
 .tile-info .activity-rating-wrapper .rating-label{
     margin-top: 12px;
@@ -10,16 +10,59 @@
     color: #969696;
 }
 .tile-info h4 {
-  color: #696B6E;
-  float: left;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: 'Arca Majora' !important;
+    color: #696B6E;
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Arca Majora' !important;
+    max-width: 55%;
+    font-style: normal;
 }
 .activity-rating-wrapper{
-  font-family: 'Crete Round',serif;
-  font-style: italic;
-  font-weight: 400;
-  color: #999
+    font-family: 'Crete Round',serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #999
 }
 
+
+.tile img {
+    width: 100%;
+    height: auto;
+}
+
+h4{
+    font-family: 'Crete Round', sans-serif;
+    font-style: italic;
+    color: #ff9700;
+    font-size: 19px;
+}
+
+.vendor-area.row {
+    background-color: #F9F9F9;
+    max-width: 1190px;
+    margin: AUTO;
+}
+.img-holder img {
+    width: 100%;
+    height: auto;
+}
+
+h5.vendor-name {
+    margin-top: 0;
+    font-size: 26px;
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #606060;
+}
+.vendorlisting-vendordesc p span {
+    font-family: "Lato" !important;
+    font-size: 16px !important;
+    font-weight: 300!important;
+    line-height: 30px;
+}
+
+.ch_element.ch_wrapper {
+    border: 1px solid #ddd;
+}
