@@ -1,10 +1,12 @@
+<div class="container-fluid member-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"> <?=$this->element('breadcrumbs');?></div>
+<div class="clear" style="margin-top:80px;"></div>
+
 <h2 class="page-title">Dashboard</h2>
 
 <?=$this->element('MemberManager.left-member-panel');?>
-<div class="right-area">
+
+<div class="right-area col-sm-9 col-xs-12">
 	<div class="service">
 		<?php if(!empty($invite_details)){ ?>
 		<h3 class="dashboard-heading">Pending Invites</h3>
@@ -72,4 +74,5 @@
 		</table>
 	</div>
 	<div class="clear"></div>
+</div>
 </div>

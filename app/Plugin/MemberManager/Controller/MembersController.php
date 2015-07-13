@@ -446,6 +446,7 @@ class MembersController extends MemberManagerAppController{
 	
 	function dashboard() { 
 		// load model
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('Booking');
 		$this->loadModel('VendorManager.BookingOrder');
