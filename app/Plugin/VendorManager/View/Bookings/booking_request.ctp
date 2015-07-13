@@ -47,12 +47,13 @@
 					<td><?=date('Y-m-d',strtotime($booking_request['Cart']['start_date']))?></td>
 					<td><?=date('Y-m-d',strtotime($booking_request['Cart']['end_date']))?></td>
 					<td class="align-center">
-					<?=$this->Html->link($this->Html->image('add_req.png',array('alt'=>'Confirm Rrequest','title'=>'Confirm Rrequest','onclick'=>'return confirm("Are you sure want to confirm this request")')),
+					<?=$this->Html->link(
+						"<i 'onclick'=>'return confirm(\"Are you sure want to confirm this request\")' class=\"fa fa-check\"></i>",
 						array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_request',$booking_request['Cart']['id']),
-						array('escape' => false));?>
-					<?=$this->Html->link($this->Html->image('delete_req.png',array('alt'=>'Decline Request','title'=>'Decline Request','onclick'=>'return confirm("Are you sure want to decline this request")')),
+						array('escape' => false, "class"=>"actions"));?>
+					<?=$this->Html->link("<i 'onclick'=>'return confirm(\"Are you sure want to decline this request\")' class=\"fa fa-times\"></i>",
 						array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_request',$booking_request['Cart']['id']),
-						array('escape' => false));?></td>
+						array('escape' => false, "class"=>"actions"));?></td>
 					 
 				</tr>
 			<? } ?>

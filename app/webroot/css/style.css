@@ -1140,6 +1140,7 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     color: #F29C14;
 }
 
+
 .vendorwise-listing.col-sm-4.col-xs-12 {
     padding: 0 15px 15px 15px;
 }
@@ -1150,4 +1151,11 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 
 .search-listing {
     padding: 15px;
+}
+
+.error-message {
+    border: 1px solid #f00;
+    margin: 10px 0px;
+    border-radius: 3px;
+    font-size: 12px;
 }
