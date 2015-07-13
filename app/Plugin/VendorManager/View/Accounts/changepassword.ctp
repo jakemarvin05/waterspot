@@ -1,6 +1,5 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
+<div class="container-fluid vendor-panel">
+    <br><br><br>
 <h2 class="page-title">Change Password</h2>
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
@@ -10,8 +9,9 @@
    <?=$this->element('message');?>
    
    <?php echo $this->Form->create('Vendor', array('id'=>'ChangePassword','url'=>array('plugin'=>'vendor_manager','controller'=>'accounts','action'=>'changepassword'),'class'=>'dashboard-edit-form','novalidate' => true,'type'=>'file'));?>
+     <div class="frame">
       <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'Change-Password')); ?>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row row">
 	 <div class="labelbox">
 	    <label>Current Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
@@ -19,7 +19,7 @@
 	    <?=$this->Form->password('old_password',array('required'=>false)); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row row">
 	 <div class="labelbox">
 	    <label>New Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
@@ -27,7 +27,7 @@
 	    <?=$this->Form->password('new_password',array('required'=>false)); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row row">
 	 <div class="labelbox">
 	    <label>Confirm Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
@@ -35,12 +35,15 @@
 	    <?=$this->Form->password('confirm_password1',array('required'=>false)); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row row">
 	 <input class="dashboard-buttons" value="Update Password" type="submit">
       </div>
+     </div>
    <?php echo $this->Form->end();?>     
 
 </div>
+
+    </div>
 
 <script type="text/javascript">
 	 <?php $path = $this->Html->webroot; ?>
