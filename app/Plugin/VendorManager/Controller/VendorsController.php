@@ -758,7 +758,8 @@ Class VendorsController extends VendorManagerAppController{
 		$this->loadModel('VendorManager.ServiceImage');
 		array_push(self::$script_for_layout,'jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js');
 		array_push(self::$css_for_layout,$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
-		// searching list 
+		array_push(self::$css_for_layout,'pages.css');
+		// searching list
 		$service_name='';
 		$conditions=array();
 		$vendor_list=array();
