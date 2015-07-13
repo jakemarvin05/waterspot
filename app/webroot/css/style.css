@@ -1139,3 +1139,15 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 .stickyCollapsedFix .open>.dropdown-toggle.btn-default {
     color: #F29C14;
 }
+
+.vendorwise-listing.col-sm-4.col-xs-12 {
+    padding: 0 15px 15px 15px;
+}
+
+.listing-boxes.row {
+    padding: 15px;
+}
+
+.search-listing {
+    padding: 15px;
+}

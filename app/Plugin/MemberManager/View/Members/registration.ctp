@@ -1,6 +1,6 @@
 <div class="container-fluid vendor-panel">
 
-<br/><br/>
+<br/><br<br/><br/><br/><br><br>
 
 <div class="middle-area">
     <div class="registration-form-box">
@@ -12,6 +12,7 @@
         <br/>
 	<p class="beforeHeader">Register and be a Member</p>
         <h1 class="headerAlt">CREATE A MEMBER ACCOUNT</h1>
+        <br/>
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
@@ -56,7 +57,7 @@
             </div>
                                                 <br/>
             <div class="registration-form-row">
-		<input class="submit-button btn orange registration_button" value="Register Now" type="submit">
+		<input class="submit-button btn btnDefaults btnFillOrange registration_button" value="Register Now" type="submit">
             </div>
                                                         <br/>
                                                                 <br/>
