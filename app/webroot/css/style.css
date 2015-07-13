@@ -163,6 +163,7 @@ button:focus, button:active, input:focus, input:active {
 }
 .btnFillOrange {
     background-color: #ff9700;
+    text-transform: uppercase;
 }
 .btnFillOrange:hover {
     color: #fff;
