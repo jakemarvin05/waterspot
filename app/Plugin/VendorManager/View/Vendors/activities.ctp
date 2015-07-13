@@ -1,11 +1,12 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
-			data_selector: '.contenthover',
-			effect:'slide',
-			slide_direction: 'left',
-			slide_speed:300,
-			overlay_opacity: 1
+		$('.tile').contenthover({
+			//data_selector: '.contenthover',
+			//effect:'slide',
+			//slide_direction: 'left',
+			//slide_speed:300,
+			overlay_opacity: 1,
+                        overlay_background: '#000'
 		});
 	});
 </script>
@@ -13,7 +14,6 @@
 <div class="hr-line"></div>
 <div class="clear"></div>
 <div class="search-listing-header">
-<?=$this->element('breadcrumbs');?>
 <h2 class="page-title">Vendor Activities</h2>
 </div>
 
@@ -37,6 +37,10 @@
 										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
 							</div>
+                                                        <div class="contenthover">
+                                                        <div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
+                                                        <a href="/activity/index/<?=$service_list['Service']['id']?>" class="view-description">Book A Spot</a>
+                                                        </div>
 							<div class="tile-info"> 
 								<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
 								 <div class="activity-rating-wrapper">
@@ -54,10 +58,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="contenthover">
-						    <div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
-						    <a href="/activity/index/<?=$service_list['Service']['id']?>" class="view-description">Book A Spot</a>
-						</div>
+						
 					</div>
 				<?php $i++; ?>
 				<? } ?>
@@ -153,12 +154,13 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.vendorwise-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
+							$('.tile').contenthover({
+								//data_selector: '.contenthover',
+								//effect:'slide',
+								//slide_direction: 'left',
+								//slide_speed:300,
 								overlay_opacity: 1
+                                                                overlay_background: '#000'
 							});
 							
                             if(page >= pages){
