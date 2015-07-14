@@ -33,7 +33,7 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <link rel="stylesheet" href="/css/simple-line-icons/simple-line-icons.css">
 
 <?=$this->Html->css('style.css');?>
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<?=$this->Html->css('mobile.css');?>
 
 <!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">

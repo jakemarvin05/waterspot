@@ -85,11 +85,21 @@
             <div class="navGroup">
                 <?php if($this->LoginMenu->isLogin()){ ?>
                     <div class="navButtonOuter dropdown" data-placement="bottom">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="fa fa-user"></i> Vendor Menu
-    <span class="caret"></span>
-  </button>
-                    <?php echo $this->LoginMenu->show(); ?>
+
+                       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                           <i class="fa fa-user"></i>
+                           <?php if($this->Vendor->isVendorLogin()) { ?>
+                           Vendor Menu
+                           <?php }
+                           else {?>
+                               Member Menu
+                           <?php } ?>
+                           <span class="caret"></span>
+                       </button>
+                   <?php
+
+                    echo $this->LoginMenu->show(); ?>
                     </div> 
                 <?php } else { ?>
                     <div class="navButtonOuter" data-toggle="popover" data-placement="bottom">
