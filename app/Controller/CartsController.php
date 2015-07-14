@@ -138,7 +138,8 @@ Class CartsController extends AppController{
 					$body=str_replace('{PRICE}',$val['Cart']['total_amount'],$body);
 					
 					$email = new CakeEmail();
-					$email->config('gmail');
+$email->config('gmail');
+					
 					$email->to($val['Cart']['vendor_email'],$mail['Mail']['mail_from']);
 					$email->subject($mail['Mail']['mail_subject']);
 					$email->from($data['Cart']['email']);

@@ -76,3 +76,8 @@
 	<div class="clear"></div>
 </div>
 </div>
+<script type='text/javascript'>
+ $(document).ready(function () {
+ sameHeight('left-area','right-area');
+ });
+</script>

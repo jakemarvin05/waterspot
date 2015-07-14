@@ -61,7 +61,8 @@ Class BookingsController extends VendorManagerAppController{
 			
 			//Notify mail for Vendor	
 			$email = new CakeEmail();
-			$email->config('gmail');
+$email->config('gmail');
+			
 			//$email->to('shivram.yadav@newmediaguru.org');
 			$email->to($this->VendorAuth->results['VendorAuth']['email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -94,7 +95,8 @@ Class BookingsController extends VendorManagerAppController{
 				
 				//Notify mail for Members	
 				$email = new CakeEmail();
-				$email->config('gmail');
+$email->config('gmail');
+				
 				//$email->to('shivram.yadav@newmediaguru.org');
 				$email->to($memberinfo["Member"]["email_id"]);
 				$email->subject($mail['Mail']['mail_subject']);
@@ -184,7 +186,8 @@ Class BookingsController extends VendorManagerAppController{
 			$body=str_replace('{PRICE}',$cart['Cart']['total_amount'],$body);
 			//pr($body);die;
 			$email = new CakeEmail();
-			$email->config('gmail');
+$email->config('gmail');
+			
 			$email->to($memberinfo['Member']['email_id']);
 			//$email->to($this->setting['site']['site_contact_email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -231,7 +234,8 @@ Class BookingsController extends VendorManagerAppController{
 			$body=str_replace('{PRICE}',$cart['Cart']['total_amount'],$body);
 			//pr($body);die;
 			$email = new CakeEmail();
-			$email->config('gmail');
+$email->config('gmail');
+			
 			$email->to($memberinfo['Member']['email_id']);
 			//$email->to($this->setting['site']['site_contact_email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -478,7 +482,8 @@ Class BookingsController extends VendorManagerAppController{
 			$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
 			$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 			$email = new CakeEmail();
-			$email->config('gmail');
+$email->config('gmail');
+			
 			$email->to(array($this->setting['site']['site_contact_email'],$vendor_details['email']),$mail['Mail']['mail_from']);
 			$email->subject($mail['Mail']['mail_subject']);
 			$email->from($vendor_details['email']);
@@ -493,7 +498,8 @@ Class BookingsController extends VendorManagerAppController{
 			$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 			
 			$email = new CakeEmail();
-			$email->config('gmail');
+$email->config('gmail');
+			
 			$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 			$email->subject($mail['Mail']['mail_subject']);
 			$email->to($booking_emails);
@@ -598,7 +604,8 @@ Class BookingsController extends VendorManagerAppController{
 		$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
 		$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 		$email = new CakeEmail();
-		$email->config('gmail');
+$email->config('gmail');
+		
 		$email->to(array($this->setting['site']['site_contact_email'],$vendor_details['email']),$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($vendor_details['email']);
@@ -612,7 +619,8 @@ Class BookingsController extends VendorManagerAppController{
 		$body=str_replace('{TOTAL}',number_format($total_booking_price,2),$body);
 		$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 		$email = new CakeEmail();
-		$email->config('gmail');
+$email->config('gmail');
+		
 		$email->from($vendor_details['email'],$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->to($emails);

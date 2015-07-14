@@ -47,6 +47,17 @@ Class ServiceReview extends VendorManagerAppModel {
 			return $service_reviews;
 			
 		}
+
+		function getServiceRatings($service_id=null)
+		{
+			$critria = array();
+			$service_reviews = array();
+			$critria['fields'] =  array('ROUND(AVG(ifnull((`ServiceReview`.`rating`), 0))) as rating');
+			$critria['conditions'] = array('ServiceReview.service_id' => $service_id,'ServiceReview.status' => 1);
+			$critria['group'] = array('ServiceReview.service_id');
+			$service_reviews = $this->find('all', $critria);
+			return $service_reviews[0][0]['rating'];
+		}
 		
 		function getVendorRatings($vendor_id = null){
 			$critria = array();
