@@ -874,6 +874,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .activities-listing {
     padding-bottom: 15px;
+    min-height: 370px;
 }
 .activities-listing .tile{
     overflow: hidden;
@@ -1174,3 +1175,4 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     border-radius: 3px;
     font-size: 12px;
 }
+
