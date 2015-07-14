@@ -12,13 +12,13 @@
       <?=$this->element('message');?>
       <?php echo $this->Form->create('Member', array('id'=>'MemberRegistration','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'edit_profile'),'class'=>'dashboard-edit-form','novalidate' => true));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'EditProfileForm')); ?> 
-            <div class="dashboard-form-row row">
+            <div class="dashboard-form-row row editprof">
                 <div class="col-sm-6">
 		  <div class="labelbox">
 			<label>First name : <span style="color:#ff4142;">*</span></label>
 		  </div>
 		  <div class="fieldbox">
-			<?=$this->Form->text('first_name'); ?>
+			<?=$this->Form->text('first_name', array('class' => 'editprofinput')); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		  </div>
                 </div>
@@ -27,30 +27,30 @@
 			<label>Last name : <span style="color:#ff4142;">*</span></label>
 		  </div>
 		  <div class="fieldbox">
-			<?=$this->Form->text('last_name'); ?>
+			<?=$this->Form->text('last_name', array('class' => 'editprofinput')); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		  </div>
                 </div>
 	    </div>
-            <div class="dashboard-form-row">
+            <div class="dashboard-form-row editprof">
 		  <div class="labelbox">
 			<label>Email address : <span style="color:#ff4142;"></span></label>
 		  </div>
 		  <div class="fieldbox">
-			<?=$this->Form->text('email_id',array('readonly'=>true)); ?>
+			<?=$this->Form->text('email_id',array('readonly'=>true, 'class' => 'editprofinput')); ?>
 			<?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?> 
 		  </div>
 	    </div>
-            <div class="dashboard-form-row">
+            <div class="dashboard-form-row editprof">
 		  <div class="labelbox">
 			<label>Phone : <span style="color:#ff4142;"> *</span></label>
 		  </div>
 		  <div class="fieldbox">
-			<?=$this->Form->text('phone'); ?>
+			<?=$this->Form->text('phone',array('readonly'=>true, 'class' => 'editprofinput')); ?>
 			<?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		  </div>
 	    </div>
-            <div class="dashboard-form-row">
+            <div class="dashboard-form-row editprof">
 		  <input class="dashboard-buttons" value="Update Profile" type="submit">
 	    </div>
       <?php echo $this->Form->end();?>  

@@ -12,31 +12,31 @@
       <?php echo $this->Form->create('Member', array('id'=>'ChangeEmail','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'change_email'),'class'=>'dashboard-edit-form','novalidate'=>true));?>
 	<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'change_email')); ?>
         <div class="frame">
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
 	    <label>Current Password: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->password('current_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('current_password',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
             <label>New Email: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->text('email_id',array('required'=>false)); ?>
+	    <?=$this->Form->text('email_id',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
 	    <label>Confirm Email: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->text('confirm_email_id',array('required'=>false)); ?>
+	    <?=$this->Form->text('confirm_email_id',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <input class="dashboard-buttons" value="Update Email" type="submit">
         </div>
       <?php echo $this->Form->end();?>
