@@ -207,6 +207,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function edit_profile() {
+        array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->request->data['Member']['id'] = $id;
