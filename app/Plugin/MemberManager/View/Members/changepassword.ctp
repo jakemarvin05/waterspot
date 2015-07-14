@@ -12,31 +12,31 @@
    <?php echo $this->Form->create('Member', array('id'=>'ChangePassword','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'changepassword'),'class'=>'dashboard-edit-form','novalidate'=>true));?>
       <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'Change-Password')); ?>
       <div class="frame">
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>Current Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('current_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('current_password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>New Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('password',array('required'=>false)); ?>
+	    <?=$this->Form->password('password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>Confirm Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('confirm_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('confirm_password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <input class="dashboard-buttons" value="Update Password" type="submit">
       </div>
    <?php echo $this->Form->end();?>     
