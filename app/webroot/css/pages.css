@@ -66,3 +66,35 @@ h5.vendor-name {
 .ch_element.ch_wrapper {
     border: 1px solid #ddd;
 }
+h2.page-title.edit {    
+    color: #606060 !important;
+    font-family: 'Arca Majora';    letter-spacing: 1px;    text-align: center;
+    padding-bottom: 15px;
+}
+.middle-area.edit {
+    background-color: #F9F9F9;
+    border-top: 1px solid #ccc;
+}
+
+.cont {
+    padding: 15px;
+}
+
+.cont {
+    padding: 15px;
+}
+
+
+p {
+    font-family: 'Lato';
+    font-size: 14px;
+}
+strong {
+    font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px;
+}
+
+div.cont u {
+    display: block;
+    height: auto;
+    padding-bottom: 8px;
+}
