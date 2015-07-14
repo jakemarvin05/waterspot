@@ -162,6 +162,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function changepassword(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$data['Member']['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['Member']['password']);
