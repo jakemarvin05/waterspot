@@ -61,19 +61,8 @@
 								<button class="rate" id="rate-4" data-rate="4" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
 								<button class="rate" id="rate-5" data-rate="5" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
 							</div>
-
 							<script type="text/javascript">
 							$(document).ready(function(){
-								$('.rate').click(function(){
-									$('#review-form').css('height', '100px');
-									$('.rate').html('<img src="/img/social-feed-logo-bw.jpg">');
-									x = $(this).attr('data-rate');
-									c = 1;
-									while (c <= x) {
-										$('#rate-' + c).html('<img src="/img/social-feed-logo.jpg">');
-										c++;
-									}
-								});
 								var rate = <?php echo $service_detail['Rating']; ?>;
 								var crate = rate+1;
 								while(crate <= 5) {
@@ -82,19 +71,6 @@
 								}
 							});
 							</script>
-
-							<div class="clearfix"></div>
-
-							<div id="review-form" style="overflow:hidden; height:0px; transition: height 1s ease;">
-							  <form style="padding-top:5px;">
-							    <fieldset>
-							      <label for="comment">Comment</label>
-							      <textarea name="comment" style="width:100%; display:block;"></textarea>
-							      <input type="submit" class="btn" value="Send Review" style="width:100%;">
-							    </fieldset>
-							  </form>
-							</div>
-
 							<div class="clearfix"></div>
 						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
 							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
