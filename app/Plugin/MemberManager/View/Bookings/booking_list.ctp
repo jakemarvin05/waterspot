@@ -153,3 +153,8 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
  $('.selectpicker').selectpicker();
 
 </script>
+<script type='text/javascript'>
+ $(document).ready(function () {
+ sameHeight('left-area','right-area');
+ });
+</script>
