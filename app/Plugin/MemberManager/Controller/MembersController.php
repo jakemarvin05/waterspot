@@ -185,6 +185,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function change_email(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->Member->id = $id;
