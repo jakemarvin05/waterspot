@@ -1,7 +1,7 @@
 	<section id="splashVideoCont">
 		<div id="splashVideoCropper">
 			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
-				<source src="/media/watersports.mp4" type="video/mp4">
+				<!-- <source src="/media/watersports.mp4" type="video/mp4"> -->
 				<img src="/img/splash-statics/slide1.jpg">
 			</video>
 			<img src="/img/splash-statics/slide1.jpg">
@@ -45,7 +45,7 @@
 			      }
 			    });
 		      }
-		      google.maps.event.addDomListener(window, 'load', initialize);
+		      // google.maps.event.addDomListener(window, 'load', initialize);
 		    </script>
 
 		</section>
@@ -54,7 +54,47 @@
 						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
 						<div id="rating" class="blocks">
 							<h4>RATING:</h4>
-							<div class="rating"></div>
+							<div class="rating" style="background:none;">
+								<button class="rate" id="rate-1" data-rate="1" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-2" data-rate="2" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-3" data-rate="3" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-4" data-rate="4" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-5" data-rate="5" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+							</div>
+
+							<script type="text/javascript">
+							$(document).ready(function(){
+								$('.rate').click(function(){
+									$('#review-form').css('height', '100px');
+									$('.rate').html('<img src="/img/social-feed-logo-bw.jpg">');
+									x = $(this).attr('data-rate');
+									c = 1;
+									while (c <= x) {
+										$('#rate-' + c).html('<img src="/img/social-feed-logo.jpg">');
+										c++;
+									}
+								});
+								var rate = <?php echo $service_detail['Rating']; ?>;
+								var crate = rate+1;
+								while(crate <= 5) {
+									$('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
+									crate++;
+								}
+							});
+							</script>
+
+							<div class="clearfix"></div>
+
+							<div id="review-form" style="overflow:hidden; height:0px; transition: height 1s ease;">
+							  <form style="padding-top:5px;">
+							    <fieldset>
+							      <label for="comment">Comment</label>
+							      <textarea name="comment" style="width:100%; display:block;"></textarea>
+							      <input type="submit" class="btn" value="Send Review" style="width:100%;">
+							    </fieldset>
+							  </form>
+							</div>
+
 							<div class="clearfix"></div>
 						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
 							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
