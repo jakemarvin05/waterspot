@@ -1,16 +1,19 @@
+<div class="container-fluid member-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
+<div class="clear" style="margin-top:80px;"></div>
+
+
 <h2 class="page-title">Member</h2>
 
 <?=$this->element('MemberManager.left-member-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
       <h3 class="dashboard-heading">Update Profile</h3>
       <?=$this->element('message');?>
       <?php echo $this->Form->create('Member', array('id'=>'MemberRegistration','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'edit_profile'),'class'=>'dashboard-edit-form','novalidate' => true));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'EditProfileForm')); ?> 
-            <div class="dashboard-form-row">
+            <div class="dashboard-form-row row">
+                <div class="col-sm-6">
 		  <div class="labelbox">
 			<label>First name : <span style="color:#ff4142;">*</span></label>
 		  </div>
@@ -18,8 +21,8 @@
 			<?=$this->Form->text('first_name'); ?>
 			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		  </div>
-	    </div>
-            <div class="dashboard-form-row">
+                </div>
+                <div class="col-sm-6">
 		  <div class="labelbox">
 			<label>Last name : <span style="color:#ff4142;">*</span></label>
 		  </div>
@@ -27,6 +30,7 @@
 			<?=$this->Form->text('last_name'); ?>
 			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		  </div>
+                </div>
 	    </div>
             <div class="dashboard-form-row">
 		  <div class="labelbox">
@@ -50,6 +54,7 @@
 		  <input class="dashboard-buttons" value="Update Profile" type="submit">
 	    </div>
       <?php echo $this->Form->end();?>  
+</div>
 </div>
 
   <script type="text/javascript">
