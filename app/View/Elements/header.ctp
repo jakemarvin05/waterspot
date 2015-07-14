@@ -123,7 +123,7 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<?php echo $this->Form->create('Member',array('action'=>'registration','name'=>'members','id'=>'MemberLogin','controller'=>'members','novalidate'=>true,'class'=>'login-form'));?>';
+                         content += '<?php echo $this->Form->create('Member',array('action'=>'registration','name'=>'members','id'=>'MemberLogin','controller'=>'members','novalidate'=>true,'class'=>'login-form', 'url'=>'/members/registration'));?>';
                              content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
                              content += '<?=$this->Form->email('email_id',array('required'=>false, 'class' => 'form-control popoverInput', 'placeholder' => 'Email')); ?><?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>';
                              content += '<?=$this->Form->password('password',array('required'=>false, 'class' => 'form-control popoverInput', 'placeholder' => 'Password')); ?><?=$this->Form->error('password',null,array('wrap'=>'div','class'=>'error-message'));?>';
@@ -154,7 +154,7 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<?php echo $this->Form->create('Vendor',array('action'=>'registration','name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form'));?>';
+                         content += '<?php echo $this->Form->create('Vendor',array('action'=>'registration','name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form', 'url'=>'/vendors/registration'));?>';
                              content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
                              content += '<?=$this->Form->email('emailid',array('required'=>false,'class'=>'form-control popoverInput')); ?>';
                              content += '<?=$this->Form->error('emailid',null,array('wrap' => 'div', 'class' => 'error-message')); ?>';
