@@ -80,14 +80,10 @@ h2.page-title.edit {
     padding: 15px;
 }
 
-.cont {
-    padding: 15px;
-}
-
-
 p {
     font-family: 'Lato';
     font-size: 14px;
+    padding: 8px;
 }
 strong {
     font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px;

@@ -1,4 +1,4 @@
-<div class="container-fluid member-panel">
+<div class="container">
 <div class="hr-line"></div>
 <div class="clear" style="margin-top:80px;"></div>
 
