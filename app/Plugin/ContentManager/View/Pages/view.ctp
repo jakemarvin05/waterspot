@@ -1,10 +1,11 @@
+<div class="container">
 <div class="hr-line"></div>
-<div class="clear"></div>
-      <!-- For breadcrumbs-->
-      <?=$this->element('breadcrumbs');?>
+<div class="clear" style="margin-top:80px;"></div>
+
       <? $name=explode(' ',$page['Page']['name']);?>
-      <h2 class="page-title"><?=$name[0]?> <span style="color:#000;"><strong> <?=strstr($page['Page']['name'], ' ')?></strong></span></h2>
-      <div class="middle-area">
+      <h2 class="page-title edit"><?=$name[0]?> <?=strstr($page['Page']['name'], ' ')?></h2>
+      <div class="middle-area edit">
+      <div class="cont">
 	    <?php if($page['Page']['id']=='6') { ?>
 		  <?=$this->element('contact');?>
 	    <?php } else { ?>
@@ -12,3 +13,7 @@
 	    <?php } ?>
 	    <div class="clear"></div>
       </div>
+      </div>
+<br>
+
+</div>

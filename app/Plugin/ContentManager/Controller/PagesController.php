@@ -283,6 +283,7 @@ $email->config('gmail');
 	}
 	
 	public function view($page_id=null){ 
+            array_push(self::$css_for_layout,'pages.css');
 		$page=$this->Page->read(null,$page_id);
 		$this->current_page_id = $page_id;
 			
