@@ -67,7 +67,7 @@ h5.vendor-name {
     border: 1px solid #ddd;
 }
 
-h2.page-title.edit {    
+h2.page-title.edit {
     color: #606060 !important;
     font-family: 'Arca Majora';    letter-spacing: 1px;    text-align: center;
     padding-bottom: 15px;
@@ -86,7 +86,7 @@ p {
     font-size: 14px;
     padding: 8px;
 }
-strong {
+.cont strong {
     font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px; font-style: normal;
 }
 
@@ -94,6 +94,7 @@ div.cont u {
     display: block;
     height: auto;
     padding-bottom: 8px;
+    text-decoration: none;
 }
 div#slots_form h3 {
     text-transform: uppercase;
