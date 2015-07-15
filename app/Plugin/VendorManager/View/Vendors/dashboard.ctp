@@ -104,6 +104,7 @@
 	</div>
 
 <script type='text/javascript'>
-	sameHeight('left-area','right-area');
-
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>

@@ -66,6 +66,7 @@ h5.vendor-name {
 .ch_element.ch_wrapper {
     border: 1px solid #ddd;
 }
+
 h2.page-title.edit {    
     color: #606060 !important;
     font-family: 'Arca Majora';    letter-spacing: 1px;    text-align: center;
@@ -93,4 +94,22 @@ div.cont u {
     display: block;
     height: auto;
     padding-bottom: 8px;
+}
+div#slots_form h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.check {
+    font-family: 'Lato';
+    font-size: 12px;
+}
+
+div#slots_form {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+.theiaStickySidebar .bootstrap-select {
+    width: 100% !important;
 }

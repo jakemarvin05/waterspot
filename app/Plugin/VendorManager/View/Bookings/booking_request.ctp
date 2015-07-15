@@ -160,8 +160,11 @@
 		var selected = $("#"+id+" :selected").text();
 		$("#BookingSearchbydate").attr("placeholder", "Select "+selected);
 	}
-
-
-	sameHeight('left-area','right-area');
   
+</script>
+
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>

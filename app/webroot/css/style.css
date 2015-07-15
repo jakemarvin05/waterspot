@@ -735,6 +735,7 @@ p.info {
 section.right-section h4{
     text-transform: uppercase;
     font-size: 12pt;
+    color: #606060;
 }
 input#loginButton {
     background-color: #ff9700;
