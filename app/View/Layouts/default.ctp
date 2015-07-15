@@ -110,7 +110,12 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 		$display_block=(!empty($css))?'block':'none';
 	}  
 ?>
-	
+
+<style type="text/css">
+  div.star-rating, div.star-rating a {
+    background:url('/jQuery.Plugins/ratings/rating-water-spot.png') no-repeat 0 0px;
+  }
+</style>
 	 
 
 <body class="<?=$css?>">
