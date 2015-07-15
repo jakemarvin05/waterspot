@@ -86,7 +86,7 @@ p {
     padding: 8px;
 }
 strong {
-    font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px;
+    font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px; font-style: normal;
 }
 
 div.cont u {
