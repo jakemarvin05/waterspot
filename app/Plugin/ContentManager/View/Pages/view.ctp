@@ -1,5 +1,6 @@
 <div class="container">
-<div class="hr-line"></div>
+<br><br><br>
+    <div class="hr-line"></div>
 <div class="clear" style="margin-top:80px;"></div>
 
       <? $name=explode(' ',$page['Page']['name']);?>

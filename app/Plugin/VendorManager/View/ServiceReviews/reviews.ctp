@@ -150,7 +150,6 @@
 		$("#BookingSearchbydate").attr("placeholder", "Please select "+selected);
 	}
 
-	sameHeight('left-area','right-area');
   
 </script>
 <script type="text/javascript">
@@ -163,4 +162,9 @@ $( document ).ready(function() {
 		});
 	});
 
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>
