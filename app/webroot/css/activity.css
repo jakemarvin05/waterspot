@@ -150,6 +150,9 @@ h2.suggestion-title {
     color: #fff;
     text-transform: uppercase;
     font-size: 30pt;
+    text-align: center;
+    font-family: 'Arca Majora';
+    padding: 10px;
 }
 .record-holder{
     overflow-y: scroll;
@@ -256,14 +259,14 @@ h2.suggestion-title {
 }
 
 button.rate {
-  border: none;
-  background-color: none;
-  margin: 0;
-  padding: 0;
-  float: left;
+    border: none;
+    background-color: none;
+    margin: 0;
+    padding: 0;
+    float: left;
 }
 
 .rate img {
-  height: 30px;
-  width: 30px;
+    height: 30px;
+    width: 30px;
 }
