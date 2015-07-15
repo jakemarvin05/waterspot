@@ -360,6 +360,7 @@ Class ActivityController extends AppController{
 		}
 		// get service review 
 		$service_detail['Review']=$this->ServiceReview->getServiceReviewByservice_id($service_id);
+		$service_detail['Rating']=$this->ServiceReview->getServiceRatings($service_id);
 		$service_detail['image']=$this->ServiceImage->getServiceImageByservice_id($service_id);
 		$service_detail['location_name']= $this->City->getLocationListCityID($service_detail['Service']['location_id']);
 		$service_detail['service_type']= $this->ServiceType->getServiceTypeNameById($service_detail['Service']['service_type_id']);

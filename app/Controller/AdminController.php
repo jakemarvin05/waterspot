@@ -117,6 +117,7 @@ class AdminController extends AppController {
 		$body=str_replace('{url}',$linkmerge,$body);
 		$body=str_replace('{USERNAME}',$user['User']['username'],$body);     
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($user['User']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($user['User']['email']);

@@ -1,7 +1,7 @@
 	<section id="splashVideoCont">
 		<div id="splashVideoCropper">
 			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
-				<!-- <source src="/media/watersports.mp4" type="video/mp4"> -->
+				<source src="/media/watersports.mp4" type="video/mp4">
 				<img src="/img/splash-statics/slide1.jpg">
 			</video>
 			<img src="/img/splash-statics/slide1.jpg">
@@ -22,9 +22,31 @@
 				<?=$this->element('activity/slider');?>
 			</div>
 			<?=$this->element('activity/serviceDescriptiontabs');?>
-			<div class="map-holder row">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
-			</div>
+			<div id="map-canvas" style="height:400px; width:100%;"></div>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+		    <script>
+		      function initialize() {
+		        geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(-34.397, 150.644);
+			    var mapOptions = {
+			      zoom: 15,
+			      center: latlng
+			    }
+			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			        map.setCenter(results[0].geometry.location);
+			        var marker = new google.maps.Marker({
+			            map: map,
+			            position: results[0].geometry.location
+			        });
+			      } else {
+			        alert("Geocode was not successful for the following reason: " + status);
+			      }
+			    });
+		      }
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		    </script>
 
 		</section>
 		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
@@ -32,7 +54,23 @@
 						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
 						<div id="rating" class="blocks">
 							<h4>RATING:</h4>
-							<div class="rating"></div>
+							<div class="rating" style="background:none;">
+								<button class="rate" id="rate-1" data-rate="1" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-2" data-rate="2" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-3" data-rate="3" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-4" data-rate="4" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-5" data-rate="5" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+							</div>
+							<script type="text/javascript">
+							$(document).ready(function(){
+								var rate = <?php echo $service_detail['Rating']; ?>;
+								var crate = rate+1;
+								while(crate <= 5) {
+									$('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
+									crate++;
+								}
+							});
+							</script>
 							<div class="clearfix"></div>
 						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
 							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>

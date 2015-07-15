@@ -127,6 +127,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{url}',$linkmerge,$body);
 		$body=str_replace('{EMAIL}',$member['Member']['email_id'],$body);
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($member['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email']);
@@ -439,6 +440,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{PASSWORD}',$password,$body);   
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'registration',$mail_data['Member']['email_id'])),$body); 
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($mail_data['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
