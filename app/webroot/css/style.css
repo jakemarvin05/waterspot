@@ -1179,3 +1179,10 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     font-size: 12px;
 }
 
+section#navWrapper.stickyCollapsedFix {
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+section#navWrapper.stickyCollapsedFix.stickyCollapsed {
+    padding-bottom: 5px;
+}
