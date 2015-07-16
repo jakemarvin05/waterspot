@@ -687,9 +687,10 @@ section.right-section .blocks {
     width: 200px;
     height: 29px;
     background-color: #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     float: left;
     margin-right: 15px;
+    margin-top: 20px;
 }
 
 .progressbar {
