@@ -1,9 +1,25 @@
+/* For iPad */
+@media (max-width: 1024px) {
+    .ch_element.ch_wrapper {
+        min-height: 220px!important;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+
+}
+
+
 /* For Tablets */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+    .stickyCollapsedFix .navButtonOuter {
+        padding-bottom: 8px;
+    }
 
 }
 /* For Smart Phones */
-@media (max-width: 479px) {
+@media (max-width: 480px) {
     .ch_element.ch_wrapper {
         min-height: 170px;
     }
@@ -16,5 +32,29 @@
     }
     .navButtonOuter {
         padding: 5px;
+    }
+    .contenthover .short-desc {
+        display: none;
+    }
+    .beforeHeader {
+        line-height: 22px;
+    }
+    .activity-tags {
+        display: none;
+    }
+
+    a.view-all-tags {
+        margin-top: 0;
+        line-height: 22px;
+        position: relative;
+        top: -40px;
+    }
+    h5.vendor-name {
+        margin-top: 10px;
+    }
+
+    .vendor-area.row .col-xs-12 {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
