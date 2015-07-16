@@ -436,6 +436,7 @@ Class ServicesController extends VendorManagerAppController{
 	}
 
 	function add_service_slots($service_id=null) {
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		
 		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.Service');
