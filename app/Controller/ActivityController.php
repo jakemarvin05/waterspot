@@ -364,6 +364,8 @@ Class ActivityController extends AppController{
 		$service_detail['image']=$this->ServiceImage->getServiceImageByservice_id($service_id);
 		$service_detail['location_name']= $this->City->getLocationListCityID($service_detail['Service']['location_id']);
 		$service_detail['service_type']= $this->ServiceType->getServiceTypeNameById($service_detail['Service']['service_type_id']);
+		$booking_count = $this->Cart->CountBookingByServiceId($service_id);
+		$this->set('booking_count', $booking_count);
 		// invite friend after add card table 
 		$cart_details=array();
 		$cart_slots=array();

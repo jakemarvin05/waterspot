@@ -72,14 +72,17 @@
 							});
 							</script>
 							<div class="clearfix"></div>
-						<?php if($service_detail['Service']['min_participants'] > 0) { ?>
+						<?php 
+							if($service_detail['Service']['min_participants'] > 0) { 
+								$percent = round($booking_count * 100 / $service_detail['Service']['min_participants']) ;
+						?>
 							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
-						<?php } ?>
 							<div class="completion">
-								<div class="progressbar" style="width:40%;"></div>
+								<div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
 							</div>
-							<div class="progressinfo"><span class="current">12</span> out of 30</div>
+							<div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
 							<div class="clearfix"></div>
+						<?php } ?>
 						</div>
 					<div class="blocks">
 					<div class="slot-booking-form">
