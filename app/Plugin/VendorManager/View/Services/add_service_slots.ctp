@@ -36,9 +36,9 @@
 	<?=$this->Form->create('ServiceSlot',array('id'=>'add_slots','class'=>'add-slot-form','url'=>array('controller'=>'services','action'=>'add_service_slots',$service_id),'novalidate' => true)); ?>
 		<?php echo $this->Form->hidden('id'); ?>
 		<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
-		<?=$this->Form->input('start_time',array('class'=>'btn dropdown-toggle btn-default inputedit', 'type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
+		<?=$this->Form->input('start_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
 		<span class="txt edit">TO</span>
-		<?=$this->Form->input('end_time',array('class'=>'btn dropdown-toggle btn-default inputedit', 'type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
+		<?=$this->Form->input('end_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
 		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=>false,'div'=>false, 'placeholder'=>'price'));?>
 		<input class="dashboard-buttons dashboard-buttons btn orange" type="submit" value="Add Slot" />
 	<?php echo $this->Form->end();?>
@@ -119,4 +119,5 @@
 	$(document).ready(function () {
 		sameHeight('left-area','right-area');
 	});
+	$("select.selectpicker").selectpicker();
 </script>

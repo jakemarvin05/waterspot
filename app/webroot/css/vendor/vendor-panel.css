@@ -183,6 +183,7 @@ label.namefield2 {
     text-shadow: none;
     box-shadow: none;
     border-radius: 0PX;
+    padding: 10px 8px 7px;
 }
 
 .dashboard-form-row input[type=text] {
@@ -190,7 +191,7 @@ label.namefield2 {
     padding: 10px 12px 7px;
     font-size: 14px;
     text-transform: uppercase;
-    top: 6px;
+    top: 7px;
     position: relative;
     min-width: 195px;
     margin: 0px 0px 0px 3px;
@@ -506,12 +507,19 @@ a#uploadFile {
     max-width: 50%;
 }
 .inputedit {
-    border: 1px solid #F79E34;    
+    border: 1px solid #F79E34;
     padding: 10px 8px 7px !important;    font-size: 14px;    text-transform: uppercase;
 }
 span.txt.edit {
     position: relative;    top: 5px;
+    margin: 0px 6px;
 }
 .dashboard-form-row.with-padding.edit {
     border-bottom: none;
 }
+
+input#ServiceSlotPrice {
+    margin-left: 13px;
+}
+=======
+
