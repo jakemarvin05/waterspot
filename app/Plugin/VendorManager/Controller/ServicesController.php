@@ -164,6 +164,7 @@ Class ServicesController extends VendorManagerAppController{
 	}
 	
 	function add_services($service_id=null){
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('LocationManager.City');
 		$this->loadModel('VendorManager.ValueAddedService');
@@ -436,6 +437,7 @@ Class ServicesController extends VendorManagerAppController{
 	}
 
 	function add_service_slots($service_id=null) {
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		
 		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.Service');

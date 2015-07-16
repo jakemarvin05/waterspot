@@ -105,7 +105,7 @@
 						<td valign="middle"><?=ucfirst($service['location_details']); ?></td>
 						<td style="text-align: right;" valign="middle"><?= number_format($service['service_price'],2) ?></td>
 						<td class="action" style="text-align: center;" valign="middle">
-							 <?=$this->Html->link("<i class=\"fa fa-plus-square\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
 							 <?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Service'));?>
 							
 							 <?=$this->Html->link("<i class=\"fa fa-calendar\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Add/Update Slots'));?>
@@ -207,5 +207,9 @@
       
     });
 
-	sameHeight('left-area','right-area');
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>

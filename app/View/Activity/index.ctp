@@ -63,7 +63,7 @@
 							</div>
 							<script type="text/javascript">
 							$(document).ready(function(){
-								var rate = <?php echo $service_detail['Rating']; ?>;
+								var rate = <?php echo (isset($service_detail['Rating'])?$service_detail['Rating']:0); ?>;
 								var crate = rate+1;
 								while(crate <= 5) {
 									$('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
@@ -436,4 +436,7 @@ function get_recommended_dates() {
 
 		});
 
+	</script>
+	<script type="text/javascript">
+		$('#ActivityNoParticipants').selectpicker().hide();
 	</script>

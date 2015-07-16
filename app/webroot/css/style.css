@@ -680,15 +680,17 @@ section.right-section .blocks {
     position: relative;
     color: #606060;
     font-size: 14pt;
+    clear: both;
 }
 .completion {
     position: relative;
     width: 200px;
     height: 29px;
     background-color: #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     float: left;
     margin-right: 15px;
+    margin-top: 20px;
 }
 
 .progressbar {
@@ -735,6 +737,7 @@ p.info {
 section.right-section h4{
     text-transform: uppercase;
     font-size: 12pt;
+    color: #606060;
 }
 input#loginButton {
     background-color: #ff9700;
@@ -983,6 +986,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     text-align: center;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+    margin-right: 30px;
 }
 .vendorwise-listing .contenthover .view-description{
     display:block;
@@ -1176,3 +1180,10 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     font-size: 12px;
 }
 
+section#navWrapper.stickyCollapsedFix {
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+section#navWrapper.stickyCollapsedFix.stickyCollapsed {
+    padding-bottom: 5px;
+}

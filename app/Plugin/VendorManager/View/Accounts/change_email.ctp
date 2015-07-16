@@ -87,6 +87,9 @@
       });
         
    });
-
-   sameHeight('left-area','right-area');
- </script>
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+</script>
