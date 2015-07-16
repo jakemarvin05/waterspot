@@ -1,9 +1,9 @@
 <? if(empty($this->request->data['Service']['description'])) { ?>
 <? //$this->request->data['Service']['description']="Please enter description here";
 }?>
+<div class="container-fluid vendor-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+<div class="clear" style="margin-top:80px;"></div>
 <h2 class="page-title">
 	<?php
 		if (isset($this->request->data['Service']['id']) && $this->request->data['Service']['id']):
@@ -14,7 +14,7 @@
 	?>
 </h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
 	<div class="add-service-price-note">Please enter both the prices. However, only PER SLOT price will display on front end.</div>
 	<?=$this->Form->create('Service',array('class'=>'dashboard-addnew-form','id'=>'add_services','action'=>'add_services','novalidate' => true));
@@ -30,6 +30,18 @@
 		</div>
 	</div>
 	<div class="dashboard-form-row">
+            <div class="labelbox">
+			<label>Private? <span style="color:#ff0000;">*</span></label>
+                        <div class="fieldbox">
+			<?=$this->Form->checkbox('is_private',array('label'=>false,'div'=>false));?>
+			<?=$this->Form->error('is_private',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                        </div>
+            </div>
+        </div>
+        <div class="servcont">
+	<div class="dashboard-form-row">
+          
+
 		<div class="labelbox">
 			<label>Title: <span style="color:#ff0000;">*</span></label>
 		</div>
@@ -37,17 +49,8 @@
 			<?=$this->Form->input('service_title',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
-	</div>
-	<div class="dashboard-form-row">
-		<div class="labelbox">
-			<label>Private? <span style="color:#ff0000;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->checkbox('is_private',array('label'=>false,'div'=>false));?>
-			<?=$this->Form->error('is_private',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
-	</div>
-	<div class="dashboard-form-row">
+          </div>
+        <div class="dashboard-form-row">
 		<div class="labelbox">
 			<label>Minimum Participants (0 for no minimum): <span style="color:#ff0000;">*</span></label>
 		</div>
@@ -55,41 +58,12 @@
 			<?=$this->Form->input('min_participants',array('type'=>'text','label'=>false,'div'=>false));?>
 			<?=$this->Form->error('min_participants',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
-	</div>
-	<div class="dashboard-form-row">
-		<div class="labelbox">
-			<label>Description:</label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->textarea('description', array('cols' => '60', 'rows' => '3','id'=>'ServiceDescription','placeholder'=>'Please enter description here....'));
-			// echo $fck->load('Page.content');?>
-			<?=$this->Form->error('description',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			
-		</div>
-	</div>
-	<div class="dashboard-form-row">
-		<div class="labelbox">
-			<label>Itinerary:</label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3','id'=>'ServiceItinerary','placeholder'=>'Please enter description here....'));
-			// echo $fck->load('Page.content');?>
-			<?=$this->Form->error('itinerary',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			 
-		</div>
-	</div>
-	<div class="dashboard-form-row">
-		<div class="labelbox">
-			<label>How to get there:</label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3','placeholder'=>'Please enter description here....'));
-			// echo $fck->load('Page.content');?>
-			<?=$this->Form->error('how_get_review',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			 
-		</div>
-	</div>
-	<div class="dashboard-form-row">
+        </div>
+        </div>
+
+    <div class="dashboard-form-row edit">
+      <div class="cont2">
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox">
 			<label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
 		</div>
@@ -101,7 +75,7 @@
 			<?=$this->Form->error('service_price',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox">
 			<label>Full Day Price:<span style="color:#ff0000;">*</span></label>
 		</div>
@@ -113,7 +87,7 @@
 			<?=$this->Form->error('full_day_amount',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox">
 			<label>No of Persons:<span style="color:#ff0000;">*</span> </label>
 		</div>
@@ -122,7 +96,7 @@
 			<?=$this->Form->error('no_person',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox">
 			<!-- city_id as location_id -->
 			<label>Images(Dimensions should be 600 X 400): </label>    
@@ -149,7 +123,7 @@
 			<div id="show_upload_image" style="display:none;"></div>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox"> 
 			<label>Location: </label>
 		</div>
@@ -158,7 +132,7 @@
 			<?=$this->Form->error('location_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row servedit">
 		<div id="p_scents" class="labelbox">
 			<label>Value Added Services: </label>
 		</div>
@@ -201,10 +175,50 @@
 			<div id="extender"></div>
 		</div>
 	</div>
-	<div class="dashboard-form-row">
-		<input class="dashboard-buttons" value="Submit" type="submit">
+    </div>
+    </div>
+    <div class="cont3">
+	<div class="dashboard-form-row servedit1">
+		<div class="labelbox servedit">
+			<label>Description:</label>
+		</div>
+		<div class="fieldbox servedit">
+			<?=$this->Form->textarea('description', array('cols' => '60', 'rows' => '3','id'=>'ServiceDescription','placeholder'=>'Please enter description here....'));
+			// echo $fck->load('Page.content');?>
+			<?=$this->Form->error('description',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+			
+		</div>
 	</div>
-	<?php echo $this->Form->end();?>
+	<div class="dashboard-form-row servedit1">
+		<div class="labelbox servedit">
+			<label>Itinerary:</label>
+		</div>
+		<div class="fieldbox servedit">
+			<?=$this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3','id'=>'ServiceItinerary','placeholder'=>'Please enter description here....'));
+			// echo $fck->load('Page.content');?>
+			<?=$this->Form->error('itinerary',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+			 
+		</div>
+	</div>
+
+	<div class="dashboard-form-row servedit1">
+		<div class="labelbox servedit">
+			<label>How to get there:</label>
+		</div>
+		<div class="fieldbox servedit">
+			<?=$this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3','placeholder'=>'Please enter description here....'));
+			// echo $fck->load('Page.content');?>
+			<?=$this->Form->error('how_get_review',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+			 
+		</div>
+	</div>
+
+</div>
+        <div class="dashboard-form-row servedit">
+	<input class="dashboard-buttons" value="Submit" type="submit">
+	</div>
+        <?php echo $this->Form->end();?>
+</div>
 </div>
  <script>
 	 CKEDITOR.replace('ServiceDescription', {
