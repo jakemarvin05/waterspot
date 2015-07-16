@@ -299,6 +299,7 @@ table#service_reviews td {
 
 td {
     border: 1px solid #ccc;
+    padding: 8px;
 }
 
 form#ServiceReviewReviewsForm {
@@ -503,4 +504,14 @@ a#uploadFile {
 .frame {
     padding: 15px;
     max-width: 50%;
+}
+.inputedit {
+    border: 1px solid #F79E34;    
+    padding: 10px 8px 7px !important;    font-size: 14px;    text-transform: uppercase;
+}
+span.txt.edit {
+    position: relative;    top: 5px;
+}
+.dashboard-form-row.with-padding.edit {
+    border-bottom: none;
 }
