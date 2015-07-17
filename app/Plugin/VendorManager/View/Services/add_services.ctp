@@ -17,10 +17,11 @@
 <div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
 	<div class="add-service-price-note">Please enter both the prices. However, only PER SLOT price will display on front end.</div>
-	<?=$this->Form->create('Service',array('class'=>'dashboard-addnew-form','id'=>'add_services','action'=>'add_services','novalidate' => true));
+	<?=$this->Form->create('Service',array('class'=>'dashboard-edit-form','id'=>'add_services','action'=>'add_services','novalidate' => true));
 	 echo $this->Form->hidden('id');
 	?>
 	<div class="dashboard-form-row">
+            <div class="cont">
 		<div class="labelbox">
 			<label>Select your services:</label>
 		</div>
@@ -28,8 +29,10 @@
 			<?=$this->Form->input('service_type_id',array('type' =>'select', 'options' => $service_types,'label'=>false));?>	
 			<?=$this->Form->error('service_type_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
+            </div>
 	</div>
-	<div class="dashboard-form-row">
+        <div class="cont col-sm-9">
+	<div class="dashboard-form-row row servcont">
             <div class="labelbox">
 			<label>Private? <span style="color:#ff0000;">*</span></label>
                         <div class="fieldbox">
@@ -38,9 +41,7 @@
                         </div>
             </div>
         </div>
-        <div class="servcont">
-	<div class="dashboard-form-row">
-          
+	<div class="dashboard-form-row row servcont">
 
 		<div class="labelbox">
 			<label>Title: <span style="color:#ff0000;">*</span></label>
@@ -50,89 +51,28 @@
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
           </div>
-        <div class="dashboard-form-row">
+        <div class="dashboard-form-row row servcont">
+            <div class="col-sm-6 col-xs-12 servedit">
 		<div class="labelbox">
-			<label>Minimum Participants (0 for no minimum): <span style="color:#ff0000;">*</span></label>
+			<label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
 		</div>
 		<div class="fieldbox">
-			<?=$this->Form->input('min_participants',array('type'=>'text','label'=>false,'div'=>false));?>
+			<?=$this->Form->input('min_participants',array('placeholder'=>'0 for no minimum', 'type'=>'text','label'=>false,'div'=>false));?>
 			<?=$this->Form->error('min_participants',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
-        </div>
-        </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 servedit">
 
-    <div class="dashboard-form-row edit">
-      <div class="cont2">
-	<div class="dashboard-form-row servedit">
 		<div class="labelbox">
-			<label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<span class="currency-symbol"><?=Configure::read('currency'); ?></span>
-			<?=$this->Form->input('service_price',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
-			<span class="afterfield-text">Per Person</span>
-			<div id="service_price"></div>
-			<?=$this->Form->error('service_price',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
-	</div>
-	<div class="dashboard-form-row servedit">
-		<div class="labelbox">
-			<label>Full Day Price:<span style="color:#ff0000;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<span class="currency-symbol"><?=Configure::read('currency'); ?></span>
-			<?=$this->Form->input('full_day_amount',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
-			<span class="afterfield-text">Per Person</span>
-			<div id="full_day_amount"></div>
-			<?=$this->Form->error('full_day_amount',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
-	</div>
-	<div class="dashboard-form-row servedit">
-		<div class="labelbox">
-			<label>No of Persons:<span style="color:#ff0000;">*</span> </label>
+			<label>No. of Persons:<span style="color:#ff0000;">*</span> </label>
 		</div>
 		<div class="fieldbox">
 			<?=$this->Form->input('no_person',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
 			<?=$this->Form->error('no_person',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
+            </div>
 	</div>
-	<div class="dashboard-form-row servedit">
-		<div class="labelbox">
-			<!-- city_id as location_id -->
-			<label>Images(Dimensions should be 600 X 400): </label>    
-		</div>
-		<div class="fieldbox">
-			<? if(!empty($this->request->data['ServiceImage'])) {
-				foreach($this->request->data['ServiceImage'] as $key=>$image) { ?>
-					<div class="dashboard-service-images service-image">
-						<input class="radio_button" type="radio" value="<?=$image['image'];?>" name="data[ServiceImage][default_image]" <?=($image['image']==$image['default_image'])?'checked':'';?>>
-						
-						<span class="radio_button_status<?=($image['image']==$image['default_image'])?' selected':'';?>"></span>
-						<? 
-							$path=WWW_ROOT.'img'.DS.'service_images'.DS;
-							$imgArr = array('source_path'=>$path,'img_name'=>$image['image'],'width'=>80,'height'=>80);
-							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0'));
-						?>
-						<input type="hidden" value="<?=$image['image'];?>" name="data[ServiceImage][images][]">
-						<button class="close-image"></button>
-					</div>
-				<? } ?>
-			<?php } ?>
-			<div class="img-box"></div>
-			<div id="show_upload_image" style="display:none;"></div>
-		</div>
-	</div>
-	<div class="dashboard-form-row servedit">
-		<div class="labelbox"> 
-			<label>Location: </label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->input('location_id',array('type' =>'select', 'options' => $city_list,'label'=>false));?>
-			<?=$this->Form->error('location_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
-	</div>
-	<div class="dashboard-form-row servedit">
+        <div class="dashboard-form-row row servcont">
 		<div id="p_scents" class="labelbox">
 			<label>Value Added Services: </label>
 		</div>
@@ -175,25 +115,91 @@
 			<div id="extender"></div>
 		</div>
 	</div>
-    </div>
-    </div>
-    <div class="cont3">
-	<div class="dashboard-form-row servedit1">
-		<div class="labelbox servedit">
+	<div class="dashboard-form-row row servcont">
+            <div class="col-sm-6 col-xs-12 servedit">
+		<div class="labelbox">
+			<label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
+		</div>
+		<div class="fieldbox row">
+                    <div class="col-sm-1">
+			<span class="currency-symbol"><?=Configure::read('currency'); ?></span>
+                    </div>
+                    <div class="col-sm-11">
+			<?=$this->Form->input('service_price',array('placeholder'=>'Per person', 'type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
+			<div id="service_price"></div>
+			<?=$this->Form->error('service_price',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+                    </div>
+            </div>
+            <div class="col-sm-6 col-xs-12  servedit">
+		<div class="labelbox">
+			<label>Full Day Price:<span style="color:#ff0000;">*</span></label>
+		</div>
+		<div class="fieldbox row">
+                    <div class="col-sm-1">
+			<span class="currency-symbol"><?=Configure::read('currency'); ?></span>
+                    </div>
+                    <div class="col-sm-11">
+			<?=$this->Form->input('full_day_amount',array('placeholder'=>'Per person', 'type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
+			<div id="full_day_amount"></div>
+			<?=$this->Form->error('full_day_amount',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+                </div>
+            </div>
+	</div>
+	<div class="dashboard-form-row servcont">
+		<div class="labelbox">
+			<!-- city_id as location_id -->
+			<label>Images(Dimensions should be 600 X 400): </label>    
+		</div>
+		<div class="fieldbox">
+			<? if(!empty($this->request->data['ServiceImage'])) {
+				foreach($this->request->data['ServiceImage'] as $key=>$image) { ?>
+					<div class="dashboard-service-images service-image">
+						<input class="radio_button" type="radio" value="<?=$image['image'];?>" name="data[ServiceImage][default_image]" <?=($image['image']==$image['default_image'])?'checked':'';?>>
+						
+						<span class="radio_button_status<?=($image['image']==$image['default_image'])?' selected':'';?>"></span>
+						<? 
+							$path=WWW_ROOT.'img'.DS.'service_images'.DS;
+							$imgArr = array('source_path'=>$path,'img_name'=>$image['image'],'width'=>80,'height'=>80);
+							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
+							echo $this->Html->image($resizedImg,array('border'=>'0'));
+						?>
+						<input type="hidden" value="<?=$image['image'];?>" name="data[ServiceImage][images][]">
+						<button class="close-image"></button>
+					</div>
+				<? } ?>
+			<?php } ?>
+			<div class="img-box"></div>
+			<div id="show_upload_image" style="display:none;"></div>
+		</div>
+	</div>
+	<div class="dashboard-form-row servcont">
+		<div class="labelbox"> 
+			<label>Location: </label>
+		</div>
+		<div class="fieldbox">
+			<?=$this->Form->input('location_id',array('type' =>'select', 'options' => $city_list,'label'=>false));?>
+			<?=$this->Form->error('location_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+		</div>
+	</div>
+
+	<div class="dashboard-form-row servcont">
+		<div class="labelbox">
 			<label>Description:</label>
 		</div>
-		<div class="fieldbox servedit">
+		<div class="fieldbox">
 			<?=$this->Form->textarea('description', array('cols' => '60', 'rows' => '3','id'=>'ServiceDescription','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('description',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 			
 		</div>
 	</div>
-	<div class="dashboard-form-row servedit1">
-		<div class="labelbox servedit">
+	<div class="dashboard-form-row servcont">
+		<div class="labelbox">
 			<label>Itinerary:</label>
 		</div>
-		<div class="fieldbox servedit">
+		<div class="fieldbox">
 			<?=$this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3','id'=>'ServiceItinerary','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('itinerary',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
@@ -201,11 +207,11 @@
 		</div>
 	</div>
 
-	<div class="dashboard-form-row servedit1">
-		<div class="labelbox servedit">
+	<div class="dashboard-form-row servcont">
+		<div class="labelbox">
 			<label>How to get there:</label>
 		</div>
-		<div class="fieldbox servedit">
+		<div class="fieldbox">
 			<?=$this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('how_get_review',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
@@ -213,11 +219,12 @@
 		</div>
 	</div>
 
-</div>
-        <div class="dashboard-form-row servedit">
+
+        <div class="dashboard-form-row servcont">
 	<input class="dashboard-buttons" value="Submit" type="submit">
 	</div>
         <?php echo $this->Form->end();?>
+</div>
 </div>
 </div>
  <script>
