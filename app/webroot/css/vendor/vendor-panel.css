@@ -517,6 +517,33 @@ span.txt.edit {
 .dashboard-form-row.with-padding.edit {
     border-bottom: none;
 }
+
 input#ServiceSlotPrice {
     margin-left: 13px;
+}
+.dashboard-form-row.servcont {
+    border: none;
+}
+.col-sm-11 {
+    padding: 0 !important;
+}
+
+span.currency-symbol {
+}
+
+.col-sm-1 {
+    padding: 0 !important;
+    margin-top: 14px;
+}
+input#ValueAddedServiceValueAddedName {
+    width: 49%;
+    display: inline-block;
+}
+
+input#ValueAddedServiceValueAddedPrice {
+    width: 48%;
+    display: inline-block;
+}
+.cont {
+    padding: 15px;
 }
