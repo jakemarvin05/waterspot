@@ -59,7 +59,10 @@
 						<?php foreach($ratings as $rating){ ?>
 							<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo (round($vendor_service['Vendor']['rating'])==$rating)?'checked="checked"':'';?> />
 						<?php } ?>
-					<? }?>
+					<? } else {
+						echo '<em style="display:block;color: #A1A1A1;">Unrated</em>';
+						} ?>
+
 						<span class="rating-label">Rating:</span>
 
 						<?php

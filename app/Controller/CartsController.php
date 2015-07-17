@@ -78,6 +78,7 @@ Class CartsController extends AppController{
 		if(empty($cart_details)){
 			$check_guest_status=1;
 		}
+
 		$cart_page=$this->Page->find('first',array('conditions'=>array('Page.id'=>18),'fields'=>array('Page.*')));
 		$this->title_for_layout = $cart_page['Page']['page_title'];
 		$this->metakeyword = $cart_page['Page']['page_metakeyword'];
@@ -102,7 +103,7 @@ Class CartsController extends AppController{
 	
 	function booking_request(){ 
 		//$this->autoRender = false;
-		
+
 		if(!empty($this->request->data)){
 			$this->loadModel('Cart');
 			App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
