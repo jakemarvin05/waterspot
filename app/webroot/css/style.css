@@ -1187,3 +1187,6 @@ section#navWrapper.stickyCollapsedFix {
 section#navWrapper.stickyCollapsedFix.stickyCollapsed {
     padding-bottom: 5px;
 }
+.vendor-rating-wrapper em {
+    display: none!important;
+}
