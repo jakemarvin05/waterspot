@@ -60,7 +60,7 @@
                             </div>
 				<?=$this->Form->text('start_date',array('label'=>false,'div'=>false));?>
 				<?=$this->Form->error('start_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-				<span class="txt"> To </span>
+				<span class="txt"> to </span>
 				<?=$this->Form->text('end_date',array('label'=>false,'div'=>false));?>
 				<?=$this->Form->error('end_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 			</div>
@@ -88,7 +88,7 @@
 							$flag=($flag=="grey-box")?"white-box":"grey-box";
 							
 						}?>
-						<span>
+						<span class="inedxedit">
 							<? // check filter on edit case
 								$checkstaus='';
 								if(!empty($this->request->data['VendorServiceAvailability']['slots'])) {
@@ -97,7 +97,7 @@
 							 ?>
 							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?>
 							<label for="<?=$key?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
-								echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])." Price:".$slot_time[2];?></label>
+								echo $this->Time->meridian_format($slot_time[0]). " - ".$this->Time->end_meridian_format($slot_time[1]).", Price:".$slot_time[2];?></label>
 						</span>
 						<? $i++;
 					}
