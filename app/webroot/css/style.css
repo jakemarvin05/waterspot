@@ -855,7 +855,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 .activities-page header, .vendors-page header{
     text-align: center;
 }
-.activities-page .page-header {
+.activities-page .page-header, .page-header  {
     background-color: #fff;
     padding: 40px;
     margin: 0;
@@ -891,6 +891,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .activities-page .row {
     padding: 15px;
+    padding-top: 0;
 }
 .activities-listing .tile .price, .vendorwise-listing .tile .price {
     position: absolute;
@@ -1186,4 +1187,7 @@ section#navWrapper.stickyCollapsedFix {
 }
 section#navWrapper.stickyCollapsedFix.stickyCollapsed {
     padding-bottom: 5px;
+}
+.vendor-rating-wrapper em {
+    display: none!important;
 }
