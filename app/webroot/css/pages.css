@@ -114,3 +114,13 @@ div#slots_form {
 .theiaStickySidebar .bootstrap-select {
     width: 100% !important;
 }
+
+.search-page .row{
+    margin:0;
+
+}
+.activities {
+    background-color: rgb(249, 249, 249);
+    height: 200px;
+    padding-top: 15px;
+}
