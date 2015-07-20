@@ -1,46 +1,47 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+<div class="container-fluid vendor-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+<div class="clear" style="margin-top:80px;"></div>
+
 <h2 class="page-title">Service Availability</h2>
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
-	<div class="dashboard-form-row">
-		<? if(!empty($service_availabity_details)){ ?>
-			<h3 class="dashboard-heading">Recent Service Slot Availability</h3>
-			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
-				<?  foreach($service_availabity_details as $service_availabity_detail) { ?>
-					<tr>
-						<td>
-							<? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
-								echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
-							 }else {
-								echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
-							 }?>
-						</td>
-						<td>
-							<? $slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
-							foreach($slots as $slot) { 
-								$slot_time=explode('_',$slot);
-								echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
-							} ?>
-						</td>
-						<td class="align-center">
-							<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
-						</td>
-						<td class="align-center">
-							<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
-						</td>
-					</tr>
-				<? } ?>
-			</table>
-		<? }?>
-	</div>
+	<? if(!empty($service_availabity_details)){ ?>
+ <div class="dashboard-form-row">
+ <h3 class="dashboard-heading">Recent Service Slot Availability</h3>
+ <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+ <? foreach($service_availabity_details as $service_availabity_detail) { ?>
+ <tr>
+ <td>
+ <? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
+ echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
+ }else {
+ echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
+ }?>
+ </td>
+ <td>
+ <? $slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
+ foreach($slots as $slot) { 
+ $slot_time=explode('_',$slot);
+ echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
+ } ?>
+ </td>
+ <td class="align-center">
+ <?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
+ </td>
+ <td class="align-center">
+ <?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
+ </td>
+ </tr>
+ <? } ?>
+ </table>
+ </div>
+ <? }?>
 
 	<div class="clear"></div>
 
@@ -49,17 +50,28 @@
 		echo $this->Form->hidden('id'); 
 		echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
 		<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'date_range')); ?>
-		<div class="dashboard-form-row">
+		<div class="dashboard-form-row indexedit">
+                    <div class="cont">
 			<div class="dashboard-slot-date">
-				<h6>Select Date(s)</h6>
+                            <div class="labelbox">
+                                <label>
+				Select Date(s): <span style="color:#ff0000;">*</span>
+                                </labe>
+                            </div>
 				<?=$this->Form->text('start_date',array('label'=>false,'div'=>false));?>
 				<?=$this->Form->error('start_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-				<span class="txt">to</span>
+				<span class="txt"> To </span>
 				<?=$this->Form->text('end_date',array('label'=>false,'div'=>false));?>
 				<?=$this->Form->error('end_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 			</div>
+                        <br>
+                        <br>
 			<div class="dashboard-slot-time">
-				<h6>Select Slot(s)</h6>
+                            <div class="labelbox">
+                                <label>
+				Select Slot(s): <span style="color:#ff0000;">*</span>
+                                </label>
+                            </div>
 				<span id="VendorServiceAvailabilitySlots"></span>
 				<?=$this->Form->error('slots',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				<? if(!empty($service_slots['service_slots_index'])){
@@ -103,11 +115,13 @@
 					</div>
 				<? }?>
 			</div>
-		</div>
-		<div class="dashboard-form-row">
-			<input type="submit" class="dashboard-buttons" value="Add Availability" />
+                        <br>
+		
+			<input type="submit" class="dashboard-buttons btn" value="Add Availability" />
+                </div>
 		</div>
 	<?php echo $this->Form->end();?>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -228,4 +242,9 @@ function get_service_availability(service_id,startdate,enddate)	{
 	}); 
 //alert(service_id+startdate+enddate)
 }*/
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>

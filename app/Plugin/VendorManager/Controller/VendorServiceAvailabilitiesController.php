@@ -12,6 +12,7 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 	
 	function index($service_id=null,$availability_id=null) {
 		// load model
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.ServiceSlot');
 		
