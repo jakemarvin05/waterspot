@@ -26,7 +26,7 @@
 			<label>Select your services:</label>
 		</div>
 		<div class="fieldbox">
-			<?=$this->Form->input('service_type_id',array('type' =>'select', 'options' => $service_types,'label'=>false));?>	
+			<?=$this->Form->input('service_type_id',array('type' =>'select', 'options' => $service_types,'label'=>false));?>
 			<?=$this->Form->error('service_type_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
@@ -61,7 +61,7 @@
 			<?=$this->Form->error('min_participants',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="col-sm-6 col-xs-12 servedit">
+            <div class="col-sm-6 col-xs-12 row servedit">
 
 		<div class="labelbox">
 			<label>No. of Persons:<span style="color:#ff0000;">*</span> </label>
@@ -75,27 +75,28 @@
 	<div class="dashboard-form-row row servcont">
 		<div class="labelbox">
 			<!-- city_id as location_id -->
-			<label>Images(Dimensions should be 600 X 400): </label>    
+			<label>Images(Dimensions should be 600 X 400): </label>
 		</div>
-		<div class="fieldbox">
+		<div class="fieldbox image-group">
 			<? if(!empty($this->request->data['ServiceImage'])) {
 				foreach($this->request->data['ServiceImage'] as $key=>$image) { ?>
-					<div class="dashboard-service-images service-image">
+
+					<div class="dashboard-service-images col-sm-2 col-xs-4 service-image">
 						<input class="radio_button" type="radio" value="<?=$image['image'];?>" name="data[ServiceImage][default_image]" <?=($image['image']==$image['default_image'])?'checked':'';?>>
-						
+
 						<span class="radio_button_status<?=($image['image']==$image['default_image'])?' selected':'';?>"></span>
-						<? 
+						<?
 							$path=WWW_ROOT.'img'.DS.'service_images'.DS;
 							$imgArr = array('source_path'=>$path,'img_name'=>$image['image'],'width'=>80,'height'=>80);
 							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 							echo $this->Html->image($resizedImg,array('border'=>'0'));
 						?>
 						<input type="hidden" value="<?=$image['image'];?>" name="data[ServiceImage][images][]">
-						<button class="close-image"></button>
+						<button class="close-image"><i class="fa fa-times"></i></button>
 					</div>
 				<? } ?>
 			<?php } ?>
-			<div class="img-box"></div>
+
 			<div id="show_upload_image" style="display:none;"></div>
 		</div>
 	</div>
@@ -109,7 +110,7 @@
 		</div>
 	</div>
 	<div class="dashboard-form-row row servcont">
-		<div class="labelbox"> 
+		<div class="labelbox">
 			<label>Location: </label>
 		</div>
 		<div class="fieldbox">
@@ -123,10 +124,14 @@
 		</div>
 		<div class="fieldbox">
 			<?php if(empty($this->request->data['ValueAddedService'])) { ?>
-				<?=$this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service value-added-service'));?>
-				<span class="currency-symbol"><?=Configure::read('currency'); ?></span>
-				<?=$this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price'));?>
-				<div class="add-value"><a id="add_btn" class="vas-add-btn"  href="#"></a></div>
+				<span class="vas-name col-sm-1">Name</span>
+				<?=$this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service col-sm-4 value-added-service'));?>
+
+				<span class="currency-symbol col-sm-1"><?=Configure::read('currency'); ?></span>
+				<?=$this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price col-sm-4'));?>
+
+				<div class="add-value col-sm-1"><a id="add_btn" class="vas-add-btn"  href="#"><i class="fa fa-plus-square add-button"></i></a></div>
+
 			<?php } else {  ?>
 				<?php
 				 foreach($this->request->data['ValueAddedService'] as $key=>$value_added_service) { ?>
@@ -138,7 +143,7 @@
 							<a id="add_btn" href="#" class="vas-add-btn" ></a>
 							<?=$this->Html->link('Delete',array('controller'=>'services','action'=>'value_added_delete',$value_added_service['id'],$value_added_service['service_id']),array('class'=>'vas-delete-btn',"onclick"=>"return confirm('Are you sure you wish to delete this value added service?')"));?>
 						</div>
-					<? } 
+					<? }
 					else {
 						if($key==1) { ?>
 							<div id="extender">
@@ -155,7 +160,7 @@
 						<? }
 					}
 				}
-			}	
+			}
 			?>
 			<div id="extender"></div>
 		</div>
@@ -192,35 +197,9 @@
                 </div>
             </div>
 	</div>
+
 	<div class="dashboard-form-row servcont">
 		<div class="labelbox">
-			<!-- city_id as location_id -->
-			<label>Images(Dimensions should be 600 X 400): </label>    
-		</div>
-		<div class="fieldbox">
-			<? if(!empty($this->request->data['ServiceImage'])) {
-				foreach($this->request->data['ServiceImage'] as $key=>$image) { ?>
-					<div class="dashboard-service-images service-image">
-						<input class="radio_button" type="radio" value="<?=$image['image'];?>" name="data[ServiceImage][default_image]" <?=($image['image']==$image['default_image'])?'checked':'';?>>
-						
-						<span class="radio_button_status<?=($image['image']==$image['default_image'])?' selected':'';?>"></span>
-						<? 
-							$path=WWW_ROOT.'img'.DS.'service_images'.DS;
-							$imgArr = array('source_path'=>$path,'img_name'=>$image['image'],'width'=>80,'height'=>80);
-							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0'));
-						?>
-						<input type="hidden" value="<?=$image['image'];?>" name="data[ServiceImage][images][]">
-						<button class="close-image"></button>
-					</div>
-				<? } ?>
-			<?php } ?>
-			<div class="img-box"></div>
-			<div id="show_upload_image" style="display:none;"></div>
-		</div>
-	</div>
-	<div class="dashboard-form-row servcont">
-		<div class="labelbox"> 
 			<label>Location: </label>
 		</div>
 		<div class="fieldbox">
@@ -237,7 +216,7 @@
 			<?=$this->Form->textarea('description', array('cols' => '60', 'rows' => '3','id'=>'ServiceDescription','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('description',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			
+
 		</div>
 	</div>
 	<div class="dashboard-form-row servcont">
@@ -248,7 +227,7 @@
 			<?=$this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3','id'=>'ServiceItinerary','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('itinerary',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			 
+
 		</div>
 	</div>
 
@@ -260,7 +239,7 @@
 			<?=$this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3','placeholder'=>'Please enter description here....'));
 			// echo $fck->load('Page.content');?>
 			<?=$this->Form->error('how_get_review',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-			 
+
 		</div>
 	</div>
 
@@ -283,7 +262,7 @@
 			removeButtons: 'Anchor,Underline,Strike,Subscript,Superscript,Image',
 			format_tags: 'p;h1;h2;h3;pre;address'
 		} );
-		
+
 		CKEDITOR.replace('ServiceHowGetReview', {
 		 removePlugins:'bidi,div,font,forms,flash,horizontalrule,iframe,justify,About,table,tabletools,smiley',
 			removeButtons: 'Anchor,Underline,Strike,Subscript,Superscript,Image',
@@ -297,42 +276,42 @@
 		//set a counter
 		var i = 0;
 		i = Number($('.value-added-service:input').length)+1;
-		
+
 		//add input
 		$('a#add_btn').click(function () {
 			$('<div class="add-values"><label></label><?=$this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service value-added-service'));?><span class="currency-symbol">$</span><div style="float:left; padding:5px 0 0 10px; margin-right:-20px;color:#787878;font-size:16px;"><?=Configure::read('currency'); ?></div><?=$this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price'));?>' +
 				'<a class="dynamic-link remove_value_add vas-delete-btn" id="add_btn" href=""></a></div>').fadeIn("slow").appendTo('#extender');
-			i++; 
+			i++;
 			return false;
 		});
-		//fadeout selected item and remove 
+		//fadeout selected item and remove
 		$("#extender").on('click', '.dynamic-link', function () {
 			$(this).parent('.add-values').fadeOut(300, function () {
 				i--;
 				$(this).remove();
 				return false;
 			});
-			
-			return false;
-		});
-		 
-		/**** END JS For  Value Added Services Add More Functionality***********/
-		
-		/**** JS For  Slots Add More Functionality***********/
-		var j=0; //start_slot
-		j=Number($('select.start_slot').length) + 1;
-		
-		// select slot
-		//add input
-		$('a#add_slot_btn').click(function () {
-			
-			$('<div class="clear"></div><div class="input select"></div>' +'<a class="dynamic-link-2 remove_slots"  id="add_slot_btn" href="#step2"><img src="/img/remove.png" style="margin:7px 0 0 20px;" /></a></div>').fadeIn("slow").appendTo('#extender2');
-			i++;
-			
+
 			return false;
 		});
 
-		
+		/**** END JS For  Value Added Services Add More Functionality***********/
+
+		/**** JS For  Slots Add More Functionality***********/
+		var j=0; //start_slot
+		j=Number($('select.start_slot').length) + 1;
+
+		// select slot
+		//add input
+		$('a#add_slot_btn').click(function () {
+
+			$('<div class="clear"></div><div class="input select"></div>' +'<a class="dynamic-link-2 remove_slots"  id="add_slot_btn" href="#step2"><img src="/img/remove.png" style="margin:7px 0 0 20px;" /></a></div>').fadeIn("slow").appendTo('#extender2');
+			i++;
+
+			return false;
+		});
+
+
 		$("#extender2").on('click', '.dynamic-link-2', function () {
 			$(this).parent().fadeOut(300, function () {
 				$(this).empty();
@@ -343,39 +322,39 @@
 	});
 	<?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){
-     
+
 		$('#add_services').AjaxUpload({
-			div_image_class:'img-box',
+			div_image_class:'image-group',
 			ajax_url: '<?=$path?>vendor_manager/services/images_handle',
 			delete_image_url: '<?=$path?>vendor_manager/services/image_delete',
 			file_input_name: 'data[ServiceImage][images][]'
 		});
-		
+
 		 $('#add_services').submit(function(){
-			
+
 			//var data = $(this).serializeArray();
 			var data = new FormData(this);
 			var formData = $(this);
             var status = 0;
-          
+
            $.each(this,function(i,v){
                 $(v).removeClass('invalid form-error');
                 });
             $('.error-message').remove();
             $('#add_services > span#for_owner_cms').show();
             $('#add_services > button[type=submit]').attr({'disabled':true});
-           
+
            $.ajax({
                 url: '<?=$path?>vendor_manager/services/validation',
                 async: false,
 				data: data,
-                dataType:'json', 
+                dataType:'json',
                 type:'post',
                 cache: false,
 				contentType: false,
 				processData: false,
                 success: function(data) {
-					 
+
                     if(data.error==1){
                         $.each(data.errors,function(i,v){
 							if(i=="ServiceServicePrice"){
@@ -393,7 +372,7 @@
                     }else{
                         status = 1;
                     }
-                   
+
                  }
             });
             if(status==0){
@@ -401,12 +380,12 @@
                $('#add_services > button[type=submit]').attr({'disabled':false});
                $('#add_services > span#for_owner_cms').hide();
             }
-          
-           return (status===1)?true:false; 
-            
+
+           return (status===1)?true:false;
+
         });
-        
-        
+
+
     });
 </script>
 <script type="text/javascript">
@@ -416,5 +395,7 @@
 			$(this).parent().find('.radio_button_status').addClass('selected');
 			$(this).parent().siblings().find('.radio_button_status').removeClass('selected');
 		});
+
+
     });
 </script>
