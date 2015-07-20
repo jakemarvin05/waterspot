@@ -529,6 +529,7 @@ input#ServiceSlotPrice {
 }
 
 span.currency-symbol {
+    width: 4%;
 }
 
 .col-sm-1 {
@@ -536,13 +537,15 @@ span.currency-symbol {
     margin-top: 14px;
 }
 input#ValueAddedServiceValueAddedName {
-    width: 49%;
+    width: 39%;
     display: inline-block;
+    margin-right: 4.4%;
 }
 
 input#ValueAddedServiceValueAddedPrice {
-    width: 48%;
+    width: 38%;
     display: inline-block;
+    margin-right: 2%;
 }
 .cont {
     padding: 15px;
@@ -560,3 +563,92 @@ span.inedxedit {
     display: block;
 }
 
+i.add-image, i.add-button {
+    font-size: 32px;
+}
+.add-value.col-sm-1 {
+    width: 4%;
+    margin-top: 9px;
+}
+.dashboard-service-images input.radio_button {
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    display: none;
+}
+
+.dashboard-service-images img {
+    width: 100%;
+    height: auto;
+}
+.dashboard-service-images .close-image {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    border-radius: 12px;
+    width: 22px;
+    height: 22px;
+    padding: 0px 0px 2px;
+    border: 1px solid rgba(255, 255, 255, 0.47);
+    background-color: rgba(0, 0, 0, 0.73);
+    color: #fff;
+    opacity: .5;
+}
+
+.dashboard-service-images {
+    padding: 0;
+    border: 5px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dashboard-service-images .close-image:hover {
+    opacity: 1;
+}
+
+a#image-link-0 {
+}
+
+.img-box {
+    padding: 36px;
+    border: solid 5px #fff;
+    background-color: #DADADA;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img-box i.add-image {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.img-box i.add-image:hover {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+span.radio_button_status {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0px;
+    left: 5px;
+    opacity: 0;
+    font-size: 23px;
+    color: #F79E34;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.47);
+}
+span.radio_button_status.selected {
+    opacity: 1;
+}
+
+span.radio_button_status::before {
+    content: "\f058";
+    font-family: "FontAwesome";
+}
+
+.dashboard-service-images.new {
+    border-color: #ddd;
+    border-width: 5px;
+    margin: 0.33%;
+    width: 16%;
+    margin-bottom: 6px;
+}

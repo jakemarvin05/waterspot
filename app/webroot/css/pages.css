@@ -82,7 +82,7 @@ h2.page-title.edit {
 }
 
 p {
-    font-family: 'Lato';
+    font-family: 'Lato' !important;
     font-size: 14px;
     padding: 8px;
 }
@@ -123,4 +123,11 @@ div#slots_form {
     background-color: rgb(249, 249, 249);
     height: 200px;
     padding-top: 15px;
+}
+h2.activity-title {
+    font-family: "Lato";
+}
+
+article.activity-description {
+    padding-top: 5px;
 }
