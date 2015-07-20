@@ -124,6 +124,15 @@
 		</div>
 	</div>
 	<div class="dashboard-form-row servedit">
+		<div class="labelbox">
+			<label>Youtube URL:<span style="color:#ff0000;"></span> </label>
+		</div>
+		<div class="fieldbox">
+			<?=$this->Form->input('youtube_url',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
+			<?=$this->Form->error('youtube_url',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+		</div>
+	</div>
+	<div class="dashboard-form-row servedit">
 		<div class="labelbox"> 
 			<label>Location: </label>
 		</div>
