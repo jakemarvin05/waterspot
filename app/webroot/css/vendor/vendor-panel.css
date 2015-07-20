@@ -547,7 +547,13 @@ input#ValueAddedServiceValueAddedPrice {
 .cont {
     padding: 15px;
 }
+
+.add-service-price-note {
+    padding: 15px;
+}
+
 .dashboard-form-row.indexedit {
     border-bottom: none;
 }
 input.dashboard-buttons.btn:hover {color: white}
+

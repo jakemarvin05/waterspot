@@ -112,7 +112,7 @@ Class ActivityController extends AppController{
 			}
 			elseif(($daySelected-$startDay)<3){
 				$recommendSlots = [];
-				$offSetDown = $daySelected - $startDay;
+				$offSetDown = (strtotime($selected_date) - strtotime($startDate)) / (60*60*24);
 
 				for ($ctr = 0; $ctr <= $offSetDown; $ctr++) {
 					foreach($slots as $slot){
@@ -132,7 +132,7 @@ Class ActivityController extends AppController{
 					]);
 
 				}
-				$offSetUp = $endDay - $daySelected;
+				$offSetUp = (strtotime($endDate) - strtotime($selected_date)) / (60*60*24);
 				if ($offSetUp > 3) {
 					$recommendSlots = [];
 					for ($ctr = 0; $ctr < 3; $ctr++) {
@@ -195,7 +195,8 @@ Class ActivityController extends AppController{
 
 				}
 
-				$offSetUp = $endDay - $daySelected;
+				$offSetUp = (strtotime($endDate) - strtotime($selected_date)) / (60*60*24);
+
 				if ($offSetUp > 3) {
 
 					for ($ctr = 0; $ctr < 3; $ctr++) {
@@ -763,6 +764,7 @@ Class ActivityController extends AppController{
 		$this->layout = '';
 		$thisDate = isset($_POST['start_date'])? $_POST['start_date']: "now";
 		$service_id = $_POST['service_id'];
+		
 		$this->set('date',$thisDate);
 		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
 		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));

@@ -302,6 +302,7 @@ Class ServicesController extends VendorManagerAppController{
    
     function my_services(){
 		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
+		$sort_by = isset($_GET['sort_by']) ? 'Service.'.$_GET['sort_by'] : false;
 		// checking login 
 		$vendor_id=$this->VendorAuth->id();
 		$this->loadModel('LocationManager.City');
@@ -320,6 +321,12 @@ Class ServicesController extends VendorManagerAppController{
             )
         );
 		$condition['Service.vendor_id'] = $this->VendorAuth->id();
+
+		if ($sort_by) {
+			$order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
+			$this->paginate['order'] = array($sort_by => $order);
+		}
+
 		$this->paginate['group'] = array('Service.id');
 		$my_services=$this->paginate("Service",$condition);
 		$service_id_list=array();
@@ -357,6 +364,7 @@ Class ServicesController extends VendorManagerAppController{
 		);
 		$this->set('url','/'.$this->params->url);
 		$this->set('service_lists',$service_lists_filter);
+
 		if($this->request->is('ajax')){
 			$this->layout = '';
 			$this -> Render('ajax_my_services');
