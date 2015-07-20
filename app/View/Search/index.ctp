@@ -1,19 +1,21 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
-			data_selector: '.contenthover',
-			effect:'slide',
-			slide_direction: 'left',
-			slide_speed:300,
-			overlay_opacity: 1
+		$('.tile').contenthover({
+			//data_selector: '.contenthover',
+			//effect:'slide',
+			//slide_direction: 'left',
+			//slide_speed:300,
+			overlay_background:'#000',
+			overlay_opacity:1
+
 		});
 	});
 </script>
-<div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<div class="filtered-listing" style="margin-top: 10px;">
-	<h2 style="float: left;" class="page-title">Search <span style="color:#000;">Results</span></h2>
+<br><br><br><br>
+<header class="page-header text-center">
+	<p class="beforeHeader">What are you game for?</p>
+	<h1 class="headerAlt">SEARCH RESULTS</h1>
+	<br/>
 	<div class="activity-filter">
 		<div class="filter">
 			<? $action=(implode('/',$this->params->pass));?>
@@ -24,12 +26,13 @@
 			<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
 			<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
 
-			
-			
+
+
 			<?=$this->Form->end();?>
 		</div>
 	</div>
-</div>
+</header>
+
 
 <div class="middle-area">
 	<!-- <div class="search"><span> Search</span><input type="search"></div>-->
@@ -113,13 +116,15 @@
 					   $("div.activities-listing").remove();
 					   $(".activities").html(res);
 					   $('#loader-image').hide();
-					   $('.contentselector').contenthover({
-							data_selector: '.contenthover',
-							effect:'slide',
-							slide_direction: 'left',
-							slide_speed:300,
-							overlay_opacity: 1
-						});
+					   $('.tile').contenthover({
+						   //data_selector: '.contenthover',
+						   //effect:'slide',
+						   //slide_direction: 'left',
+						   //slide_speed:300,
+						   overlay_background:'#000',
+						   overlay_opacity:1
+
+					   });
 					   $('#sort_by_price').hide();
 				 	}           
 					});
@@ -158,12 +163,14 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.activities-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
-								overlay_opacity: 1
+							$('.tile').contenthover({
+								//data_selector: '.contenthover',
+								//effect:'slide',
+								//slide_direction: 'left',
+								//slide_speed:300,
+								overlay_background:'#000',
+								overlay_opacity:1
+
 							});
 							
                              
@@ -176,7 +183,7 @@
 								 alert('Failed from timeout');         
 								//do something. Try again perhaps?
 							}
-						},
+						}
                     });
                 }
             }
@@ -187,4 +194,7 @@
 		
 		});
 	
-</script>	 
+</script>
+<script type="application/javascript">
+	$('#SearchIndexForm select').selectpicker();
+</script>
