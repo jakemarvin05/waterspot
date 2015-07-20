@@ -12,29 +12,33 @@
 	});
 </script>
 <br><br><br><br>
-<header class="page-header text-center">
-	<p class="beforeHeader">What are you game for?</p>
-	<h1 class="headerAlt">SEARCH RESULTS</h1>
-	<br/>
-	<div class="activity-filter">
-		<div class="filter">
-			<? $action=(implode('/',$this->params->pass));?>
-			<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
-			<label>Filter by:</label>
-			<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
-			<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
-			<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
-			<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+
+
+<div class="middle-area search-page container-fluid">
+	<div class="row">
+
+		<header class="page-header text-center">
+			<p class="beforeHeader">What are you game for?</p>
+			<h1 class="headerAlt">SEARCH RESULTS</h1>
+			<br/>
+			<div class="activity-filter">
+				<div class="filter">
+					<? $action=(implode('/',$this->params->pass));?>
+					<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
+					<label>Filter by:</label>
+					<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
+					<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+					<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
+					<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
 
 
 
-			<?=$this->Form->end();?>
-		</div>
-	</div>
-</header>
+					<?=$this->Form->end();?>
+				</div>
+			</div>
 
+		</header>
 
-<div class="middle-area">
 	<!-- <div class="search"><span> Search</span><input type="search"></div>-->
 	<div id='sort_by_price' class="ajax-loder" style="display:none">
 		<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
@@ -56,7 +60,7 @@
 			</div>
 		</div>
 </div>
-
+</div>
 <noscript>
 	<div class='pag-box'>
 		<ul class="pagination">
