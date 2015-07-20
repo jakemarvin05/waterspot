@@ -559,6 +559,9 @@ input#ValueAddedServiceValueAddedPrice {
     border-bottom: none;
 }
 input.dashboard-buttons.btn:hover {color: white}
+span.inedxedit {
+    display: block;
+}
 
 i.add-image, i.add-button {
     font-size: 32px;

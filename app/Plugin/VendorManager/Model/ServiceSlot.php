@@ -79,11 +79,12 @@ Class ServiceSlot extends VendorManagerAppModel {
 		
 		return true; 
 	}
-	function getService_slotByservice_id($service_id=null) {
+	function getService_slotByservice_id($service_id=null, $sort_by = 'start_time', $order = 'ASC') {
 		$critria = array();
+		$sort_by = 'ServiceSlot.'.$sort_by;
 		$critria['fields'] = array('ServiceSlot.id','ServiceSlot.end_time','ServiceSlot.start_time','ServiceSlot.price');
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id);
-		$critria['order'] = array('ServiceSlot.start_time ASC');
+		$critria['order'] = array("{$sort_by} $order");
 		$slots = $this->find('all', $critria);
 		$service_slots=array();
         if(!empty($slots)) {

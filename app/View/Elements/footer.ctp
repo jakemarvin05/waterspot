@@ -34,6 +34,24 @@
                             <button id="subscribeButton" type="button" class="btn btnFillOrange">Subscribe</button>
                         </span>
                     </div>
+                    <script type="text/javascript">
+                    $('#subscribeButton').click(function(){
+                        var email = $('#subscribeInput').val();
+
+                        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                        if (re.test(email)) {
+                            $.ajax({
+                                 url :'<?=$path?>Subscriber/subscribe',
+                                 type:'POST',
+                                 data:{'email':email},
+                                 success: function (result)
+                                 {
+                                     $('#footerBeforeEmailInput').html(result);
+                                 }
+                            }); 
+                        }
+                    });
+                    </script>
                 </div>
 
                 <!-- popular block -->
