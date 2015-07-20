@@ -13,9 +13,9 @@
 	<?php if(!empty($service_slots)) { ?>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
-				<th>Start Time</th>
-				<th>End Time</th>
-				<th>Price</th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
 				<th>Action</th>
 			</tr>
 			<?php foreach($service_slots as $service_slot){?>

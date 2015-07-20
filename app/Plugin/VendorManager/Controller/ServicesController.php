@@ -480,7 +480,9 @@ Class ServicesController extends VendorManagerAppController{
 			}
 		} 
 		if(!empty($service_id)) {
-			$service_slots=$this->ServiceSlot->getService_slotByservice_id($service_id);
+			$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'start_time';
+			$order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
+			$service_slots=$this->ServiceSlot->getService_slotByservice_id($service_id, $sort_by, $order);
 			$service_title=$this->Service->servieTitleByService_id($service_id);
 		} 
 		//save slots
