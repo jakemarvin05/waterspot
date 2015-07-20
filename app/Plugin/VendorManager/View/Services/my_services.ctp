@@ -81,11 +81,11 @@
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
 				<th width="5%"><?= $this->Form->checkbox('check', array('value' => 1, 'onchange' => "CheckAll(this.value)", 'class' => 'check-all')); ?></th>
-				<th width="3%">S.No.</th>
+				<th width="3%"><a href="/services/my-services">S.No.</a></th>
 				<th width="20%">Name</th>
 				<th width="15%">Image</th>
 				<th width="12%">Location</th>
-				<th width="10%">Price ($)</th>
+				<th width="10%"><a href="/services/my-services?sort_by=service_price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price ($)</a></th>
 				<th width="25%">Actions</th>
 				<th width="5%">Status</th>
 			</tr>
