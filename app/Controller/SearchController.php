@@ -12,6 +12,7 @@ Class SearchController extends AppController{
 		// add javascript
 		array_push(self::$script_for_layout,array('jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
+		array_push(self::$css_for_layout,'pages.css');
 		if (!empty($this->request->data)) {
 			//session write 
 			if(!empty($this->request->data['Search']['start_date'])) {
