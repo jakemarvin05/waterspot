@@ -399,3 +399,16 @@
 
     });
 </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.left-area').height($('.right-area').height()+610);
+		if ($(window).width() > 768) {
+			$('.left-area').theiaStickySidebar({
+				// Settings
+				additionalMarginTop: 0,
+				additionalMarginBottom: 0,
+				scrollThrough: ['vendor-panel']
+			});
+		}
+	});
+</script>
