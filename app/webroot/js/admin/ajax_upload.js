@@ -19,8 +19,8 @@
 		
 			
 			load_form();
-			load_link();
 			load_event();
+			load_link();
 			function load_form(){
 				$(settings.this).before('<form id="'+global_settings.form_id+settings.form_counter+'" class="'+global_settings.form_class_name+'"  accept-charset="utf-8" method="post" enctype="multipart/form-data" style="display:none;" novalidate="novalidate" action=""><input id="'+global_settings.form_file_id+settings.form_counter+'" class="fileupload" type="file" multiple="multiple" name="data[images][]" accept="image/*"></form>');
 			}
@@ -60,7 +60,8 @@
 							$.each(data,function(i,v){
 								//alert(i+'--'+v.temp_name);
 								$('.'+settings.div_image_class).show();
-								$('.'+settings.div_image_class).prepend('<div class="service-image"><input class="radio_button" type="radio" value="'+v.image+'" name="data[ServiceImage][default_image]"><span class="radio_button_status"></span><img src="'+v.temp_name+'" /><input type="hidden" name="'+settings.file_input_name+'" value="'+v.image+'"/><button class="close-image" data-id="'+v.image+'"></button></div>');
+								$('.'+settings.div_image_class).append('<div class="dashboard-service-images new col-sm-2 col-xs-4 service-image"><input class="radio_button" type="radio" value="'+v.image+'" name="data[ServiceImage][default_image]"><span class="radio_button_status"></span><img src="'+v.temp_name+'" /><input type="hidden" name="'+settings.file_input_name+'" value="'+v.image+'"/><button class="close-image" data-id="'+v.image+'"><i class="fa fa-times"></i></button></div>');
+
 							});
 							$('.service-image').delegate(".close-image","click",function(){
 								$(this).parent().remove();

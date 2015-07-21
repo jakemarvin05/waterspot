@@ -602,6 +602,7 @@ div.wrapper h2{
     margin-top: 20px;
 }
 div.wrapper H3{
+    font-family: 'Arca Majora', sans-serif;
 
 }
 div.wrapper{
@@ -1017,7 +1018,7 @@ button#loader_pagination {
     padding: 16px 20px 20px;
     font-size: 12pt;
     border-radius: 2px;
-    max-width: 170px;
+    max-width: 180px;
     margin: 15px;
     width: 100%;
 }

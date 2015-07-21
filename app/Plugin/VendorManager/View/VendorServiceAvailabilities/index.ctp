@@ -57,7 +57,7 @@
                             <div class="labelbox">
                                 <label>
 				Select Date(s): <span style="color:#ff0000;">*</span>
-                                </labe>
+                                </label>
                             </div>
 				<?=$this->Form->text('start_date',array('label'=>false,'div'=>false));?>
 				<?=$this->Form->error('start_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
@@ -150,7 +150,7 @@ $(function() {
       defaultDate: "+0d",
       dateFormat: "<?=Configure::read('Calender_format');?>",
       minDate: 0,
-      changeMonth: true,
+      changeMonth: true
       
       
     });
