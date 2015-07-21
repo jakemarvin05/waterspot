@@ -89,7 +89,7 @@
 		
 		if(page >= pages){
 		  $("#loader_pagination").attr("disabled", true);
-		  $('#loader_pagination').addClass('no-more-activities').html('No activities found');
+		  $('#loader_pagination').addClass('no-more-activities').html('No more activities');
 		
 		}else{
 			$("#loader_pagination").attr("disabled", false);

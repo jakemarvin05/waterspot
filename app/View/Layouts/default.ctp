@@ -144,7 +144,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
             <div id="videoOverlayWrapper">
                 <div id="searchOuterWrapper">
                     <div id="searchWrapper">
-                    <form method="get" action="/search/index">
+                    <form id="search" method="get" action="/search/index">
                         <div id="searchContainer">
                             <div id="searchBackground"></div>
 
@@ -176,6 +176,26 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
                                     });
 
                                 });
+
+                                </script>
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+
+                                        $('form#search').submit(function(e){
+                                                e.preventDefault();
+                                                var form = $(this);
+                                                var data = form.serializeArray();
+                                                var date = new Date(data[1].value);
+                                                var dateStamp = date.getTime() / 1000;
+                                                var serviceId = data[0].value;
+                                                var url = form.attr('action');
+                                                console.log(url);
+                                                url+='/'+serviceId+'/'+dateStamp;
+                                                console.log(url);
+                                                window.location.href=url;
+                                            }
+                                        );
+                                    });
                                 </script>
 
                             </div>
