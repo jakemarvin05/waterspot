@@ -259,7 +259,7 @@ th {
     padding: 8px;
 }
 
-.dashboard-form-row .dashboard-heading {
+.dashboard-form-row {
     border: none;
 }
 
@@ -559,4 +559,6 @@ input.dashboard-buttons.btn:hover {color: white}
 span.inedxedit {
     display: block;
 }
-
+.dashboard-form-row.indexedit.edit {
+    border-bottom: 1px solid #ccc;
+}
