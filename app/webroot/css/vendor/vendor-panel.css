@@ -665,3 +665,12 @@ td.align-center {
 .dashboard-form-row.indexedit.edit {
     border-bottom: 1px solid #ccc;
 }
+div#slots_form .check {
+    padding: 6px;
+    background-color: #C6EAC4;
+    margin-top: 9px;
+}
+
+div#slots_form .check input[type=checkbox] {
+    margin-right: 6px;
+}
