@@ -260,7 +260,7 @@ th {
     padding: 8px;
 }
 
-.dashboard-form-row .dashboard-heading {
+.dashboard-form-row {
     border: none;
 }
 
@@ -564,6 +564,7 @@ span.inedxedit {
     display: block;
 }
 
+
 i.add-image, i.add-button {
     font-size: 32px;
 }
@@ -659,4 +660,8 @@ i.fa {
 
 td.align-center {
     text-align: center;
+}
+
+.dashboard-form-row.indexedit.edit {
+    border-bottom: 1px solid #ccc;
 }

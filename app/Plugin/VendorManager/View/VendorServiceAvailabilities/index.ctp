@@ -12,7 +12,7 @@
 <div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
 	<? if(!empty($service_availabity_details)){ ?>
- <div class="dashboard-form-row">
+ <div class="dashboard-form-row indexedit edit">
  <h3 class="dashboard-heading">Recent Service Slot Availability</h3>
  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
  <? foreach($service_availabity_details as $service_availabity_detail) { ?>
@@ -40,6 +40,7 @@
  </tr>
  <? } ?>
  </table>
+<br>
  </div>
  <? }?>
 
