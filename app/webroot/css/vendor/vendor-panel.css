@@ -674,3 +674,16 @@ div#slots_form .check {
 div#slots_form .check input[type=checkbox] {
     margin-right: 6px;
 }
+
+div#flashMessage {
+    padding: 15px;
+    background-color: #CDEDC2;
+}
+
+.notification {
+    max-width: 458px;
+    text-align: center;
+    margin: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}

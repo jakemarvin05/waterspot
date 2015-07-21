@@ -131,3 +131,18 @@ h2.activity-title {
 article.activity-description {
     padding-top: 5px;
 }
+
+div#slots_form .check {
+    background-color: rgb(255, 255, 255);
+    margin: 5px 0px;
+    padding: 3px 7px;
+    border-radius: 4px;
+}
+
+div#slots_form .check input[type=checkbox] {
+    margin-right: 8px;
+}
+
+div#slots_form .dates {
+    margin: 12px 0px;
+}
