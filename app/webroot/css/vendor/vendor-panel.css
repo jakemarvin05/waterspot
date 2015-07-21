@@ -2,6 +2,7 @@
 
 div#ui-datepicker-div {
     max-width: 310px;
+    z-index: 999!important;
 }
 
 .vendor-panel h2.page-title {
@@ -183,7 +184,7 @@ label.namefield2 {
     text-shadow: none;
     box-shadow: none;
     border-radius: 0PX;
-    padding: 10px 8px 7px;
+    padding: 6px 8px 7px;
 }
 
 .dashboard-form-row input[type=text] {
@@ -651,4 +652,11 @@ span.radio_button_status::before {
     margin: 0.33%;
     width: 16%;
     margin-bottom: 6px;
+}
+i.fa {
+    font-size: 20px;
+}
+
+td.align-center {
+    text-align: center;
 }
