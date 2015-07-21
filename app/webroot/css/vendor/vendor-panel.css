@@ -259,7 +259,7 @@ th {
     padding: 8px;
 }
 
-.dashboard-form-row .dashboard-heading {
+.dashboard-form-row {
     border: none;
 }
 
@@ -563,6 +563,7 @@ span.inedxedit {
     display: block;
 }
 
+
 i.add-image, i.add-button {
     font-size: 32px;
 }
@@ -652,3 +653,8 @@ span.radio_button_status::before {
     width: 16%;
     margin-bottom: 6px;
 }
+
+.dashboard-form-row.indexedit.edit {
+    border-bottom: 1px solid #ccc;
+}
+
