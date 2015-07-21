@@ -5,7 +5,7 @@
 			<div data-width="730" data-height="468">
 		<? }?>
 			
-			<?php if ($service_detail['Service']['youtube_url']): ?>
+			<?php if (isset($service_detail['Service']['youtube_url'])): ?>
 				<a href="<?php echo $service_detail['Service']['youtube_url']; ?>"></a>
 			<?php endif; ?>
 			<? foreach($service_detail['image'] as $key=>$image){ ?>
