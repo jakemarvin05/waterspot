@@ -143,11 +143,9 @@
 		<div class="clear spacer"></div>
 
 	</div>
-	<?php if ($recommendedActivities): ?>
 	<div class="container-fluid suggestion" id="recommended_slots">
 
-		</div>
-	<?php endif; ?>
+	</div>
 </div>
 
 

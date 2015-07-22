@@ -32,10 +32,10 @@
  } ?>
  </td>
  <td class="align-center">
- <?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
+ <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
  </td>
  <td class="align-center">
- <?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
+ <?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
  </td>
  </tr>
  <? } ?>

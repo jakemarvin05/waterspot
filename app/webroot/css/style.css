@@ -1045,6 +1045,7 @@ button#loader_pagination {
     text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.42);
     float: left;
+    line-height: 22px;
 }
 
 .contenthover .activity-tags span:first-child {
@@ -1180,6 +1181,10 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     margin: 10px 0px;
     border-radius: 3px;
     font-size: 12px;
+    padding: 1px 7px;
+    background-color: #F98686;
+    color: #fff;
+    text-shadow: 1px 1px 0px rgba(255, 0, 0, 0.7);
 }
 
 section#navWrapper.stickyCollapsedFix {
@@ -1192,6 +1197,21 @@ section#navWrapper.stickyCollapsedFix.stickyCollapsed {
 .vendor-rating-wrapper em {
     display: none!important;
 }
+
+.notification .close {
+    margin: 4px;
+    border-radius: 20px;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    padding: 0px;
+    text-align: center;
+}
+
+.notification .close i.fa {
+    font-size: 16px;
+
 h4.h4.fix {
     width: 55%;
+
 }

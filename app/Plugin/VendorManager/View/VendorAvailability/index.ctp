@@ -11,30 +11,30 @@
 				<td width="20%">2-12-2013 to 5-12-2013</td>
 				<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 				<td align="right" width="15%">
-					<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 				</td>
 				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 				</td>
 			</tr>
 			<tr align="center" style="border-bottom:1px solid #9b9b9b;">
 				<td width="20%">2-12-2013 to 5-12-2013</td>
 				<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 				<td align="right" width="15%">
-					<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 				</td>
 				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 				</td>
 			</tr>
 			<tr align="center" style="border-bottom:1px solid #9b9b9b;">
 				<td width="20%">2-12-2013 to 5-12-2013</td>
 				<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 				<td align="right" width="15%">
-					<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 				</td>
 				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 				</td>
 			</tr>
 		</table>
@@ -87,20 +87,20 @@
 					<td width="20%">2-12-2013</td>
 					<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 					<td align="right" width="15%">
-						<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+						<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 					</td>
 				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+					<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 				</td>
 				</tr>
 				<tr align="center" style="border-bottom:1px solid #9b9b9b;">
 					<td width="20%">2-12-2013</td>
 					<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 					<td align="right" width="15%">
-						<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+						<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 					</td>
 					<td align="right" width="15%">	
-						<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+						<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 					</td>
 				
 				</tr>
@@ -108,10 +108,10 @@
 					<td width="20%">2-12-2013</td>
 					<td align="left" width="50%">4pm to 5pm, 5pm to 6pm, 6pm to 7pm, 9pm to 10pm</td>
 					<td align="right" width="15%">
-						<?=$this->Html->link($this->Html->image('edit-icon.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
+						<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',1),array('escape' => false));?>
 					</td>
 					<td align="right" width="15%">	
-						<?=$this->Html->link($this->Html->image('del.png',array('alt'=>'Delete')),array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
+						<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>false,'controller'=>'vendor_availability','action'=>'index',1),array('escape' => false));?>
 					</td>
 				</tr>
 			</table>

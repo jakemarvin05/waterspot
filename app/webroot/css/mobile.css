@@ -1,3 +1,18 @@
+/* For Medium sized desktop */
+@media (max-width: 1200px) {
+    .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+
+    .vendor-listing .tile-info h4 {
+        width: 50%;
+    }
+
+    .contenthover .view-all-tags {
+        font-size: 16px;
+    }
+
+}
 /* For iPad */
 @media (max-width: 1024px) {
     .ch_element.ch_wrapper {
