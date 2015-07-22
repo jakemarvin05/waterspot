@@ -13,6 +13,46 @@
     }
 
 }
+    @media (max-width: 720px){
+        .tile-info .vendor-rating-wrapper .rating-label{
+            float: right !important;
+        }
+        
+        .activity-tags span{
+            display: none !important;
+        }
+        .view-all-tags{
+            font-size: 12px !important;
+            padding: 8px !important;
+        }
+    }
+
+@media (max-width: 768px) {
+    .ch_element.ch_wrapper {
+        min-height: 162px!important;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+    .tile-info .vendor-rating-wrapper .rating-label{
+            float: right !important;
+    }
+    .h4{
+        font-size: 12px !important;
+    }
+    .rating-label{
+        font-size: 12px !important;
+    }
+    .activity-tags span{
+            display: none !important;
+        }
+        .view-all-tags{
+            font-size: 12px !important;
+            padding: 8px !important;
+        }
+
+}
 /* For iPad */
 @media (max-width: 1024px) {
     .ch_element.ch_wrapper {
