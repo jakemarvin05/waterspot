@@ -1,7 +1,7 @@
 <?php
 $i = $this->paginator->counter('{:start}');
  foreach($search_service_lists as $search_service_list) { ?>
-	<div class="activities-listing col-sm-4 col-xs-12">
+	<div class="activities-listing col-sm-4 col-xs-6">
 		<?php if(!empty($search_service_list['tag'])){ ?>
 			<div class="strip_fullbooked"></div>
 		<? } ?>

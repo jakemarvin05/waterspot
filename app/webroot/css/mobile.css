@@ -23,6 +23,22 @@
         padding-bottom: 20px;
     }
 
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right!important;
+    }
+
+    .activities-listing {
+        min-height: 300px;
+    }
+    .contenthover .view-description, .contenthover .view-all-tags {
+        margin-top: 20px;
+    }
+
+    .contenthover .short-desc {
+        max-height: 129px;
+        overflow: hidden;
+    }
+}
 }
 
 
@@ -32,6 +48,41 @@
         padding-bottom: 8px;
     }
 
+    .tile-info h4 {
+        max-width: 50%;
+        font-size: 12px;
+    }
+
+    .tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
+        width: 50%;
+        font-size: 12px;
+    }
+
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right!important;
+    }
+
+    .ch_element.ch_wrapper {
+        min-height: 160px!important;
+    }
+
+    .activities-listing {
+        min-height: 200px;
+    }
+
+    .btn-group.bootstrap-select {
+        margin: 5px;
+    }
+
+    .contenthover .view-description, .contenthover .view-all-tags {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+
+    .contenthover .short-desc {
+        max-height: 129px;
+        overflow: hidden;
+    }
 }
 /* For Smart Phones */
 @media (max-width: 480px) {
