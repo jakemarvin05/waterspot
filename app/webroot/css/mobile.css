@@ -95,9 +95,11 @@
         font-size: 12px;
 
         padding: 20px;
-        margin: 20px auto 0px;
+        /* margin: 20px auto 0px; */
     }
-
+    .contenthover .view-description{
+        margin-top:20px
+    }
     .contenthover .short-desc {
         max-height: 110px;
         overflow: hidden;
