@@ -7,8 +7,26 @@
         background-color: #fff;
         padding-bottom: 20px;
     }
+    @media (max-width: 720px){
+        .tile-info .vendor-rating-wrapper .rating-label{
+            float: right !important;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .ch_element.ch_wrapper {
+        min-height: 162px!important;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+    .tile-info .vendor-rating-wrapper .rating-label{
+            float: right !important;
+    }
 
 }
+
 
 
 /* For Tablets */

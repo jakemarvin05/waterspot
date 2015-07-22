@@ -955,7 +955,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .tile-info .vendor-rating-wrapper {
     float: right;
-    width: 43%;
+    width: 45%;
 }
 
 .tile-info .vendor-rating-wrapper .rating-label {
@@ -1191,4 +1191,7 @@ section#navWrapper.stickyCollapsedFix.stickyCollapsed {
 }
 .vendor-rating-wrapper em {
     display: none!important;
+}
+h4.h4.fix {
+    width: 55%;
 }
