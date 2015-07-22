@@ -50,6 +50,7 @@
 		<? } else { ?>
 			<div class="sun-text no-record"> There are no record found.</div>
 		<? } ?>
+		<div class="clearfix"></div>
 	</div>
 			<div class="load-more-listings">
 			<div class="load-more-row">
@@ -100,11 +101,11 @@
 			 
 		 	var SearchServiceTypeList = $("#SearchServiceTypeList").val();
 		 	
-		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
+		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?$("#SearchSortPrice").val():'sortbyprice';
 		 	
-		 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+		 	var SearchSortReview = ($("#SearchSortReview").val()=='')?$("#SearchSortReview").val():'sortbyreview';
 
-		 	var SearchSortByLocation = ($("#SearchLocationList").val()=='')?'sortbylocation':$("#SearchLocationList").val();
+		 	var SearchSortByLocation = ($("#SearchLocationList").val()=='')?$("#SearchLocationList").val():'sortbylocation';
 
 			if(SearchServiceTypeList=='' || SearchServiceTypeList==null){
 				$('#sort_by_price').hide();
