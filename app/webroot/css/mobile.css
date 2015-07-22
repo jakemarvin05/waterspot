@@ -93,7 +93,9 @@
 
     .contenthover .view-description, .contenthover .view-all-tags {
         font-size: 12px;
-        margin-top: 20px;
+
+        padding: 20px;
+        margin: 20px auto 0px;
     }
 
     .contenthover .short-desc {
@@ -121,8 +123,8 @@
         display: none !important;
     }
     .view-all-tags{
-        font-size: 12px !important;
-        padding: 8px !important;
+        font-size: 12px;
+        padding: 8px;
     }
 
 }
