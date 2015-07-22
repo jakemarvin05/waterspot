@@ -114,7 +114,7 @@
 			}
 			 
 			$.ajax({
-			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortByLocation+"/"+SearchSortReview,
+			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$start_date."/1"?>/"+SearchSortPrice+"/"+SearchSortByLocation+"/"+SearchSortReview,
 				   success: function(res) {
 				   
 					   $( ".sun-text" ).remove();
@@ -161,7 +161,7 @@
                     loading_start = 1;
                     page++;
                     $.ajax({
-						url:"<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortReview+"/page:"+page,
+						url:"<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$start_date."/1"?>/"+SearchSortPrice+"/"+SearchSortReview+"/page:"+page,
 						async:false,
                         timeout:5,
                         success:function(data){
