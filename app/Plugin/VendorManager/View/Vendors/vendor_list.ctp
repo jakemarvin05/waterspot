@@ -23,7 +23,7 @@
 <div class="middle-area">
 	<?php $i = $this->paginator->counter('{:start}'); ?>
 	<? foreach($vendor_services as $key=>$vendor_service) { ?>
-		<div class="vendor-listing col-sm-4 col-xs-12">
+		<div class="vendor-listing col-sm-4 col-xs-6">
 			<div class="contentvisible contentselector">
 				<div class="tile">
 					<?php 
@@ -49,9 +49,11 @@
 					<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'view-all-tags'));?>
 				</div>
 				<div class="tile-info">
-					<h4>
+                                    
+					<h4 class="h4 fix">
 						<?=$this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27);?>
 					</h4>
+                                    
 					<div class="vendor-rating-wrapper">
 					<? if(!empty($vendor_service['Vendor']['rating'])){ ?>
 						
