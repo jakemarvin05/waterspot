@@ -39,7 +39,7 @@
         padding-bottom: 20px;
     }
     .tile-info .vendor-rating-wrapper .rating-label{
-            float: right !important;
+        float: right !important;
     }
 
     .tile-info .activity-rating-wrapper .rating-label {
@@ -144,7 +144,7 @@
 /* For Smart Phones */
 @media (max-width: 480px) {
     .ch_element.ch_wrapper {
-        min-height: 170px;
+        min-height: 140px!important;
     }
     .activities-listing {
         min-height: 260px;
@@ -179,5 +179,11 @@
     .vendor-area.row .col-xs-12 {
         padding-left: 0;
         padding-right: 0;
+    }
+    .contenthover .view-description, .contenthover .view-all-tags {
+        font-size: 12px;
+        margin-top: 30%;
+        line-height:20px;
+        padding:10px;
     }
 }
