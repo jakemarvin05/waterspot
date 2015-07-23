@@ -1023,6 +1023,7 @@ button#loader_pagination {
     max-width: 211px;
     width: 100%;
     display: inline-block;    position: relative;    cursor: pointer;    outline: 0;    white-space: nowrap;    margin: 5px;    padding: 0 22px;    font-size: 14px;    height: 40px;    line-height: 40px;    color: #FFF;    font-weight: 700;    letter-spacing: 1px;    border: none;    text-shadow: 1px 1px 1px rgba(0,0,0,.2);    border-radius: 3px;    border-bottom: 3px solid rgba(0,0,0,.15);
+    text-transform: uppercase;
 }
 .activities .no-record {
     padding: 20px;
