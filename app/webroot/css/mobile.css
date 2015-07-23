@@ -6,7 +6,7 @@
     }
     .tile-info .activity-rating-wrapper{
         float: right;
-        width: 45%;
+        width: 42%;
 
     }
 }
@@ -85,6 +85,11 @@
     }
     .tile-info .activity-rating-wrapper .rating-label {
         float: right;
+    }
+    .search-page label.filter-label {
+        clear: both;
+        display: block;
+        text-transform: uppercase;
     }
 
 }
@@ -196,6 +201,12 @@
         float: right;
     }
 
+
+    label.filter-label {
+        clear: both;
+        display: block;
+        text-transform: uppercase;
+    }
 }
 
 @media (max-width: 733px){

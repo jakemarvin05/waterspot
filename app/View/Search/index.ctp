@@ -25,7 +25,7 @@
 				<div class="filter">
 					<? $action=(implode('/',$this->params->pass));?>
 					<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
-					<label>Filter by:</label>
+					<label class="filter-label">Filter by:</label>
 					<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
 					<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
 					<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>

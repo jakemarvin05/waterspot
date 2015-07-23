@@ -658,7 +658,7 @@ div.spacer{
     padding: 23px 22px 13px;
     height: 50px;
     top: -50px;
-    font-size: 12pt;
+    font-size: 16px;
     z-index: 99;
     left: -15px;
     min-width: 180px;
@@ -737,7 +737,7 @@ p.info {
 
 section.right-section h4{
     text-transform: uppercase;
-    font-size: 12pt;
+    font-size: 16px;
     color: #606060;
 }
 input#loginButton {
@@ -793,7 +793,7 @@ input#loginButton {
     background: none!important;
     border: none!important;
     padding: 8px 0px;
-    font-size: 12pt;
+    font-size: 16px;
 }
 
 .ui-widget-content .ui-state-default.ui-state-active{
@@ -878,7 +878,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .activities-listing {
     padding-bottom: 15px;
-    min-height: 370px;
+    /* min-height: 370px; */
 }
 .activities-listing .tile{
     overflow: hidden;
@@ -934,7 +934,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 .vendor-listing .tile-info h4 {
     font-weight: normal;
     color: #696B6E;
-    font-size: 12pt;
+    font-size: 16px;
     float: left;
     font-family: "Arca Majora";
 }
@@ -963,7 +963,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     margin-top: 12px;
     display: block;
     float: left;
-    font-size: 12pt;
+    font-size: 16px;
     color: #969696;
 }
 
@@ -974,7 +974,13 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     font-size: 11pt;
     line-height: 20px;
     display: block;
-    padding: 28px;
+    padding: 10px 20px;
+    max-height: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    white-space: normal;
+    margin-bottom: 10px;
 }
 .contenthover .view-description,.contenthover .view-all-tags{
     display:block;
@@ -1017,6 +1023,7 @@ button#loader_pagination {
     max-width: 211px;
     width: 100%;
     display: inline-block;    position: relative;    cursor: pointer;    outline: 0;    white-space: nowrap;    margin: 5px;    padding: 0 22px;    font-size: 14px;    height: 40px;    line-height: 40px;    color: #FFF;    font-weight: 700;    letter-spacing: 1px;    border: none;    text-shadow: 1px 1px 1px rgba(0,0,0,.2);    border-radius: 3px;    border-bottom: 3px solid rgba(0,0,0,.15);
+    text-transform: uppercase;
 }
 .activities .no-record {
     padding: 20px;
@@ -1032,15 +1039,15 @@ button#loader_pagination {
 }
 .contenthover .activity-tags span {
     display: block;
-    margin-right: 6px;
+    /* margin-right: 6px; */
     background-color: rgba(0, 0, 0, 0.36);
-    padding: 9px;
-    font-size: 12pt;
-    max-width: 47%;
+    padding: 4px;
+    font-size: 12px;
+    /* max-width: 47%; */
     border-radius: 4px;
     text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.42);
-    float: left;
+    /* float: left; */
     line-height: 22px;
 }
 
@@ -1053,7 +1060,8 @@ button#loader_pagination {
 }
 
 .activity-tags {
-    padding: 29px;
+    padding: 5px;
+    text-align: center;
 }
 
 .contenthover .activity-tags span:hover {
@@ -1170,6 +1178,7 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
 
 .search-listing {
     padding: 15px;
+    padding-top: 0;
 }
 
 .error-message {

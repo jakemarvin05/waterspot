@@ -1,13 +1,13 @@
 <script type="text/javascript">
 	$(function(){
-		$('.tile').contenthover({
+		/*$('.tile').contenthover({
 			//data_selector: '.contenthover',
 			//effect:'slide',
 			//slide_direction: 'left',
 			//slide_speed:300,
 			overlay_opacity: 1,
 			overlay_background: '#000'
-		});
+		});*/
 	});
 </script>
 <div class="container-fluid vendors-page">
@@ -37,11 +37,16 @@
 										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
 								<div class="price">$<?= number_format($service_list['Service']['service_price'],2)?></div>
+								<div class="contenthover">
+									<div class="box-center">
+										<div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
+										<a href="/activity/index/<?=$service_list['Service']['id']?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
+									</div>
 								</div>
-                                                        <div class="contenthover">
-                                                        <div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
-                                                        <a href="/activity/index/<?=$service_list['Service']['id']?>" class="view-description">Book A Spot</a>
-                                                        </div>
+
+
+							</div>
+
 							<div class="tile-info"> 
 								<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
 								 <div class="activity-rating-wrapper">
