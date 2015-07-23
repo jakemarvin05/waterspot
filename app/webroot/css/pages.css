@@ -121,7 +121,6 @@ div#slots_form {
 }
 .activities {
     background-color: rgb(249, 249, 249);
-    height: 200px;
     padding-top: 15px;
 }
 h2.activity-title {
@@ -145,4 +144,8 @@ div#slots_form .check input[type=checkbox] {
 
 div#slots_form .dates {
     margin: 12px 0px;
+}
+
+.vendor-listing .tile-info h4 {
+    font-family: "Arca Majora";
 }

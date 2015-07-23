@@ -11,7 +11,7 @@
 	});
 </script>
 <div class="container-fluid vendors-page">
-	<br><br><br><br><br>
+	<br><br><br><br><br><br>
 	<header class="page-header">
 		<p class="beforeHeader">See what they offer</p>
 		<h1 class=" headerAlt">Vendor Activities</h1>
@@ -29,7 +29,7 @@
 			<? if(!empty($vendor_service_list)) { ?>
 				<?php $i = $this->paginator->counter('{:start}'); ?>
 				<? foreach($vendor_service_list as $service_list) { ?>
-					<div class="vendorwise-listing col-sm-4 col-xs-12">
+					<div class="vendorwise-listing col-sm-4 col-xs-6">
 						<div class="contentvisible contentselector">
 							<div class="tile">
 								<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
