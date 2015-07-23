@@ -154,6 +154,7 @@ div#slots_form .dates {
     font-family: "Arca Majora";
 }
 
+
 .contenthover {
     position: absolute; left: 0px; top: 0px; /* anchor to top left */ height: 100%; width: 100%;
     background-color: rgba(0, 0, 0, 0.56);
@@ -205,4 +206,11 @@ label.filter-label {
     font-family: "Lato";
     font-size: 16px;
     line-height: 28px;
+
+span.rating-label {
+    float: right !important;
+}
+.activity-rating-wrapper {
+    float: right;
+
 }
