@@ -50,7 +50,6 @@
 		<? } else { ?>
 			<div class="sun-text no-record"> There are no record found.</div>
 		<? } ?>
-		<div class="clearfix"></div>
 	</div>
 			<div class="load-more-listings">
 			<div class="load-more-row">
@@ -98,14 +97,14 @@
 		}
 		$('#SearchSortPrice,#SearchServiceTypeList,#SearchSortReview,#SearchLocationList').bind("change",function(){
 			$('#sort_by_price').show();
-			 
+			
 		 	var SearchServiceTypeList = $("#SearchServiceTypeList").val();
 		 	
-		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?$("#SearchSortPrice").val():'sortbyprice';
+		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
 		 	
-		 	var SearchSortReview = ($("#SearchSortReview").val()=='')?$("#SearchSortReview").val():'sortbyreview';
+		 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
 
-		 	var SearchSortByLocation = ($("#SearchLocationList").val()=='')?$("#SearchLocationList").val():'sortbylocation';
+		 	var SearchSortByLocation = ($("#SearchLocationList").val()=='')?'sortbylocation':$("#SearchLocationList").val();
 
 			if(SearchServiceTypeList=='' || SearchServiceTypeList==null){
 				$('#sort_by_price').hide();

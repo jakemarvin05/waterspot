@@ -874,7 +874,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     text-align:center;
     display:block;
     width:100%;
-    margin: 30px auto;
+    margin: 0px auto 30px auto;
 }
 .activities-listing {
     padding-bottom: 15px;
@@ -1020,14 +1020,9 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 button#loader_pagination {
     background-color: #F7941E;
-    color: #fff;
-    border: none;
-    padding: 16px 20px 20px;
-    font-size: 12pt;
-    border-radius: 2px;
-    max-width: 180px;
-    margin: 15px;
+    max-width: 211px;
     width: 100%;
+    display: inline-block;    position: relative;    cursor: pointer;    outline: 0;    white-space: nowrap;    margin: 5px;    padding: 0 22px;    font-size: 14px;    height: 40px;    line-height: 40px;    color: #FFF;    font-weight: 700;    letter-spacing: 1px;    border: none;    text-shadow: 1px 1px 1px rgba(0,0,0,.2);    border-radius: 3px;    border-bottom: 3px solid rgba(0,0,0,.15);
 }
 .activities .no-record {
     padding: 20px;
@@ -1224,4 +1219,7 @@ section#navWrapper.stickyCollapsedFix.stickyCollapsed {
 h4.h4.fix {
     width: 55%;
 
+}
+.load-more-row {
+    text-align: center;
 }

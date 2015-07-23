@@ -115,9 +115,9 @@
 		</div>
 		<div class="load-more-listings">
 			<div class="load-more-row">
-				<button class="load-more" id="loader_pagination">Load more results</button>
+				<button class="btn btnDefaults btnFillOrange" id="loader_pagination">Load more results</button>
 			</div>
-			<div class="load-more-row">
+			<div>
 				<?=$this->Html->image('loader-2.gif',array('style'=>'display:none;','alt'=>'Activity Loader','id'=>'loader-image'));?>
 			</div>
 		</div>
