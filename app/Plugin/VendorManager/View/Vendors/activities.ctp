@@ -65,7 +65,7 @@
 														/>
 												<?php }} ?>
 											<span class="rating-label">Rating:</span>
-
+<br><br>
 											<?php
 											//@todo convert Rating into float
 
@@ -85,7 +85,7 @@
 
 											?>
 
-											<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
+											<div class="rating top" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
 
 
 								<? } ?>	
