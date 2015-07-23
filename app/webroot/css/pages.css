@@ -49,6 +49,7 @@ h4{
 .img-holder img {
     width: 100%;
     height: auto;
+    margin-bottom: 20px;
 }
 
 h5.vendor-name {
@@ -173,6 +174,7 @@ div#slots_form .dates {
 
 .tile {
     position: relative;
+    overflow: hidden;     background-color: #FFF;     border: solid 1px #EEE;     position: relative;
 }
 
 .activities-page .tile-info .activity-rating-wrapper .rating-label {
@@ -181,4 +183,26 @@ div#slots_form .dates {
 
 label.filter-label {
     text-transform: uppercase;
+}
+
+.vendors-page .search-listing {
+    background-color: #f9f9f9;
+}
+.services-page .search-listing {
+    background-color: #f9f9f9;
+    padding-top: 15px;
+}
+
+.img-holder {
+    padding: 0;
+}
+
+.img-holder {
+    padding: 0;
+}
+
+.vendorlisting-vendordesc {
+    font-family: "Lato";
+    font-size: 16px;
+    line-height: 28px;
 }
