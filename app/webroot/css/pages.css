@@ -182,3 +182,7 @@ div#slots_form .dates {
 label.filter-label {
     text-transform: uppercase;
 }
+
+.vendors-page .search-listing {
+    background-color: #f9f9f9;
+}
