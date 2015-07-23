@@ -936,6 +936,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     color: #696B6E;
     font-size: 12pt;
     float: left;
+    font-family: "Arca Majora";
 }
 
 .activities-page .middle-area {
@@ -1029,7 +1030,7 @@ button#loader_pagination {
     clear: both;
 }
 .ch_element.ch_wrapper {
-    min-height: 295px;
+    /* min-height: 295px; */
 }
 .ch_hover {
     min-height: 330px;
@@ -1210,6 +1211,7 @@ section#navWrapper.stickyCollapsedFix.stickyCollapsed {
 
 .notification .close i.fa {
     font-size: 16px;
+}
 
 h4.h4.fix {
     width: 55%;
