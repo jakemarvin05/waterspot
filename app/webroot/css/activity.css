@@ -93,7 +93,7 @@ div#tabs {
 
 .suggestion-holder .ui-tabs .ui-tabs-panel {
     background-color: rgba(255, 255, 255, 0.93);
-    font-size: 12pt;
+    font-size: 16px;
     font-family: Verdana;
     color: #555;
     line-height: 20pt;
@@ -106,7 +106,7 @@ div#tabs {
     font-family: 'lato';
     text-transform: uppercase;
     margin-top: 0;
-    font-size: 12pt;
+    font-size: 16px;
     margin-bottom: 3px;
     color: #888888;
 }
