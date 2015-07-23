@@ -145,3 +145,7 @@ div#slots_form .check input[type=checkbox] {
 div#slots_form .dates {
     margin: 12px 0px;
 }
+
+.vendor-listing .tile-info h4 {
+    font-family: "Arca Majora";
+}

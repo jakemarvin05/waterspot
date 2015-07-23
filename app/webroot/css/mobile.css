@@ -1,7 +1,37 @@
+
+@media (min-width: 1220px) {
+    .tile-info .vendor-rating-wrapper {
+        float: right;
+        width: 40%;
+    }
+    .tile-info .activity-rating-wrapper{
+        float: right;
+        width: 45%;
+
+    }
+}
+@media (min-width: 1366px) {
+    .tile-info .vendor-rating-wrapper {
+        float: right;
+        width: 38%;
+        max-width: 160px;
+    }
+    .tile-info .activity-rating-wrapper{
+        float: right;
+        width: 38%;
+        max-width: 160px;
+
+    }
+}
 /* For Medium sized desktop */
-@media (max-width: 1200px) {
+
+@media (max-width: 1219px) {
+
     .tile-info .vendor-rating-wrapper .rating-label {
         float: right;
+    }
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: left;
     }
 
     .vendor-listing .tile-info h4 {
@@ -11,6 +41,35 @@
     .contenthover .view-all-tags {
         font-size: 16px;
     }
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: left;
+    }
+
+
+}
+
+@media (max-width: 1188px) {
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+
+}
+
+@media (max-width: 1124px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+}
+@media (max-width: 1120px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
 
 }
 
@@ -18,11 +77,14 @@
 /* For iPad */
 @media (max-width: 1024px) {
     .ch_element.ch_wrapper {
-        min-height: 220px!important;
+        min-height: 220px;
     }
     section#navWrapper {
         background-color: #fff;
         padding-bottom: 20px;
+    }
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
     }
 
 }
@@ -30,20 +92,23 @@
 
 
 /* For Tablets */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .ch_element.ch_wrapper {
-        min-height: 162px!important;
+        min-height: 162px ;
     }
     section#navWrapper {
         background-color: #fff;
         padding-bottom: 20px;
     }
     .tile-info .vendor-rating-wrapper .rating-label{
-        float: right !important;
+        float: right;
     }
 
     .tile-info .activity-rating-wrapper .rating-label {
-        float: right!important;
+        float: left;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: left;
     }
 
     .activities-listing {
@@ -56,9 +121,6 @@
     .contenthover .short-desc {
         max-height: 129px;
         overflow: hidden;
-    }
-    .tile-info .vendor-rating-wrapper .rating-label{
-        float: right !important;
     }
 
     .stickyCollapsedFix .navButtonOuter {
@@ -75,12 +137,8 @@
         font-size: 12px;
     }
 
-    .tile-info .activity-rating-wrapper .rating-label {
-        float: right!important;
-    }
-
     .ch_element.ch_wrapper {
-        min-height: 160px!important;
+        min-height: 160px ;
     }
 
     .activities-listing {
@@ -106,49 +164,68 @@
     }
 
     .ch_element.ch_wrapper {
-        min-height: 162px!important;
+        min-height: 162px ;
     }
     section#navWrapper {
         background-color: #fff;
         padding-bottom: 20px;
     }
     .tile-info .vendor-rating-wrapper .rating-label{
-        float: right !important;
+        float: right  ;
     }
     .h4{
-        font-size: 12px !important;
+        font-size: 12px  ;
     }
     .rating-label{
-        font-size: 12px !important;
+        font-size: 12px  ;
     }
     .activity-tags span{
-        display: none !important;
+        display: none  ;
     }
     .view-all-tags{
         font-size: 12px;
         padding: 8px;
     }
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: left;
+    }
+    .search-page .tile-info .activity-rating-wrapper{
+        width: 40%;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label{
+        float: right;
+    }
 
 }
 
+@media (max-width: 733px){
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+}
 @media (max-width: 720px){
     .tile-info .vendor-rating-wrapper .rating-label{
-        float: right !important;
+        float: right  ;
     }
 
     .activity-tags span{
-        display: none !important;
+        display: none  ;
     }
     .view-all-tags{
-        font-size: 12px !important;
-        padding: 8px !important;
+        font-size: 12px  ;
+        padding: 8px  ;
     }
 }
 
+@media (max-width: 692px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+}
 /* For Smart Phones */
 @media (max-width: 480px) {
     .ch_element.ch_wrapper {
-        min-height: 140px!important;
+        min-height: 140px ;
     }
     .activities-listing {
         min-height: 260px;
@@ -156,8 +233,8 @@
         width: 100%;
     }
     .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
-        width: 100%!important;
-        margin-bottom: 10px!important;
+        width: 100% ;
+        margin-bottom: 10px ;
     }
     .navButtonOuter {
         padding: 5px;
@@ -195,5 +272,32 @@
 
         max-width: 70%;
         margin: 20px auto;
+    }
+    .tile-info .activity-rating-wrapper .rating-label{
+        float: left;
+    }
+    .tile-info .activity-rating-wrapper{
+        width: 40%;
+    }
+    .search-page .tile-info .activity-rating-wrapper{
+        width: 45%;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label{
+        float: left;
+    }
+    .vendorwise-listing {
+        width: 100%;
+    }
+}
+
+@media (max-width: 473px) {
+    .tile-info .activity-rating-wrapper .rating-label{
+        float: right;
+    }
+}
+@media (max-width: 400px) {
+
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
     }
 }

@@ -33,7 +33,7 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <link rel="stylesheet" href="/css/simple-line-icons/simple-line-icons.css">
 
 <?=$this->Html->css('style.css');?>
-<?=$this->Html->css('mobile.css');?>
+
 
 <!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">
@@ -50,6 +50,9 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <script src="/js/app.js"></script>
 
 <?=$this->Html->css($css_for_layout); ?>
+
+<?=$this->Html->css('mobile.css');?>
+
 <?=$this->Html->script($script_for_layout); ?>
 <? foreach($scriptBlocks as $scriptBlock){
 	echo $this->Html->scriptBlock($scriptBlock);
