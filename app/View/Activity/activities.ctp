@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(function(){
-		$('.tile').contenthover({
+		/*$('.tile').contenthover({
 			//data_selector: '.contenthover',
 			//effect:'slide',
 			//slide_direction: 'left',
@@ -8,7 +8,7 @@
 			overlay_background:'#000',
 			overlay_opacity:1
 
-		});
+		}); */
 	});
 </script>
 <div class="container-fluid wrapper activities-page">

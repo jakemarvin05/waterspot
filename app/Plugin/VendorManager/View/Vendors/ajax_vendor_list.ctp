@@ -3,7 +3,7 @@ $i = $this->paginator->counter('{:start}');?>
 
 <? if(!empty($vendor_services)){ ?>	
 		<? foreach($vendor_services as $key=>$vendor_service) { ?>
-			<div class="vendor-listing col-sm-4 col-xs-12">
+			<div class="vendor-listing col-sm-4 col-xs-6">
 				<div class="contentvisible contentselector">
 						<div class="tile">
 							<?php 
@@ -14,18 +14,22 @@ $i = $this->paginator->counter('{:start}');?>
 									echo $this->Html->image($resizedImg,array('border'=>'0'));
 								}
 							?>
-						</div>
-					<div class="contenthover">
-						<div class="activity-tags">
-							<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
-								<span>
+							<div class="contenthover">
+								<div class="box-center">
+								<div class="activity-tags">
+									<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
+										<span>
 							<?php echo $this->Html->link($service_type['ServiceType']['name'],array('plugin'=>false,'controller'=>'activity','action'=>'activities',$vendor_service['Vendor']['id'],$service_type['ServiceType']['id']));?>
 						</span>
-							<? } ?>
+									<? } ?>
+								</div>
+
+								<div class="clearfix"></div><br>
+								<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'btn btnDefaults btnFillOrange'));?>
+							</div>
+								</div>
 						</div>
-						<div class="clearfix"></div><br><br>
-						<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'view-all-tags'));?>
-					</div>
+
 						<div class="tile-info"> 
 							<h4>
 								<?=$this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27);?>
