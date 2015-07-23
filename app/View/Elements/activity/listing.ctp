@@ -29,7 +29,8 @@ $i = $this->paginator->counter('{:start}');
 							<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
 							/>
 						<?php }} ?>
-					<span class="rating-label">Rating:</span>
+                                        
+                                                        <span class="rating-label">Rating:</span><br>
 
 					<?php
 					//@todo convert Rating into float
@@ -49,7 +50,7 @@ $i = $this->paginator->counter('{:start}');
 					}
 
 					?>
-
+                                                        <br>
 					<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
 
 
