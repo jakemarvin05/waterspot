@@ -207,6 +207,9 @@
         display: block;
         text-transform: uppercase;
     }
+    .vendor-listing {
+        width: 100%;
+    }
 }
 
 @media (max-width: 733px){

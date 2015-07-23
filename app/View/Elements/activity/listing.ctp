@@ -34,7 +34,6 @@ $i = $this->paginator->counter('{:start}');
 						<?php }} ?>
                                         
                                                         <span class="rating-label">Rating:</span><br>
-
 					<?php
 					//@todo convert Rating into float
 

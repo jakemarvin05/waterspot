@@ -69,7 +69,7 @@
 						} ?>
 
 						<span class="rating-label">Rating:</span>
-
+<br><br>
 						<?php
 						//@todo convert Rating into float
 
