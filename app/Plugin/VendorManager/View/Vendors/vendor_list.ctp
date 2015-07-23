@@ -1,13 +1,13 @@
 <script type="text/javascript">
 	$(function(){
-		$('.tile').contenthover({
+	/*	$('.tile').contenthover({
 			//data_selector: '.contenthover',
 			//effect:'slide',
 			//slide_direction: 'left',
 			//slide_speed:300,
 			overlay_background:'#000',
 			overlay_opacity:1
-		});
+		});*/
 	});
 </script>
 
@@ -36,18 +36,21 @@
 						}
 						
 					?>
-				</div>
-				<div class="contenthover">
-					<div class="activity-tags">
-						<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
-							<span>
+					<div class="contenthover">
+						<div class="box-center">
+							<div class="activity-tags">
+								<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
+									<span>
 							<?php echo $this->Html->link($service_type['ServiceType']['name'],array('plugin'=>false,'controller'=>'activity','action'=>'activities',$vendor_service['Vendor']['id'],$service_type['ServiceType']['id']));?>
 						</span>
-						<? } ?>
+								<? } ?>
+							</div>
+							<div class="clearfix"></div><br>
+							<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'btn btnDefaults btnFillOrange'));?>
+						</div>
 					</div>
-					<div class="clearfix"></div><br><br>
-					<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'view-all-tags'));?>
 				</div>
+
 				<div class="tile-info">
                                     
 					<h4 class="h4 fix">
@@ -162,14 +165,14 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.vendor-listing:last').after(data );
-							$('.tile').contenthover({
+							/*$('.tile').contenthover({
 								//data_selector: '.contenthover',
 								//effect:'slide',
 								//slide_direction: 'left',
 								//slide_speed:300,
 								overlay_background:'#000',
 								overlay_opacity:1
-							});
+							});*/
 							
                             if(page >= pages){
 								$("#loader_pagination").attr("disabled", true);

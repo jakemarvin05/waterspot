@@ -14,11 +14,14 @@ $i = $this->paginator->counter('{:start}');
 				echo urldecode($this->Html->image($resizedImg,array('border'=>'0','alt'=>$search_service_list['Service']['service_title'])) ); ?>
 				<div class="price">$<?= number_format($search_service_list['Service']['service_price'],2)?></div>
 
+				<div class="contenthover">
+					<div class="box-center">
+					<div class="short-desc"><?php echo $this->Format->Headingsubstring(strip_tags($search_service_list['Service']['description']),250);?></div>
+					<a href="/activity/index/<?=$search_service_list['Service']['id']?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
+				</div>
+					</div>
 			</div>
-			<div class="contenthover">
-				<div class="short-desc"><?php echo $this->Format->Headingsubstring(strip_tags($search_service_list['Service']['description']),250);?></div>
-				<a href="/activity/index/<?=$search_service_list['Service']['id']?>" class="view-description">Book A Spot</a>
-			</div>
+
 			<div class="tile-info">
 				<h4><?php echo $this->Format->Headingsubstring($search_service_list['Service']['service_title'],25);?></h4>
 				<div class="activity-rating-wrapper">

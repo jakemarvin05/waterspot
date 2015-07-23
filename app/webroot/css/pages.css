@@ -3,7 +3,7 @@
     width: 43%;
 }
 .tile-info .activity-rating-wrapper .rating-label{
-    margin-top: 12px;
+    margin-top: 8px;
     display: block;
     float: left;
     font-size: 12pt;
@@ -15,8 +15,11 @@
     font-size: 14px;
     font-weight: 600;
     font-family: 'Arca Majora' !important;
-    max-width: 55%;
+    max-width: 53%;
     font-style: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .activity-rating-wrapper{
     font-family: 'Crete Round',serif;
@@ -39,7 +42,7 @@ h4{
 }
 
 .vendor-area.row {
-    background-color: #F9F9F9;
+    background-color: #FFFFFF;
     max-width: 1190px;
     margin: AUTO;
 }
@@ -148,4 +151,30 @@ div#slots_form .dates {
 
 .vendor-listing .tile-info h4 {
     font-family: "Arca Majora";
+}
+
+.contenthover {
+    position: absolute; left: 0px; top: 0px; /* anchor to top left */ height: 100%; width: 100%;
+    background-color: rgba(0, 0, 0, 0.56);
+    opacity: 0;
+    text-align: center;
+    display: inline-flex;
+    -webkit-transition: opacity 1s; /* Safari */
+    transition: opacity 1s;
+}
+.contenthover:hover{
+    opacity:1;
+}
+.box-center {
+    margin: auto;
+    text-align: center;
+}
+
+
+.tile {
+    position: relative;
+}
+
+.activities-page .tile-info .activity-rating-wrapper .rating-label {
+    margin-top: 12px;
 }

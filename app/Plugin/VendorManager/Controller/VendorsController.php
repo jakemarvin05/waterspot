@@ -138,6 +138,7 @@ Class VendorsController extends VendorManagerAppController{
 		array_push(self::$script_for_layout,'animatedcollapse.js','jquery.contenthover.min.js','jquery.mousewheel.js');
 		array_push(self::$script_for_layout,array('jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
+		array_push(self::$css_for_layout,'pages.css');
 		$vendor_services=$condition = array();
 		$this->paginate = array();
 		$this->paginate['limit']=Configure::read('Activiy.Limit');
