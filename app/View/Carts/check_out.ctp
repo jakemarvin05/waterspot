@@ -1,7 +1,13 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<h2 class="page-title">Book <span style="color:#000;">Now</span></h2>
+<div class="container-fluid wrapper carts-page">
+	<section class="content">
+
+
+		<header class="page-header text-center">
+			<p class="beforeHeader">Reserve your spot</p>
+			<h1 class=" headerAlt">Book Now</h1>
+		</header>
+		<div class="container">
+			<div class="col-sm-6 col-sm-offset-3 col-xs-12">
 <?php echo $this->element('message');?>
 
 <div class="<?=(!empty($cart_details))?'ch-out':'middle-area'?>"> 
@@ -9,7 +15,7 @@
 <? $sub_total=0;
  if(!empty($cart_details)) { ?>
 	<? if(empty($redirect_login)) {?>
-		<h6>Your Details</h6>
+
 		<div class="mark">We just need a few details from you to complete this transaction. Required fields marked (<span style="color:#F00;">*</span>)</div>
 		<?php echo $this->element('message');?>
 		<div class="registration-form-box">
@@ -20,7 +26,7 @@
 					      <label>First name : <span style="color:#ff4142;">*</span></label>	
 				      </div>
 				      <div class="fieldbox">
-					      <?=$this->Form->input('fname',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->input('fname',array('type'=>'text','label'=>false,'div'=>false,'class'=>'form-control'));?>
 					      <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				      </div>
 				</div>
@@ -29,7 +35,7 @@
 					      <label>Last name : <span style="color:#ff4142;">*</span></label>
 				      </div>
 				      <div class="fieldbox">
-					      <?=$this->Form->input('lname',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->input('lname',array('type'=>'text','label'=>false,'div'=>false,'class'=>'form-control'));?>
 					      <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				      </div>
 				</div>
@@ -38,7 +44,7 @@
 					      <label>Email address : <span style="color:#ff4142;">*</span></label>
 				      </div>
 				      <div class="fieldbox">
-					      <?=$this->Form->input('email',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->input('email',array('type'=>'text','label'=>false,'div'=>false,'class'=>'form-control'));?>
 					      <?=$this->Form->error('email',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				      </div>
 				</div>
@@ -47,7 +53,7 @@
 					      <label>Phone : <span style="color:#ff4142;"> *</span></label>  
 				      </div>
 				      <div class="fieldbox">
-					      <?=$this->Form->input('phone',array('type'=>'text','label'=>false,'div'=>false));?>
+					      <?=$this->Form->input('phone',array('type'=>'text','label'=>false,'div'=>false,'class'=>'form-control'));?>
 					      <?=$this->Form->error('phone',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				      </div>
 				</div>
@@ -56,13 +62,13 @@
 					      <label>Comments :</label>  
 				      </div>
 				      <div class="fieldbox">
-					      <?=$this->Form->textarea('order_message',array('label'=>false,'div'=>false));?> 
+					      <?=$this->Form->textarea('order_message',array('label'=>false,'div'=>false,'class'=>'form-control'));?>
 					      <?=$this->Form->error('order_message',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				      </div>
 				</div>
 				<div class="registration-form-row" style="text-align: right;">
 					<!--<input class="submit-button addtocart-button" value="Pay Now" type="submit">-->
-					<input class="submit-button addtocart-button" value="Book Now" type="submit">
+					<input class="btn btnDefaults btnFillOrange" value="Book Now" type="submit">
 				</div>
 				<div class="registration-form-row" style="margin: 15px 0 0 175px; text-align: left;">
 					<?=$this->Html->image('asia-payment-logos.jpg',array('alt'=>'asiapay'));?>
@@ -80,24 +86,29 @@
 		<div class="service-hd">Your cart is empty</div>
 			 <?php echo $cart_page['Page']['page_longdescription'];?>
 			<p class="empty">
-				<?=$this->Html->link("Click here to add new activities.",array('controller'=>'activity','action'=>'activities')); ?>
+				<?=$this->Html->link("Click here to add new activities.",array('controller'=>'activity','action'=>'activities'),array('class'=>'btn btnDefaults btnFillOrange')); ?>
 			</p>
 	</div>
  <? } ?>
 </div>
+			</div></div>
+
+		<div class="col-sm-8 col-sm-offset-2 col-xs-12">
 <? if(!empty($cart_details)) { ?>
+	<h3 class="text-center booking-section-title">Your Booking</h3>
 	<div class="your-booking">
-		<p class="add-more-to-cart"><?=$this->Html->link("Add More Activities",array('controller'=>'activity','action'=>'activities')); ?></p>
-		<h6>Your Booking</h6>
+		<p class="add-more-to-cart text-center"><?=$this->Html->link("Add More Activities",array('controller'=>'activity','action'=>'activities'),array('class'=>'btn btnDefaults btnFillOrange')); ?></p>
+
+		<div class="row">
 		<? if(!empty($cart_details)) { 
 			$sub_total=0;
 			foreach($cart_details as $key=>$cart_detail){
 				$slot_price=0;	
 				$value_added_price=0; ?>
-				<div class="checkout-activity">
+				<div class="checkout-activity col-sm-6 col-xs-6">
 					<div class="checkout-activity-header">
 						   <? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
-						$imgArr = array('source_path'=>$path,'img_name'=>$cart_detail['image'],'width'=>101,'height'=>64,'noimg'=>$setting['site']['site_noimage']);
+						$imgArr = array('source_path'=>$path,'img_name'=>$cart_detail['image'],'width'=>600,'height'=>400,'noimg'=>$setting['site']['site_noimage']);
 						$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 						echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$cart_detail['Service']['service_title'])) ; ?>
 						<div class="checkout-activity-header-content">
@@ -161,7 +172,7 @@
 						</div>
 					</div>
 					<div class="checkout-activity-cancel">
-						<?=$this->Html->link($this->Html->image('cart_delete.png',array( 'alt'=>'Delete Cart')), array('plugin'=>false,'controller'=>'carts','action'=>'delete_cart',$cart_detail['Cart']['id']), array('escape' => false,"onclick"=>"return confirm('Are you sure want to remove this services?')"));?>
+						<?=$this->Html->link('<i class=\"fa fa-times\"></i>', array('plugin'=>false,'controller'=>'carts','action'=>'delete_cart',$cart_detail['Cart']['id']), array('escape' => false,"onclick"=>"return confirm('Are you sure want to remove this services?')"));?>
 					</div>
 				</div>
 			<? 
@@ -169,9 +180,13 @@
 				$sub_total+=$cart_detail['Cart']['total_amount'];
 			} //end of foreach ?>
 		<? } ?>
+		</div>
 		<div class="checkout-activity-totals checkout-activity-row-total">
+			<div class="box-center">
 			<div class="checkout-activity-left">Total</div>
 			<div class="checkout-activity-right">$<?=number_format($sub_total,2);?></div>
+			<div class="clearfix"></div>
+				</div>
 		</div>
 	</div>
 <? } ?>
@@ -179,12 +194,15 @@
 		<? if(empty($check_guest_status)){ ?>
 			<?php  echo $this->element('activity/cart_guest'); ?>
 		<? } ?>
-		
-<div class="clear"></div>
+</div>
+		</section>
+	</div>
 
 <script type="text/javascript">
 <?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){
+
+
 		  $('#CartId').submit(function(){
 			 
 			//var data = $(this).serializeArray();
@@ -292,10 +310,14 @@
 			$("#show_password").show();
 			
 			$(".guest-login-button-box #loginButton").val('Sign In');
-			
+			$("label[for=GuestLoginGuestLogin0]").removeClass('current');
+			$("label[for=GuestLoginGuestLogin1]").addClass('current');
+
 		}else{
 			$("#show_password").hide();
 			$(".guest-login-button-box #loginButton").val('Continue');
+			$("label[for=GuestLoginGuestLogin1]").removeClass('current');
+			$("label[for=GuestLoginGuestLogin0]").addClass('current');
 		}
 			
 	}
