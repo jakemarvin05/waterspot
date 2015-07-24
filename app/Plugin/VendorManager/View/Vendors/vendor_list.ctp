@@ -54,7 +54,8 @@
 				<div class="tile-info">
                                     
 					<h4 class="h4 fix">
-						<?=$this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27);?>
+
+						<?php echo $this->Html->link($this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27),array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>''));?>
 					</h4>
                                     
 					<div class="vendor-rating-wrapper">

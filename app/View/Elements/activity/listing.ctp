@@ -23,7 +23,7 @@ $i = $this->paginator->counter('{:start}');
 			</div>
 
 			<div class="tile-info">
-				<h4><?php echo $this->Format->Headingsubstring($search_service_list['Service']['service_title'],25);?></h4>
+				<h4><a href="/activity/index/<?=$search_service_list['Service']['id']?>"><?php echo $this->Format->Headingsubstring($search_service_list['Service']['service_title'],25);?></a></h4>
 				<div class="activity-rating-wrapper">
 					<? if(!empty($search_service_list['rating'])){ ?>
 						<?php $ratings = range(1,10); ?>

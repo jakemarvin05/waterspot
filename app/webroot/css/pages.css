@@ -133,6 +133,7 @@ h2.activity-title {
 
 article.activity-description {
     padding-top: 5px;
+    line-height: 22px;
 }
 
 div#slots_form .check {
@@ -224,4 +225,11 @@ span.rating-label {
 
 .search-page .tile-info .rating {
     top: -10px;
+}
+section.right-section .startdate {
+    font-family: arial, helvetica, sans-serif;
+}
+
+.tile-info h4 a {
+    color: #606060;
 }

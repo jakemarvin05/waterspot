@@ -172,7 +172,7 @@ h2.suggestion-title {
         height: 300px!important;
     }
     .slider-holder {
-        height: 410px!important;
+        /* height: 410px!important; */
     }
     .whitebg {
         height: 520px;
@@ -222,7 +222,7 @@ h2.suggestion-title {
     }
 
     .slider-holder {
-        height: 287px !important;
+        height: auto;
     }
 
     .fotorama__stage {
