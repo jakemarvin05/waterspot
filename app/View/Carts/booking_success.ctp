@@ -1,7 +1,13 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<h2 class="page-title">Booking <span style="color:#000;">Successful</span></h2>
+<div class="container-fluid wrapper carts-page">
+	<section class="content">
+
+		<header class="page-header text-center">
+			<p class="beforeHeader">Congratulations, See you in the event</p>
+			<h1 class=" headerAlt">Booking Successful</h1>
+		</header>
+
+		<div class="container">
+		<div class="col-sm-6 col-sm-offset-3 col-xs-12">
 <?php echo $this->element('message');?>
 
 <div class="<?=(!empty($cart_details))?'ch-out':'middle-area'?>"> 
@@ -17,8 +23,11 @@
 	</div>
  <? } ?>
 </div>
-
-<div class="clear"></div>
+			<br><br><br>
+<div class="clearfix"></div>
+			</div></div>
+		</section>
+	</div>
 
 <!--<script type="text/javascript">
 <?php //$path = $this->Html->webroot; ?>

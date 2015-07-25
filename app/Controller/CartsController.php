@@ -101,6 +101,8 @@ Class CartsController extends AppController{
 		'url'=>Router::url('/carts/booking_success'),
 		'name'=>'Booking Success'
 		);
+		array_push(self::$css_for_layout,'pages.css');
+
 	}
 	
 	function booking_request(){ 

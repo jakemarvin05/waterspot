@@ -589,3 +589,9 @@ input#GuestLoginGuestLogin0 {
     border: 1px solid #204D74;
     box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.23);
 }
+button.book-now.btn.btnDefaults.btnFillOrange {
+    width: 80%;
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+}
