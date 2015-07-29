@@ -444,6 +444,7 @@ Class ActivityController extends AppController{
 	function ajax_get_availbility_range(){
 		$this->layout='';
 		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
 
@@ -453,6 +454,7 @@ Class ActivityController extends AppController{
 			$capacity      = $_POST['no_participants'];
 			$service_id    = $_POST['service_id'];
 
+			$this->set('service_price', $this->Service->find('first', ['conditions'=>['Service.id'=>$service_id]])['Service']['service_price']);
 			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
 			if (count($service) !== 0) {
 				$service = $service[0]['VendorServiceAvailability'];
@@ -545,6 +547,7 @@ Class ActivityController extends AppController{
 						if($slot_key==2)$slot_booking_type='slot_id';
 						if($slot_key==3)$slot_booking_type='start_time';
 						if($slot_key==4)$slot_booking_type='end_time'; 
+						if($slot_key==5)$slot_booking_type='price'; 
 						//
 						$slot_booking_detail[$slot_booking_type]=$slot_attb;
 					}
@@ -562,7 +565,11 @@ Class ActivityController extends AppController{
 				}
 			// calculate no of slot price  
 			$no_of_slots=count($slot_data['Slot']);
-			$total_slot_price=($no_of_slots >0 &&  $service_price>0)?$service_price*$no_of_slots:0;
+			// $total_slot_price=($no_of_slots >0 &&  $service_price>0)?$service_price*$no_of_slots:0;
+			$total_slot_price=0;
+			foreach($slot_data['Slot'] as $slot) {
+				$total_slot_price = $total_slot_price + $slot['price'];
+			}
 			$full_day_status=0;
 			}else {
 				$diff = abs(strtotime($data['Cart']['end_date']) - strtotime($data['Cart']['start_date']));
