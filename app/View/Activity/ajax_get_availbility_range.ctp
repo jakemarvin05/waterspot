@@ -7,11 +7,16 @@
 				<? if(!empty($service_slots['slotindex'] ))	{
 					foreach($service_slots['slotindex'] as $slotkey=>$slot) { 
 						//slot date,service_id,service_time
-						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot->start_time."_".$slot->end_time."_".$slot->price;
+						if ($slot->fire_sales_day_margin && $slot->fire_sales_price) {
+							$slot_price = (strtotime($service_slots['start_date']) > (time() + ((60*60*24)*$slot->fire_sales_day_margin))) ? $slot->price : $slot->fire_sales_price;
+						} else {
+							$slot_price = $slot->price;
+						}
+						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot->start_time."_".$slot->end_time."_".$slot_price;
 						?>
 						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
 						echo $this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time);
-						?></label><?php echo $service_price > $slot->price ? '<br/>Discounted! for only $'.$slot->price: '';?></div>
+						?></label><?php echo $service_price > $slot_price ? '<br/>Discounted! for only $'.$slot_price: '';?></div>
 				<? } } // end if 
 					else {?>
 					<?=$this->Form->hidden('Activity.slots.',array('value'=>'','type'=>'checkbox','class'=>'check-box','label'=>false,'div'=>false));?>	

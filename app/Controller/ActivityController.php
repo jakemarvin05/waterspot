@@ -462,8 +462,38 @@ Class ActivityController extends AppController{
 				$slots = json_decode('{'.substr($service['slots'], 1, -1).'}');
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
+				$new_service_slots_now = [];
+				foreach ($new_service_slots as $key => $service_slot) {
+					$slot_index_new = [];
+					foreach($service_slot['slotindex'] as $slotkey=>$slot_index) {
+						$criteria = [
+							'conditions' => [
+								'ServiceSlot.service_id' => $service_id,
+								'ServiceSlot.start_time' => $slot_index->start_time,
+								'ServiceSlot.end_time'   => $slot_index->end_time,
+								'ServiceSlot.price'      => $slot_index->price,
+							],
+						];
+						$slot = $this->ServiceSlot->find('first', $criteria);
+						
+						$new = new stdClass;
+						$new->id = $slot['ServiceSlot']['id'];
+						$new->service_id = $slot['ServiceSlot']['service_id'];
+						$new->start_time = $slot['ServiceSlot']['start_time'];
+						$new->end_time = $slot['ServiceSlot']['end_time'];
+						$new->price = $slot['ServiceSlot']['price'];
+						$new->fire_sales_price = $slot['ServiceSlot']['fire_sales_price'];
+						$new->fire_sales_day_margin = $slot['ServiceSlot']['fire_sales_day_margin'];
+						$slot_index_new[] = $new;
+					}
+					$new_service_slots_now[$key]['service_id'] = $service_slot['service_id'];
+					$new_service_slots_now[$key]['start_date'] = $service_slot['start_date'];
+					$new_service_slots_now[$key]['end_date'] = $service_slot['end_date'];
+					$new_service_slots_now[$key]['slotindex'] = $slot_index_new;
+				}
+
 				if (!empty($new_service_slots)) {
-					$this->set('service_slots',$new_service_slots);
+					$this->set('service_slots',$new_service_slots_now);
 				} else {
 					$dates = [];
 					$one_day = 60*60*24;
