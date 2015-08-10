@@ -5,7 +5,7 @@
 .tile-info .activity-rating-wrapper .rating-label{
     margin-top: 8px;
     display: block;
-    float: left;
+    float: right;
     font-size: 16px;
     color: #969696;
 }
@@ -206,6 +206,7 @@ label.filter-label {
     font-family: "Lato";
     font-size: 16px;
     line-height: 28px;
+}
 
 span.rating-label {
     float: right !important;
@@ -213,4 +214,14 @@ span.rating-label {
 .activity-rating-wrapper {
     float: right;
 
+}
+
+.vendors-page .tile-info .rating.top {
+    position: relative;
+
+    top: -10px;
+}
+
+.search-page .tile-info .rating {
+    top: -10px;
 }

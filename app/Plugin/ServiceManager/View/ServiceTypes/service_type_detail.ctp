@@ -59,7 +59,7 @@
 											<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
 												/>
 										<?php }} ?>
-									<span class="rating-label">Rating:</span>
+									<span class="rating-label">Rating:</span><br><br>
 
 									<?php
 									//@todo convert Rating into float
