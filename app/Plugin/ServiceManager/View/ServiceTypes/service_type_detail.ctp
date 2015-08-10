@@ -1,21 +1,26 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
+		/*$('.contentselector').contenthover({
 			data_selector: '.contenthover',
 			effect:'slide',
 			slide_direction: 'left',
 			slide_speed:300,
 			overlay_opacity: 1
-		});
+		});*/
 	});
 </script>
-
-<div class="hr-line"></div>
-<div class="clear"></div>
+<div class="container-fluid wrapper services-page activities-page">
+<br><br>
+	<section class="row">
 <div class="search-listing-header">
-<?=$this->element('breadcrumbs');?>
-<h2 class="page-title"><?=$service_type_details['ServiceType']['name'] ?></h2>
+	<header class="page-header">
+		<p class="beforeHeader">Ready to enjoy exciting adventures?</p>
+		<h1 class=" headerAlt" style="float: left;"> <?=$service_type_details['ServiceType']['name'] ?></h1>
+		<br>
+	</header>
+
 </div>
+
 
 <div class="search-listing">
 	<!-- <div class="search"><span> Search</span><input type="search"></div>-->
@@ -29,35 +34,62 @@
 			<? if(!empty($activity_service_list)) { ?>
 				<?php $i = $this->paginator->counter('{:start}'); ?>
 				<? foreach($activity_service_list as $service_list) { ?>
-					<div class="vendorwise-listing">
+					<div class="vendorwise-listing col-sm-4 col-xs-6">
 						<div class="contentvisible contentselector">
 							<div class="tile">
 								<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
 										$imgArr = array('source_path'=>$path,'img_name'=>$service_list['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
 										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
+								<div class="price">$<?= number_format($service_list['Service']['service_price'],2)?></div>
+								<div class="contenthover">
+									<div class="box-center">
+									<div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
+									<a href="/activity/index/<?=$service_list['Service']['id']?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
+								</div>
+									</div>
 							</div>
 							<div class="tile-info"> 
-								<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
-								 <div class="activity-rating-wrapper">
+								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>" class=""><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></a></h4>
+								<div class="activity-rating-wrapper">
 									<? if(!empty($service_list['rating'])){ ?>
 										<?php $ratings = range(1,10); ?>
 										<?php foreach($ratings as $rating){ ?>
-											<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($service_list['rating']==$rating)?'checked="checked"':'';?> />
-										<?php } ?>
-									<? }else{ ?>
-									<div class="no-rating">No feedback yet</div>
-								<? } ?>	
-								</div>	
-								<div class="price-start">
-									<span>from</span> <br/>$<?= number_format($service_list['Service']['service_price'],2)?>
+
+											<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
+												/>
+										<?php }} ?>
+									<span class="rating-label">Rating:</span><br><br>
+
+									<?php
+									//@todo convert Rating into float
+
+
+									$rating = 0.0; // value is 0.0 to 1.0
+
+									$ratingPerCent = $rating*5;
+									$ratingMark = 0;
+
+									if($ratingPerCent>1) {
+										$ratingMark = round($ratingPerCent);
+										$ratingMark = $ratingMark/5;
+									}
+									else{
+										$ratingMark = 0;
+									}
+
+									?>
+
+									<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
+
+
 								</div>
+
+
+
 							</div>
 						</div>
-						<div class="contenthover">
-						    <div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
-						    <a href="/activity/index/<?=$service_list['Service']['id']?>" class="view-description">Book A Spot</a>
-						</div>
+
 					</div>
 				<?php $i++; ?>
 				<? } ?>
@@ -76,19 +108,32 @@
 		</div>
 
 	</div>
-	<div class="vendor-right-area">
-		<h4>All activities of:</h4>
-		<?php 
-				/* Resize Image */
+	<div class="vendor-area row">
+		<div class="row">
+			<br>
+			<div class="col-sm-12 col-xs-12"> <h4>All activities of:</h4>
+				<br>
+
+				<div class="col-sm-3 col-xs-12 img-holder">
+					<?php
+					/* Resize Image */
 					if(isset($service_type_details['ServiceType']['image'])) {
 						$imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$service_type_details['ServiceType']['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
 						$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 						echo $this->Html->image($resizedImg,array('border'=>'0',  'alt'=>$service_type_details['ServiceType']['name']));
 					}
-		?>
-		<h6><?=ucfirst($service_type_details['ServiceType']['name']); ?></h6>
-		<div class="vendorlisting-vendordesc"><p><?=$service_type_details['ServiceType']['description']?></p></div>
+					?></div>
+
+				<div class="col-sm-9 col-xs-12">
+
+					<h5 class="vendor-name"><?=ucfirst($service_type_details['ServiceType']['name']); ?></h5>
+
+
+					<div class="vendorlisting-vendordesc"><?=$service_type_details['ServiceType']['description']?></div>
+					</div>
+
 	</div>
+		</div>
 
         <noscript>
 			<div class='pag-box'>
@@ -118,7 +163,8 @@
 </div>
 
 <div class="clear"></div>
-
+</section>
+</div>
  
 <script type='text/javascript'>
 	var loading_start = 0;

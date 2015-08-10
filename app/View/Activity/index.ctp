@@ -1,119 +1,155 @@
-<div class="wrapper">
-	<div class="hr-line"></div>
-	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
-	<div style="float: left; width: 100%;">
-		<h2 class="page-title" style="float: left;">Activity <span style="color:#000;">
-		<strong>Details</strong></span></h2>
-		
-		<div style="float: right;" class="social-share-box">
-			<span class='st_facebook_large' displayText='Facebook'></span>
-			<span class='st_twitter_large' displayText='Tweet'></span>
-			<span class='st_linkedin_large' displayText='LinkedIn'></span>
-			<span class='st_pinterest_large' displayText='Pinterest'></span>
-			<span class='st_email_large' displayText='Email'></span>
+	<section id="splashVideoCont">
+		<div id="splashVideoCropper">
+			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
+				<source src="/media/watersports.mp4" type="video/mp4">
+				<img src="/img/splash-statics/slide1.jpg">
+			</video>
+			<img src="/img/splash-statics/slide1.jpg">
 		</div>
-	</div>
-		
-		<? // if javascript disable then show these invite form  ?>
-		
-		<div class="activity-details">
-			<section class="activity-left">
-				<article class="gallery-box">
-					<header class="title-header">
-						<h2><?=ucfirst($service_detail['Service']['service_title']);?></h2>
-						<h6><?=$service_detail['location_name'];?></h6>
-					</header>
-					<?=$this->element('activity/slider');?>
-					 
-				</article>
-				<?=$this->element('activity/serviceDescriptiontabs');?>
-			</section>
+		<div id="videoOverlayWrapper">
+		</div>
+		</div>
 
-			<section class="activity-right">
-			<aside class="cart-box">
-				<header class="title-header">
-					<div class="activity-price-info">Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span></div>
-					<!--
-					<div class="per-slot-price">Per Slot Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span></div>
-                                        <div class="per-day-price">Per Day Price<br /><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['full_day_amount'],2);?></span></div>
-					<div class="activity-price-note">The above prices are per person</div>
-                                        -->
-				</header>
-				<div class="slot-booking-form">
-					<?php echo $this->element('message');?>
-					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
-					<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
-					<div class="start-date">Start Date<br /><?=$this->Form->text('start_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
-					<div class="end-date">End Date<br /><?=$this->Form->text('end_date',array('class'=>'date-icon','autocomplete'=>'off'));?></div>
-					<div class="clear"></div>
-					<div class="select-participant">
-						<span class="select-participant-txt">Select No. of Participant(s)</span>
-						<?
+	</section>
+
+
+<div class="wrapper">
+	<div class="whitebg"></div>
+	<div class="container">
+		<section class="left-section col-sm-8">
+			<h2 class="activity-title"><?=ucfirst($service_detail['Service']['service_title']);?></h2>
+			<div class="slider-holder">
+				<?=$this->element('activity/slider');?>
+			</div>
+			<?=$this->element('activity/serviceDescriptiontabs');?>
+			<div id="map-canvas" style="height:400px; width:100%;"></div>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+		    <script>
+		      function initialize() {
+		        geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(-34.397, 150.644);
+			    var mapOptions = {
+			      zoom: 15,
+			      center: latlng,
+                              scrollwheel: false
+			    }
+			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			        map.setCenter(results[0].geometry.location);
+			        var marker = new google.maps.Marker({
+			            map: map,
+			            position: results[0].geometry.location
+			        });
+			      } else {
+			        alert("Geocode was not successful for the following reason: " + status);
+			      }
+			    });
+		      }
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		    </script>
+
+		</section>
+		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
+				<aside class="cart-box">
+						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
+						<div id="rating" class="blocks">
+							<h4>RATING:</h4>
+							<div class="rating" style="background:none;">
+								<button class="rate" id="rate-1" data-rate="1" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-2" data-rate="2" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-3" data-rate="3" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-4" data-rate="4" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-5" data-rate="5" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+							</div>
+							<script type="text/javascript">
+							$(document).ready(function(){
+								var rate = <?php echo (isset($service_detail['Rating'])?$service_detail['Rating']:0); ?>;
+								var crate = rate+1;
+								while(crate <= 5) {
+									$('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
+									crate++;
+								}
+							});
+							</script>
+							<div class="clearfix"></div>
+						<?php 
+							if($service_detail['Service']['min_participants'] > 0) { 
+								$percent = round($booking_count * 100 / $service_detail['Service']['min_participants']) ;
+						?>
+							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
+							<div class="completion">
+								<div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
+							</div>
+							<div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
+							<div class="clearfix"></div>
+						<?php } ?>
+						</div>
+					<div class="blocks">
+					<div class="slot-booking-form">
+					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'name'=>'add_services','class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+						<div class="select-participant">
+							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
+							<?
 							$no_participants = array();
 							foreach (range(1,$service_detail['Service']['no_person']) as $r){
 								$no_participants[$r] = $r;
 							}
-						?>
-						<?=$this->Form->input('no_participants',array('type' =>'select', 'options' => $no_participants,'empty' => 'Select','div'=>false,'label'=>false)); ?>
-					</div>
-					<div class="clear"></div> 
-					<div id='loader_slots' class="ajax-loder" style="display:none">
-						<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
-					</div>
-					<div id='slots_form' style="display:none"></div>
-					<div class="cart-btn">
-						<input type="submit" value="Add To Cart" class="addtocart-button" id="loginButton" />
-					</div>
-					<?=$this->Form->end(); ?>
-				</div>
-			</aside>
-			<aside class="vendor-quick-info">
-				<header class="title-header">
-					<?php 
-					/* Resize Image */
-						if(isset($vendor_details['Vendor']['image'])) {
-							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_details['Vendor']['image'],'width'=>325,'height'=>247,'noimg'=>$setting['site']['site_noimage']);
-							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>(!empty($vendor_details['Vendor']['bname'])?$vendor_details['Vendor']['bname']:$vendor_details['Vendor']['fname']." ".$vendor_details['Vendor']['lname'])));
-						}
-					?>
-				</header>
-				<div class="content">
-					<h3>
-						<?=ucfirst(!empty($vendor_details['Vendor']['bname'])?$vendor_details['Vendor']['bname']:$vendor_details['Vendor']['fname']." ".$vendor_details['Vendor']['lname']); ?>
-					</h3>
-					<div class="rating-info">
-						<span class="rating-txt">Ratings:</span>
-						<div class="rating-stars">
-						<? if(!empty($vendor_details['Vendor']['rating'])){ ?>
-							<?php $ratings = range(1,10); ?>
-								<?php $vratings = range(1,10); ?>
-								<?php foreach($vratings as $vrating){ ?>
-									<input type="radio" value="<?php //echo $vrating; ?>" name="test-vendor" class="star {split:2}" disabled="disabled" <?php echo ($vendor_details['Vendor']['rating']==$vrating)?'checked="checked"':'';?> />
-								<?php } ?>
-								<? }else{ ?>
-									<div class="no-rating">No feedback yet</div>
-								<? } ?>	
-						</div>	
-					</div>	
-		<!--
-					<div class="vendor-activity-tags">
-						<? if(!empty($vendor_details['Service'])){
-							foreach($vendor_details['Service'] as $key=>$service) {
 							?>
-								<span><?php echo $this->Html->link(ucfirst($service['Service']['service_title']),array('plugin'=>false,'controller'=>'activity','action'=>'index',$service['Service']['id']),array('escape'=>false));?></span>
-							<? } ?>
-						<? } ?>
-					</div>
-		-->
-				</div>
-			</aside>
-			<?=$this->element('activity/similar-listings');?>
-		</section>
+							<?=$this->Form->input('no_participants',array('type' =>'select', 'options' => $no_participants,'empty' => 'Select','div'=>false,'label'=>false)); ?>
+						</div>
+						<?php echo $this->element('message');?>
 
+						
+						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
+						<br>
+						<div class="startDate">
+						<div class="start-date">
+							<h4>2. Start Date</h4><br /><?=$this->Form->text('start_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="startdatepicker"></div>
+						<br>
+						</div>
+
+						<!--
+						<div class="endDate">
+						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
+						<div id="enddatepicker"></div>
+						</div>-->
+
+						<div class="clear"></div>
+						<div class="clear"></div>
+						<div id='loader_slots' class="ajax-loder" style="display:none">
+							<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
+						</div>
+						<div id='slots_form' style="display:none"></div>
+						<div class="cart-btn">
+							<input type="submit" value="Book Now" class="addtocart-button" id="loginButton" />
+						</div>
+						<?=$this->Form->end(); ?>
+					</div>
+					</div>
+					<div id="share" class="blocks"><br><br>
+						<h4>Share: </h4>
+						<div class="socialicons">
+							<a id="shareFB" href="https://www.facebook.com/sharer/sharer.php?app_id=381957422009700&sdk=joey&u=<?php echo  (isset($web_url) ? urlencode($web_url) : urlencode('http://128.199.214.85')); ?>&display=popup&ref=plugin&src=share_button" >facebook</a>
+						</div>
+
+					<div class="clearfix"></div>
+					</div>
+
+				</aside>
+
+			</section>
+
+		<div class="clear spacer"></div>
+
+	</div>
+	<div class="container-fluid suggestion" id="recommended_slots">
+
+	</div>
 </div>
-</div>
+
+
 <div class="clear"></div>
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
@@ -187,7 +223,6 @@ function get_service_availability()	{
  
 	var service_id=$( "#ActivityServiceId" ).val();
 	var startdate=$( "#ActivityStartDate" ).val();
-	var enddate=$( "#ActivityEndDate" ).val();
 	var no_participants=$( "#ActivityNoParticipants" ).val();
 				
 	if(startdate=='' || service_id=='' || no_participants<=0) {
@@ -201,7 +236,7 @@ function get_service_availability()	{
  $.ajax({
 		 url :'<?=$path?>activity/ajax_get_availbility_range',
 		 type:'POST',
-		 data:{'service_id':service_id,'start_date':startdate,'end_date':enddate,'no_participants':no_participants},
+		 data:{'service_id':service_id,'start_date':startdate,'no_participants':no_participants},
 		 success: function (result)
 		 {
 			 
@@ -214,8 +249,22 @@ function get_service_availability()	{
 		 }
 	}); 
 //alert(service_id+startdate+enddate)
-} 
+}
+
+function get_recommended_dates() {
+	var service_id = $("#ActivityServiceId").val();
+	var startdate  = $("#ActivityStartDate").val();
+	$.ajax({
+		 url :'<?=$path?>activity/ajax_get_recommended_dates',
+		 type:'POST',
+		 data:{'service_id':service_id,'start_date':startdate},
+		 success: function (result) {
+			$("#recommended_slots").html(result);
+		}
+	});
+}
 </script>
+
 <script>
 <?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){
@@ -325,14 +374,24 @@ function get_service_availability()	{
 		   
            return (status===1)?true:false; 
             
-        }); 
-   
+        });
+
+		if($(window).width()>768) {
+			$('.container, #sidebar').theiaStickySidebar({
+				// Settings
+				 additionalMarginTop: -60,
+				// additionalMarginBottom: 50,
+				scrollThrough: ['container']
+			});
+		}
+
+
       
     });
  
  </script>
  
- <script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function(){
 	    $('#tab-scrollable').slimScroll({
 		position: 'right',
@@ -351,10 +410,9 @@ function get_service_availability()	{
 		railVisible: true
 	    });
 	});
-</script>
+</script>-->
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(function()
 	{
 		$('.scroll-pane').jScrollPane({
@@ -363,3 +421,21 @@ function get_service_availability()	{
 		});
 	});
 </script>
+	<script language="javascript" type="text/javascript">
+
+		function openInPopUp(url) {
+			newwindow=window.open(url,'name','height=500,width=550');
+			if (window.focus) {newwindow.focus()}
+			return false;
+		}
+
+		$('#shareFB').click(function(e){
+			e.preventDefault();
+			openInPopUp($(this).attr("href"));
+
+		});
+
+	</script>
+	<script type="text/javascript">
+		$('#ActivityNoParticipants').selectpicker().hide();
+	</script>

@@ -1,43 +1,47 @@
+<div class="container-fluid member-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
-<h2 class="page-title">Change <span style="color: #000;">Password</span></h2>
+<div class="clear" style="margin-top:80px;"></div>
+
+<h2 class="page-title">Change Password</h2>
 
 <?=$this->element('MemberManager.left-member-panel');?>
 
-<div class="right-area">
-   <h3 class="dashboard-heading">Change Password</h3>
+<div class="right-area col-sm-9 col-xs-12">
+   <h3 class="dashboard-heading">Change Your Password</h3>
    <?=$this->element('message');?>
    <?php echo $this->Form->create('Member', array('id'=>'ChangePassword','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'changepassword'),'class'=>'dashboard-edit-form','novalidate'=>true));?>
       <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'Change-Password')); ?>
-      <div class="dashboard-form-row">
+      <div class="frame">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>Current Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('current_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('current_password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>New Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('password',array('required'=>false)); ?>
+	    <?=$this->Form->password('password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
+      <div class="dashboard-form-row editpass">
 	 <div class="labelbox">
 	    <label>Confirm Password: <span style="color:#ff0000;">*</span></label>
 	 </div>
 	 <div class="fieldbox">
-	    <?=$this->Form->password('confirm_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('confirm_password',array('required'=>false, 'class'=>'editpassinput')); ?>
 	 </div>
       </div>
-      <div class="dashboard-form-row">
-	 <input class="dashboard-buttons" value="Update" type="submit">
+      <div class="dashboard-form-row editpass">
+	 <input class="dashboard-buttons" value="Update Password" type="submit">
       </div>
    <?php echo $this->Form->end();?>     
+</div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -86,3 +90,8 @@
         
    });
  </script>
+<script type='text/javascript'>
+ $(document).ready(function () {
+ sameHeight('left-area','right-area');
+ });
+</script>

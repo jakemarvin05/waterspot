@@ -1,0 +1,46 @@
+.button.gray a {
+	text-decoration:none;
+	color: #727373;
+}
+.paging2{
+	
+	background: -moz-linear-gradient(center top , #F2F2F2, #CCCCCC 5%, #ABACAC 100%) repeat scroll 0 0 transparent;
+    border-color: #B1B3B3 #A4A6A6 #929494;
+    color: #727373;
+    text-shadow: 0 1px 2px #999999;
+	 font-weight: normal;
+    height: 18px;
+	 margin-bottom: 2px;
+    padding: 4px 15px;
+	  -moz-transition: all 400ms ease 0s;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    display: inline-block;
+    overflow: visible;
+    text-decoration: none;
+  
+    vertical-align: baseline;
+    white-space: nowrap;
+    width: auto;
+	
+}
+
+span.current{
+	  background: -moz-linear-gradient(center top , #FAA796, #D06C57 5%, #AE432E 100%) repeat scroll 0 0 transparent;
+    color: #FCE8E3;
+    text-shadow: 0 1px 2px #999999;
+	 font-weight: normal;
+    height: 18px;
+	 margin-bottom: 2px;
+    padding: 4px 15px;
+	  -moz-transition: all 400ms ease 0s;
+    border-radius: 3px 3px 3px 3px;
+    cursor: pointer;
+    display: inline-block;
+    overflow: visible;
+    text-decoration: none;
+  
+    vertical-align: baseline;
+    white-space: nowrap;
+    width: auto;
+}

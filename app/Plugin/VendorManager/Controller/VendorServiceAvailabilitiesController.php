@@ -12,6 +12,7 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 	
 	function index($service_id=null,$availability_id=null) {
 		// load model
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.ServiceSlot');
 		
@@ -32,19 +33,27 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 			}
 			// slot change in json encode
 			$filter_slots=array();
+			$cc = '1';
 			foreach($this->request->data['VendorServiceAvailability']['slots'] as $slot_time){
 				if(empty($slot_time)){
 					continue;
 				}
-			$filter_slots[]=$slot_time;
-				//$filter_slots=
+				$times = explode('_', $slot_time);
+				$new_slot = new stdClass();
+				$new_slot->start_time = $times[0];
+				$new_slot->end_time = $times[1];
+				$new_slot->price = (int) $times[2];
+				$filter_slots[$cc]=$new_slot;
+				$cc = $cc + 1;
+				$cc = (string) $cc;
 			}
+			
 			if(!empty($this->request->data['VendorServiceAvailability']['start_date'])){
 				$this->request->data['VendorServiceAvailability']['start_date']=date('Y-m-d',strtotime($this->request->data['VendorServiceAvailability']['start_date']));
 				$this->request->data['VendorServiceAvailability']['end_date']=date('Y-m-d',strtotime($this->request->data['VendorServiceAvailability']['end_date']));
 			}
 			$this->request->data['VendorServiceAvailability']['vendor_id']=$vendor_id;
-			$this->request->data['VendorServiceAvailability']['slots']=json_encode($filter_slots);
+			$this->request->data['VendorServiceAvailability']['slots']='['.substr(json_encode($filter_slots), 1, -1).']';
 			// data clear of on date range to particular field 
 			if(!empty($this->request->data['VendorServiceAvailability']['p_date'])) {
 				$this->request->data['VendorServiceAvailability']['start_date']=NULL;

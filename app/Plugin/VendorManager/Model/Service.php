@@ -84,6 +84,14 @@ Class Service extends VendorManagerAppModel{
 						'message' => 'Please select Location.'
 					 ),
 				 ),
+
+				'min_participants' =>
+				array(
+					 array(
+						'rule' => 'notEmpty',
+						'message' => 'Please set Minimum Participants.'
+					 ),
+				 ),
 		);
 	
 	function service_type_list_admin($vendor_id=null) {		

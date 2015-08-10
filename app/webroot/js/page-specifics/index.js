@@ -27,7 +27,7 @@ var activitiesBlockMaker = {
         html += '    <div class="activitiesFiller">' + this.makeBlankDivs(eachContent.blockSize) + '</div>';
         
         html += '    <div class="activitiesOverlayOuter">';
-        html += '        <div class="activitiesOverlayInner">';
+        html += '        <div class="activitiesOverlayInner"><a href="'+eachContent.urlPath+'">';
         html += '            <img class="activitiesFeaturedImg" src="' + eachContent.imagePath + '">';
         html += '            <div class="activitiesTable">';
         
@@ -35,7 +35,7 @@ var activitiesBlockMaker = {
         html += '                    <h3 class="activitiesHeader headerAlt">' + eachContent.title + '</h3>';
         html += '                </div>';
         html += '            </div>';
-        html += '          </div>'
+        html += '          </a></div>'
         html += '    </div>';
         html += '</div>';
 

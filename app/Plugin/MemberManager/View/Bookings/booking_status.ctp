@@ -3,14 +3,15 @@
 $search_type=array('ref_no'=>'Order id','transaction_id'=>'Transaction Id','phone'=>'Phone No.','email'=>'Email','fname'=>'First Name','lname'=>'Last Name');
 $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked Date');
 ?>
-<div class="wrapper">
-	<div class="hr-line"></div>
-	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
-	<h2 class="page-title">Booking <span style="color: #000;">List</span></h2>
+
+        <div class="container-fluid member-panel">
+        <div class="hr-line"></div>
+        <div class="clear" style="margin-top:80px;"></div>
+
+	<h2 class="page-title">Booking List</h2>
 	<?=$this->element('MemberManager.left-member-panel');?>
 
-	<div class="right-area">
+	<div class="right-area  col-sm-9 col-xs-12">
 		<h3 class="dashboard-heading">My Bookings Request</h3>
 		<div class="service booking">
 
@@ -84,9 +85,10 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		   
 			<div class="clear"></div>
 		</div>
-	</div>
-</div>
-<div class="clear"></div>
+                	</div>
+
+
+<div class="clearfix"></div>
 
 <script type='text/javascript'>
     $(function(){
@@ -145,4 +147,9 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		var selected = $("#"+id+" :selected").text();
 		$("#BookingSearchbydate").attr("placeholder", "Please select "+selected);
 	}
+</script>
+<script type='text/javascript'>
+ $(document).ready(function () {
+ sameHeight('left-area','right-area');
+ });
 </script>

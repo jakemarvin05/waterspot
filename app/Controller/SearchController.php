@@ -4,7 +4,7 @@ Class SearchController extends AppController{
 	public $components = array('VendorManager.ServiceFilter');
 	public $paginate = array();
     
-	function index($service_id=null,$start_date=null,$end_date=null,$no_of_participants=null,$sort_by_price=null,$sort_by_review=null){
+	function index($service_id=null,$start_date=null,$end_date=null,$no_of_participants=null,$sort_by_price=null,$location_id=null,$sort_by_review=null){
 		// load model 
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('VendorManager.Service');
@@ -12,6 +12,7 @@ Class SearchController extends AppController{
 		// add javascript
 		array_push(self::$script_for_layout,array('jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
+		array_push(self::$css_for_layout,'pages.css');
 		if (!empty($this->request->data)) {
 			//session write 
 			if(!empty($this->request->data['Search']['start_date'])) {
@@ -70,11 +71,24 @@ Class SearchController extends AppController{
 		}
 		$searchData=array($service_id,$start_date,$end_date,$no_of_participants);
 		$booked_services=$this->ServiceFilter->get_search_filter($searchData);
-		 
+
+
+
+		if ($location_id != null && $location_id != 'sortbylocation') {
+			$conditions[] = array('AND'=>array('Service.location_id'=>$location_id));
+		}
+		$this->loadModel('LocationManager.City');
+		$location_list = $this->City->find('list',array('fields'=>array('City.id','City.name'),'order'=>array('City.name ASC')));
+		Cache::write('cake_location_list',$location_list);
+
+		//print_r($location_list);die();
+		$location = "(SELECT name FROM cities as `City` WHERE `City`.`id` = `Service`.`location_id`) as city";
+		$this->set('location_list',$location_list);
+
 		$subQuery = "(SELECT AVG(ifnull((`ServiceReview`.`rating`), 0)) FROM service_reviews AS `ServiceReview` WHERE `ServiceReview`.`service_id` = `Service`.`id` and `ServiceReview`.`status` = 1 GROUP BY `ServiceReview`.`service_id`) AS rating ";
 		$this->paginate = array();
 		//$this->paginate['fields'] = array('Service.id');
-		$this->paginate['fields'] = array('Service.id','Service.service_title','Service.service_price','Service.description',$subQuery	);
+		$this->paginate['fields'] = array('Service.id','Service.service_title','Service.service_price','Service.description',$subQuery,$location);
 		$this->paginate['joins'] = array(
 						array(
 							'table' => 'vendors',
@@ -119,6 +133,7 @@ Class SearchController extends AppController{
 			$service_type_list = $this->ServiceType->find('list',array('fields'=>array('ServiceType.id','ServiceType.name'),'conditions'=>array('ServiceType.status'=>1),'order'=>array('ServiceType.reorder ASC')));
 			Cache::write('cake_service_list',$service_type_list);
 		}
+
 		$this->set('service_type_list',$service_type_list);
 		// set css and script
 		$this->breadcrumbs[] = array(

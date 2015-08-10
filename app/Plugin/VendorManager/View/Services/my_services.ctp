@@ -1,4 +1,5 @@
-
+<div class="container-fluid vendor-panel">
+	<br><br><br>
 <script type="text/javascript">
 	function formsubmit(action) {
 		var flag = true;
@@ -54,22 +55,24 @@
 
 <div class="hr-line"></div>
 <div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
+
 <h2 class="page-title">My Services</h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
    
    <?=$this->element('message');?>
     <div class="service">
-		<div class="dashboard-form-row">
+		<div class="dashboard-form-row" id="service_container">
 			<h3 class="dashboard-heading" style="float: left;">Services</h3> 
-			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons','style'=>'margin-bottom:20px;'));?>
+			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons btn orange'));?>
 		</div>
-		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 5px;">
-			<a href="javascript:" onClick="return formsubmit('Activate');" class="dashboard-quick-buttons">Activate</a>
-			<a href="javascript:" onClick="return formsubmit('Deactivate');" class="dashboard-quick-buttons">Deactivate</a>
-			<a href="javascript:" onClick="return formsubmit('Delete');" class="dashboard-quick-buttons">Delete</a>
+		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 0; padding-bottom: 0;" id="servicebutton_container">
+                        <div id="servicebuttons">
+			<a href="javascript:" onClick="return formsubmit('Activate');" class="dashboard-quick-buttons btn orange" id="servicebuttons1">Activate</a>
+			<a href="javascript:" onClick="return formsubmit('Deactivate');" class="dashboard-quick-buttons btn orange" id="servicebuttons2">Deactivate</a>
+			<a href="javascript:" onClick="return formsubmit('Delete');" class="dashboard-quick-buttons btn orange" id="servicebuttons3">Delete</a>
+                        </div>
 		</div>
 		<div class="clear"></div>
 		<?=$this->Form->create('Service', array('name' => 'service', 'action' => 'delete/' , 'id' => 'ServiceDeleteForm', 'onSubmit' => 'return validate(this)', 'class' => 'table-form')); ?>
@@ -78,11 +81,11 @@
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
 				<th width="5%"><?= $this->Form->checkbox('check', array('value' => 1, 'onchange' => "CheckAll(this.value)", 'class' => 'check-all')); ?></th>
-				<th width="3%">S.No.</th>
+				<th width="3%"><a href="/services/my-services">S.No.</a></th>
 				<th width="20%">Name</th>
 				<th width="15%">Image</th>
 				<th width="12%">Location</th>
-				<th width="10%">Price ($)</th>
+				<th width="10%"><a href="/services/my-services?sort_by=service_price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price ($)</a></th>
 				<th width="25%">Actions</th>
 				<th width="5%">Status</th>
 			</tr>
@@ -102,20 +105,20 @@
 						<td valign="middle"><?=ucfirst($service['location_details']); ?></td>
 						<td style="text-align: right;" valign="middle"><?= number_format($service['service_price'],2) ?></td>
 						<td class="action" style="text-align: center;" valign="middle">
-							<?=$this->Html->link($this->Html->image('add.png',array('alt'=>'edit')),array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Edit Service'));?>
-							<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'View Service'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Service'));?>
 							
-							<?=$this->Html->link($this->Html->image('slots.gif',array('alt'=>'Add/Update Slot')),array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Add/Update Slots'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-calendar\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Add/Update Slots'));?>
 							
-							<?=$this->Html->link($this->Html->image('add-avail.png',array('alt'=>'Add/Update Availablity')),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'Manage Slot Availability'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-sitemap\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Manage Slot Availability'));?>
 							
-							<?=$this->Html->link($this->Html->image('service_review-icon.png',array('alt'=>'View Review')),array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'tooltip','title'=>'View Review'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-comments\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Review'));?>
 						</td>
 						<td style="text-align: center;">
 							<?php if($service['status']=='1'){ 
-								echo $this->Html->image('admin/icons/icon_success.png', array());
+								echo "<i class=\"success fa fa-check\"></i>"; //$this->Html->image('admin/icons/icon_success.png', array());
                                 }else{
-									echo $this->Html->image('admin/icons/icon_error.png', array());
+									"<i class=\"error fa fa-times\"></i>"; //echo $this->Html->image('admin/icons/icon_error.png', array());
 								}
 							?>
 						</td>
@@ -155,7 +158,7 @@
 	</div>
 </div>
 	
-
+</div>
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll
@@ -203,4 +206,10 @@
       });
       
     });
+
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
 </script>

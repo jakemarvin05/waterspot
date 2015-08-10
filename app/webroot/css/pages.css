@@ -1,0 +1,613 @@
+.tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
+    float: right;
+    width: 43%;
+}
+.tile-info .activity-rating-wrapper .rating-label{
+    margin-top: 8px;
+    display: block;
+    float: right;
+    font-size: 16px;
+    color: #969696;
+}
+.tile-info h4 {
+    color: #696B6E;
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Arca Majora' !important;
+    max-width: 53%;
+    font-style: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.activity-rating-wrapper{
+    font-family: 'Crete Round',serif;
+    font-style: italic;
+    font-weight: 400;
+    color: #999
+}
+
+
+.tile img {
+    width: 100%;
+    height: auto;
+}
+
+h4{
+    font-family: 'Crete Round', sans-serif;
+    font-style: italic;
+    color: #ff9700;
+    font-size: 19px;
+}
+
+.vendor-area.row {
+    background-color: #FFFFFF;
+    max-width: 1190px;
+    margin: AUTO;
+}
+.img-holder img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h5.vendor-name {
+    margin-top: 0;
+    font-size: 26px;
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #606060;
+}
+.vendorlisting-vendordesc p span {
+    font-family: "Lato" !important;
+    font-size: 16px !important;
+    font-weight: 300!important;
+    line-height: 30px;
+}
+
+.ch_element.ch_wrapper {
+    border: 1px solid #ddd;
+}
+
+h2.page-title.edit {
+    color: #606060 !important;
+    font-family: 'Arca Majora';    letter-spacing: 1px;    text-align: center;
+    padding-bottom: 15px;
+}
+.middle-area.edit {
+    background-color: #F9F9F9;
+    border-top: 1px solid #ccc;
+}
+
+.cont {
+    padding: 15px;
+}
+
+p {
+    font-family: 'Lato' !important;
+    font-size: 14px;
+    padding: 8px;
+}
+.cont strong {
+    font-family: 'Crete Round', sans-serif;    font-style: italic;    color: #ff9700;    font-size: 19px; font-style: normal;
+}
+
+div.cont u {
+    display: block;
+    height: auto;
+    padding-bottom: 8px;
+    text-decoration: none;
+}
+div#slots_form h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.check {
+    font-family: 'Lato';
+    font-size: 12px;
+}
+
+div#slots_form {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+.theiaStickySidebar .bootstrap-select {
+    width: 100% !important;
+}
+
+.search-page .row{
+    margin:0;
+
+}
+.activities {
+    background-color: rgb(249, 249, 249);
+    padding-top: 15px;
+}
+h2.activity-title {
+    font-family: "Lato";
+}
+
+article.activity-description {
+    padding-top: 5px;
+    line-height: 22px;
+}
+
+div#slots_form .check {
+    background-color: rgb(255, 255, 255);
+    margin: 5px 0px;
+    padding: 3px 7px;
+    border-radius: 4px;
+}
+
+div#slots_form .check input[type=checkbox] {
+    margin-right: 8px;
+}
+
+div#slots_form .dates {
+    margin: 12px 0px;
+}
+
+.vendor-listing .tile-info h4 {
+    font-family: "Arca Majora";
+}
+
+
+.contenthover {
+    position: absolute; left: 0px; top: 0px; /* anchor to top left */ height: 100%; width: 100%;
+    background-color: rgba(0, 0, 0, 0.56);
+    opacity: 0;
+    text-align: center;
+    display: inline-flex;
+    -webkit-transition: opacity 1s; /* Safari */
+    transition: opacity 1s;
+}
+.contenthover:hover{
+    opacity:1;
+}
+.box-center {
+    margin: auto;
+    text-align: center;
+}
+
+
+.tile {
+    position: relative;
+    overflow: hidden;     background-color: #FFF;     border: solid 1px #EEE;     position: relative;
+}
+
+.activities-page .tile-info .activity-rating-wrapper .rating-label {
+    margin-top: 12px;
+}
+
+label.filter-label {
+    text-transform: uppercase;
+}
+
+.vendors-page .search-listing {
+    background-color: #f9f9f9;
+}
+.services-page .search-listing {
+    background-color: #f9f9f9;
+    padding-top: 15px;
+}
+
+.img-holder {
+    padding: 0;
+}
+
+.img-holder {
+    padding: 0;
+}
+
+.vendorlisting-vendordesc {
+    font-family: "Lato";
+    font-size: 16px;
+    line-height: 28px;
+}
+
+span.rating-label {
+    float: right !important;
+}
+.activity-rating-wrapper {
+    float: right;
+
+}
+
+.vendors-page .tile-info .rating.top {
+    position: relative;
+
+    top: -10px;
+}
+
+.search-page .tile-info .rating {
+    top: -10px;
+}
+
+.middle-area.cont {
+    border-top: 1px solid #eeeeee;
+}
+p.thnx-msg {
+    font-size: 16px !important;
+}
+p.thnx-msg {
+    font-size: 16px !important;
+}
+
+.vender {
+    text-align: center;
+}
+
+section.right-section .startDate {
+    font-family: arial, helvetica, sans-serif !important;
+}
+
+.tile-info h4 a {
+    color: #606060;
+}
+div#invite_participant {
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.book-my-cart-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.49);
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+}
+
+div#invite_participant h3 {
+    font-family: "Arca Majora";
+    margin-top: 0;
+    text-align: center;
+}
+
+.book-my-cart-wrapper .cart-activity img {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.book-my-cart-wrapper .cart-activity h6 {
+    font-size: 16px;
+    font-family: "Lato";
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.rightContentBox.centeredContentBox h4 {
+    clear: both;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.book-my-cart-wrapper table {
+    border: 1px solid #ddd;
+}
+.book-my-cart-wrapper table th {
+    padding: 5px;
+    font-size: 12px;
+}
+
+.book-my-cart-wrapper table td {
+    padding: 5px;
+    font-size: 12px;
+}
+.btnFillGrey {
+    background-color: #CAC9C9;
+}
+
+.book-my-cart .cart-button-box .btn {
+    width: 46%;
+    margin-top: 13px;
+}
+
+.cart-payment-method {
+    clear: both;
+}
+
+.cart-payment-method label {
+    margin-right: 20px;
+}
+
+.cart-payment-method input[type=radio] {
+    margin-right: 8px;
+}
+
+.container-fluid.wrapper.carts-page {
+    padding-top: 100px;
+    background-color: #fff;
+}
+.mark {
+    font-family: "Lato";
+    font-size: 11px;
+    line-height: 22px;
+    text-align: center;
+    padding: 8px;
+    margin-top: 17px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.service-hd {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Crete Round', sans-serif !important;
+}
+
+.carts-page .middle-area {
+    padding-top: 20px;
+    text-align: center;
+    line-height: 28px;
+    font-size: 16px;
+}
+
+.carts-page .middle-area p {
+    font-size: 16px;
+    color: #606060;
+}
+
+.registration-form-row .btn {
+    margin: 11px auto;
+    clear: both;
+    display: block;
+}
+
+.registration-form-row label {
+    margin: 15px 0px 5px;
+}
+.registration-form-row img {
+    max-width: 170px;
+    height: auto;
+    float: right;
+    display: none;
+}
+h3.booking-section-title {
+    font-family:  'Crete Round', sans-serif!important;
+    border-top: dashed 1px #ddd;
+    padding-top: 30px;
+    background-color: #F9F9F9;
+    margin-bottom: 0;
+}
+.checkout-activity-header img {
+    width: 100%;
+    height: auto;
+}
+
+.checkout-activity-header-content h6 {
+    font-size: 16px;
+    font-family: "Arca Majora";
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 6px;
+}
+
+.checkout-activity-date {
+    font-family: "Lato";
+    font-weight: normal;
+}
+
+.checkout-activity-left {
+    float: left;
+    clear: left;
+    width: 70%;
+
+    padding: 8px;
+
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+.checkout-activity-right {
+    float: left;
+    width: 30%;
+    padding: 9px;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    border-right: 1px solid #ddd;
+}
+
+.checkout-activity-row:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.checkout-activity-slot {
+    padding: 10px;
+    background-color: #EAEAEA;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+.checkout-activity-totals.checkout-activity-row-total {
+    width: 100%;
+    clear: both;
+    display: inline-flex;
+    margin: 20px auto;
+    float: none;
+    border-top: 1px solid #ddd;
+    font-weight: bold;
+    padding: 13px;
+    background-color: #606060;
+    border-radius: 3px;
+}
+
+.guest-user-login-wrapper {
+    clear: both;
+    text-align: center;
+    padding-top: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: inline-flex;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+.checkout-activity {
+    margin-top: 20px;
+}
+
+.your-booking {
+    padding: 20px 20px 20px;
+    background-color: #f9f9f9;
+    margin-bottom: 30px;
+}
+.checkout-activity-totals.checkout-activity-row-total .box-center{
+    min-width: 190px;
+}
+.checkout-activity-totals.checkout-activity-row-total .checkout-activity-left {
+    width: 50%;
+    border-top: 1px solid #ddd;
+    padding: 8px;
+    color: #FFFFFF;
+    border-color: #2F2E2E;
+    background-color: #4A4949;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.checkout-activity-totals.checkout-activity-row-total .checkout-activity-right {
+    width: 50%;
+    border-top: 1px solid #E2E2E2;
+    padding: 7px;
+    color: #fff;
+    border-color: #404040;
+    background-color: #717171;
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.62);
+}
+.notification.success-psw {
+    padding: 13px;
+    background-color: #ACEAA7;
+    border-radius: 6px;
+    margin: 10px 0px;
+    border: 1px solid #89BB85;
+}
+.notification.error {
+    padding: 13px;
+    background-color: #FBD8D8;
+    border-radius: 6px;
+    margin: 10px 0px;
+    border: 1px solid #E0948B;
+    color: #D8442F;
+}
+
+.notification.success-psw .close, .notification.error .close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+}
+
+.guest-user-login-wrapper .guest-user-login {
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 350px;
+}
+.guest-user-login-wrapper .guest-user-login h3 {
+    margin-top: 0;
+}
+
+.guest-login-option-box input[type=radio] {
+    clear: left;
+    margin-left: 10px;
+    margin-right: 6px;
+}
+
+.guest-login-option-box label {
+    color: #606060;
+}
+
+input#GuestLoginEmailId {
+    margin: 0px auto 11px;
+    width: 100%;
+}
+
+label.email-label {
+    margin: 15px 0px 7px;
+}
+
+.guest-user-login-content {
+    text-align: center;
+}
+
+.guest-login-button-box {
+    margin-top: 0px;
+}
+.guest-login-option-box {
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.guest-login-option-box input[type=radio] {
+    display: none;
+}
+
+input#GuestLoginGuestLogin0 {
+    background-color: #000;
+}
+
+.guest-login-option-box label {
+    background-color: #337AB7;
+    display: inline-block;
+    width: 50%;
+    float: left;
+    padding: 13px 7px;
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    color: #fff;
+    border: 1px solid #2E6DA4;
+}
+.guest-user-login-wrapper .guest-user-login h3 {
+    font-size: 16px;
+    margin: 0px 0px 15px;
+}
+
+.forgot-password {
+    margin: 10px;
+}
+
+.forgot-password a {
+    color: #CCCCCC;
+}
+
+.forgot-password a:hover {
+    color: #FF9700;
+}
+
+.guest-login-button-box #loginButton {
+    padding: 13px;
+    border-radius: 4px;
+}
+.guest-login-option-box label.current {
+    background-color: #286090;
+    border: 1px solid #204D74;
+    box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.23);
+}
+button.book-now.btn.btnDefaults.btnFillOrange {
+    width: 80%;
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+}
+

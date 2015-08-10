@@ -4,6 +4,7 @@ Class AccountsController extends VendorManagerAppController{
 	public $components=array('Email','VendorManager.VendorAuth','Session');
 	
 	function editProfile(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$id=$this->VendorAuth->id;
 		// email unset when edit.
 		unset($this->request->data['Vendor']['email']);
@@ -44,6 +45,7 @@ Class AccountsController extends VendorManagerAppController{
 	
 	function change_email(){
 		// get vendor id whose is login
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$id = $this->VendorAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->Vendor->id = $id;
@@ -66,6 +68,7 @@ Class AccountsController extends VendorManagerAppController{
 	}
 	
 	function changepassword(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$id=$this->VendorAuth->id;
 		if (!empty($this->request->data)){
 			$data = $this->Vendor->read(null,$id);
@@ -104,6 +107,7 @@ Class AccountsController extends VendorManagerAppController{
 		$body=str_replace('{url}',$linkmerge,$body);
 		$body=str_replace('{EMAIL}',$vendor['Vendor']['email'],$body);    
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($vendor['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email']);

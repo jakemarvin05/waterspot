@@ -1,37 +1,63 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
-			data_selector: '.contenthover',
-			effect:'slide',
-			slide_direction: 'left',
-			slide_speed:300,
-			overlay_opacity: 1
-		});
+	/*	$('.tile').contenthover({
+			//data_selector: '.contenthover',
+			//effect:'slide',
+			//slide_direction: 'left',
+			//slide_speed:300,
+			overlay_background:'#000',
+			overlay_opacity:1
+		});*/
 	});
 </script>
+
+<div class="container-fluid wrapper vendors-page">
+
+	<section class="row">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>	
-<h2 class="page-title">Vendors</h2>
+<div class="clear"></div><header class="page-header">
+			<p class="beforeHeader">See what we have for you?</p>
+			<h1 class=" headerAlt">Select Vendors</h1>
+		</header>
+		<div class="clearfix"></div>
 <div class="middle-area">
 	<?php $i = $this->paginator->counter('{:start}'); ?>
 	<? foreach($vendor_services as $key=>$vendor_service) { ?>
-		<div class="vendor-listing">
+		<div class="vendor-listing col-sm-4 col-xs-6">
 			<div class="contentvisible contentselector">
 				<div class="tile">
 					<?php 
 					/* Resize Image */
+					
 						if(isset($vendor_service['Vendor']['image'])) {
 							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_service['Vendor']['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
 							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-							echo $this->Html->image($resizedImg,array('border'=>'0'));
+							echo urldecode($this->Html->image($resizedImg,array('border'=>'0')));
 						}
+						
 					?>
+					<div class="contenthover">
+						<div class="box-center">
+							<div class="activity-tags">
+								<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
+									<span>
+							<?php echo $this->Html->link($service_type['ServiceType']['name'],array('plugin'=>false,'controller'=>'activity','action'=>'activities',$vendor_service['Vendor']['id'],$service_type['ServiceType']['id']));?>
+						</span>
+								<? } ?>
+							</div>
+							<div class="clearfix"></div><br>
+							<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'btn btnDefaults btnFillOrange'));?>
+						</div>
+					</div>
 				</div>
+
 				<div class="tile-info">
-					<h4>
-						<?=$this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27);?>
+                                    
+					<h4 class="h4 fix">
+
+						<?php echo $this->Html->link($this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27),array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>''));?>
 					</h4>
+                                    
 					<div class="vendor-rating-wrapper">
 					<? if(!empty($vendor_service['Vendor']['rating'])){ ?>
 						
@@ -39,23 +65,39 @@
 						<?php foreach($ratings as $rating){ ?>
 							<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo (round($vendor_service['Vendor']['rating'])==$rating)?'checked="checked"':'';?> />
 						<?php } ?>
-					<? }else{ ?>
-						<div class="no-rating">No feedback yet</div>
-					<? } ?>
-						
-					</div>	
+					<? } else {
+						echo '<em style="display:block;color: #A1A1A1;">Unrated</em>';
+						} ?>
+
+						<span class="rating-label">Rating:</span>
+<br><br>
+						<?php
+						//@todo convert Rating into float
+
+
+						$rating = 0.0; // value is 0.0 to 1.0
+
+						$ratingPerCent = $rating*5;
+						$ratingMark = 0;
+
+						if($ratingPerCent>1) {
+							$ratingMark = round($ratingPerCent);
+							$ratingMark = $ratingMark/5;
+						}
+						else{
+							$ratingMark = 0;
+						}
+
+						?>
+
+						<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="clearfix"></div>
 				</div>
 			</div>
-			<div class="contenthover">
-				<div class="activity-tags">
-					<? foreach($vendor_service['ServicesType'] as $key=>$service_type) {?>
-						<span>
-							<?php echo $this->Html->link($service_type['ServiceType']['name'],array('plugin'=>false,'controller'=>'activity','action'=>'activities',$vendor_service['Vendor']['id'],$service_type['ServiceType']['id']));?>
-						</span>
-					<? } ?>
-				</div>
-				<?php echo $this->Html->link('View all activities',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'activities',$vendor_service['Vendor']['id']),array('class'=>'view-all-tags'));?> 
-			</div>
+
 		</div>
 	<? $i++; 
 	}?> 
@@ -91,7 +133,7 @@
 	</noscript>	
 	<div class="clear"></div>
 </div>
-  
+  </section></div>
 <script type='text/javascript'>
 	var loading_start = 0;
 	$(document).ready(function(){
@@ -124,13 +166,14 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.vendor-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
-								overlay_opacity: 1
-							});
+							/*$('.tile').contenthover({
+								//data_selector: '.contenthover',
+								//effect:'slide',
+								//slide_direction: 'left',
+								//slide_speed:300,
+								overlay_background:'#000',
+								overlay_opacity:1
+							});*/
 							
                             if(page >= pages){
 								$("#loader_pagination").attr("disabled", true);
@@ -144,7 +187,7 @@
 								 alert('Failed from timeout');         
 								//do something. Try again perhaps?
 							}
-						},
+						}
                     });
                 }
             }

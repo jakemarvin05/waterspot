@@ -7,7 +7,16 @@ class MembersController extends MemberManagerAppController{
 	public $paginate = array();
 	
 	function registration($email=null) {
+        array_push(self::$css_for_layout,'vendor/registration.css');
 		$member_id = $this->MemberAuth->id();
+		if(isset($_POST['facebook_login'])) {
+			$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['Member']['fb_id']);
+			$member_details =  $this->Member->find('first', $criteria);
+			if ($member_details){
+				$this->MemberAuth->login_facebook();
+			}
+			return;
+		}
 		if($member_id) {
 			$this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>'member_manager'));
 		} 
@@ -118,6 +127,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{url}',$linkmerge,$body);
 		$body=str_replace('{EMAIL}',$member['Member']['email_id'],$body);
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($member['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email']);
@@ -153,6 +163,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function changepassword(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$data['Member']['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['Member']['password']);
@@ -176,6 +187,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function change_email(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->Member->id = $id;
@@ -198,6 +210,8 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function edit_profile() {
+        
+        array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->request->data['Member']['id'] = $id;
@@ -368,38 +382,40 @@ class MembersController extends MemberManagerAppController{
 		}
 	}
 	
-	function validation($action=null) {	
-		 if($this->request->data['Member']['form-name']=='LoginForm'){
-			$this->Member->setValidation('Login');
-		}else if($this->request->data['Member']['form-name']=='change_email'){
-			$this->Member->setValidation('change_email');
-		}else if($this->request->data['Member']['form-name']=='RegistrationForm'){
-			//$this->request->data['Member']['id'] = $this->MemberAuth->id;
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='EditProfileForm'){
-			//$this->request->data['Member']['id'] = $this->MemberAuth->id;
-			unset($this->request->data['Member']['email_id']);
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='Admin-member-registration'){			
-			$this->Member->setValidation('Register');
-		}
-		else if($this->request->data['Member']['form-name']=='Change-Password'){
-			$this->Member->setValidation('Changepassword');
-		}
-		else if($this->request->data['Member']['form-name']=='ForgotForm'){
-			$this->Member->setValidation('Forgot');
-		}
-		else if($this->request->data['Member']['form-name']=='PasswordUrlForm'){	
-			$this->Member->setValidation('PasswordUrl');
-		} 
-		$this->Member->set($this->request->data);
-		$result = array();
-		if ($this->Member->validates()) {
-			$result['error'] = 0;
-		}else{
-			$result['error'] = 1;
+	function validation($action=null) {
+		if (!isset($_POST['facebook_login'])) {
+			if($this->request->data['Member']['form-name']=='LoginForm'){
+				$this->Member->setValidation('Login');
+			}else if($this->request->data['Member']['form-name']=='change_email'){
+				$this->Member->setValidation('change_email');
+			}else if($this->request->data['Member']['form-name']=='RegistrationForm'){
+				//$this->request->data['Member']['id'] = $this->MemberAuth->id;
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='EditProfileForm'){
+				//$this->request->data['Member']['id'] = $this->MemberAuth->id;
+				unset($this->request->data['Member']['email_id']);
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='Admin-member-registration'){			
+				$this->Member->setValidation('Register');
+			}
+			else if($this->request->data['Member']['form-name']=='Change-Password'){
+				$this->Member->setValidation('Changepassword');
+			}
+			else if($this->request->data['Member']['form-name']=='ForgotForm'){
+				$this->Member->setValidation('Forgot');
+			}
+			else if($this->request->data['Member']['form-name']=='PasswordUrlForm'){	
+				$this->Member->setValidation('PasswordUrl');
+			} 
+			$this->Member->set($this->request->data);
+			$result = array();
+			if ($this->Member->validates()) {
+				$result['error'] = 0;
+			}else{
+				$result['error'] = 1;
+			}
 		}
 		if($this->request->is('ajax')) {
 			$this->autoRender = false;
@@ -424,6 +440,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{PASSWORD}',$password,$body);   
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'registration',$mail_data['Member']['email_id'])),$body); 
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($mail_data['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
@@ -435,6 +452,7 @@ class MembersController extends MemberManagerAppController{
 	
 	function dashboard() { 
 		// load model
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('Booking');
 		$this->loadModel('VendorManager.BookingOrder');
@@ -552,6 +570,31 @@ class MembersController extends MemberManagerAppController{
 				$this->redirect(array('controller'=>'members','action'=>'registration'));
 			}
 		}
+	}
+
+	public function fb_login()
+	{
+		$criteria = array();
+		$fb_id = $_POST['fb_id'];
+		$first_name = $_POST['first_name'];
+		$last_name = $_POST['last_name'];
+		$email = $_POST['email_id'];
+		$phone = $_POST['phone'];
+		$criteria['conditions'] = array('Member.fb_id'=>$fb_id);
+		$member_details =  $this->Member->find('first', $criteria);
+		//$this->request->data['Member']['password'] = $fb_id;
+		$this->request->data['Member']['email_id'] = $email;
+		//print_r($this->request->data);die();
+		if (!$member_details){
+			$this->request->data['Member']['fb_id']      = $fb_id;
+			$this->request->data['Member']['first_name'] = $first_name;
+			$this->request->data['Member']['last_name']  = $last_name;
+			$this->request->data['Member']['created_at'] = date('Y-m-d H:i:s');
+			$this->request->data['Member']['active']     = '1';
+			
+			$this->Member->save($this->request->data);
+		}
+		$this->MemberAuth->login_facebook();
 	}
 }
 ?>

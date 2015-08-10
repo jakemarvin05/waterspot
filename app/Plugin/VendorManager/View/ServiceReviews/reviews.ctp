@@ -1,10 +1,12 @@
+<div class="container-fluid vendor-panel">
+
+	<br><br><br>
 <div class="wrapper">
 	<div class="hr-line"></div>
 	<div class="clear"></div>
-	<?=$this->element('breadcrumbs');?>
 	<h2 class="page-title">Service Reviews</h2>
 	<?=$this->element('VendorManager.left-vendor-panel');?>
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 
 		<div class="service">
 			<?=$this->element('message');?>
@@ -12,7 +14,7 @@
 			<?=$this->element('message');?>
 			<?=$this->Form->create('ServiceReview',array('class'=>'dashboard-form','action'=>'reviews',$service_id,'novalidate' => true)); ?>
 				<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your message here...')); ?>
-				<input type="submit" value="Search" class="dashboard-buttons">
+				<input type="submit" value="Search" class="dashboard-buttons btn orange">
 			<?=$this->Form->end();?>
 			
 		<div class="clear"></div>
@@ -41,7 +43,7 @@
 									echo $this->Html->image('admin/icons/icon_error.png', array());
 							?>
 						</td>
-						<td class="align-center"><?=$this->Html->link('View', array('controller' => 'service_reviews', 'action' => 'view', $review['ServiceReview']['id']), array('escape' => false,'class'=>'dashboard-links fancybox fancybox.iframe','title'=> __('View'),'rel'=>'tooltip'))?></td>
+						<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>", array('controller' => 'service_reviews', 'action' => 'view', $review['ServiceReview']['id']), array('escape' => false,'class'=>'dashboard-links actions fancybox fancybox.iframe','title'=> __('View'),'rel'=>'tooltip'))?></td>
 					</tr>
 				<? } ?>
 			<? } else {?>
@@ -88,6 +90,7 @@
 <div class="clear"></div>
 
 </div>
+	</div>
 <script type='text/javascript'>
     $(function(){
 	  //Keep track of last scroll
@@ -146,6 +149,7 @@
 		var selected = $("#"+id+" :selected").text();
 		$("#BookingSearchbydate").attr("placeholder", "Please select "+selected);
 	}
+
   
 </script>
 <script type="text/javascript">
@@ -156,5 +160,11 @@ $( document ).ready(function() {
 				arrows: false
 			});
 		});
+	});
+
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
 	});
 </script>

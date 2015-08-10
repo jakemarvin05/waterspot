@@ -1,0 +1,32 @@
+///- - - Header - - -///
+h2.page-title {
+  text-transform: uppercase;
+  background-color: #F5F5F5;
+  padding: 11px;
+  font-weight: normal;
+  border: 1px solid #ddd;
+  font-size: 16pt;
+  margin-bottom: 0;
+  font-family: "Arca Majora";
+  color: #606060;
+  text-align: center;
+}
+///- - - - - - - - -///
+
+///- - - Body - - -///
+body {
+  color: #606060;
+  font-family: "Lato";
+}
+h3.dashboard-heading{
+  font-family: "Crete Round";
+}
+th{
+border: 1px solid #ccc;
+height: Auto !important;
+vertical-align: top;
+background-color: #F5F5F5;
+padding: 8px;
+}
+///- - - - - - - -///
+

@@ -253,6 +253,7 @@ Class PagesController extends ContentManagerAppController{
 		$body=str_replace('{PHONE}',$this->request->data['Page']['phone'],$body);
 		$body=str_replace('{MESSAGE}',$this->request->data['Page']['message'],$body);
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($this->setting['site']['site_contact_email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->request->data['Page']['email'],$this->request->data['Page']['name']);
@@ -265,6 +266,7 @@ Class PagesController extends ContentManagerAppController{
 		$mail=$this->Mail->read(null,2);
 		$body=str_replace('{NAME}',ucfirst($this->request->data['Page']['name']),$mail['Mail']['mail_body']);      
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($this->request->data['Page']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
@@ -281,6 +283,7 @@ Class PagesController extends ContentManagerAppController{
 	}
 	
 	public function view($page_id=null){ 
+            array_push(self::$css_for_layout,'pages.css');
 		$page=$this->Page->read(null,$page_id);
 		$this->current_page_id = $page_id;
 			

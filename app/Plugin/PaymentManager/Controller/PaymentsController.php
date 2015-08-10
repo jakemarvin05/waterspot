@@ -289,6 +289,7 @@ class PaymentsController extends PaymentManagerAppController{
 						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 						
 						$emaill = new CakeEmail();
+						
 						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
 						$emaill->subject($maill['Mail']['mail_subject']);
 						$emaill->from($booking_detail['Booking']['email']);
@@ -309,6 +310,8 @@ class PaymentsController extends PaymentManagerAppController{
 						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
 						
 						$email = new CakeEmail();
+$email->config('gmail');
+						
 						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 						$email->subject($mail['Mail']['mail_subject']);
 						$email->to($booking_detail['Booking']['email']);
@@ -387,6 +390,8 @@ class PaymentsController extends PaymentManagerAppController{
 				$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
 				$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 				$email = new CakeEmail();
+$email->config('gmail');
+				
 				//$email->to('pavans@burgeonsoft.net');
 				$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
 				$email->subject($mail['Mail']['mail_subject']);
@@ -415,6 +420,8 @@ class PaymentsController extends PaymentManagerAppController{
 		$body=str_replace('{TXN_ID}',$_REQUEST['txn_id'],$body);  
 		$body=str_replace('{PAYMENT_STATUS}',$_REQUEST['payment_status'],$body);  
 		$email = new CakeEmail();
+$email->config('gmail');
+		
 		$email->to($booking_detail['Booking']['email'],$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email']);
@@ -541,6 +548,8 @@ class PaymentsController extends PaymentManagerAppController{
 				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','controller'=>'members','action'=>'registration',$booking_participates_mail['BookingParticipate']['email'])),$body);  
 				
 				$email = new CakeEmail();
+$email->config('gmail');
+				
 				$email->from($booking_detail['Booking']['email'],$mail['Mail']['mail_from']);
 				$email->subject(trim($mail['Mail']['mail_subject'])." ".$booking_detail['Booking']['fname']);
 				$email->to($booking_participates_mail['BookingParticipate']['email']);
@@ -803,6 +812,8 @@ class PaymentsController extends PaymentManagerAppController{
 		$body=str_replace('{TOTAL}',number_format($booking_detail['Booking']['transaction_amount']),$body);
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 		$email = new CakeEmail();
+$email->config('gmail');
+		
 		$email->to($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($booking_detail['Booking']['email']);
@@ -826,6 +837,8 @@ class PaymentsController extends PaymentManagerAppController{
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 		
 		$email = new CakeEmail();
+$email->config('gmail');
+		
 		$email->to($booking_detail['Booking']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
@@ -849,6 +862,8 @@ class PaymentsController extends PaymentManagerAppController{
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body); 
 		
 		$email = new CakeEmail();
+$email->config('gmail');
+		
 		if(!empty($vendor_details['Vendor']['email'])) {
 			$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
 		}else{
@@ -909,6 +924,8 @@ class PaymentsController extends PaymentManagerAppController{
 			///******Mail to Admin******/
 			
 			$email = new CakeEmail();
+$email->config('gmail');
+			
 			//$admindetails = $this->User->read(null,$this->Session->read('Auth.User.id'));
 			$email->to($this->setting['site']['site_contact_email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -925,6 +942,8 @@ class PaymentsController extends PaymentManagerAppController{
 			$body=str_replace('{AMOUNT}','$'.$post_data['Amt'],$body);
 			
 			$email = new CakeEmail();
+$email->config('gmail');
+			
 
 			$email->to($vendorinfo['Vendor']['email']);
 			$email->subject($mail['Mail']['mail_subject']);
