@@ -719,3 +719,29 @@ a.add-video, a.delete-video {
     height: 45px;
     width: 4%;
 }
+
+
+.fieldbox.addservedit.form {
+    width: 50%;
+}
+
+
+
+span.currency-symbol {
+    display: inline-block;
+    width: 3.4%;
+}
+
+.addservedit.form {
+    display: inline-block;
+    width: 46%;
+}
+
+.addservedit {
+    max-width: 100%;
+}
+
+.dollarsign {
+    display: inline-block;
+    width: 3.6%;
+}
