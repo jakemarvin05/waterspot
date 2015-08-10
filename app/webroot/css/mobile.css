@@ -302,6 +302,38 @@
     .vendorwise-listing {
         width: 100%;
     }
+    .contenthover:hover{
+        opacity:0;
+    }
+    .slider-holder img {
+        width: 100%;
+        height: auto;
+    }
+    .whitebg{
+        display: none;
+    }
+
+    .slider-holder {
+        height: auto;
+    }
+    .fotorama__arr.fotorama__arr--next {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+    .fotorama__arr.fotorama__arr--prev {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+
+    section.right-section .startDate {
+        width: 100%;
+    }
+
+    input#loginButton {
+        width: 100%;
+    }
 }
 
 @media (max-width: 473px) {

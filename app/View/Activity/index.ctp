@@ -87,7 +87,7 @@
 						</div>
 					<div class="blocks">
 					<div class="slot-booking-form">
-					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'name'=>'add_services','class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
 						<div class="select-participant">
 							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
 							<?

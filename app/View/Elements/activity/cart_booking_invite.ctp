@@ -99,7 +99,7 @@
 					</div>
 					<div class="cart-payment-details">
 						<h4>Payment Details</h4>
-						<table class="cart-payment-desc">
+						<table class="cart-payment-desc" border="1" cellspacing="10px">
 							<tr>
 								<th width="70%">Total No. of Participants:</th>
 								<td width="27%"><?=$cart_details['Cart']['no_participants'];?></td>
@@ -130,8 +130,8 @@
 					</div>
 				</div>
 				<div class="cart-button-box">
-					<input type="submit" value="Proceed" id="loginButton" class="submit-button addtocart-button" />
-					<?=$this->Html->link('Cancel', array('plugin'=>false,'controller'=>'carts','action'=>'cancel_cart',$service_detail['Service']['id'],$cart_details['Cart']['id']), array('class'=>'cancel-button','escape' => false));?>
+					<input type="submit" value="Proceed" id="" class="btn btnDefaults btnFillOrange" />
+					<?=$this->Html->link('Cancel', array('plugin'=>false,'controller'=>'carts','action'=>'cancel_cart',$service_detail['Service']['id'],$cart_details['Cart']['id']), array('class'=>'cancel-button btn btnDefaults btnFillGrey','escape' => false));?>
 				</div>
 			<?=$this->Form->end(); ?>
 		</div>
