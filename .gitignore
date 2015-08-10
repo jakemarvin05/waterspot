@@ -2,15 +2,6 @@
 .idea/
 /app/webroot/img/*
 /app/tmp/*
-/vendors/*
-/lib/*
-/plugin/*
-app/tmp
-app/webroot/img/*
-lib/*
-plugin/*
-app/config/config.php
 app/config/database.php
-/lib/
 *.log
 /nbproject/private/
