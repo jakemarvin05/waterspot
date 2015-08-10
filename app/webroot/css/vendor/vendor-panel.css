@@ -700,3 +700,22 @@ div#flashMessage {
     border-radius: 5px;
     overflow: hidden;
 }
+
+input.add-video-field {
+    width: 95%!important;
+    float: left;
+    margin-right: 1%!important;
+    margin-bottom: 15px!important;
+}
+
+a.add-video i,a.delete-video i {
+    font-size: 29px;
+    margin: auto;
+}
+
+a.add-video, a.delete-video {
+    display: inline-flex;
+    float: left;
+    height: 45px;
+    width: 4%;
+}
