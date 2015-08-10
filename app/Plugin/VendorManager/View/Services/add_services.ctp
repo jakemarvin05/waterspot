@@ -105,11 +105,13 @@
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
-                    <label>Youtube URL:<span style="color:#ff0000;"></span> </label>
+                    <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
                 </div>
-                <div class="fieldbox">
-                    <?= $this->Form->input('youtube_url', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+                <div class="fieldbox video-urls">
+                    <div data-target="0"><?= $this->Form->input('youtube_url', array('type' => 'text','data-inputId'=>'0', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                    <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
                 </div>
             </div>
             <div class="dashboard-form-row row servcont">
@@ -421,7 +423,26 @@
                 scrollThrough: ['vendor-panel']
             });
         }
+        var fieldCTR = 0;
+
+        $('.video-urls').on('click','#add-video',function(e){
+            $(this).remove();
+            e.preventDefault();
+            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('youtube_url', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
+            fieldCTR++;
+        });
+
+        $('.video-urls').on('click','a.delete-video',function(e) {
+            e.preventDefault();
+           var target = $(this).data('target');
+            $('div[data-target="'+target+'"]').remove();
+            $(this).remove();
+
+        });
 
         $('.selectpicker').selectpicker();
+
+
     });
 </script>
