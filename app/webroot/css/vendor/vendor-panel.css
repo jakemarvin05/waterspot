@@ -553,9 +553,15 @@ input#ValueAddedServiceValueAddedPrice {
 }
 
 .add-service-price-note {
-    padding: 15px;
+    padding: 9px 15px;
 }
 
+.note {
+    padding: 9px 15px;
+    background-color: #FFEFEF;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
 .dashboard-form-row.indexedit {
     border-bottom: none;
 }
