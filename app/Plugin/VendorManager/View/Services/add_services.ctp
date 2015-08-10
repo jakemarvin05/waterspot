@@ -25,7 +25,7 @@
                     <label>Select your services:</label>
                 </div>
                 <div class="fieldbox">
-                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false)); ?>
+                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false,'class'=>'selectpicker')); ?>
                     <?= $this->Form->error('service_type_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <label>Location: </label>
                 </div>
                 <div class="fieldbox">
-                    <?= $this->Form->input('location_id', array('type' => 'select', 'options' => $city_list, 'label' => false)); ?>
+                    <?= $this->Form->input('location_id', array('type' => 'select','class'=>'selectpicker', 'options' => $city_list, 'label' => false)); ?>
                     <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                     <label>Location: </label>
                 </div>
                 <div class="fieldbox">
-                    <?= $this->Form->input('location_id', array('type' => 'select', 'options' => $city_list, 'label' => false)); ?>
+                    <?= $this->Form->input('location_id', array('type' => 'select', 'options' => $city_list, 'class'=>'selectpicker', 'label' => false)); ?>
                     <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
@@ -422,6 +422,6 @@
             });
         }
 
-        $('#ServiceServiceTypeId').selectpicker();
+        $('.selectpicker').selectpicker();
     });
 </script>
