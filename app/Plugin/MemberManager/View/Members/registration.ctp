@@ -51,7 +51,7 @@
                                         <br/>
             <div class="registration-form-row">
 		<div class="fieldbox">
-		    <?=$this->Form->password('confirm_password',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'required'=>true)); ?>
+		    <?=$this->Form->password('confirm_password',array("placeholder"=>"Confirm Password :", 'class'=>'registration_inputbox', 'required'=>true)); ?>
 		    <?=$this->Form->error('confirm_password',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>

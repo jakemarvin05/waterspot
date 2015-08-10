@@ -457,6 +457,7 @@ Class VendorsController extends VendorManagerAppController{
 	
 	// This function is used to than after vendor registration
 	public function thankyou(){
+            array_push(self::$css_for_layout,'pages.css');
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
 			'name'=>'Home'
