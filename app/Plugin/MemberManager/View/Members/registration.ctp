@@ -16,16 +16,6 @@
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
-               <div class="namefieldbox">
-		    <label class="namefield">
-			<?=$this->Form->text('first_name',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['first_name'])) ? $_POST['first_name'] : '', 'required'=>true,)); ?>
-			<?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </label>
-                    <label class="namefield2">
-			<?=$this->Form->text('last_name',array("placeholder"=>"Last Name :", 'class'=>'registration_inputbox', 'value'=>(isset($_POST['last_name'])) ? $_POST['last_name'] : '', 'required'=>true)); ?>
-			<?=$this->Form->error('last_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </label>
-               </div>
             </div>
                 <br/>
             <div class="registration-form-row">
