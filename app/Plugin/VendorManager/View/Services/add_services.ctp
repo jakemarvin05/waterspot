@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont col-sm-9">
+        <div style="padding-top: 0" class="cont col-sm-9">
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <label>Private? <span style="color:#ff0000;">*</span></label>
@@ -121,6 +121,7 @@
                     <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
+            <!--
             <div class="dashboard-form-row row servcont">
                 <div id="p_scents" class="labelbox">
                     <label>Value Added Services: </label>
@@ -169,6 +170,8 @@
                     <div id="extender"></div>
                 </div>
             </div>
+
+            -->
             <div class="add-service-price-note note">Please enter both the prices. However, only PER SLOT price will display
                 on front end.
             </div>
@@ -418,5 +421,7 @@
                 scrollThrough: ['vendor-panel']
             });
         }
+
+        $('#ServiceServiceTypeId').selectpicker();
     });
 </script>
