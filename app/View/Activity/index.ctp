@@ -30,7 +30,8 @@
 			    var latlng = new google.maps.LatLng(-34.397, 150.644);
 			    var mapOptions = {
 			      zoom: 15,
-			      center: latlng
+			      center: latlng,
+                              scrollwheel: false
 			    }
 			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {

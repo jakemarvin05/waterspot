@@ -26,17 +26,6 @@
         <br/>
 		
             <div class="registration-form-row">
-
-               <div class="namefieldbox">
-                    <label class="namefield">
-                        <?=$this->Form->text('fname',array("placeholder"=>"First Name :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
-                        <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>  
-                    </label>
-                    <label class="namefield2">
-                        <?=$this->Form->text('lname',array("placeholder"=>"Last Name :", 'class'=>'registration_inputbox', 'required'=>false)); ?>
-                        <?=$this->Form->error('lname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </label>
-                </div>
             </div>
         <br/>
             <div class="registration-form-row">
