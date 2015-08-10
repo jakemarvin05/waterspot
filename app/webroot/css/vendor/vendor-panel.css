@@ -618,15 +618,19 @@ a#image-link-0 {
 }
 
 .img-box {
-    padding: 36px;
     border: solid 5px #fff;
     background-color: #DADADA;
     border-radius: 10px;
     overflow: hidden;
+    border-width: 5px;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
 }
 
-.img-box i.add-image {
+.img-box .add-image {
     color: rgba(0, 0, 0, 0.4);
+    margin: auto;
 }
 
 .img-box i.add-image:hover {
@@ -657,8 +661,9 @@ span.radio_button_status::before {
     border-color: #ddd;
     border-width: 5px;
     margin: 0.33%;
-    width: 16%;
+    width: 100px;
     margin-bottom: 6px;
+    height: 100px;
 }
 i.fa {
     font-size: 20px;
