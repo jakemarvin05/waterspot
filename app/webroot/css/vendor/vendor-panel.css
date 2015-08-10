@@ -608,6 +608,8 @@ i.add-image, i.add-button {
     border: 5px solid #fff;
     border-radius: 10px;
     overflow: hidden;
+    width: 100px;
+    height: 100px;
 }
 
 .dashboard-service-images .close-image:hover {
