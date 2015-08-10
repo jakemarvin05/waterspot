@@ -52,6 +52,15 @@
 		</div>
             </div>
             <div class="dashboard-form-row row servcont">
+                    <div class="labelbox">
+                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
+                    </div>
+                    <div class="fieldbox addservedit form">
+                        <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+                        <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+            </div>
+            <div class="dashboard-form-row row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -59,15 +68,6 @@
                     <div class="fieldbox addservedit form">
                         <?= $this->Form->input('min_participants', array('placeholder' => '0 for no minimum', 'type' => 'text', 'label' => false, 'div' => false)); ?>
                         <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
-            </div>
-            <div class="dashboard-form-row row servcont">
-                    <div class="labelbox">
-                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
-                    </div>
-                    <div class="fieldbox addservedit form">
-                        <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
-                        <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
             <div class="dashboard-form-row row servcont">
@@ -172,9 +172,7 @@
             </div>
 
             -->
-            <div class="add-service-price-note note">Please enter both the prices. However, only PER SLOT price will display
-                on front end.
-            </div>
+
 
 
                 <div class="dashboard-form-row row servcont">
@@ -192,21 +190,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="dashboard-form-row row servcont">
-                    <div class="labelbox">
-                        <label>Full Day Price:<span style="color:#ff0000;">*</span></label>
-                    </div>
-                    <div class="addservedit">
-                        <div class="dollarsign">
-                            <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
-                        </div>
-                        <div class="addservedit form">
-                            <?= $this->Form->input('full_day_amount', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
-                            <div id="full_day_amount"></div>
-                            <?= $this->Form->error('full_day_amount', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                        </div>
-                    </div>
-                </div>
+
 
 
             <div class="dashboard-form-row servcont">
