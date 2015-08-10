@@ -1,19 +1,18 @@
   <div class="hr-line"></div>
   <div class="clear"></div>
-  <div class="bredcrum"> <?=$this->element('breadcrumbs');?></div>
-  <h2 class="page-title">Vendors</h2>
- <div class="middle-area">
-   <div class="vender">
-   <div class="vender-img"><?=$this->Html->image('vender-img.jpg');?></div>
-   <div class="thnx-img">
-   		<img src="/img/thnx-img.png" />
-   </div>
-   <div class="text-vender">
-   		<!--Dear Vendor Thank you for joining SG Water Sports.-->
-		<div class="thnx-msg">Thank you for your registration. Your information has been sent to administrator for approval.</div>
-	</div>
-    <div class="clear"></div>
-   </div>
-   <?=$this->Html->image('shadow-dash.png',array('class'=>'mr6'));?>  
+  <div class="container-fluid wrapper vendors-page">
+  <header clas="page-header">
+  <p class="beforeHeader">Your request has been sent.</p>
+  <h1 class="headerAlt" style="margin-top: 0">Thank you for registering</h1>
+  </header>
+    <div class="middle-area cont">
+        <div class="vender">
+             <p div class="thnx-msg">You will be contacted within 2 days.</p>
+             <!--Dear Vendor Thank you for joining SG Water Sports.-->
+             <p div class="thnx-msg">Your information has been sent to administrator for approval.</p>
+             <div class="clear"></div>
+        </div>
+
    
- </div>
+    </div>
+  </div>

@@ -41,15 +41,15 @@
                     </div>
                 </div>
             </div>
-            <div class="dashboard-form-row row servcont">
+	<div class="dashboard-form-row row servcont">
 
-                <div class="labelbox">
-                    <label>Title: <span style="color:#ff0000;">*</span></label>
-                </div>
-                <div class="fieldbox">
-                    <?= $this->Form->input('service_title', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
-                    <?= $this->Form->error('service_title', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                </div>
+		<div class="labelbox">
+			<label>Title: <span style="color:#ff0000;">*</span></label>
+		</div>
+		<div class="fieldbox">
+			<?=$this->Form->input('service_title',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
+			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+		</div>
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="col-sm-6 col-xs-12 servedit">
