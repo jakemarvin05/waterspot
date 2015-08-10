@@ -207,7 +207,7 @@ label.namefield2 {
 }
 
 .btn-group.bootstrap-select {
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .btn.orange {
@@ -553,9 +553,15 @@ input#ValueAddedServiceValueAddedPrice {
 }
 
 .add-service-price-note {
-    padding: 15px;
+    padding: 9px 15px;
 }
 
+.note {
+    padding: 9px 15px;
+    background-color: #FFEFEF;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
 .dashboard-form-row.indexedit {
     border-bottom: none;
 }
@@ -612,15 +618,19 @@ a#image-link-0 {
 }
 
 .img-box {
-    padding: 36px;
     border: solid 5px #fff;
     background-color: #DADADA;
     border-radius: 10px;
     overflow: hidden;
+    border-width: 5px;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
 }
 
-.img-box i.add-image {
+.img-box .add-image {
     color: rgba(0, 0, 0, 0.4);
+    margin: auto;
 }
 
 .img-box i.add-image:hover {
@@ -651,8 +661,9 @@ span.radio_button_status::before {
     border-color: #ddd;
     border-width: 5px;
     margin: 0.33%;
-    width: 16%;
+    width: 100px;
     margin-bottom: 6px;
+    height: 100px;
 }
 i.fa {
     font-size: 20px;

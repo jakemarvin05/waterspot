@@ -24,6 +24,8 @@ Class CartsController extends AppController{
             );
         // load MemberAuth component
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		array_push(self::$css_for_layout,'pages.css');
+
 		$this->sessionKey = MemberAuthComponent::$sessionKey;
 		$this->member_data = $this->Session->read($this->sessionKey);
 		// member empty then redirect login page
@@ -99,6 +101,8 @@ Class CartsController extends AppController{
 		'url'=>Router::url('/carts/booking_success'),
 		'name'=>'Booking Success'
 		);
+		array_push(self::$css_for_layout,'pages.css');
+
 	}
 	
 	function booking_request(){ 
