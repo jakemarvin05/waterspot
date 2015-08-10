@@ -52,25 +52,23 @@
 		</div>
             </div>
             <div class="dashboard-form-row row servcont">
-                <div class="col-sm-6 col-xs-12 servedit">
+
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
                     </div>
-                    <div class="fieldbox">
+                    <div class="fieldbox addservedit form">
                         <?= $this->Form->input('min_participants', array('placeholder' => '0 for no minimum', 'type' => 'text', 'label' => false, 'div' => false)); ?>
                         <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
-                </div>
-                <div class="col-sm-6 col-xs-12 row servedit">
-
+            </div>
+            <div class="dashboard-form-row row servcont">
                     <div class="labelbox">
                         <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
                     </div>
-                    <div class="fieldbox">
+                    <div class="fieldbox addservedit form">
                         <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
                         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
-                </div>
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
@@ -178,38 +176,38 @@
                 on front end.
             </div>
 
-            <div class="dashboard-form-row row servcont">
-                <div class="col-sm-6 col-xs-12 servedit">
+
+                <div class="dashboard-form-row row servcont">
                     <div class="labelbox">
                         <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
                     </div>
-                    <div class="fieldbox row">
-                        <div class="col-sm-1">
+                    <div class="addservedit">
+                        <div class="dollarsign">
                             <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
                         </div>
-                        <div class="col-sm-11">
+                        <div class="addservedit form">
                             <?= $this->Form->input('service_price', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
                             <div id="service_price"></div>
                             <?= $this->Form->error('service_price', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xs-12  servedit">
+                <div class="dashboard-form-row row servcont">
                     <div class="labelbox">
                         <label>Full Day Price:<span style="color:#ff0000;">*</span></label>
                     </div>
-                    <div class="fieldbox row">
-                        <div class="col-sm-1">
+                    <div class="addservedit">
+                        <div class="dollarsign">
                             <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
                         </div>
-                        <div class="col-sm-11">
+                        <div class="addservedit form">
                             <?= $this->Form->input('full_day_amount', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
                             <div id="full_day_amount"></div>
                             <?= $this->Form->error('full_day_amount', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                         </div>
                     </div>
                 </div>
-            </div>
+
 
             <div class="dashboard-form-row servcont">
                 <div class="labelbox">
