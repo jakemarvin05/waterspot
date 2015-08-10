@@ -64,7 +64,7 @@
             <div class="col-sm-6 col-xs-12 row servedit">
 
 		<div class="labelbox">
-			<label>No. of Persons:<span style="color:#ff0000;">*</span> </label>
+			<label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
 		</div>
 		<div class="fieldbox">
 			<?=$this->Form->input('no_person',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
