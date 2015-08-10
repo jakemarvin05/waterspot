@@ -1,9 +1,9 @@
 /* generic stuff */
 .beforeHeader {
-    font-family: 'Crete Round', sans-serif;
+    font-family: 'Crete Round', sans-serif !important;
     font-style: italic;
     color: #ff9700;
-    font-size: 19px;
+    font-size: 16px;
 }
 
 
@@ -280,8 +280,7 @@
             padding: 20px;
             margin: 0px
         }
-
-
-
-
-
+.load-more-row {
+    text-align: center;
+    padding: 15px;
+}

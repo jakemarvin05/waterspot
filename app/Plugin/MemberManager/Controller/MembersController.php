@@ -7,6 +7,7 @@ class MembersController extends MemberManagerAppController{
 	public $paginate = array();
 	
 	function registration($email=null) {
+        array_push(self::$css_for_layout,'vendor/registration.css');
 		$member_id = $this->MemberAuth->id();
 		if(isset($_POST['facebook_login'])) {
 			$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['Member']['fb_id']);
@@ -126,6 +127,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{url}',$linkmerge,$body);
 		$body=str_replace('{EMAIL}',$member['Member']['email_id'],$body);
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($member['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email']);
@@ -161,6 +163,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function changepassword(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$data['Member']['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['Member']['password']);
@@ -184,6 +187,7 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function change_email(){
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->Member->id = $id;
@@ -206,6 +210,8 @@ class MembersController extends MemberManagerAppController{
 	}
 	
 	function edit_profile() {
+        
+        array_push(self::$css_for_layout,'member/member-panel.css');
 		$id = $this->MemberAuth->id;
 		if(!empty($this->request->data) && $this->validation()){
 			$this->request->data['Member']['id'] = $id;
@@ -434,6 +440,7 @@ class MembersController extends MemberManagerAppController{
 		$body=str_replace('{PASSWORD}',$password,$body);   
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'registration',$mail_data['Member']['email_id'])),$body); 
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($mail_data['Member']['email_id']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
@@ -445,6 +452,7 @@ class MembersController extends MemberManagerAppController{
 	
 	function dashboard() { 
 		// load model
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('Booking');
 		$this->loadModel('VendorManager.BookingOrder');

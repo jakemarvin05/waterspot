@@ -5,6 +5,8 @@
 /* Lato */
 
 /* latin-ext */
+@charset "utf-8";
+
 @font-face {
     font-family: 'Lato';
     font-style: normal;
@@ -78,7 +80,6 @@
  *************************/
 
 body {
-    font-family: 'Lato', sans-serif;
     color: #606060; /* default dark font color */
 }
 h1, h2, h3, h4 {
@@ -102,7 +103,7 @@ a {
     text-decoration: none;
 }
 a:focus, a:hover {
-    color: #00bc57; /* default light blue */
+    color: #F79826; /* default light blue */
     text-decoration: none;
 }
 
@@ -162,6 +163,7 @@ button:focus, button:active, input:focus, input:active {
 }
 .btnFillOrange {
     background-color: #ff9700;
+    text-transform: uppercase;
 }
 .btnFillOrange:hover {
     color: #fff;
@@ -299,6 +301,9 @@ button:focus, button:active, input:focus, input:active {
     }
 
     .contenthover .view-description {
+        margin: 29% auto;
+    }
+    .contenthover .view-all-tags {
         margin: 29% auto;
     }
 }
@@ -597,15 +602,11 @@ div.wrapper h2{
     margin-top: 20px;
 }
 div.wrapper H3{
-    font-size: 18pt;
-    font-family: 'Arca Majora';
+    font-family: 'Arca Majora', sans-serif;
 
-    margin-top: 40px;
 }
 div.wrapper{
     color: #606060;
-    font-family: 'Lato';
-    font-size: 14pt;
 
     line-height: 10pt;
     background-color: #f5f5f5;
@@ -657,7 +658,7 @@ div.spacer{
     padding: 23px 22px 13px;
     height: 50px;
     top: -50px;
-    font-size: 12pt;
+    font-size: 16px;
     z-index: 99;
     left: -15px;
     min-width: 180px;
@@ -680,15 +681,17 @@ section.right-section .blocks {
     position: relative;
     color: #606060;
     font-size: 14pt;
+    clear: both;
 }
 .completion {
     position: relative;
     width: 200px;
     height: 29px;
     background-color: #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     float: left;
     margin-right: 15px;
+    margin-top: 20px;
 }
 
 .progressbar {
@@ -734,7 +737,8 @@ p.info {
 
 section.right-section h4{
     text-transform: uppercase;
-    font-size: 12pt;
+    font-size: 16px;
+    color: #606060;
 }
 input#loginButton {
     background-color: #ff9700;
@@ -743,6 +747,10 @@ input#loginButton {
     width: 100%;
     padding: 17px;
     margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.39);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.16);
 }
 
 /* Restyle Date Picker */
@@ -785,7 +793,7 @@ input#loginButton {
     background: none!important;
     border: none!important;
     padding: 8px 0px;
-    font-size: 12pt;
+    font-size: 16px;
 }
 
 .ui-widget-content .ui-state-default.ui-state-active{
@@ -803,8 +811,10 @@ input#loginButton {
     border-color: #ff9700!important;;
     color: #ff9700!important;;
 }
-section#navWrapper.stickyCollapsedFix div.navButtonOuter a{
+ul.dropdown-menu{
     color: rgb(96, 96, 96)!important;;
+    padding-bottom: 0px;
+    overflow: hidden;
 }
 section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
     color: #ff9700!important;;
@@ -812,9 +822,9 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
 section#navWrapper.stickyCollapsedFix div.navButtonOuter a:hover{
     color: #ff9700!important;;
 }
-section#navWrapper.stickyCollapsedFix {
-    background-color: #fff;
-    padding-top: 5px;
+.navButtonOuter {
+    /* background-color: #fff; */
+    padding-top: 10px;
 }
 section#navWrapper.stickyCollapsedFix  img#whiteLogo{
     opacity: 0!important;
@@ -843,22 +853,32 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 
 }
 
-.activities-page header{
+.activities-page header, .vendors-page header{
     text-align: center;
 }
-.activities-page .page-header {
+.activities-page .page-header, .page-header  {
     background-color: #fff;
     padding: 40px;
     margin: 0;
 }
-.activities-page .page-header h1 {
+.vendors-page .page-header {
+    background-color: #fff;
+    padding: 0px;
+    margin: 0;
+}
+.container-fluid.wrapper.vendors-page {
+    background-color: #fff;
+    padding-top: 120px;
+}
+.activities-page .page-header h1, .vendors-page .page-header h1 {
     text-align:center;
     display:block;
     width:100%;
-    margin: 30px auto;
+    margin: 0px auto 30px auto;
 }
 .activities-listing {
     padding-bottom: 15px;
+    /* min-height: 370px; */
 }
 .activities-listing .tile{
     overflow: hidden;
@@ -872,8 +892,36 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .activities-page .row {
     padding: 15px;
+    padding-top: 0;
 }
-.activities-listing .tile .price {
+.activities-listing .tile .price, .vendorwise-listing .tile .price {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.69);
+    padding: 14px;
+    font-family: "Lato";
+}
+/* vendors listings */
+
+.vendor-listing {
+    padding-bottom: 15px;
+}
+.vendor-listing .tile{
+    overflow: hidden;
+    background-color: #FFF;
+    border: solid 1px #EEE;
+    position: relative;
+}
+.vendor-listing .tile img {
+    width: 100%;
+
+}
+.vendors-page .row {
+    padding: 15px;
+}
+.vendor-listing .tile .price {
     position: absolute;
     top: 60%;
     left: 0;
@@ -883,14 +931,20 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     font-family: "Lato";
 }
 
-.activities-listing .tile-info h4 {
+.vendor-listing .tile-info h4 {
     font-weight: normal;
     color: #696B6E;
-    font-size: 12pt;
+    font-size: 16px;
     float: left;
+    font-family: "Arca Majora";
 }
+
 .activities-page .middle-area {
     background-color: #F9F9F9;
+}
+.vendors-page .middle-area {
+    background-color: #F9F9F9;
+    padding-top: 15px;
 }
 .tile-info .rating {
     background-image: url('../img/rating-small.png');
@@ -898,18 +952,18 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     width: 100px;
     height: 20px;
     background-position: -100px 0px;
-    margin: 14px 0px;
+    margin: 8px 0px;
 }
-.tile-info .activity-rating-wrapper {
+.tile-info .vendor-rating-wrapper {
     float: right;
-    width: 43%;
+    width: 45%;
 }
 
-.tile-info .activity-rating-wrapper .rating-label {
+.tile-info .vendor-rating-wrapper .rating-label {
     margin-top: 12px;
     display: block;
     float: left;
-    font-size: 12pt;
+    font-size: 16px;
     color: #969696;
 }
 
@@ -920,31 +974,56 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     font-size: 11pt;
     line-height: 20px;
     display: block;
-    padding: 28px;
+    padding: 10px 20px;
+    max-height: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    white-space: normal;
+    margin-bottom: 10px;
 }
-.contenthover .view-description{
+.contenthover .view-description,.contenthover .view-all-tags{
     display:block;
     background-color: #F79E34;
     color: #fff;
     max-width: 180px;
     text-transform: uppercase;
-    font-size: 16pt;
+    font-size: 14pt;
     padding: 18px;
     margin-left: 30px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+    margin-right: 30px;
+}
+.vendorwise-listing .contenthover .view-description{
+    display:block;
+    background-color: #F79E34;
+    color: #fff;
+    max-width: 180px;
+    text-transform: uppercase;
+    font-size: 14pt;
+    padding: 10px;
+    margin-left: 30px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.29);
+}
+
+.contenthover .view-all-tags{
+    max-width: 250px;
 }
 .ch_hover {
     background-color: rgba(0, 0, 0, 0.71)!important;
 }
 button#loader_pagination {
     background-color: #F7941E;
-    color: #fff;
-    border: none;
-    padding: 16px 20px 20px;
-    font-size: 12pt;
-    border-radius: 2px;
-    max-width: 170px;
-    margin: 15px;
+    max-width: 211px;
     width: 100%;
+    display: inline-block;    position: relative;    cursor: pointer;    outline: 0;    white-space: nowrap;    margin: 5px;    padding: 0 22px;    font-size: 14px;    height: 40px;    line-height: 40px;    color: #FFF;    font-weight: 700;    letter-spacing: 1px;    border: none;    text-shadow: 1px 1px 1px rgba(0,0,0,.2);    border-radius: 3px;    border-bottom: 3px solid rgba(0,0,0,.15);
+    text-transform: uppercase;
 }
 .activities .no-record {
     padding: 20px;
@@ -953,35 +1032,195 @@ button#loader_pagination {
     clear: both;
 }
 .ch_element.ch_wrapper {
-    min-height: 295px;
+    /* min-height: 295px; */
 }
 .ch_hover {
     min-height: 330px;
 }
-@media (max-width: 480px) {
-    .contenthover .short-desc {
-        display: none;
-    }
+.contenthover .activity-tags span {
+    display: block;
+    /* margin-right: 6px; */
+    background-color: rgba(0, 0, 0, 0.36);
+    padding: 4px;
+    font-size: 12px;
+    /* max-width: 47%; */
+    border-radius: 4px;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    /* float: left; */
+    line-height: 22px;
+}
 
-    .contenthover .view-description {
-        margin: 29% auto;
-    }
-    .tile-info .activity-rating-wrapper {
-        width: 100%;
-        clear: both;
-        float: none;
-        display: block;
-    }
+.contenthover .activity-tags span:first-child {
+    margin-top: 0;
+}
 
-    .tile-info .rating {
-        float: left;
-        margin-left: 20px;
-    }
+.contenthover .activity-tags span a {
+    color: #D8D8D8;
+}
 
-    .activities-listing .tile-info h4 {
-        width: 100%;
-    }
-    .filter .btn {
-        margin-top: 10px;
-    }
+.activity-tags {
+    padding: 5px;
+    text-align: center;
+}
+
+.contenthover .activity-tags span:hover {
+    background-color: rgba(0, 0, 0, 0.68);
+}
+
+input#loginButton:hover {
+    background-color: #fda424;
+}
+
+a#shareFB {
+    text-indent: -9999px;
+    display: block;
+    background: url('../img/facebook-icon.png') no-repeat center;
+    width: 25px;
+    height: 25px;
+}
+
+.socialicons {
+    float: left;
+    margin: 6px 0px 0px 7px;
+}
+
+div#share.blocks h4 {
+    float: left;
+}
+
+
+.navButtonOuter.dropdown {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.navButtonOuter.dropdown button {
+    padding: 10px 17px;
+    border: 1px solid;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+.navButtonOuter.dropdown button:hover {
+    background-color: transparent;
+    color: #FF9700;
+}
+.open>.dropdown-toggle.btn-default{
+    background-color: #fff;
+    color: #FF9700;
+    border: 1px solid  #FF9700;
+
+}
+
+.open>.dropdown-menu li a {
+    padding: 5px 20px 6px;
+    border-bottom: solid 1px #ccc;
+}
+
+
+.open>.dropdown-menu li:last-child a {
+    border: none;
+}
+
+ul.dropdown-menu ul {
+    padding: 0px 0px 10px 0px;
+    margin: 0;
+    border-bottom: solid 1px #D1D1D1;
+}
+
+ul.dropdown-menu ul li {
+    display: block;
+    padding: 0;
+}
+
+ul.dropdown-menu ul li a {
+    display: block;
+    padding: 6px 0px 0px 20px !important;
+    border: none!important;
+}
+
+ul.dropdown-menu ul li a:before {
+    content: "\f105";
+    font-family: "FontAwesome";
+    display: block;
+    float: left;
+    margin-right: 8px;
+    color: #B3B3B3;
+}
+section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
+    color: #606060;
+}
+.stickyCollapsed .navButtonOuter.dropdown button {
+    color: #626A68;
+}
+.stickyCollapsed .open>.dropdown-toggle.btn-default {
+    color: #F29C14;
+}
+.stickyCollapsedFix .navButtonOuter.dropdown button {
+    color: #626A68;
+}
+
+.stickyCollapsedFix .open>.dropdown-toggle.btn-default {
+    color: #F29C14;
+}
+
+
+.vendorwise-listing.col-sm-4.col-xs-12 {
+    padding: 0 15px 15px 15px;
+}
+
+.listing-boxes.row {
+    padding: 15px;
+}
+
+.search-listing {
+    padding: 15px;
+    padding-top: 0;
+}
+
+.error-message {
+    border: 1px solid #f00;
+    margin: 10px 0px;
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 1px 7px;
+    background-color: #F98686;
+    color: #fff;
+    text-shadow: 1px 1px 0px rgba(255, 0, 0, 0.7);
+}
+
+section#navWrapper.stickyCollapsedFix {
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+section#navWrapper.stickyCollapsedFix.stickyCollapsed {
+    padding-bottom: 5px;
+}
+.vendor-rating-wrapper em {
+    display: none!important;
+}
+
+.notification .close {
+    margin: 4px;
+    border-radius: 20px;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    padding: 0px;
+    text-align: center;
+}
+
+.notification .close i.fa {
+    font-size: 16px;
+}
+
+h4.h4.fix {
+    width: 55%;
+
+}
+.load-more-row {
+    text-align: center;
 }

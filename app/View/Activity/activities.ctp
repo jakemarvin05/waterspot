@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(function(){
-		$('.tile').contenthover({
+		/*$('.tile').contenthover({
 			//data_selector: '.contenthover',
 			//effect:'slide',
 			//slide_direction: 'left',
@@ -8,7 +8,7 @@
 			overlay_background:'#000',
 			overlay_opacity:1
 
-		});
+		}); */
 	});
 </script>
 <div class="container-fluid wrapper activities-page">
@@ -25,7 +25,7 @@
 		<div class="filter">
 			<? $action=(implode('/',$this->params->pass));?>
 			<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
-			<label>Filter by:</label>
+			<label class="filter-label">Filter by:</label>
 			<?=$this->Form->hidden('vendor_list');?>
 			<?  //=$this->Form->input('vendor_list',array('options'=>$vendor_list,'empty'=>'Select any Vendor','label'=>false,'div'=>false,'required'=>false));?>
 			<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
@@ -115,9 +115,9 @@
 		</div>
 		<div class="load-more-listings">
 			<div class="load-more-row">
-				<button class="load-more" id="loader_pagination">Load more results</button>
+				<button class="btn btnDefaults btnFillOrange" id="loader_pagination">Load more results</button>
 			</div>
-			<div class="load-more-row">
+			<div>
 				<?=$this->Html->image('loader-2.gif',array('style'=>'display:none;','alt'=>'Activity Loader','id'=>'loader-image'));?>
 			</div>
 		</div>

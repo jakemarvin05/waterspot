@@ -1,17 +1,17 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
+<div class="container-fluid vendor-panel">
+	<br><br><br>
 <h2 class="page-title">Change Email</h2>
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
   <h3 class="dashboard-heading">Update your Email</h3>
   <?=$this->element('message');?>
 
   <?php echo $this->Form->create('Vendor', array('id'=>'ChangeEmail','url'=>array('plugin'=>'vendor_manager','controller'=>'accounts','action'=>'change_email'),'class'=>'dashboard-edit-form','novalidate'=>true));?>
-    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'change_email')); ?>
-    <div class="dashboard-form-row">
+    <div class="frame">
+	<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'change_email')); ?>
+    <div class="dashboard-form-row row">
       <div class="labelbox">
 	<label>Current Password: <span style="color:#ff0000;">*</span></label>
       </div>
@@ -19,7 +19,7 @@
 	<?=$this->Form->password('old_password',array('required'=>false)); ?>
       </div>
     </div>
-    <div class="dashboard-form-row">
+    <div class="dashboard-form-row row">
       <div class="labelbox">
 	<label>New Email: <span style="color:#ff0000;">*</span></label>
       </div>
@@ -27,7 +27,7 @@
 	<?=$this->Form->text('email',array('required'=>false)); ?>
       </div>
     </div>
-    <div class="dashboard-form-row">
+    <div class="dashboard-form-row row">
       <div class="labelbox">
 	<label>Confirm Email: <span style="color:#ff0000;">*</span></label>
       </div>
@@ -35,12 +35,13 @@
 	<?=$this->Form->text('confirm_email',array('required'=>false)); ?>
       </div>
     </div>
-    <div class="dashboard-form-row">
+    <div class="dashboard-form-row row">
       <input class="dashboard-buttons" value="Update Email" type="submit">
     </div>
+	</div>
   <?php echo $this->Form->end();?>
 </div>
-
+</div>
 <script type="text/javascript">
    <?php $path = $this->Html->webroot; ?>
    $(document).ready(function(){
@@ -86,4 +87,9 @@
       });
         
    });
- </script>
+</script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+</script>

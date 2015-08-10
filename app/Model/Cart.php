@@ -179,5 +179,10 @@ Class Cart extends AppModel {
 		
 		return $service_price;
 	}
+
+	function CountBookingByServiceId($service_id=null) {
+		$booking_count = $this->find('all',array('fields'=>array('SUM(Cart.no_participants) as total_count'), 'conditions'=>array('Cart.service_id'=>$service_id,'Cart.status'=>0,'Cart.vendor_confirm'=>3)));
+		return $booking_count[0][0]['total_count'];
+	}
  }
 ?>

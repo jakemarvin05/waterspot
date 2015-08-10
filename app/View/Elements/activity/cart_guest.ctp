@@ -5,24 +5,24 @@
 			<h3>Proceed with your booking</h3>
 			<?=$this->Form->create('GuestLogin',array('url'=>array('plugin'=>false,'controller'=>'carts','action'=>'guest_login'),'class'=>'','id'=>'guest_login','novalidate' => true),array('placeholder'=>'Enter email address'));?>
 				<div class="guest-login-option-box">
-					<? $options = array('0' => 'Continue as a Guest.<br />','1'=> 'Already have an account. Sign-in to avail benefits.');
+					<? $options = array('0' => 'Continue as a Guest.<br />','1'=> 'Already have an account.');
 						$attributes = array(
 							'legend' => false,
 							'label' => true,
 							'value' => false,
-							'onclick'=>'togelshow(this.id)',
+							'onclick'=>'togelshow(this.id);',
 							);	
 						echo $this->Form->radio('GuestLogin',$options, $attributes);?>								
 				</div>
 				<div class="guest-user-login-content">
 					<div class="guest-login-input-box">
 						<div style="float: left; width: 100%; display: block;">
-							<label>Email Address:</label>
-							<?=$this->Form->text('email_id', array('div'=>false,'label'=>false,'placeholder'=>'Email id')); ?>
+							<label class="email-label">Email Address:</label>
+							<?=$this->Form->text('email_id', array('div'=>false,'label'=>false,'placeholder'=>'Email id','class'=>'form-control')); ?>
 						</div>
 						<div style="float: left; width: 100%; display:none;" id="show_password">
 							<label>Enter Password:</label>
-							<?=$this->Form->text('password', array('div'=>false,"style"=>"width:60%;",'label'=>false,'type'=>'password','placeholder'=>'Password')); ?>
+							<?=$this->Form->text('password', array('div'=>false,'label'=>false,'type'=>'password','placeholder'=>'Password','class'=>'form-control')); ?>
 							<div class="forgot-password">
 								<?php echo $this->Html->link('Forgot Password?',array('controller'=>'members','action'=>'resetpassword','plugin'=>'member_manager'),array('alt'=>'Forgot Password','target'=>'_blank','title'=>'Forgot Password'));?>
 							</div>
@@ -39,3 +39,6 @@
 		<?php } ?>
 	</div>
 </div>
+<script type="text/javascript">
+	$("label[for=GuestLoginGuestLogin0]").addClass('current');
+</script>

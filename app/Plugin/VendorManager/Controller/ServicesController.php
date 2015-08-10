@@ -164,6 +164,7 @@ Class ServicesController extends VendorManagerAppController{
 	}
 	
 	function add_services($service_id=null){
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('LocationManager.City');
 		$this->loadModel('VendorManager.ValueAddedService');
@@ -300,6 +301,8 @@ Class ServicesController extends VendorManagerAppController{
 	} 
    
     function my_services(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
+		$sort_by = isset($_GET['sort_by']) ? 'Service.'.$_GET['sort_by'] : false;
 		// checking login 
 		$vendor_id=$this->VendorAuth->id();
 		$this->loadModel('LocationManager.City');
@@ -318,6 +321,12 @@ Class ServicesController extends VendorManagerAppController{
             )
         );
 		$condition['Service.vendor_id'] = $this->VendorAuth->id();
+
+		if ($sort_by) {
+			$order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
+			$this->paginate['order'] = array($sort_by => $order);
+		}
+
 		$this->paginate['group'] = array('Service.id');
 		$my_services=$this->paginate("Service",$condition);
 		$service_id_list=array();
@@ -355,6 +364,7 @@ Class ServicesController extends VendorManagerAppController{
 		);
 		$this->set('url','/'.$this->params->url);
 		$this->set('service_lists',$service_lists_filter);
+
 		if($this->request->is('ajax')){
 			$this->layout = '';
 			$this -> Render('ajax_my_services');
@@ -435,8 +445,10 @@ Class ServicesController extends VendorManagerAppController{
 	}
 
 	function add_service_slots($service_id=null) {
+            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		
 		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.Service');
 		// checking vendor is login or not
 		$vendor_id=$this->VendorAuth->id();
 		// check service_id owner 
@@ -444,6 +456,8 @@ Class ServicesController extends VendorManagerAppController{
 			$this->Session->setFlash(__('Are you doing something wrong?', false));
 			$this->redirect($this->VendorAuth->loginRedirect);
 		}
+		$service = $this->Service->find('first',['conditions'=>['id'=>$service_id]]);
+		$default_service_price = $service['Service']['service_price'];
 		//$this->layout='';
 		$hours=range(0,23);		
 		$hours_format=array();
@@ -466,7 +480,9 @@ Class ServicesController extends VendorManagerAppController{
 			}
 		} 
 		if(!empty($service_id)) {
-			$service_slots=$this->ServiceSlot->getService_slotByservice_id($service_id);
+			$sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'start_time';
+			$order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
+			$service_slots=$this->ServiceSlot->getService_slotByservice_id($service_id, $sort_by, $order);
 			$service_title=$this->Service->servieTitleByService_id($service_id);
 		} 
 		//save slots
@@ -497,6 +513,7 @@ Class ServicesController extends VendorManagerAppController{
 		);
 		 
 		$this->set('service_id',$service_id);
+		$this->set('default_service_price',$default_service_price);
 		$this->set('service_title',$service_title);
 		$this->set('hours_format',$hours_format);
 		$this->set('end_hours_format',$end_hours_format);

@@ -1,5 +1,119 @@
-testing complete --- 2015-06-Sun 10:45:18pm
-testing complete --- 2015-06-Sun 11:00:01pm
-testing complete --- 2015-06-Sun 11:01:01pm
-testing complete --- 2015-06-Sun 11:02:02pm
-testing complete --- 2015-06-Mon 12:00:02am
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-25 23:00:03 
+Run WarnUnpaidUsers function
+Warned 1 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-29 20:00:03 
+Run WarnUnpaidUsers function
+Warned 1 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 1 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-29 21:00:02 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 21:00:03 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 22:00:02 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 22:32:57 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 22:34:28 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 22:35:03 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 22:36:09 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-06-30 23:00:03 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:19:23 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:19:55 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:19:57 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:23:23 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:24:53 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:26:20 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+
+*--------------------------------------------------------------------------------
+Scheduled task run at : 2015-07-12 21:28:07 
+Run WarnUnpaidUsers function
+Warned 0 unpaid members with bookings
+Run FreeExpiredSlots function
+Freed 0 expired booking slots
+

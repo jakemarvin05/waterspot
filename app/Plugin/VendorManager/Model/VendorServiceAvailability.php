@@ -1,5 +1,5 @@
 <?php
-Class VendorServiceAvailability extends VendorManagerAppModel {
+	Class VendorServiceAvailability extends VendorManagerAppModel {
 	public $name = "VendorServiceAvailability";	
 	var $actsAs = array('Multivalidatable');
 	public $validate = array(); 
@@ -175,7 +175,7 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 					 $filtre_slots[$index]['service_id']=$options['service_id'];
 					$filtre_slots[$index]['start_date']=date(Configure::read('Calender_format_php'),$index);
 					$filtre_slots[$index]['end_date']=date(Configure::read('Calender_format_php'),$index);
-					$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode($available_slot['VendorServiceAvailability']['slots']):array();
+					$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode('{'.substr($available_slot['VendorServiceAvailability']['slots'], 1, -1).'}'):array();
 				}
 			}
 			 
@@ -185,7 +185,7 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 				$filtre_slots[$index]['service_id']=$options['service_id'];
 				$filtre_slots[$index]['start_date']=date(Configure::read('Calender_format_php'),$index);
 				$filtre_slots[$index]['end_date']=date(Configure::read('Calender_format_php'),$index);
-				$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode($available_slot['VendorServiceAvailability']['slots']):array();
+				$filtre_slots[$index]['slotindex']=(!empty($available_slot['VendorServiceAvailability']['slots']))?json_decode('{'.substr($available_slot['VendorServiceAvailability']['slots'], 1, -1).'}'):array();
 			} 
 		}	
 		
@@ -216,17 +216,20 @@ Class VendorServiceAvailability extends VendorManagerAppModel {
 
 	// function gets recommended slots
 	// by po
-	public function isDateAvailable($service_id, $date)
-	{
-		return $this->find('all', array(
-			'conditions' => array(
-				'VendorServiceAvailability.service_id'=>$service_id,
-				'VendorServiceAvailability.unavailable'=>0, // 0 for available
-				'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date'=>[$date]
+		public function isDateAvailable($service_id, $date)
+		{
+			$result = $this->find('all', array(
+					'conditions' => array(
+						'VendorServiceAvailability.service_id' => $service_id,
+						'VendorServiceAvailability.unavailable' => 0, // 0 for available
+						'? BETWEEN VendorServiceAvailability.start_date AND VendorServiceAvailability.end_date' => $date
+					)
 				)
-			)
-		);
-	}
+
+			);
+			return $result;
+
+		}
 
 	public function getAllDates($options = array()){
 		$criteria = array();

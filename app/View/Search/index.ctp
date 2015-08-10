@@ -1,37 +1,44 @@
 <script type="text/javascript">
 	$(function(){
-		$('.contentselector').contenthover({
-			data_selector: '.contenthover',
-			effect:'slide',
-			slide_direction: 'left',
-			slide_speed:300,
-			overlay_opacity: 1
+		$('.tile').contenthover({
+			//data_selector: '.contenthover',
+			//effect:'slide',
+			//slide_direction: 'left',
+			//slide_speed:300,
+			overlay_background:'#000',
+			overlay_opacity:1
+
 		});
 	});
 </script>
-<div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<div class="filtered-listing" style="margin-top: 10px;">
-	<h2 style="float: left;" class="page-title">Search <span style="color:#000;">Results</span></h2>
-	<div class="activity-filter">
-		<div class="filter">
-			<? $action=(implode('/',$this->params->pass));?>
-			<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
-			<label>Filter by:</label>
-			<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
-			<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
-			<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
-			<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+<br><br><br><br>
 
-			
-			
-			<?=$this->Form->end();?>
-		</div>
-	</div>
-</div>
 
-<div class="middle-area">
+<div class="middle-area search-page container-fluid">
+	<div class="row">
+
+		<header class="page-header text-center">
+			<p class="beforeHeader">What are you game for?</p>
+			<h1 class="headerAlt">SEARCH RESULTS</h1>
+			<br/>
+			<div class="activity-filter">
+				<div class="filter">
+					<? $action=(implode('/',$this->params->pass));?>
+					<?=$this->Form->create('Search',array('url'=>array('plugin'=>false,'controller'=>'search','action'=>'index/'.$action),'novalidate' => true,'class'=>'sl'));?>
+					<label class="filter-label">Filter by:</label>
+					<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
+					<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Sort by price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+					<?=$this->Form->input('location_list',array('options'=>$location_list,'empty'=>'Sort by location','label'=>false,'div'=>false,'required'=>false));?>
+					<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+
+
+
+					<?=$this->Form->end();?>
+				</div>
+			</div>
+
+		</header>
+
 	<!-- <div class="search"><span> Search</span><input type="search"></div>-->
 	<div id='sort_by_price' class="ajax-loder" style="display:none">
 		<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
@@ -53,7 +60,7 @@
 			</div>
 		</div>
 </div>
-
+</div>
 <noscript>
 	<div class='pag-box'>
 		<ul class="pagination">
@@ -82,7 +89,7 @@
 		
 		if(page >= pages){
 		  $("#loader_pagination").attr("disabled", true);
-		  $('#loader_pagination').addClass('no-more-activities').html('No activities found');
+		  $('#loader_pagination').addClass('no-more-activities').html('No more activities');
 		
 		}else{
 			$("#loader_pagination").attr("disabled", false);
@@ -90,7 +97,7 @@
 		}
 		$('#SearchSortPrice,#SearchServiceTypeList,#SearchSortReview,#SearchLocationList').bind("change",function(){
 			$('#sort_by_price').show();
-			 
+			
 		 	var SearchServiceTypeList = $("#SearchServiceTypeList").val();
 		 	
 		 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
@@ -106,20 +113,22 @@
 			}
 			 
 			$.ajax({
-			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortByLocation+"/"+SearchSortReview,
+			   url : "<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$start_date."/1"?>/"+SearchSortPrice+"/"+SearchSortByLocation+"/"+SearchSortReview,
 				   success: function(res) {
 				   
 					   $( ".sun-text" ).remove();
 					   $("div.activities-listing").remove();
 					   $(".activities").html(res);
 					   $('#loader-image').hide();
-					   $('.contentselector').contenthover({
-							data_selector: '.contenthover',
-							effect:'slide',
-							slide_direction: 'left',
-							slide_speed:300,
-							overlay_opacity: 1
-						});
+					   $('.tile').contenthover({
+						   //data_selector: '.contenthover',
+						   //effect:'slide',
+						   //slide_direction: 'left',
+						   //slide_speed:300,
+						   overlay_background:'#000',
+						   overlay_opacity:1
+
+					   });
 					   $('#sort_by_price').hide();
 				 	}           
 					});
@@ -151,19 +160,21 @@
                     loading_start = 1;
                     page++;
                     $.ajax({
-						url:"<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$end_date."/".$no_of_participants?>/"+SearchSortPrice+"/"+SearchSortReview+"/page:"+page,
+						url:"<?=Router::url(array('controller'=>'search'))?>/index/"+SearchServiceTypeList+"/<?=$start_date."/".$start_date."/1"?>/"+SearchSortPrice+"/"+SearchSortReview+"/page:"+page,
 						async:false,
                         timeout:5,
                         success:function(data){
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.activities-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
-								overlay_opacity: 1
+							$('.tile').contenthover({
+								//data_selector: '.contenthover',
+								//effect:'slide',
+								//slide_direction: 'left',
+								//slide_speed:300,
+								overlay_background:'#000',
+								overlay_opacity:1
+
 							});
 							
                              
@@ -176,7 +187,7 @@
 								 alert('Failed from timeout');         
 								//do something. Try again perhaps?
 							}
-						},
+						}
                     });
                 }
             }
@@ -187,4 +198,7 @@
 		
 		});
 	
-</script>	 
+</script>
+<script type="application/javascript">
+	$('#SearchIndexForm select').selectpicker();
+</script>

@@ -217,7 +217,8 @@ class ServiceTypesController extends ServiceManagerAppController {
 		$this->loadModel('VendorManager.ServiceReview');
 		array_push(self::$script_for_layout,array('jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
-		// searching list 
+		array_push(self::$css_for_layout,'pages.css');
+		// searching list
 		if (!$service_type_id) {
 			throw new NotFoundException('Could not find service type id');
 		}

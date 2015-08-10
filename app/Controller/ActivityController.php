@@ -9,8 +9,258 @@ Class ActivityController extends AppController{
 		parent::beforeFilter();
 		Configure::load('VendorManager.config');	
 	}
-	
+
+	public  function getCurrentDateIndex($service_id,$selected_date){
+		$date = "$selected_date";
+
+		$this->loadModel('VendorManager.VendorServiceAvailability');
+
+		//Inputs
+		if ($selected_date = null) {
+			$selected_date = date("Y-m-d",strtotime("now"));
+		}
+		else{
+			$selected_date = date("Y-m-d",strtotime($date));
+		}
+
+		$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
+		if ($service) {
+			$recommendations = [];
+			$slots = $service[0]['VendorServiceAvailability']['slots'];
+			$startDate = $service[0]['VendorServiceAvailability']['start_date'];
+			$endDate = $service[0]['VendorServiceAvailability']['end_date'];
+			$dateComponents = explode('-',$selected_date);
+			$daySelected = $dateComponents[2];
+			$startDateComponents = explode('-',$startDate);
+			$startDay = $startDateComponents[2];
+			$endDateComponents = explode('-',$endDate);
+			$endDay = $endDateComponents[2];
+
+			if ($daySelected==$startDay) {
+				return 0;
+			}
+			elseif(($daySelected-$startDay)<3){
+				return ($daySelected-$startDay);
+			}
+			else {
+				return 3;
+
+			}
+		}
+		else{
+			return 0;
+		}
+
+	}
+	public function getRecommendedActivities($service_id,$selected_date){
+		$date = "$selected_date";
+		//return 'This is the recommended date';
+		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.BookingSlot');
+		$this->loadModel('VendorManager.VendorServiceAvailability');
+
+		//Inputs
+		if ($selected_date = null) {
+			$selected_date = date("Y-m-d",strtotime("now"));
+		}
+		else{
+			$selected_date = date("Y-m-d",strtotime($date));
+		}
+		//var_dump($service_id);
+		//
+		//var_dump($selected_date);
+		//$slots = [];
+		$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
+		if ($service) {
+			$recommendations = [];
+			$slots = $service[0]['VendorServiceAvailability']['slots'];
+			$startDate = $service[0]['VendorServiceAvailability']['start_date'];
+			$endDate = $service[0]['VendorServiceAvailability']['end_date'];
+
+
+			$slots = substr($slots, 1, -1);
+			$slots = '{' . $slots . '}';
+			$slots = json_decode($slots);
+			$dateComponents = explode('-',$selected_date);
+			$daySelected = $dateComponents[2];
+			$startDateComponents = explode('-',$startDate);
+			$startDay = $startDateComponents[2];
+			$endDateComponents = explode('-',$endDate);
+			$endDay = $endDateComponents[2];
+
+			if ($daySelected==$startDay){
+				$recommendSlots = [];
+				for($ctr = 0; $ctr<3; $ctr++) {
+					foreach($slots as $slot){
+						//var_dump($slot);
+						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+							$slot->{'status'} = 'unavailable';					}
+						else{
+							$slot->{'status'} = 'available';
+						}
+						array_push($recommendSlots,$slot);
+					}
+
+
+					array_push($recommendations, [
+						'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+						'slots'=> $recommendSlots
+					]);
+
+				}
+
+			}
+			elseif(($daySelected-$startDay)<3){
+				$recommendSlots = [];
+				$offSetDown = (strtotime($selected_date) - strtotime($startDate)) / (60*60*24);
+
+				for ($ctr = 0; $ctr <= $offSetDown; $ctr++) {
+					foreach($slots as $slot){
+						//var_dump($slot);
+						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+							$slot->{'status'} = 'unavailable';					}
+						else{
+							$slot->{'status'} = 'available';
+						}
+						array_push($recommendSlots,$slot);
+					}
+
+
+					array_unshift($recommendations, [
+						'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected - ($ctr)),
+						'slots'=> $recommendSlots
+					]);
+
+				}
+				$offSetUp = (strtotime($endDate) - strtotime($selected_date)) / (60*60*24);
+				if ($offSetUp > 3) {
+					$recommendSlots = [];
+					for ($ctr = 0; $ctr < 3; $ctr++) {
+						foreach($slots as $slot){
+							//var_dump($slot);
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+								$slot->{'status'} = 'unavailable';					}
+							else{
+								$slot->{'status'} = 'available';
+							}
+							array_push($recommendSlots,$slot);
+						}
+
+						array_push($recommendations, [
+							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'slots'=> $recommendSlots
+						]);
+
+
+					}
+				} else {
+					$recommendSlots = [];
+					for ($ctr = 0; $ctr <= $offSetUp; $ctr++) {
+						foreach($slots as $slot){
+							//var_dump($slot);
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+								$slot->{'status'} = 'unavailable';					}
+							else{
+								$slot->{'status'} = 'available';
+							}
+							array_push($recommendSlots,$slot);
+						}
+
+						array_push($recommendations, [
+							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'slots'=> $recommendSlots
+						]);
+
+
+					}
+				}
+			}
+			else{
+
+				for ($ctr = 0; $ctr <= 3; $ctr++) {
+					$recommendSlots = [];
+					foreach($slots as $slot){
+						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+							$slot->{'status'} = 'unavailable';					}
+						else{
+							$slot->{'status'} = 'available';
+						}
+						array_push($recommendSlots,$slot);
+					}
+
+					array_unshift($recommendations, [
+						'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected - ($ctr)),
+						'slots'=> $recommendSlots
+					]);
+
+				}
+
+				$offSetUp = (strtotime($endDate) - strtotime($selected_date)) / (60*60*24);
+
+				if ($offSetUp > 3) {
+
+					for ($ctr = 0; $ctr < 3; $ctr++) {
+						$recommendSlots = [];
+						foreach($slots as $slot){
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+								$slot->{'status'} = 'unavailable';					}
+							else{
+								$slot->{'status'} = 'available';
+							}
+							array_push($recommendSlots,$slot);
+						}
+
+
+						array_push($recommendations, [
+							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'slots'=> $recommendSlots
+						]);
+
+
+					}
+				} else {
+
+					for ($ctr = 0; $ctr <= $offSetUp; $ctr++) {
+						$recommendSlots = [];
+						foreach($slots as $slot){
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
+								$slot->{'status'} = 'unavailable';					}
+							else{
+								$slot->{'status'} = 'available';
+							}
+							array_push($recommendSlots,$slot);
+						}
+
+						array_push($recommendations, [
+							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'slots'=> $recommendSlots
+						]);
+
+
+					}
+				}
+
+			}
+
+		}
+		else{
+			 $recommendations = false;
+		}
+
+		return $recommendations;
+	}
+
+
+
 	function index($service_id=null,$cart_id=null){
+		array_push(self::$css_for_layout,'activity/activity.css');
+
+		//test
+		$thisDate = isset($this->request->query['date'])? $this->request->query['date']: "now";
+		$this->set('date',$thisDate);
+		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
+		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));
+
 		//load model
 		$this->loadModel('VendorManager.Vendor');
 		$this->loadModel('VendorManager.Service');
@@ -40,6 +290,7 @@ Class ActivityController extends AppController{
 		// Load java script and css
 		array_push(self::$script_for_layout,'login.js','jquery.tools.min.js','jquery.mousewheel.js','jquery.jscrollpane.min.js','fotorama.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js','jquery.fancybox.js','responsive-tabs.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js','http://w.sharethis.com/button/buttons.js');
 		array_push(self::$css_for_layout,'activity.css','jquery.jscrollpane.css','fotorama.css','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css','responsive-tabs.css',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
+		array_push(self::$css_for_layout,'pages.css');
 		self::$scriptBlocks[]='
 		$( document ).ready(function() {
 			 get_service_availability();
@@ -51,6 +302,7 @@ Class ActivityController extends AppController{
 			onSelect:function(selectedDate){
 			$( "#ActivityStartDate" ).val(selectedDate);
 			$( "#ActivityEndDate" ).datepicker( "option", "minDate", selectedDate );
+			get_service_availability();
 			$(this).change();
 			 }
 		}
@@ -110,9 +362,12 @@ Class ActivityController extends AppController{
 		}
 		// get service review 
 		$service_detail['Review']=$this->ServiceReview->getServiceReviewByservice_id($service_id);
+		$service_detail['Rating']=$this->ServiceReview->getServiceRatings($service_id);
 		$service_detail['image']=$this->ServiceImage->getServiceImageByservice_id($service_id);
 		$service_detail['location_name']= $this->City->getLocationListCityID($service_detail['Service']['location_id']);
 		$service_detail['service_type']= $this->ServiceType->getServiceTypeNameById($service_detail['Service']['service_type_id']);
+		$booking_count = $this->Cart->CountBookingByServiceId($service_id);
+		$this->set('booking_count', $booking_count);
 		// invite friend after add card table 
 		$cart_details=array();
 		$cart_slots=array();
@@ -179,6 +434,13 @@ Class ActivityController extends AppController{
 		$this->set('vendor_details',$vendor_details);
 		$this->set('service_detail',$service_detail);
 		$this->set('member_id',$this->member_data['MemberAuth']['id']);
+
+		$this->set('web_title', 'Waterspot Activity | ' . $this->title_for_layout);
+		$this->set('web_type', 'website');
+		$this->set('web_url', 'http://128.199.214.85' . $_SERVER['REQUEST_URI']);
+		$this->set('web_image', $service_detail['image'][0]);
+		$this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
+                
 	}
 	function ajax_get_availbility_range(){
 		$this->layout='';
@@ -195,7 +457,8 @@ Class ActivityController extends AppController{
 			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
 			if (count($service) !== 0) {
 				$service = $service[0]['VendorServiceAvailability'];
-				eval('$slots = ' . $service['slots'] . ';');
+
+				$slots = json_decode('{'.substr($service['slots'], 1, -1).'}');
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
 				if (!empty($new_service_slots)) {
@@ -217,11 +480,9 @@ Class ActivityController extends AppController{
 					$before_dates = array_reverse(array_slice($dates, 0, $key));
 					foreach ($before_dates as $date) {
 						foreach ($slots as $slot) {
-							$time = explode('_', $slot);
-							$start_time = $time[0];
-							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) { // almost same function as the availablility of selected date.
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $slot->start_time, $slot->end_time);
+							if (!$data) { // almost same function as the availablility of selected date.
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 3) {
@@ -236,15 +497,16 @@ Class ActivityController extends AppController{
 							$time = explode('_', $slot);
 							$start_time = $time[0];
 							$end_time   = $time[1];
-							if (!$this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time)) {
-								$recommended[] = $date;
+							$data = $this->BookingSlot->isSlotBooked($service_id, $date, $start_time, $end_time);
+							if (!$data) {
+								$recommended[] = $data;
 							}
 						}
 						if (count($recommended) === 6) {
 							break;
 						}
 					}
-
+					// return json_encode($recommended);
 					$this->set('recommended_dates',$recommended);
 				}
 			}
@@ -387,6 +649,7 @@ Class ActivityController extends AppController{
 	
 	function activities($vendor_id=null,$service_type_id=null,$sort_by_price=null,$sort_by_review=null){
 		// load model
+            array_push(self::$css_for_layout,'pages.css');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.Vendor');
@@ -495,6 +758,17 @@ Class ActivityController extends AppController{
 		if(!empty($page['Page']['page_metadescription'])){
 			$this->metadescription = $page['Page']['page_metadescription'];
 		}
+	}
+
+	public function ajax_get_recommended_dates()
+	{
+		$this->layout = '';
+		$thisDate = isset($_POST['start_date'])? $_POST['start_date']: "now";
+		$service_id = $_POST['service_id'];
+		
+		$this->set('date',$thisDate);
+		$this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
+		$this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));
 	}
 }
 ?>

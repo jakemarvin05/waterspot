@@ -201,6 +201,7 @@ class PaymentsController extends VendorManagerAppController{
 		///******Mail to Admin******/
 		
 		$email = new CakeEmail();
+$email->config('gmail');
 		//$email->to('pavans@bugeonsoft.net');
 		$email->to($this->setting['site']['site_contact_email']);
 		$email->subject($mail['Mail']['mail_subject']);
@@ -217,6 +218,7 @@ class PaymentsController extends VendorManagerAppController{
 		$body=str_replace('{AMOUNT}','$'.$amount,$body);
 		
 		$email = new CakeEmail();
+$email->config('gmail');
 
 		$email->to($vendorinfo['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);

@@ -1,43 +1,47 @@
+<div class="container-fluid member-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
-<h2 class="page-title">Change <span style="color: #000;">Email</span></h2>
+<div class="clear" style="margin-top:80px;"></div>
+
+<h2 class="page-title">Change Email</h2>
 
 <?=$this->element('MemberManager.left-member-panel');?>
 
-<div class="right-area">
-  <h3 class="dashboard-heading">Change Email</h3>
+<div class="right-area col-sm-9 col-xs-12">
+  <h3 class="dashboard-heading">Update Your Email</h3>
     <?=$this->element('message');?>
       <?php echo $this->Form->create('Member', array('id'=>'ChangeEmail','url'=>array('plugin'=>'member_manager','controller'=>'members','action'=>'change_email'),'class'=>'dashboard-edit-form','novalidate'=>true));?>
 	<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'change_email')); ?>
-	<div class="dashboard-form-row">
+        <div class="frame">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
 	    <label>Current Password: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->password('current_password',array('required'=>false)); ?>
+	    <?=$this->Form->password('current_password',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
             <label>New Email: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->text('email_id',array('required'=>false)); ?>
+	    <?=$this->Form->text('email_id',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
+	<div class="dashboard-form-row editemail">
           <div class="labelbox">
 	    <label>Confirm Email: <span style="color:#ff0000;">*</span></label>
           </div>
           <div class="fieldbox">
-	    <?=$this->Form->text('confirm_email_id',array('required'=>false)); ?>
+	    <?=$this->Form->text('confirm_email_id',array('required'=>false, 'class'=>'editemailinput')); ?>
           </div>
         </div>
-	<div class="dashboard-form-row">
-          <input class="dashboard-buttons" value="Update" type="submit">
+	<div class="dashboard-form-row editemail">
+          <input class="dashboard-buttons" value="Update Email" type="submit">
         </div>
-      <?php echo $this->Form->end();?>     
+      <?php echo $this->Form->end();?>
+</div>    
+</div>
 </div>
 
 <script type="text/javascript">
@@ -86,3 +90,8 @@
         
    });
  </script>
+<script type='text/javascript'>
+ $(document).ready(function () {
+ sameHeight('left-area','right-area');
+ });
+</script>

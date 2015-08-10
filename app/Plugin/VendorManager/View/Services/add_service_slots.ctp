@@ -1,26 +1,29 @@
+<div class="container-fluid vendor-panel">
 <div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<h2 class="page-title">Slots - <span style="color:#000;"><?=$service_title?></span></h2>
+<div class="clear" style="margin-top:80px;"></div>
+
+<h2 class="page-title">Slots - <?=$service_title?></h2>
 
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-<div class="right-area">
+<div class="right-area col-sm-9 col-xs-12">
 
 	<?=$this->element('message');?>
 	<h3 class="dashboard-heading">Our Available Slots</h3>
 	<?php if(!empty($service_slots)) { ?>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
-				<th>Start Time</th>
-				<th>End Time</th>
-				<th>Cancel</th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
+				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
+				<th>Action</th>
 			</tr>
 			<?php foreach($service_slots as $service_slot){?>
 				<tr> 
 					<td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
 					<td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
-					<td class="align-center"><?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
+					<td class="align-center"><?=$service_slot['price']?></td>
+					<td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
 				</tr> 
 			<?php }?> 
 		</table>
@@ -29,15 +32,18 @@
 	<?php } ?>
 
 	<h3 class="dashboard-heading">Add New Slot</h3>
+        <div class="dashboard-form-row with-padding edit">
 	<?=$this->Form->create('ServiceSlot',array('id'=>'add_slots','class'=>'add-slot-form','url'=>array('controller'=>'services','action'=>'add_service_slots',$service_id),'novalidate' => true)); ?>
 		<?php echo $this->Form->hidden('id'); ?>
 		<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
-		<?=$this->Form->input('start_time',array('type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
-		<span class="txt">to</span>
-		<?=$this->Form->input('end_time',array('type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>	
-		<input class="dashboard-buttons" type="submit" value="Add Slot" />
+		<?=$this->Form->input('start_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
+		<span class="txt edit">TO</span>
+		<?=$this->Form->input('end_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
+		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=>false,'div'=>false, 'placeholder'=>'price'));?>
+		<input class="dashboard-buttons dashboard-buttons btn orange" type="submit" value="Add Slot" />
 	<?php echo $this->Form->end();?>
-
+        </div>
+</div>
 </div>
 
 <script>
@@ -109,3 +115,9 @@
  
     });
  </script>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+	$("select.selectpicker").selectpicker();
+</script>

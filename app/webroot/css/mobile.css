@@ -1,0 +1,349 @@
+
+@media (min-width: 1220px) {
+    .tile-info .vendor-rating-wrapper {
+        float: right;
+        width: 40%;
+    }
+    .tile-info .activity-rating-wrapper{
+        float: right;
+        width: 42%;
+
+    }
+}
+@media (min-width: 1366px) {
+    .tile-info .vendor-rating-wrapper {
+        float: right;
+        width: 38%;
+        max-width: 160px;
+    }
+    .tile-info .activity-rating-wrapper{
+        float: right;
+        width: 38%;
+        max-width: 160px;
+
+    }
+}
+/* For Medium sized desktop */
+
+@media (max-width: 1219px) {
+
+    .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: left;
+    }
+
+    .vendor-listing .tile-info h4 {
+        width: 50%;
+    }
+
+    .contenthover .view-all-tags {
+        font-size: 16px;
+    }
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: left;
+    }
+
+
+}
+
+@media (max-width: 1188px) {
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+
+}
+
+@media (max-width: 1124px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+}
+@media (max-width: 1120px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+
+}
+
+
+/* For iPad */
+@media (max-width: 1024px) {
+    .ch_element.ch_wrapper {
+        min-height: 220px;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+    .search-page label.filter-label {
+        clear: both;
+        display: block;
+        text-transform: uppercase;
+    }
+
+}
+
+
+
+/* For Tablets */
+@media (max-width: 767px) {
+    .ch_element.ch_wrapper {
+        min-height: 162px ;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+    .tile-info .vendor-rating-wrapper .rating-label{
+        float: right;
+    }
+
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: left;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: left;
+    }
+
+    .activities-listing {
+        min-height: 300px;
+    }
+    .contenthover .view-description, .contenthover .view-all-tags {
+        margin-top: 20px;
+    }
+
+    .contenthover .short-desc {
+        max-height: 129px;
+        overflow: hidden;
+    }
+
+    .stickyCollapsedFix .navButtonOuter {
+        padding-bottom: 8px;
+    }
+
+    .tile-info h4 {
+        max-width: 50%;
+        font-size: 12px;
+    }
+
+    .tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
+        width: 50%;
+        font-size: 12px;
+    }
+
+    .ch_element.ch_wrapper {
+        min-height: 160px ;
+    }
+
+    .activities-listing {
+        min-height: 200px;
+    }
+
+    .btn-group.bootstrap-select {
+        margin: 5px;
+    }
+
+    .contenthover .view-description, .contenthover .view-all-tags {
+        font-size: 12px;
+
+        padding: 20px;
+        /* margin: 20px auto 0px; */
+    }
+    .contenthover .view-description{
+        margin-top:20px
+    }
+    .contenthover .short-desc {
+        max-height: 110px;
+        overflow: hidden;
+    }
+
+    .ch_element.ch_wrapper {
+        min-height: 162px ;
+    }
+    section#navWrapper {
+        background-color: #fff;
+        padding-bottom: 20px;
+    }
+    .tile-info .vendor-rating-wrapper .rating-label{
+        float: right  ;
+    }
+    .h4{
+        font-size: 12px  ;
+    }
+    .rating-label{
+        font-size: 12px  ;
+    }
+    .activity-tags span{
+        display: none  ;
+    }
+    .view-all-tags{
+        font-size: 12px;
+        padding: 8px;
+    }
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: left;
+    }
+    .search-page .tile-info .activity-rating-wrapper{
+        width: 40%;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label{
+        float: right;
+    }
+
+
+    label.filter-label {
+        clear: both;
+        display: block;
+        text-transform: uppercase;
+    }
+    .vendor-listing {
+        width: 100%;
+    }
+}
+
+@media (max-width: 733px){
+    .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+}
+@media (max-width: 720px){
+    .tile-info .vendor-rating-wrapper .rating-label{
+        float: right  ;
+    }
+
+    .activity-tags span{
+        display: none  ;
+    }
+    .view-all-tags{
+        font-size: 12px  ;
+        padding: 8px  ;
+    }
+}
+
+@media (max-width: 692px) {
+    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
+        float: right;
+    }
+}
+/* For Smart Phones */
+@media (max-width: 480px) {
+    .ch_element.ch_wrapper {
+        min-height: 140px ;
+    }
+    .activities-listing {
+        min-height: 260px;
+
+        width: 100%;
+    }
+    .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+        width: 100% ;
+        margin-bottom: 10px ;
+    }
+    .navButtonOuter {
+        padding: 5px;
+    }
+    .contenthover .short-desc {
+        display: block;
+
+        max-height: 170px;
+    }
+    .beforeHeader {
+        line-height: 22px;
+    }
+    .activity-tags {
+        display: none;
+    }
+
+    a.view-all-tags {
+        margin-top: 0;
+        line-height: 22px;
+        position: relative;
+        top: -40px;
+    }
+    h5.vendor-name {
+        margin-top: 10px;
+    }
+
+    .vendor-area.row .col-xs-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .contenthover .view-description, .contenthover .view-all-tags {
+        font-size: 28px;
+        line-height:20px;
+        padding: 23px;
+
+        max-width: 70%;
+        margin: 20px auto;
+    }
+    .tile-info .activity-rating-wrapper .rating-label{
+        float: left;
+    }
+    .tile-info .activity-rating-wrapper{
+        width: 40%;
+    }
+    .search-page .tile-info .activity-rating-wrapper{
+        width: 45%;
+    }
+    .search-page .tile-info .activity-rating-wrapper .rating-label{
+        float: left;
+    }
+    .vendorwise-listing {
+        width: 100%;
+    }
+    .contenthover:hover{
+        opacity:0;
+    }
+    .slider-holder img {
+        width: 100%;
+        height: auto;
+    }
+    .whitebg{
+        display: none;
+    }
+
+    .slider-holder {
+        height: auto;
+    }
+    .fotorama__arr.fotorama__arr--next {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+    .fotorama__arr.fotorama__arr--prev {
+        width: 20px!important;
+        height: 40px!important;
+        background-size: contain!important;
+    }
+
+    section.right-section .startDate {
+        width: 100%;
+    }
+
+    input#loginButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 473px) {
+    .tile-info .activity-rating-wrapper .rating-label{
+        float: right;
+    }
+}
+@media (max-width: 400px) {
+
+    .search-page .tile-info .activity-rating-wrapper .rating-label {
+        float: right;
+    }
+}

@@ -138,6 +138,7 @@ Class VendorsController extends VendorManagerAppController{
 		array_push(self::$script_for_layout,'animatedcollapse.js','jquery.contenthover.min.js','jquery.mousewheel.js');
 		array_push(self::$script_for_layout,array('jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js'));
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
+		array_push(self::$css_for_layout,'pages.css');
 		$vendor_services=$condition = array();
 		$this->paginate = array();
 		$this->paginate['limit']=Configure::read('Activiy.Limit');
@@ -275,6 +276,8 @@ Class VendorsController extends VendorManagerAppController{
 	}
 	
 	function registration(){
+		array_push(self::$css_for_layout,'vendor/registration.css');
+
 		if($this->VendorAuth->id()){
 			$this->redirect($this->VendorAuth->loginRedirect);
 		}
@@ -316,7 +319,8 @@ Class VendorsController extends VendorManagerAppController{
 		$this->metadescription = 'Vendor login';
 	}
 
-	function dashboard(){ 
+	function dashboard(){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('MemberManager.Member');
 		$this->loadModel('LocationManager.City');
@@ -453,6 +457,7 @@ Class VendorsController extends VendorManagerAppController{
 	
 	// This function is used to than after vendor registration
 	public function thankyou(){
+            array_push(self::$css_for_layout,'pages.css');
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
 			'name'=>'Home'
@@ -513,6 +518,7 @@ Class VendorsController extends VendorManagerAppController{
 		$body=str_replace('{PASSWORD}',$password,$body); 
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')),$body);   
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($mail_data['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
@@ -531,6 +537,7 @@ Class VendorsController extends VendorManagerAppController{
 		$body=str_replace('{NAME}',$vendordetail['Vendor']['fname'],$mail['Mail']['mail_body']);
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')),$body);
 		$email = new CakeEmail();
+$email->config('gmail');
 		$email->to($vendordetail['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
@@ -755,7 +762,8 @@ Class VendorsController extends VendorManagerAppController{
 		$this->loadModel('VendorManager.ServiceImage');
 		array_push(self::$script_for_layout,'jquery.contenthover.min.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js');
 		array_push(self::$css_for_layout,$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
-		// searching list 
+		array_push(self::$css_for_layout,'pages.css');
+		// searching list
 		$service_name='';
 		$conditions=array();
 		$vendor_list=array();

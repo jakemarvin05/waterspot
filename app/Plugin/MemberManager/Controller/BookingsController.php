@@ -64,6 +64,7 @@ Class BookingsController extends MemberManagerAppController{
 			
 			//Notify mail for Vendor	
 			$email = new CakeEmail();
+$email->config('gmail');
 			$email->to($this->MemberAut->results['MemberAuth']['email_id']);
 			//$email->to($this->VendorAuth->results['VendorAuth']['email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -95,6 +96,7 @@ Class BookingsController extends MemberManagerAppController{
 				
 				//Notify mail for Members	
 				$email = new CakeEmail();
+$email->config('gmail');
 				$email->to($data['Cart']['vendor_email']);
 				$email->to($memberinfo["Member"]["email_id"]);
 				$email->subject($mail['Mail']['mail_subject']);
@@ -114,6 +116,7 @@ Class BookingsController extends MemberManagerAppController{
 	
 	function booking_status(){
 		//die('sdfsd');
+            array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->bookingNotification();
 		$this->loadModel('Cart');
 		$criteria = array();
@@ -158,6 +161,8 @@ Class BookingsController extends MemberManagerAppController{
 	}
 	
 	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
+                        array_push(self::$css_for_layout,'member/member-panel.css');
+
 		$this->loadModel('BookingSlot');
 		$conditions=null;
 		$this->paginate = array();

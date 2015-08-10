@@ -8,6 +8,8 @@
 		</div>
 		<div id="videoOverlayWrapper">
 		</div>
+		</div>
+
 	</section>
 
 
@@ -20,26 +22,72 @@
 				<?=$this->element('activity/slider');?>
 			</div>
 			<?=$this->element('activity/serviceDescriptiontabs');?>
-			<div class="map-holder row">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.73203943127!2d103.85765580502138!3d1.291905694200164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11238a8b9375%3A0x887869cf52abf5c4!2sSingapore!5e0!3m2!1sen!2sph!4v1434699748138" width="100%" height="530" frameborder="0" style="border:0"></iframe>
-			</div>
+			<div id="map-canvas" style="height:400px; width:100%;"></div>
+			<script src="https://maps.googleapis.com/maps/api/js"></script>
+		    <script>
+		      function initialize() {
+		        geocoder = new google.maps.Geocoder();
+			    var latlng = new google.maps.LatLng(-34.397, 150.644);
+			    var mapOptions = {
+			      zoom: 15,
+			      center: latlng,
+                              scrollwheel: false
+			    }
+			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+			      if (status == google.maps.GeocoderStatus.OK) {
+			        map.setCenter(results[0].geometry.location);
+			        var marker = new google.maps.Marker({
+			            map: map,
+			            position: results[0].geometry.location
+			        });
+			      } else {
+			        alert("Geocode was not successful for the following reason: " + status);
+			      }
+			    });
+		      }
+		      google.maps.event.addDomListener(window, 'load', initialize);
+		    </script>
+
 		</section>
 		<section id="sidebar" class="right-section col-sm-4 col-xs-12">
 				<aside class="cart-box">
 						<div class="activity-price-info"><span><?=Configure::read('currency');?><?=number_format($service_detail['Service']['service_price'],2);?></span> <span class="unit">PER PAX</span></div>
 						<div id="rating" class="blocks">
 							<h4>RATING:</h4>
-							<div class="rating"></div>
-							<div class="clearfix"></div>
-							<p class="info">Event has a minimum-to-go of 30 pax.</p>
-							<div class="completion">
-								<div class="progressbar" style="width:40%;"></div>
+							<div class="rating" style="background:none;">
+								<button class="rate" id="rate-1" data-rate="1" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-2" data-rate="2" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-3" data-rate="3" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-4" data-rate="4" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
+								<button class="rate" id="rate-5" data-rate="5" style="background:none"><img src="/img/social-feed-logo.jpg"></button>
 							</div>
-							<div class="progressinfo"><span class="current">12</span> out of 30</div>
+							<script type="text/javascript">
+							$(document).ready(function(){
+								var rate = <?php echo (isset($service_detail['Rating'])?$service_detail['Rating']:0); ?>;
+								var crate = rate+1;
+								while(crate <= 5) {
+									$('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
+									crate++;
+								}
+							});
+							</script>
 							<div class="clearfix"></div>
+						<?php 
+							if($service_detail['Service']['min_participants'] > 0) { 
+								$percent = round($booking_count * 100 / $service_detail['Service']['min_participants']) ;
+						?>
+							<p class="info">Event has a minimum-to-go of <?php echo $service_detail['Service']['min_participants']; ?> pax.</p>
+							<div class="completion">
+								<div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
+							</div>
+							<div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
+							<div class="clearfix"></div>
+						<?php } ?>
 						</div>
 					<div class="blocks">
 					<div class="slot-booking-form">
+					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'name'=>'add_services','class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
 						<div class="select-participant">
 							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
 							<?
@@ -52,7 +100,7 @@
 						</div>
 						<?php echo $this->element('message');?>
 
-						<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+						
 						<?=$this->Form->text('service_id',array('type'=>'hidden','value'=>$service_detail['Service']['id'])); ?>
 						<br>
 						<div class="startDate">
@@ -67,6 +115,7 @@
 						<div class="end-date"><h4>3. End Date</h4><br /><?=$this->Form->text('end_date',array('type'=>'hidden','class'=>'date-icon','autocomplete'=>'off'));?></div>
 						<div id="enddatepicker"></div>
 						</div>-->
+
 						<div class="clear"></div>
 						<div class="clear"></div>
 						<div id='loader_slots' class="ajax-loder" style="display:none">
@@ -79,6 +128,15 @@
 						<?=$this->Form->end(); ?>
 					</div>
 					</div>
+					<div id="share" class="blocks"><br><br>
+						<h4>Share: </h4>
+						<div class="socialicons">
+							<a id="shareFB" href="https://www.facebook.com/sharer/sharer.php?app_id=381957422009700&sdk=joey&u=<?php echo  (isset($web_url) ? urlencode($web_url) : urlencode('http://128.199.214.85')); ?>&display=popup&ref=plugin&src=share_button" >facebook</a>
+						</div>
+
+					<div class="clearfix"></div>
+					</div>
+
 				</aside>
 
 			</section>
@@ -86,8 +144,9 @@
 		<div class="clear spacer"></div>
 
 	</div>
+	<div class="container-fluid suggestion" id="recommended_slots">
 
-	<div class="clear"></div>
+	</div>
 </div>
 
 
@@ -164,7 +223,6 @@ function get_service_availability()	{
  
 	var service_id=$( "#ActivityServiceId" ).val();
 	var startdate=$( "#ActivityStartDate" ).val();
-	var enddate=$( "#ActivityEndDate" ).val();
 	var no_participants=$( "#ActivityNoParticipants" ).val();
 				
 	if(startdate=='' || service_id=='' || no_participants<=0) {
@@ -178,7 +236,7 @@ function get_service_availability()	{
  $.ajax({
 		 url :'<?=$path?>activity/ajax_get_availbility_range',
 		 type:'POST',
-		 data:{'service_id':service_id,'start_date':startdate,'end_date':enddate,'no_participants':no_participants},
+		 data:{'service_id':service_id,'start_date':startdate,'no_participants':no_participants},
 		 success: function (result)
 		 {
 			 
@@ -191,8 +249,22 @@ function get_service_availability()	{
 		 }
 	}); 
 //alert(service_id+startdate+enddate)
-} 
+}
+
+function get_recommended_dates() {
+	var service_id = $("#ActivityServiceId").val();
+	var startdate  = $("#ActivityStartDate").val();
+	$.ajax({
+		 url :'<?=$path?>activity/ajax_get_recommended_dates',
+		 type:'POST',
+		 data:{'service_id':service_id,'start_date':startdate},
+		 success: function (result) {
+			$("#recommended_slots").html(result);
+		}
+	});
+}
 </script>
+
 <script>
 <?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){
@@ -340,8 +412,7 @@ function get_service_availability()	{
 	});
 </script>-->
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(function()
 	{
 		$('.scroll-pane').jScrollPane({
@@ -350,3 +421,21 @@ function get_service_availability()	{
 		});
 	});
 </script>
+	<script language="javascript" type="text/javascript">
+
+		function openInPopUp(url) {
+			newwindow=window.open(url,'name','height=500,width=550');
+			if (window.focus) {newwindow.focus()}
+			return false;
+		}
+
+		$('#shareFB').click(function(e){
+			e.preventDefault();
+			openInPopUp($(this).attr("href"));
+
+		});
+
+	</script>
+	<script type="text/javascript">
+		$('#ActivityNoParticipants').selectpicker().hide();
+	</script>

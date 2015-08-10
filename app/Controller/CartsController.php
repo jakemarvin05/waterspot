@@ -24,6 +24,8 @@ Class CartsController extends AppController{
             );
         // load MemberAuth component
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		array_push(self::$css_for_layout,'pages.css');
+
 		$this->sessionKey = MemberAuthComponent::$sessionKey;
 		$this->member_data = $this->Session->read($this->sessionKey);
 		// member empty then redirect login page
@@ -78,6 +80,7 @@ Class CartsController extends AppController{
 		if(empty($cart_details)){
 			$check_guest_status=1;
 		}
+
 		$cart_page=$this->Page->find('first',array('conditions'=>array('Page.id'=>18),'fields'=>array('Page.*')));
 		$this->title_for_layout = $cart_page['Page']['page_title'];
 		$this->metakeyword = $cart_page['Page']['page_metakeyword'];
@@ -98,11 +101,13 @@ Class CartsController extends AppController{
 		'url'=>Router::url('/carts/booking_success'),
 		'name'=>'Booking Success'
 		);
+		array_push(self::$css_for_layout,'pages.css');
+
 	}
 	
 	function booking_request(){ 
 		//$this->autoRender = false;
-		
+
 		if(!empty($this->request->data)){
 			$this->loadModel('Cart');
 			App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
@@ -138,6 +143,8 @@ Class CartsController extends AppController{
 					$body=str_replace('{PRICE}',$val['Cart']['total_amount'],$body);
 					
 					$email = new CakeEmail();
+$email->config('gmail');
+					
 					$email->to($val['Cart']['vendor_email'],$mail['Mail']['mail_from']);
 					$email->subject($mail['Mail']['mail_subject']);
 					$email->from($data['Cart']['email']);

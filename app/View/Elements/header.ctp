@@ -73,8 +73,8 @@
                  </div>
             </div>
           <div class="navGroup">
-               <div class="navButtonOuter <?php if($this->params['controller']=="vendor" ){ echo "navActive"; }?>">
-                    <a href="/vendor/list/"><i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
+               <div class="navButtonOuter <?php if($this->params['controller']=="vendors" ){ echo "navActive"; }?>">
+                    <a href="/vendor/vendor_list/"><i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
                 </div>
            </div>
           <div class="navGroup">
@@ -83,12 +83,29 @@
                  </div>
              </div>
             <div class="navGroup">
-            <?php if($this->LoginMenu->isLogin()){ echo $this->LoginMenu->show(); ?>
+                <?php if($this->LoginMenu->isLogin()){ ?>
+                    <div class="navButtonOuter dropdown" data-placement="bottom">
+
+                       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                           <i class="fa fa-user"></i>
+                           <?php if($this->Vendor->isVendorLogin()) { ?>
+                           Vendor Menu
+                           <?php }
+                           else {?>
+                               Member Menu
+                           <?php } ?>
+                           <span class="caret"></span>
+                       </button>
+                   <?php
+
+                    echo $this->LoginMenu->show(); ?>
+                    </div> 
                 <?php } else { ?>
                     <div class="navButtonOuter" data-toggle="popover" data-placement="bottom">
                         <i class="fa fa-user"></i><span class="navTextLabel">LOGIN/SIGNUP</span>
                     </div>
-            <?php  } ?>
+                <?php  } ?>
              <script>
              $(function () {
           
@@ -116,12 +133,12 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<form>';
-                             content += '<input name="data[Login][login_type]" type="hidden" value="0">';
-                             content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                         content += '<?php echo $this->Form->create('Member',array('action'=>'registration','name'=>'members','id'=>'MemberLogin','controller'=>'members','novalidate'=>true,'class'=>'login-form', 'url'=>'/members/registration'));?>';
+                             content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
+                             content += '<?=$this->Form->email('email_id',array('required'=>false, 'class' => 'form-control popoverInput', 'placeholder' => 'Email')); ?><?=$this->Form->error('email_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>';
+                             content += '<?=$this->Form->password('password',array('required'=>false, 'class' => 'form-control popoverInput', 'placeholder' => 'Password')); ?><?=$this->Form->error('password',null,array('wrap'=>'div','class'=>'error-message'));?>';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
-                         content += '</form>';
+                         content += '<?php echo $this->Form->end();?>';
           
                      //or facebook login
                      content += '<div class="loginOrContainer">';
@@ -147,12 +164,14 @@
                      content += '<div class="popoverFormBlock">';
           
                          //inputs
-                         content += '<form>';
-                             content += '<input name="data[Login][login_type]" type="hidden" value="1">';
-                             content += '<input class="form-control popoverInput name="data[Login][email_id]" placeholder="Email" type="email">';
-                             content += '<input class="form-control popoverInput" name="data[Login][password]" placeholder="Password" type="asssword">';
+                         content += '<?php echo $this->Form->create('Vendor',array('action'=>'registration','name'=>'vendors','id'=>'VendorsLogin','controller'=>'vendors' ,'type'=>'file','novalidate' => true, 'class'=>'login-form', 'url'=>'/vendors/registration'));?>';
+                             content += '<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'LoginForm')); ?>';
+                             content += '<?=$this->Form->email('emailid',array('required'=>false,'class'=>'form-control popoverInput')); ?>';
+                             content += '<?=$this->Form->error('emailid',null,array('wrap' => 'div', 'class' => 'error-message')); ?>';
+                            // content += '<input class="form-control popoverInput" name="data[Vendor][emailid]" placeholder="Email" type="email">';
+                             content += '<input class="form-control popoverInput" name="data[Vendor][pass]" placeholder="Password" type="password">';
                              content += '<button type="submit" class="btn btnDefaults btnFillOrange">Login</button>';
-                         content += '</form>';
+                         content += '<?php echo $this->Form->end();?>';
           
                      content += '</div>'; // .popoverFormBlock
                  content += '</div>'; // .popoverBlock
@@ -193,6 +212,8 @@
                  });
           
              });
+
+
              </script>
            </div>
         </nav>
