@@ -446,7 +446,7 @@ form.dashboard-edit-form .row input[type=text],form.dashboard-edit-form .row inp
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
-    margin: 0;
+    margin-bottom: 10px;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -702,7 +702,7 @@ div#flashMessage {
 }
 
 input.add-video-field {
-    width: 95%!important;
+    width: 93%!important;
     float: left;
     margin-right: 1%!important;
     margin-bottom: 15px!important;
@@ -744,4 +744,13 @@ span.currency-symbol {
 .dollarsign {
     display: inline-block;
     width: 3.6%;
+}
+.input.select.required {
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.input.select.required button.btn.dropdown-toggle.btn-default {
+    width: 170%;
 }
