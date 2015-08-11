@@ -446,7 +446,7 @@ form.dashboard-edit-form .row input[type=text],form.dashboard-edit-form .row inp
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
-    margin: 0;
+    margin-bottom: 10px;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -702,7 +702,7 @@ div#flashMessage {
 }
 
 input.add-video-field {
-    width: 95%!important;
+    width: 93%!important;
     float: left;
     margin-right: 1%!important;
     margin-bottom: 15px!important;
@@ -734,7 +734,7 @@ span.currency-symbol {
 
 .addservedit.form {
     display: inline-block;
-    width: 46%;
+    width: 47.8%;
 }
 
 .addservedit {
@@ -743,5 +743,22 @@ span.currency-symbol {
 
 .dollarsign {
     display: inline-block;
-    width: 3.6%;
+    width: 1.8%;
+    position: relative;
+    top: 6px;
+}
+.input.select.required {
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.input.select.required button.btn.dropdown-toggle.btn-default {
+    width: 168%;
+    padding-left: 12px;
+}
+
+.right-area .dashboard-form-row .btn.dropdown-toggle {
+    border-color: #CCC;
+    border-radius: 4PX;     box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);     color: #606060;
 }

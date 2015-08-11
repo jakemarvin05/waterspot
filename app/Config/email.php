@@ -48,7 +48,7 @@ class EmailConfig {
 	// link : http://serverfault.com/questions/635139/how-to-fix-send-mail-authorization-failed-534-5-7-14
 	public $gmail = array(
 		'host' => 'smtp.gmail.com',
-        'port' => 465,
+        'port' => 587,
         'username' => 'jakemarvin05@gmail.com', // set yout email here
         'password' => "ceit05601a", // set your password here
         'transport' => 'Smtp',
