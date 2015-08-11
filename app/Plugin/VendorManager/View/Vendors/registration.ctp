@@ -23,7 +23,7 @@
 			</div>
         </div>
         
-        <br/>
+
 		
             <div class="registration-form-row">
             </div>
