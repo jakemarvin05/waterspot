@@ -51,7 +51,7 @@
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row row servcont hidethis">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -61,7 +61,7 @@
                         <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row row servcont hidethis">
                     <div class="labelbox">
                         <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
                     </div>
@@ -443,4 +443,22 @@
 
 
     });
+</script>
+<script>
+$('document').ready(function(){
+//trigger
+$('input.checkbox_check').change(function(){
+//check if box is checked
+if($(this).prop('checked')){
+//show the element
+$('.dashboard-form-row.row.servcont.hidethis').show();
+}
+else{
+//Hide the element
+$('.dashboard-form-row.row.servcont.hidethis').hide();
+
+}
+});
+
+});
 </script>
