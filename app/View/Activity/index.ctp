@@ -30,7 +30,8 @@
 			    var latlng = new google.maps.LatLng(-34.397, 150.644);
 			    var mapOptions = {
 			      zoom: 15,
-			      center: latlng
+			      center: latlng,
+                              scrollwheel: false
 			    }
 			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
@@ -86,7 +87,7 @@
 						</div>
 					<div class="blocks">
 					<div class="slot-booking-form">
-					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
+					<?=$this->Form->create('Activity',array('url' => array('controller' => 'activity', 'action'=>'add_to_card'),'name'=>'add_services','class'=>'quick-contacts5','id'=>'add_services','novalidate' => true));?>
 						<div class="select-participant">
 							<h4 class="select-participant-txt">1. Select No. of Pax</h4>
 							<?

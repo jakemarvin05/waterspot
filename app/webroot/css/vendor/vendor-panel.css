@@ -207,7 +207,7 @@ label.namefield2 {
 }
 
 .btn-group.bootstrap-select {
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .btn.orange {
@@ -446,7 +446,7 @@ form.dashboard-edit-form .row input[type=text],form.dashboard-edit-form .row inp
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
-    margin: 0;
+    margin-bottom: 10px;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -553,9 +553,15 @@ input#ValueAddedServiceValueAddedPrice {
 }
 
 .add-service-price-note {
-    padding: 15px;
+    padding: 9px 15px;
 }
 
+.note {
+    padding: 9px 15px;
+    background-color: #FFEFEF;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
 .dashboard-form-row.indexedit {
     border-bottom: none;
 }
@@ -602,6 +608,8 @@ i.add-image, i.add-button {
     border: 5px solid #fff;
     border-radius: 10px;
     overflow: hidden;
+    width: 100px;
+    height: 100px;
 }
 
 .dashboard-service-images .close-image:hover {
@@ -612,15 +620,19 @@ a#image-link-0 {
 }
 
 .img-box {
-    padding: 36px;
     border: solid 5px #fff;
     background-color: #DADADA;
     border-radius: 10px;
     overflow: hidden;
+    border-width: 5px;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
 }
 
-.img-box i.add-image {
+.img-box .add-image {
     color: rgba(0, 0, 0, 0.4);
+    margin: auto;
 }
 
 .img-box i.add-image:hover {
@@ -651,8 +663,9 @@ span.radio_button_status::before {
     border-color: #ddd;
     border-width: 5px;
     margin: 0.33%;
-    width: 16%;
+    width: 100px;
     margin-bottom: 6px;
+    height: 100px;
 }
 i.fa {
     font-size: 20px;
@@ -686,4 +699,58 @@ div#flashMessage {
     margin: 10px;
     border-radius: 5px;
     overflow: hidden;
+}
+
+input.add-video-field {
+    width: 93%!important;
+    float: left;
+    margin-right: 1%!important;
+    margin-bottom: 15px!important;
+}
+
+a.add-video i,a.delete-video i {
+    font-size: 29px;
+    margin: auto;
+}
+
+a.add-video, a.delete-video {
+    display: inline-flex;
+    float: left;
+    height: 45px;
+    width: 4%;
+}
+
+
+.fieldbox.addservedit.form {
+    width: 50%;
+}
+
+
+
+span.currency-symbol {
+    display: inline-block;
+    width: 3.4%;
+}
+
+.addservedit.form {
+    display: inline-block;
+    width: 46%;
+}
+
+.addservedit {
+    max-width: 100%;
+}
+
+.dollarsign {
+    display: inline-block;
+    width: 3.6%;
+}
+.input.select.required {
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.input.select.required button.btn.dropdown-toggle.btn-default {
+    width: 170%;
 }

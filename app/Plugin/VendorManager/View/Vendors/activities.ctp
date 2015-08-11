@@ -48,7 +48,7 @@
 							</div>
 
 							<div class="tile-info"> 
-								<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
+								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>"><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></a></h4>
 								 <div class="activity-rating-wrapper">
 									<? if(!empty($service_list['rating'])){ ?>
 										<?php $ratings = range(1,10); ?>
