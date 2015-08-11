@@ -55,6 +55,9 @@
                                     
 					<h4 class="h4 fix">
 						<?=$this->Format->Headingsubstring((!empty($vendor_service['Vendor']['bname'])?$vendor_service['Vendor']['bname']:$vendor_service['Vendor']['name']),27);?>
+						<?php if ($isMemberlogin): ?>
+							<a href="/members/messages/<?php echo $vendor_service['Vendor']['id']; ?>"><i class="fa fa-comments-o"></i></a>
+						<?php endif; ?>
 					</h4>
                                     
 					<div class="vendor-rating-wrapper">

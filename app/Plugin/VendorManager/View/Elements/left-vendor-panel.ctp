@@ -14,6 +14,9 @@
 				<i class="fa fa-book"></i> &nbsp; <?=$this->Html->link("Booking Requests",array('controller' => 'bookings', 'action' => 'booking_request','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='booking_request')?'active':''));?>
 			</li>
 			<li>
+				<i class="fa fa-comments-o"></i> &nbsp; <?=$this->Html->link("Messages",array('controller' => 'vendors', 'action' => 'messages','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='messages')?'active':''));?>
+			</li>
+			<li>
 				<i class="fa fa-calendar"></i> &nbsp; <?=$this->Html->link("My Bookings",array('controller' => 'bookings', 'action' => 'booking_list','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='booking_list')?'active':''));?>
 			</li>
 			<li>
