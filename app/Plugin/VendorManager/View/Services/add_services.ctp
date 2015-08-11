@@ -51,16 +51,7 @@
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="dashboard-form-row row servcont">
-                    <div class="labelbox">
-                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
-                    </div>
-                    <div class="fieldbox addservedit form">
-                        <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
-                        <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
-            </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row row servcont hidethis">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -70,7 +61,66 @@
                         <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
+            <div class="dashboard-form-row row servcont hidethis">
+                    <div class="labelbox">
+                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
+                    </div>
+                    <div class="fieldbox addservedit form">
+                        <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+                        <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+            </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <!-- city_id as location_id -->
+                    <label>Images(Dimensions should be 600 X 400): </label>
+                </div>
+                <div class="fieldbox image-group">
+                    <? if (!empty($this->request->data['ServiceImage'])) {
+                        foreach ($this->request->data['ServiceImage'] as $key => $image) { ?>
 
+                            <div class="dashboard-service-images col-sm-2 col-xs-4 service-image">
+                                <input class="radio_button" type="radio" value="<?= $image['image']; ?>"
+                                       name="data[ServiceImage][default_image]" <?= ($image['image'] == $image['default_image']) ? 'checked' : ''; ?>>
+
+                                <span
+                                    class="radio_button_status<?= ($image['image'] == $image['default_image']) ? ' selected' : ''; ?>"></span>
+                                <?
+                                $path = WWW_ROOT . 'img' . DS . 'service_images' . DS;
+                                $imgArr = array('source_path' => $path, 'img_name' => $image['image'], 'width' => 80, 'height' => 80);
+                                $resizedImg = $this->ImageResize->ResizeImage($imgArr);
+                                echo $this->Html->image($resizedImg, array('border' => '0'));
+                                ?>
+                                <input type="hidden" value="<?= $image['image']; ?>"
+                                       name="data[ServiceImage][images][]">
+                                <button class="close-image"><i class="fa fa-times"></i></button>
+                            </div>
+                        <? } ?>
+                    <?php } ?>
+
+                    <div id="show_upload_image" style="display:none;"></div>
+                </div>
+            </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
+                </div>
+                <div class="fieldbox video-urls">
+                    <div data-target="0"><?= $this->Form->input('youtube_url', array('type' => 'text','data-inputId'=>'0', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
+                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                    <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
+                </div>
+            </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Location: </label>
+                </div>
+                <div class="fieldbox">
+                    <?= $this->Form->input('location_id', array('type' => 'select','class'=>'selectpicker', 'options' => $city_list, 'label' => false)); ?>
+                    <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
+            </div>
             <!--
             <div class="dashboard-form-row row servcont">
                 <div id="p_scents" class="labelbox">
@@ -122,7 +172,9 @@
             </div>
 
             -->
-
+            <div class="add-service-price-note note">Please enter both the prices. However, only PER SLOT price will display
+                on front end.
+            </div>
 
 
                 <div class="dashboard-form-row row servcont">
@@ -140,7 +192,21 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="dashboard-form-row row servcont">
+                    <div class="labelbox">
+                        <label>Full Day Price:<span style="color:#ff0000;">*</span></label>
+                    </div>
+                    <div class="addservedit">
+                        <div class="dollarsign">
+                            <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
+                        </div>
+                        <div class="addservedit form">
+                            <?= $this->Form->input('full_day_amount', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
+                            <div id="full_day_amount"></div>
+                            <?= $this->Form->error('full_day_amount', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                        </div>
+                    </div>
+                </div>
 
 
             <div class="dashboard-form-row servcont">
@@ -152,48 +218,7 @@
                     <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
-                </div>
-                <div class="fieldbox video-urls">
-                    <div data-target="0"><?= $this->Form->input('youtube_url', array('type' => 'text','data-inputId'=>'0', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
-                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
-                    <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
-                </div>
-            </div>
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <!-- city_id as location_id -->
-                    <label>Images(Dimensions should be 600 X 400): </label>
-                </div>
-                <div class="fieldbox image-group">
-                    <? if (!empty($this->request->data['ServiceImage'])) {
-                        foreach ($this->request->data['ServiceImage'] as $key => $image) { ?>
-
-                            <div class="dashboard-service-images col-sm-2 col-xs-4 service-image">
-                                <input class="radio_button" type="radio" value="<?= $image['image']; ?>"
-                                       name="data[ServiceImage][default_image]" <?= ($image['image'] == $image['default_image']) ? 'checked' : ''; ?>>
-
-                                <span
-                                    class="radio_button_status<?= ($image['image'] == $image['default_image']) ? ' selected' : ''; ?>"></span>
-                                <?
-                                $path = WWW_ROOT . 'img' . DS . 'service_images' . DS;
-                                $imgArr = array('source_path' => $path, 'img_name' => $image['image'], 'width' => 80, 'height' => 80);
-                                $resizedImg = $this->ImageResize->ResizeImage($imgArr);
-                                echo $this->Html->image($resizedImg, array('border' => '0'));
-                                ?>
-                                <input type="hidden" value="<?= $image['image']; ?>"
-                                       name="data[ServiceImage][images][]">
-                                <button class="close-image"><i class="fa fa-times"></i></button>
-                            </div>
-                        <? } ?>
-                    <?php } ?>
-
-                    <div id="show_upload_image" style="display:none;"></div>
-                </div>
-            </div>
             <div class="dashboard-form-row servcont">
                 <div class="labelbox">
                     <label>Description:</label>
@@ -418,4 +443,22 @@
 
 
     });
+</script>
+<script>
+$('document').ready(function(){
+//trigger
+$('input.checkbox_check').change(function(){
+//check if box is checked
+if($(this).prop('checked')){
+//show the element
+$('.dashboard-form-row.row.servcont.hidethis').show();
+}
+else{
+//Hide the element
+$('.dashboard-form-row.row.servcont.hidethis').hide();
+
+}
+});
+
+});
 </script>
