@@ -81,7 +81,7 @@
 							<div class="completion">
 								<div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
 							</div>
-							<div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
+							<div class="progressinfo"><span class="current"><?php echo ($booking_count?$booking_count:"0"); ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
 							<div class="clearfix"></div>
 						<?php } ?>
 						</div>
