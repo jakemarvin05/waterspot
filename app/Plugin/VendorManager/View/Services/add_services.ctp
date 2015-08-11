@@ -31,16 +31,7 @@
             </div>
         </div>
         <div style="padding-top: 0" class="cont col-sm-9">
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <label>Private? <span style="color:#ff0000;">*</span></label>
 
-                    <div class="fieldbox">
-                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
-                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
-                </div>
-            </div>
 	<div class="dashboard-form-row row servcont">
 
 		<div class="labelbox">
@@ -50,6 +41,16 @@
 			<?=$this->Form->input('service_title',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
+            </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Private? <span style="color:#ff0000;">*</span></label>
+
+                    <div class="fieldbox">
+                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
+                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+                </div>
             </div>
        <div class="to-hide">
 
