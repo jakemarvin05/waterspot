@@ -2,5 +2,6 @@
 .idea/
 /app/webroot/img/*
 /app/tmp/*
+/app/config/database.php
 *.log
 /nbproject/private/
