@@ -51,7 +51,8 @@
 			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 		</div>
             </div>
-            <div class="dashboard-form-row row servcont">
+       <div class="to-hide">
+            <div class="dashboard-form-row   row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -61,7 +62,7 @@
                         <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
                         <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
                     </div>
@@ -70,8 +71,8 @@
                         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
-            
-            
+
+       </div>
        
             <!--
             <div class="dashboard-form-row row servcont">
@@ -127,7 +128,7 @@
 
 
 
-                <div class="dashboard-form-row row servcont">
+                <div class="dashboard-form-row adjustable row servcont">
                     <div class="labelbox">
                         <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
                     </div>
@@ -416,6 +417,29 @@
 
         });
 
+        $('[name="data[Service][is_private]"]').change(function(){
+            if($('[name="data[Service][is_private]').is(':checked')){
+                $('.to-hide').animate({
+                    opacity: 0,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function() {
+                    // Animation complete.
+                    $('this').hide()
+                });
+            }
+            else{
+
+                        $('.to-hide').animate({
+                            "opacity": 1,
+                            "height": "toggle",
+                            "padding-bottom": 19
+                        }, 600, function () {
+                            // Animation complete
+                            
+                        });
+            }
+        });
         $('.selectpicker').selectpicker();
 
 

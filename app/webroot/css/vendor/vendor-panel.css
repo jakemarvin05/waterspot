@@ -734,7 +734,7 @@ span.currency-symbol {
 
 .addservedit.form {
     display: inline-block;
-    width: 46%;
+    width: 47.8%;
 }
 
 .addservedit {
@@ -743,7 +743,9 @@ span.currency-symbol {
 
 .dollarsign {
     display: inline-block;
-    width: 3.6%;
+    width: 1.8%;
+    position: relative;
+    top: 6px;
 }
 .input.select.required {
     max-width: 100%;
