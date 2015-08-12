@@ -1,10 +1,10 @@
 	<section id="splashVideoCont">
 		<div id="splashVideoCropper">
-			<video autoplay loop muted poster="/img/splash-statics/slide1.jpg">
-				<source src="/media/watersports.mp4" type="video/mp4">
-				<img src="/img/splash-statics/slide1.jpg">
+			<video autoplay loop muted poster="/img/service_images/<?php echo $service_detail['Service']['panorama_image']; ?>">
+				<!-- <source src="/media/watersports.mp4" type="video/mp4"> -->
+				<img src="/img/service_images/<?php echo $service_detail['Service']['panorama_image']; ?>">
 			</video>
-			<img src="/img/splash-statics/slide1.jpg">
+			<img src="/img/service_images/<?php echo $service_detail['Service']['panorama_image']; ?>">
 		</div>
 		<div id="videoOverlayWrapper">
 		</div>

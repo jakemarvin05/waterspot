@@ -196,6 +196,22 @@
                     <div id="show_upload_image" style="display:none;"></div>
                 </div>
             </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Panorama Image (recommended 1600x900): </label>
+                </div>
+                <div class="fieldbox">
+                    <div id="panorama-image-container" style="text-align:center;">
+                        <?php
+                            if ($this->request->data['Service']) {
+                                echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                            }
+                        ?>
+                    </div>
+                    <input type="file" name="data[panorama]" id="panorama-input">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field">
+                </div>
+            </div>
             <div class="dashboard-form-row servcont">
                 <div class="labelbox">
                     <label>Description:</label>
@@ -419,5 +435,24 @@
         $('.selectpicker').selectpicker();
 
 
+    });
+</script>
+
+<script type="text/javascript">
+    $('#panorama-input').change(function(){
+        var formData = new FormData();
+        formData.append('data[panorama]', this.files[0]);
+        $.ajax({
+            url: "<?=$path?>vendor_manager/services/panorama_image_handle",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                var image = '<img src="<?php echo '/img' . DS . 'service_images' . DS; ?>' + data + '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                $('#panorama-field').val(data);
+                $('#panorama-image-container').html(image);
+            }
+        });
     });
 </script>

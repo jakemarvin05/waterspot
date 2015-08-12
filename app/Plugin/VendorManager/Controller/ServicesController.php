@@ -439,6 +439,21 @@ Class ServicesController extends VendorManagerAppController{
 		}
 	}
 
+	function panorama_image_handle(){
+		$this->autoRender = false;
+		App::uses('ImageResizeHelper', 'View/Helper');
+		$ImageComponent = new ImageResizeHelper(new View());
+		if(!empty($this->request->data['panorama'])){
+			if ($this->Session->read('panorama_image') && file_exists(Configure::read('Image.SourcePath') . $this->Session->read('panorama_image'))) {
+				@unlink(Configure::read('Image.SourcePath') . $this->Session->read('panorama_image'));
+			}
+			$panorama = $this->request->data['panorama'];
+			$image = self::_manage_image($panorama,Configure::read('Image.SourcePath'));
+			$this->Session->write('panorama_image', $image);
+			echo $image;
+		}
+	}
+
 	function image_delete(){
 		$this->autoRender = false;
 		@unlink(Configure::read('Image.AjaxPath').$_POST['image']);
