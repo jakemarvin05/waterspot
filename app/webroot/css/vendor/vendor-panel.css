@@ -762,3 +762,16 @@ span.currency-symbol {
 h3.dashboard-heading.special {
     border: none;
 }
+input#BookingSearchtext {
+    border-color: #CCC;    border-radius: 4PX;
+    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+input#BookingSearchbydate {
+    border-color: #CCC;
+    border-radius: 4PX;
+    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+}
+.btn-group.bootstrap-select.special {
+    max-width: 160px;
+}
