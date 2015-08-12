@@ -31,16 +31,7 @@
             </div>
         </div>
         <div style="padding-top: 0" class="cont col-sm-9">
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <label>Private? <span style="color:#ff0000;">*</span></label>
 
-                    <div class="fieldbox">
-                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
-                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
-                </div>
-            </div>
 	<div class="dashboard-form-row row servcont">
 
 		<div class="labelbox">
@@ -52,16 +43,40 @@
 		</div>
             </div>
             <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Private? <span style="color:#ff0000;">*</span></label>
+
+                    <div class="fieldbox">
+                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
+                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+                </div>
+            </div>
+       <div class="to-hide">
+
+           <div class="dashboard-form-row row servcont">
+               <div class="labelbox">
+                   <label>Has Minimum-To-Go? <span style="color:#ff0000;">*</span></label>
+
+                   <div class="fieldbox">
+                       <?= $this->Form->checkbox('is_minimum_to_go', array('label' => false, 'div' => false)); ?>
+                       <?= $this->Form->error('is_minimum_to_go', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                   </div>
+               </div>
+           </div>
+
+            <div class="dashboard-form-row   row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
                     </div>
-                    <div class="fieldbox addservedit form">
-                        <?= $this->Form->input('min_participants', array('placeholder' => '0 for no minimum', 'type' => 'text', 'label' => false, 'div' => false)); ?>
-                        <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
+
+                <div class="fieldbox addservedit">
+                    <?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false,'class'=>'selectpicker')); ?>
+                    <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
                         <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
                     </div>
@@ -70,8 +85,8 @@
                         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
-            
-            
+
+       </div>
        
             <!--
             <div class="dashboard-form-row row servcont">
@@ -127,7 +142,7 @@
 
 
 
-                <div class="dashboard-form-row row servcont">
+                <div class="dashboard-form-row adjustable row servcont">
                     <div class="labelbox">
                         <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
                     </div>
@@ -416,6 +431,46 @@
 
         });
 
+        $('[name="data[Service][is_private]"]').change(function(){
+            if($('[name="data[Service][is_private]').is(':checked')){
+                $('.to-hide').animate({
+                    opacity: 0,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function() {
+                    // Animation complete.
+                    $('this').hide()
+                });
+            }
+            else{
+
+                        $('.to-hide').animate({
+                            "opacity": 1,
+                            "height": "toggle",
+                            "padding-bottom": 19
+                        }, 600, function () {
+                            // Animation complete
+                            
+                        });
+            }
+        });
+        $('[name="data[Service][is_minimum_to_go]"]').change(function(){
+
+            if($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('select[name="data[Service][min_participants]"]').val(1);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+
+            }
+            else{
+
+                $('select[name="data[Service][min_participants]"]').val(2);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
+            }
+
+        });
         $('.selectpicker').selectpicker();
 
 
