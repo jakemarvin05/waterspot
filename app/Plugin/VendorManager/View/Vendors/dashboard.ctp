@@ -10,8 +10,9 @@
 
 <div class="right-area col-sm-9 col-xs-12">
     <div class="service">
-		<div class="dashboard-form-row">
-			<h3 class="dashboard-heading" style="float: left;">My Services</h3>
+                    
+		<div class="dashboard-form-row special">
+                        <h3 class="dashboard-heading special" style="float: left;">My Services</h3>
 			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'btn btn-primary','style'=>'margin-bottom:20px; float:right;'));?>
 		</div>
 		<div class="clear"></div>
