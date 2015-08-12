@@ -160,14 +160,83 @@
                 
 
 
-            <div class="dashboard-form-row servcont">
+            <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <label>Location: </label>
                 </div>
-                <div class="fieldbox">
-                    <?= $this->Form->input('location_id', array('type' => 'select', 'options' => $city_list, 'class'=>'selectpicker', 'label' => false)); ?>
-                    <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                <div class="fieldbox addservedit form">
+                    <?=$this->Form->input('location_string',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
+                    <?=$this->Form->error('location_string',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+
                 </div>
+                <br><br>
+                <div id="map-canvas" style="height:400px; width:100%;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <?php
+
+                ?>
+                <script>
+
+                    var previousLocation = "<?php
+
+                     $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                     echo str_replace(' ','+',$string);
+                      ?>";
+
+
+                    function initialize() {
+                        geocoder = new google.maps.Geocoder();
+                        var latlng = new google.maps.LatLng(-34.397, 150.644);
+                        var mapOptions = {
+                            zoom: 15,
+                            center: latlng,
+                            scrollwheel: false
+                        };
+
+                        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                        geocoder.geocode( { 'address': "<?php
+                         $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                         echo str_replace(' ','+',$string);
+                         ?>"}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                             //   alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    }
+
+                    google.maps.event.addDomListener(window, 'load', initialize);
+
+                    $('#ServiceLocationString').keyup(function(e){
+
+
+                        var locationString =  $('#ServiceLocationString').val();
+                        var location = locationString.replace(' ','+');
+
+                        if (location==""){
+                            location = previousLocation;
+                        }
+
+                        geocoder.geocode( { 'address': location}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                               // alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                        google.maps.event.trigger(map, 'resize');
+
+                    });
+                </script>
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
@@ -454,25 +523,45 @@
                         });
             }
         });
+
+        var prevValue =  $('#ServiceMinParticipants option[selected="selected"]').text();
+
+
+
+        if(!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+            $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
+                $('[data-id="ServiceMinParticipants"]').hide();
+
+            }
+
+
+
+
         $('[name="data[Service][is_minimum_to_go]"]').change(function(){
+
 
             if($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
-                $('select[name="data[Service][min_participants]"]').val(1);
+                $('select[name="data[Service][min_participants]"]').val(prevValue);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
+
+
+            }
+            else{
+                $('#ServiceMinParticipants').val(1);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
 
             }
-            else{
-
-                $('select[name="data[Service][min_participants]"]').val(2);
-                $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
-                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
-            }
 
         });
-        $('.selectpicker').selectpicker();
+
+
 
 
     });
+
+    $('.selectpicker').selectpicker();
 </script>
