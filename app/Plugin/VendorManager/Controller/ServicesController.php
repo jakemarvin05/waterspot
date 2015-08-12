@@ -170,12 +170,17 @@ Class ServicesController extends VendorManagerAppController{
 		$this->loadModel('VendorManager.ValueAddedService');
 		$this->loadModel('VendorManager.ServiceImage');
 		$vendor_id=$this->VendorAuth->id();
-		// check service_id owner 
+		// check service_id owner
+
+
+
 		if(!empty($service_id)){
 			if($this->Service->checkServiceById($vendor_id,$service_id)<=0) {
 				$this->Session->setFlash(__('Are you doing something wrong?', false));
 				$this->redirect($this->VendorAuth->loginRedirect);
-			} 
+			}
+			$service_detail=$this->Service->servieDetailByService_id($service_id);
+			$this->set('service_detail',$service_detail);
 		}
 		if(!empty($this->request->data) && self::validation()){
 			$this->request->data['Service']['vendor_id']=$this->VendorAuth->id();
@@ -349,7 +354,7 @@ Class ServicesController extends VendorManagerAppController{
 			$service_lists_filter1['service_title']=$service['Service']['service_title'];
 			$service_lists_filter1['status']=$service['Service']['status'];
 			$service_lists_filter1['location_id']=$service['Service']['location_id'];
-			$service_lists_filter1['location_details']=(!empty($location_lists[$service['Service']['location_id']]))?$location_lists[$service['Service']['location_id']]:"Location Not avilable";
+			$service_lists_filter1['location_details']=(!empty($service['Service']['location_string']))?$service['Service']['location_string']:"Location Not avilable";
 			$service_lists_filter1['service_price']=$service['Service']['service_price'];
 			//$service_lists_filter1['description']=$service['Service']['description'];
 			$service_lists_filter1['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($service['Service']['id']);
