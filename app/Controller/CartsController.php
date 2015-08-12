@@ -107,17 +107,25 @@ Class CartsController extends AppController{
 	
 	function booking_request(){ 
 		//$this->autoRender = false;
-
 		if(!empty($this->request->data)){
 			$this->loadModel('Cart');
 			App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 			$this->sessionKey = MemberAuthComponent::$sessionKey;
 			$this->member_data = $this->Session->read($this->sessionKey);
-			$query = "UPDATE carts SET status = 0, vendor_confirm=3 WHERE session_id='".$this->Session->id()."' AND member_id='".$this->member_data['MemberAuth']['id']."'";
-			$this->Cart->query($query);
+
+			if ($this->Session->read($this->sessionKey)) {
+				$query = "UPDATE carts SET status = 0, vendor_confirm = 3 WHERE session_id='".$this->Session->id()."' AND member_id='".$this->member_data['MemberAuth']['id']."'";
+				$this->Cart->query($query);
+			} else {
+				$query = "UPDATE carts SET status = 0, vendor_confirm = 3 WHERE session_id='".$this->Session->id()."'";
+				$this->Cart->query($query);
+			}
 			
-			
-			$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id(), 'member_id' => $this->member_data['MemberAuth']['id'])));
+			if ($this->Session->read($this->sessionKey)) {
+				$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id(), 'member_id' => $this->member_data['MemberAuth']['id'])));
+			} else {
+				$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id()), 'order' => 'time_stamp DESC'));
+			}
 			//Send mail to vender for booking request
 			// send to Admin mail
 			//pr($this->request->data);die;
@@ -151,10 +159,12 @@ $email->config('gmail');
 					$email->emailFormat('html');
 					$email->template('default');
 					$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-					$email->send();
+					// $email->send();
+					// do not send!
 					
 				}
-				$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'booking_success'));
+				
+				$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_request',$cart_value[0]['Cart']['id']));
 			}
 			
 		}

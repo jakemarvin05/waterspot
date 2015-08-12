@@ -107,6 +107,7 @@ class PaymentsController extends PaymentManagerAppController{
 			$html .= "<input type='hidden' name='action' value='$action' />";
 			$html .= "<input type='hidden' name='merchant' value='$merchant' />";
 			$html .= "<input type='hidden' name='ref_id' value='$ref_id' />";
+			$total_per_cart = 0;
 			if(!empty($cartData)){
 				foreach($cartData as $cart_detail){
 					$diff = abs(strtotime($cart_detail['Cart']['end_date']) - strtotime($cart_detail['Cart']['start_date']));
@@ -123,9 +124,15 @@ class PaymentsController extends PaymentManagerAppController{
 					$html .="<input type='hidden' name='item_quantity_$i' value='$participants'/>";
 					$html .="<input type='hidden' name='item_amount_$i' value='$itemprice' />";
 					$i++;
+					$total_per_cart += $itemprice*$participants;
 				}
 			} 
+			
 			$html .= "<input type='hidden' name='currency' value='SGD' />";
+			if ($payment_data['amount'] != $total_per_cart) {
+				$discount = $total_per_cart - $payment_data['amount'];
+				$html .= "<input type='hidden' name='discount_amount' value='-$discount' />";
+			}
 			$html .= "<input type='hidden' name='total_amount' value='$payment_data[amount]'/>";
 			$html .= "<input type='hidden' name='success_url' value='$payment_data[successUrl]' />";
 			$html .= "<input type='hidden' name='cancel_url' value='$payment_data[cancelUrl]' />";
