@@ -159,7 +159,21 @@
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
                 </div>
                 <div class="fieldbox video-urls">
-                    <div data-target="0"><?= $this->Form->input('youtube_url', array('type' => 'text','data-inputId'=>'0', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
+                    <?php if ($this->request->data['Service']['youtube_url']):
+                    $count = 0;
+                            foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
+                    ?>
+                    <div data-target="0">
+                        <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>" class="add-service add-video-field" type="text" id="ServiceYoutubeUrl][" value="<?php echo $youtube; ?>">
+                    </div>
+                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    <a class="delete-video" data-target="<?php echo $count; ?>" href="#"><i class="fa fa-minus-square"></i> </a>
+                    <?php
+                    $count++;
+                    endforeach;
+                    endif;
+                    ?>
+                    <div data-target="<?php echo $count; ?>"><?= $this->Form->input('youtube_url][', array('type' => 'text','data-inputId'=>'<?php echo $count; ?>', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                     <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
@@ -209,7 +223,7 @@
                         ?>
                     </div>
                     <input type="file" name="data[panorama]" id="panorama-input">
-                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php $this->request->data['Service'] ? $this->request->data['Service']['panorama_image'] : '' ?>">
                 </div>
             </div>
             <div class="dashboard-form-row servcont">
@@ -414,12 +428,12 @@
                 scrollThrough: ['vendor-panel']
             });
         }
-        var fieldCTR = 0;
+        var fieldCTR = <?php echo $count; ?>;
 
         $('.video-urls').on('click','#add-video',function(e){
             $(this).remove();
             e.preventDefault();
-            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('youtube_url', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
             $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
             fieldCTR++;
         });

@@ -182,9 +182,10 @@ Class ServicesController extends VendorManagerAppController{
 			if(empty($service_id)){
 				$this->request->data['Service']['created_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['status']=1;
+				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$savemsg="added";
 			}else{
-				
+				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$savemsg="updated";
 			}

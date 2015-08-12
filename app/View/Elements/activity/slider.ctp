@@ -6,7 +6,9 @@
 		<? }?>
 			
 			<?php if (isset($service_detail['Service']['youtube_url'])): ?>
-				<a href="<?php echo $service_detail['Service']['youtube_url']; ?>"></a>
+				<?php foreach (unserialize($service_detail['Service']['youtube_url']) as $youtube_url): ?>
+					<a href="<?php echo $youtube_url; ?>"></a>
+				<?php endforeach; ?>
 			<?php endif; ?>
 			<? foreach($service_detail['image'] as $key=>$image){ ?>
 				<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$image['image'],'width'=>600,'height'=>400,'noimg'=>$setting['site']['site_noimage']);
