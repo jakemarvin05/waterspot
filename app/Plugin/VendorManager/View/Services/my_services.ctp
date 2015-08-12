@@ -63,8 +63,8 @@
    
    <?=$this->element('message');?>
     <div class="service">
-		<div class="dashboard-form-row" id="service_container">
-			<h3 class="dashboard-heading" style="float: left;">Services</h3> 
+		<div class="dashboard-form-row special" id="service_container">
+			<h3 class="dashboard-heading special" style="float: left;">Services</h3> 
 			<?=$this->Html->link('Add New Service',array('plugin'=>'vendor_manager','controller'=>'services','action'=>'add_services'),array('class'=>'dashboard-buttons btn orange'));?>
 		</div>
 		<div class="dashboard-form-row" style="text-align: right; margin-bottom: 0; padding-bottom: 0;" id="servicebutton_container">

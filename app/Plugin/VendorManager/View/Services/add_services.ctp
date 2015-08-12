@@ -527,15 +527,14 @@
         var prevValue =  $('#ServiceMinParticipants option[selected="selected"]').text();
 
 
-        $('[name="data[Service][is_minimum_to_go]').each(
-        function(){
+
         if(!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
             $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
-                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('[data-id="ServiceMinParticipants"]').hide();
 
             }
-        });
+
 
 
 
