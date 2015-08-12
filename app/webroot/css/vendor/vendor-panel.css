@@ -202,7 +202,6 @@ label.namefield2 {
 .dashboard-form-row {
     padding: 0px 0 8px;
     margin-bottom: 15px;
-    border-bottom: solid 1px #ddd;
     min-height: 50px;
 }
 
@@ -249,9 +248,6 @@ table#booking_list td {
     font-size: 14px;
 }
 
-h3.dashboard-heading {
-}
-
 th {
     border: 1px solid #ccc;
     height: auto;
@@ -260,9 +256,7 @@ th {
     padding: 8px;
 }
 
-.dashboard-form-row {
-    border: none;
-}
+
 
 table#service_reviews th {
     border: 1px solid #ddd;
@@ -761,4 +755,10 @@ span.currency-symbol {
 .right-area .dashboard-form-row .btn.dropdown-toggle {
     border-color: #CCC;
     border-radius: 4PX;     box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);     color: #606060;
+}
+.dashboard-form-row.special {
+    border-bottom: 1px solid #ddd;
+}
+h3.dashboard-heading.special {
+    border: none;
 }
