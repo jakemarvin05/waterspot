@@ -272,10 +272,10 @@ tr.no-details td {
 }
 
 .right-area input[type=text] {
-    border: 1px solid #F79E34;
     padding: 10px 8px 7px;
     font-size: 14px;
-    text-transform: uppercase;
+    text-transform: uppercase;    border-radius: 4PX;    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+    border: 1px solid #CCC;
 }
 
 input#ServiceReviewSearchtext {
