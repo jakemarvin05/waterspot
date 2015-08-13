@@ -59,7 +59,7 @@
 			<? } ?>
 		<? } else {?>
 			<tr class="no-details">
-				<td colspan="7">There are no booking requests</td>
+				<td colspan="9">There are no booking requests now</td>
 			</tr>
 		<? }?>
        </table>

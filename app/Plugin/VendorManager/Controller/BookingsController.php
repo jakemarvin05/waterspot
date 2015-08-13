@@ -259,6 +259,7 @@ $email->config('gmail');
 	function booking_list($search=null,$searchtext=null,$search_by_date=null,$searchbydate=null) {
 		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('BookingSlot');
+		$this->loadModel('Cart');
 		$conditions=null;
 		$this->paginate = array();
 		$vendor_id=$this->VendorAuth->id();
@@ -309,6 +310,7 @@ $email->config('gmail');
 		    'fields'=>array('Booking.*','BookingOrder.status'),
 			'limit'=>20,
 			'order'=>array('Booking.ref_no'=>'DESC')
+
 		);
 		$booking_details=$this->paginate("Booking",$conditions);
 		// javascript set
@@ -337,6 +339,25 @@ $email->config('gmail');
                     'url'=>Router::url('/vendor/booking_list'),
                     'name'=>'Booking List'
 			);
+
+		$bookings=array('joins'=>
+			array(
+				array(
+					'table'=>'members',
+					'alias'=>'Member',
+					'type'=>'LEFT',
+					'conditions'=>array('Member.id = Cart.member_id')
+				)
+
+			),
+			'conditions' => array('Cart.vendor_id'=>$vendor_id,'vendor_confirm'=>3,'status'=>0),
+			'fields'=>array('Cart.*','Member.*'),
+			'limit'=>20,
+			'order'=>array('Cart.id'=>'DESC')
+		);
+		$bookingRequest = $this->Cart->find('all',$bookings);
+		$this->set('booking_request',$bookingRequest);
+
 	}
 	
 	function booking_details($ref_no=null){

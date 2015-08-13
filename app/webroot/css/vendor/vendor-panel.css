@@ -223,10 +223,9 @@ label.namefield2 {
 }
 
 input.dashboard-buttons.btn.orange {
-    float: right;
     max-width: 130px;
     padding: 8px;
-    margin: 8px 0 !important;
+    margin: 10px 0 0px!important;
 }
 
 table#booking_list th {
@@ -482,6 +481,7 @@ a#uploadFile {
 
 .dashboard-file-uploader img {
     border: 1px solid #ddd;
+    width: 100%;
 }
 
 .dashboard-edit-form input.dashboard-buttons {

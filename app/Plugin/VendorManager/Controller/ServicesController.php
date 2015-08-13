@@ -240,7 +240,7 @@ Class ServicesController extends VendorManagerAppController{
 		array_push(self::$script_for_layout,'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js','frontEditor/ckeditor.js','VendorManager.ajax_upload.js');
 		$this->set('service_types',$service_types);
 		$participantsNumList= [];
-		for($x=2; $x<=100; $x++){
+		for($x=1; $x<=100; $x++){
 			array_push($participantsNumList,$x);
 		}
 		$this->set('participants_num_list',$participantsNumList);
