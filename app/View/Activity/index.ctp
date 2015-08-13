@@ -34,7 +34,7 @@
                               scrollwheel: false
 			    }
 			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['Service']['location_string']); ?>"}, function(results, status) {
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',($service_detail['Service']['location_string']?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
 			      if (status == google.maps.GeocoderStatus.OK) {
 			        map.setCenter(results[0].geometry.location);
 			        var marker = new google.maps.Marker({
