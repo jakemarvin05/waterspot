@@ -482,6 +482,7 @@ a#uploadFile {
 
 .dashboard-file-uploader img {
     border: 1px solid #ddd;
+    width: 100%;
 }
 
 .dashboard-edit-form input.dashboard-buttons {

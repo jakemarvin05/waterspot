@@ -65,7 +65,7 @@
                </div>
            </div>
 
-            <div class="dashboard-form-row   row servcont">
+            <div class="dashboard-form-row minimum-participants  row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -528,12 +528,6 @@
 
 
 
-        if(!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
-
-            $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
-                $('[data-id="ServiceMinParticipants"]').hide();
-
-            }
 
 
 
@@ -543,14 +537,14 @@
 
             if($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
-                $('select[name="data[Service][min_participants]"]').val(prevValue);
+                $('select[name="data[Service][min_participants]"]').val(prevValue-1);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
-
-
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
             }
             else{
-                $('#ServiceMinParticipants').val(1);
+                $('#ServiceMinParticipants').val(0);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
 
@@ -561,7 +555,21 @@
 
 
 
+
     });
 
-    $('.selectpicker').selectpicker();
-</script>
+
+    $(window).load(function(){
+            if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+
+
+            }
+            else{
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+            }
+
+        }
+    );
+    </script>

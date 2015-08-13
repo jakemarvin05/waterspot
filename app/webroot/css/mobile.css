@@ -93,7 +93,11 @@
     }
 
 }
-
+@media (max-width: 900px){
+    a#uploadFile{
+        font-size: .8em;
+    }
+}
 
 
 /* For Tablets */
