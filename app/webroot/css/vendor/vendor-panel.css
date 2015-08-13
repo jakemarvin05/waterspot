@@ -775,3 +775,7 @@ input#BookingSearchbydate {
 .btn-group.bootstrap-select.special {
     max-width: 160px;
 }
+.dashboard-form-row .col-sm-12 {
+    margin: 0;
+    padding: 0;
+}
