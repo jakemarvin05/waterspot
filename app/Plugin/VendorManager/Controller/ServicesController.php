@@ -187,9 +187,10 @@ Class ServicesController extends VendorManagerAppController{
 			if(empty($service_id)){
 				$this->request->data['Service']['created_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['status']=1;
+				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$savemsg="added";
 			}else{
-				
+				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$savemsg="updated";
 			}
@@ -446,6 +447,21 @@ Class ServicesController extends VendorManagerAppController{
 			}
 			$this->Session->write($this->ajax_session_name,$ajax_images);
 			echo json_encode($image_name);
+		}
+	}
+
+	function panorama_image_handle(){
+		$this->autoRender = false;
+		App::uses('ImageResizeHelper', 'View/Helper');
+		$ImageComponent = new ImageResizeHelper(new View());
+		if(!empty($this->request->data['panorama'])){
+			if ($this->Session->read('panorama_image') && file_exists(Configure::read('Image.SourcePath') . $this->Session->read('panorama_image'))) {
+				@unlink(Configure::read('Image.SourcePath') . $this->Session->read('panorama_image'));
+			}
+			$panorama = $this->request->data['panorama'];
+			$image = self::_manage_image($panorama,Configure::read('Image.SourcePath'));
+			$this->Session->write('panorama_image', $image);
+			echo $image;
 		}
 	}
 
