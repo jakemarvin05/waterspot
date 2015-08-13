@@ -31,16 +31,7 @@
             </div>
         </div>
         <div style="padding-top: 0" class="cont col-sm-9">
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <label>Private? <span style="color:#ff0000;">*</span></label>
 
-                    <div class="fieldbox">
-                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
-                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
-                </div>
-            </div>
 	<div class="dashboard-form-row row servcont">
 
 		<div class="labelbox">
@@ -52,16 +43,40 @@
 		</div>
             </div>
             <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Private? <span style="color:#ff0000;">*</span></label>
+
+                    <div class="fieldbox">
+                        <?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
+                        <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
+                </div>
+            </div>
+       <div class="to-hide">
+
+           <div class="dashboard-form-row row servcont">
+               <div class="labelbox">
+                   <label>Has Minimum-To-Go? <span style="color:#ff0000;">*</span></label>
+
+                   <div class="fieldbox">
+                       <?= $this->Form->checkbox('is_minimum_to_go', array('label' => false, 'div' => false)); ?>
+                       <?= $this->Form->error('is_minimum_to_go', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                   </div>
+               </div>
+           </div>
+
+            <div class="dashboard-form-row minimum-participants  row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
                     </div>
-                    <div class="fieldbox addservedit form">
-                        <?= $this->Form->input('min_participants', array('placeholder' => '0 for no minimum', 'type' => 'text', 'label' => false, 'div' => false)); ?>
-                        <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    </div>
+
+                <div class="fieldbox addservedit">
+                    <?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false,'class'=>'selectpicker')); ?>
+                    <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
                         <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
                     </div>
@@ -70,8 +85,8 @@
                         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
             </div>
-            
-            
+
+       </div>
        
             <!--
             <div class="dashboard-form-row row servcont">
@@ -127,7 +142,7 @@
 
 
 
-                <div class="dashboard-form-row row servcont">
+                <div class="dashboard-form-row adjustable row servcont">
                     <div class="labelbox">
                         <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
                     </div>
@@ -145,14 +160,83 @@
                 
 
 
-            <div class="dashboard-form-row servcont">
+            <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <label>Location: </label>
                 </div>
-                <div class="fieldbox">
-                    <?= $this->Form->input('location_id', array('type' => 'select', 'options' => $city_list, 'class'=>'selectpicker', 'label' => false)); ?>
-                    <?= $this->Form->error('location_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                <div class="fieldbox addservedit form">
+                    <?=$this->Form->input('location_string',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
+                    <?=$this->Form->error('location_string',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+
                 </div>
+                <br><br>
+                <div id="map-canvas" style="height:400px; width:100%;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <?php
+
+                ?>
+                <script>
+
+                    var previousLocation = "<?php
+
+                     $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                     echo str_replace(' ','+',$string);
+                      ?>";
+
+
+                    function initialize() {
+                        geocoder = new google.maps.Geocoder();
+                        var latlng = new google.maps.LatLng(-34.397, 150.644);
+                        var mapOptions = {
+                            zoom: 15,
+                            center: latlng,
+                            scrollwheel: false
+                        };
+
+                        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                        geocoder.geocode( { 'address': "<?php
+                         $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                         echo str_replace(' ','+',$string);
+                         ?>"}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                             //   alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    }
+
+                    google.maps.event.addDomListener(window, 'load', initialize);
+
+                    $('#ServiceLocationString').keyup(function(e){
+
+
+                        var locationString =  $('#ServiceLocationString').val();
+                        var location = locationString.replace(' ','+');
+
+                        if (location==""){
+                            location = previousLocation;
+                        }
+
+                        geocoder.geocode( { 'address': location}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            } else {
+                               // alert("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                        google.maps.event.trigger(map, 'resize');
+
+                    });
+                </script>
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
@@ -446,10 +530,78 @@
 
         });
 
-        $('.selectpicker').selectpicker();
+        $('[name="data[Service][is_private]"]').change(function(){
+            if($('[name="data[Service][is_private]').is(':checked')){
+                $('.to-hide').animate({
+                    opacity: 0,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function() {
+                    // Animation complete.
+                    $('this').hide()
+                });
+            }
+            else{
+
+                        $('.to-hide').animate({
+                            "opacity": 1,
+                            "height": "toggle",
+                            "padding-bottom": 19
+                        }, 600, function () {
+                            // Animation complete
+                            
+                        });
+            }
+        });
+
+        var prevValue =  $('#ServiceMinParticipants option[selected="selected"]').text();
+
+
+
+
+
+
+
+        $('[name="data[Service][is_minimum_to_go]"]').change(function(){
+
+
+            if($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('select[name="data[Service][min_participants]"]').val(prevValue-1);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
+            }
+            else{
+                $('#ServiceMinParticipants').val(0);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+
+            }
+
+        });
+
+
+
 
 
     });
+
+    $(window).load(function(){
+            if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+
+
+            }
+            else{
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+            }
+
+        }
+    );
+
 </script>
 
 <script type="text/javascript">
@@ -470,3 +622,4 @@
         });
     });
 </script>
+

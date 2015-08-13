@@ -202,7 +202,6 @@ label.namefield2 {
 .dashboard-form-row {
     padding: 0px 0 8px;
     margin-bottom: 15px;
-    border-bottom: solid 1px #ddd;
     min-height: 50px;
 }
 
@@ -224,10 +223,9 @@ label.namefield2 {
 }
 
 input.dashboard-buttons.btn.orange {
-    float: right;
     max-width: 130px;
     padding: 8px;
-    margin: 8px 0 !important;
+    margin: 10px 0 0px!important;
 }
 
 table#booking_list th {
@@ -249,9 +247,6 @@ table#booking_list td {
     font-size: 14px;
 }
 
-h3.dashboard-heading {
-}
-
 th {
     border: 1px solid #ccc;
     height: auto;
@@ -260,9 +255,7 @@ th {
     padding: 8px;
 }
 
-.dashboard-form-row {
-    border: none;
-}
+
 
 table#service_reviews th {
     border: 1px solid #ddd;
@@ -278,10 +271,10 @@ tr.no-details td {
 }
 
 .right-area input[type=text] {
-    border: 1px solid #F79E34;
     padding: 10px 8px 7px;
     font-size: 14px;
-    text-transform: uppercase;
+    text-transform: uppercase;    border-radius: 4PX;    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+    border: 1px solid #CCC;
 }
 
 input#ServiceReviewSearchtext {
@@ -488,6 +481,7 @@ a#uploadFile {
 
 .dashboard-file-uploader img {
     border: 1px solid #ddd;
+    width: 100%;
 }
 
 .dashboard-edit-form input.dashboard-buttons {
@@ -734,7 +728,7 @@ span.currency-symbol {
 
 .addservedit.form {
     display: inline-block;
-    width: 46%;
+    width: 47.8%;
 }
 
 .addservedit {
@@ -743,7 +737,9 @@ span.currency-symbol {
 
 .dollarsign {
     display: inline-block;
-    width: 3.6%;
+    width: 1.8%;
+    position: relative;
+    top: 6px;
 }
 .input.select.required {
     max-width: 100%;
@@ -752,5 +748,30 @@ span.currency-symbol {
 }
 
 .input.select.required button.btn.dropdown-toggle.btn-default {
-    width: 170%;
+    width: 168%;
+    padding-left: 12px;
+}
+
+.right-area .dashboard-form-row .btn.dropdown-toggle {
+    border-color: #CCC;
+    border-radius: 4PX;     box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);     color: #606060;
+}
+.dashboard-form-row.special {
+    border-bottom: 1px solid #ddd;
+}
+h3.dashboard-heading.special {
+    border: none;
+}
+input#BookingSearchtext {
+    border-color: #CCC;    border-radius: 4PX;
+    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+input#BookingSearchbydate {
+    border-color: #CCC;
+    border-radius: 4PX;
+    box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.07);
+}
+.btn-group.bootstrap-select.special {
+    max-width: 160px;
 }

@@ -34,7 +34,7 @@
                               scrollwheel: false
 			    }
 			    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+		      	geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',($service_detail['Service']['location_string']?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
 			      if (status == google.maps.GeocoderStatus.OK) {
 			        map.setCenter(results[0].geometry.location);
 			        var marker = new google.maps.Marker({
@@ -81,7 +81,7 @@
 							<div class="completion">
 								<div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
 							</div>
-							<div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
+							<div class="progressinfo"><span class="current"><?php echo ($booking_count?$booking_count:"0"); ?></span> out of <?php echo $service_detail['Service']['min_participants']; ?></div>
 							<div class="clearfix"></div>
 						<?php } ?>
 						</div>

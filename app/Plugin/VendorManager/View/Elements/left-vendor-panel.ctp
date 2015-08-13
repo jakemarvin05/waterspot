@@ -10,9 +10,9 @@
 			<li>
 				<i class="fa fa-line-chart"></i> &nbsp; <?=$this->Html->link("Dashboard",array('controller' => 'vendors', 'action' => 'dashboard','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='dashboard')?'active':''));?>
 			</li>
-			<li>
-				<i class="fa fa-book"></i> &nbsp; <?=$this->Html->link("Booking Requests",array('controller' => 'bookings', 'action' => 'booking_request','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='booking_request')?'active':''));?>
-			</li>
+<!--			<li>-->
+<!--				<i class="fa fa-book"></i> &nbsp; --><?//=$this->Html->link("Booking Requests",array('controller' => 'bookings', 'action' => 'booking_request','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='booking_request')?'active':''));?>
+<!--			</li>-->
 			<li>
 				<i class="fa fa-comments-o"></i> &nbsp; <?=$this->Html->link("Messages",array('controller' => 'vendors', 'action' => 'messages','plugin'=>'vendor_manager'),array('escape' => false,'class'=>($this->params->action=='messages')?'active':''));?>
 			</li>

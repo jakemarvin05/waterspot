@@ -19,7 +19,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 			<?=$this->element('message');?>
 			<?=$this->Form->create('Booking',array('class'=>'dashboard-form','id'=>'Booking','action'=>'booking_list','novalidate' => true)); ?>
 				<div class="dashboard-form-row with-padding">
-					<?=$this->Form->input('search',array('type' =>'select','class'=>'selectpicker', 'options' => $search_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace(this.id)'));?>
+					<?=$this->Form->input('search',array('type' =>'select','class'=>'selectpicker special', 'options' => $search_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace(this.id)'));?>
 					<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your Order id')); ?>
 					<?=$this->Form->input('search_by_date',array('type' =>'select','class'=>'selectpicker', 'options' => $search_by_date_type,'div'=>false,'label'=>false,'onChange'=>'AddPlace_date(this.id)'));?>
 					<?=$this->Form->input('searchbydate',array('div'=>false,'label'=>false,'Placeholder'=>'Select booking date','class'=>'form-last-field')); ?>
@@ -63,7 +63,63 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		<? }?>
        </table>
 
-       <div class="loader_pagination" style="display:none;" ><?=$this->Html->image('admin/icons/ajax_loading_ladder.gif');?></div>
+
+
+			<h3 class="dashboard-heading">My Booking Requests</h3>
+			<?=$this->element('message');?>
+
+			<div class="clear"></div>
+
+			<table id="booking_list" width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+				<tr>
+					<th width="5%">S.No.</th>
+					<th width="13%">Booking No.</th>
+					<th width="27%">Name</th>
+					<th width="16%">Email</th>
+					<th width="15%">Phone</th>
+					<th width="12%">Service</th>
+					<th width="12%">Start Date</th>
+					<th width="12%">End Date</th>
+					<th width="6%">Accept/Decline</th>
+
+				</tr>
+				<? $i = $this->Paginator->counter('{:start}'); ?>
+				<? if(!empty($booking_requests)){
+					//echo "<pre>";print_r($booking_details);die;
+					?>
+					<? foreach($booking_requests as $booking_request){
+						//pr($booking_request);
+						?>
+						<tr>
+							<td class="align-center"><?=$i++;?></td>
+							<td><?=$booking_request['Cart']['id']?></td>
+							<td><?=$booking_request['Member']['first_name']." ".$booking_request['Member']['last_name']?></td>
+							<td style="word-break: break-all"><?=$booking_request['Member']['email_id']?></td>
+							<td><?=$booking_request['Member']['phone']?></td>
+							<td><?=$booking_request['Cart']['service_title']?></td>
+							<td><?=date('Y-m-d',strtotime($booking_request['Cart']['start_date']))?></td>
+							<td><?=date('Y-m-d',strtotime($booking_request['Cart']['end_date']))?></td>
+							<td class="align-center">
+								<?=$this->Html->link(
+									"<i 'onclick'=>'return confirm(\"Are you sure want to confirm this request\")' class=\"fa fa-check\"></i>",
+									array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_request',$booking_request['Cart']['id']),
+									array('escape' => false, "class"=>"actions"));?>
+								<?=$this->Html->link("<i 'onclick'=>'return confirm(\"Are you sure want to decline this request\")' class=\"fa fa-times\"></i>",
+									array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_request',$booking_request['Cart']['id']),
+									array('escape' => false, "class"=>"actions"));?></td>
+
+						</tr>
+					<? } ?>
+				<? } else {?>
+					<tr class="no-details">
+						<td colspan="9">There are no booking requests</td>
+					</tr>
+				<? }?>
+			</table>
+
+
+
+			<div class="loader_pagination" style="display:none;" ><?=$this->Html->image('admin/icons/ajax_loading_ladder.gif');?></div>
 		<? //pagination 
 		 if(!empty($booking_details)) {?>
 			<noscript>
