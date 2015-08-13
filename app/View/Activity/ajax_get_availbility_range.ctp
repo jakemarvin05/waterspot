@@ -16,7 +16,7 @@
 						?>
 						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
 						echo $this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time);
-						?></label><?php echo $service_price > $slot_price ? '<br/>Discounted! for only $'.$slot_price: '';?></div>
+						?></label><?php echo '<br/>Price : $'.$slot_price ;?></div>
 				<? } } // end if 
 					else {?>
 					<?=$this->Form->hidden('Activity.slots.',array('value'=>'','type'=>'checkbox','class'=>'check-box','label'=>false,'div'=>false));?>	
