@@ -574,7 +574,11 @@ select.selectpicker.bs-select-hidden {
     display: none !important;
 }
 
+/* TODO: remove this */
 .container{
+    max-width: 1024px;
+}
+.wrapper .container-fluid {
     max-width: 1024px;
 }
 
@@ -596,150 +600,41 @@ section#navWrapper div.navButtonOuter a:hover{
     color: #fff;
 }
 
+/* wrapper's h2 font size */
 div.wrapper h2{
-    font-size: 24pt;
     color: #606060;
-    margin-top: 20px;
 }
-div.wrapper H3{
+@media (min-width: 1024px) {
+    div.wrapper h2 {
+        font-size: 24pt;
+    }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+    div.wrapper h2 {
+        font-size: 18pt;
+    }
+}
+@media (min-width: 480px) and (max-width: 639px) {
+    div.wrapper h2 {
+        font-size: 14pt;
+    }
+}
+@media (max-width: 479px) {
+    div.wrapper h2 {
+        font-size: 12pt;
+    }
+}
+
+div.wrapper h3 {
     font-family: 'Arca Majora', sans-serif;
-
 }
-div.wrapper{
+div.wrapper {
     color: #606060;
-
     line-height: 10pt;
     background-color: #f5f5f5;
     position: relative;
 }
-.fotorama__arr.fotorama__arr--next {
-    width: 60px;
-    height: 90px;
-    background: url('../img/banner-arrow-right.png');
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.24);
-    background-position: center;
-}
-.fotorama__arr.fotorama__arr--prev {
-    width: 60px;
-    height: 90px;
-    background: url('../img/banner-arrow-left.png');
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.24);
-    background-position: center;
-}
 
-.fotorama__thumb-border {
-    border-color: #FFA11A!important;
-}
-div.spacer{
-    position: relative;
-    padding: 20px 0px;
-    width: 100%;
-    clear: both;
-}
-.whitebg {
-    position: absolute;
-    background-color: #fff;
-    height: 620px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    border-bottom: 1px solid #cccccc;
-    box-shadow: 0px 2px 0px #fff;
-}
-
-/* Activity Page - Right Sidebar */
-.activity-price-info {
-    background-color: #feab32;
-    color: #fff;
-    position: relative;
-    width: 71%;
-    padding: 23px 22px 13px;
-    height: 50px;
-    top: -50px;
-    font-size: 16px;
-    z-index: 99;
-    left: -15px;
-    min-width: 180px;
-}
-
-.activity-price-info .unit {
-    font-family: "Crete Round";
-    float: right;
-}
-section.right-section {
-    border: 1px solid #d0d0d0;
-    border-top: 2px solid #FEAB32;
-    background-color: #fff;
-    margin-left: 2%;
-    width: 31.33%;
-    max-width: 360px;
-}
-section.right-section .blocks {
-    top: -20px;
-    position: relative;
-    color: #606060;
-    font-size: 14pt;
-    clear: both;
-}
-.completion {
-    position: relative;
-    width: 200px;
-    height: 29px;
-    background-color: #ddd;
-    margin-bottom: 5px;
-    float: left;
-    margin-right: 15px;
-    margin-top: 20px;
-}
-
-.progressbar {
-    position: relative;
-    height: 100%;
-    width: 0%;
-    background-color: rgb(254, 171, 50);
-}
-
-.rating {
-    position: relative;
-    background-image: url('../img/rating.png');
-    height: 41px;
-    width: 169px;
-    float: left;
-    background-repeat: no-repeat;
-    background-position: -130px 10px;
-}
-div#rating h4 {
-    float: left;
-    width: 82px;
-}
-
-p.info {
-    padding: 20px 0px 20px 31px;
-    background: url('../img/infoicon.png') no-repeat left center;
-    font-size: 11pt;
-}
-.progressinfo {
-    font-family: "Lato";
-    font-weight: bold;
-    color: #FEAB32;
-    display: block;
-    float: left;
-    width: 127px;
-    height: 25px;
-    margin-top: 7px;
-}
-
-.progressinfo .current {
-    color: #606060;
-}
-
-section.right-section h4{
-    text-transform: uppercase;
-    font-size: 16px;
-    color: #606060;
-}
 input#loginButton {
     background-color: #ff9700;
     color: #fff;

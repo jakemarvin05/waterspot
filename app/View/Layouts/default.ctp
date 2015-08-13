@@ -32,38 +32,37 @@ $resizedImg = 'http://waterspot.local/img/'.$this->ImageResize->ResizeImage($img
 <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/simple-line-icons/simple-line-icons.css">
 
-<?=$this->Html->css('style.css');?>
-
-
-<!-- Page specific style sheet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="/css/index.css">
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <!-- jQuery -->
 <script src="/js/jquery-1.11.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!-- Page specific scripts required for early rendering -->
 <script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script src="/js/page-specifics/index.js"></script>
 <script src="/js/app.js"></script>
 
+<?=$this->Html->css('style.css');?>
+
+<!-- Page specific style sheet -->
+<link rel="stylesheet" href="/css/index.css">
 <?=$this->Html->css($css_for_layout); ?>
 
 <?=$this->Html->css('mobile.css');?>
 
 <?=$this->Html->script($script_for_layout); ?>
-<? foreach($scriptBlocks as $scriptBlock){
-	echo $this->Html->scriptBlock($scriptBlock);
+<? 
+foreach($scriptBlocks as $scriptBlock) {
+	  echo $this->Html->scriptBlock($scriptBlock);
 }
-foreach($cssBlocks as $cssBlock){ ?>
-    <?=$this->Html->cssBlock($cssBlock);  ?>
-<?php } ?>
-<!--
-<script src="//googledrive.com/host/0B3dPD-DfsIsgZmZiZDJXSm5xTUE"></script>-->
-<!--
- <!--Start of Zopim Live Chat Script-->
+foreach($cssBlocks as $cssBlock) {
+    echo $this->Html->cssBlock($cssBlock);
+} 
+?>
+
+<!--Start of Zopim Live Chat Script-->
 <script type="text/javascript">
 window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
 d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
