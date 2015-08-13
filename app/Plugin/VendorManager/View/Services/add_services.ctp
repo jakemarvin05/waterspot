@@ -64,8 +64,8 @@
                    </div>
                </div>
            </div>
-
-            <div class="dashboard-form-row minimum-participants  row servcont">
+           <div class="minimum-participants">
+            <div class="dashboard-form-row   row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -76,9 +76,11 @@
                     <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
+           </div>
+
             <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
-                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
+                        <label>Max Capacity per Timeslot:<span style="color:#ff0000;">*</span> </label>
                     </div>
                     <div class="fieldbox addservedit form">
                         <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
@@ -332,20 +334,6 @@
 
                 </div>
             </div>
-
-            <div class="dashboard-form-row servcont">
-                <div class="labelbox">
-                    <label>How to get there:</label>
-                </div>
-                <div class="fieldbox">
-                    <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
-                    // echo $fck->load('Page.content'); ?>
-                    <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-
-                </div>
-            </div>
-
-
             <div class="dashboard-form-row servcont">
                 <input class="dashboard-buttons" value="Submit" type="submit">
             </div>
@@ -512,7 +500,7 @@
                 scrollThrough: ['vendor-panel']
             });
         }
-        var fieldCTR = <?php echo $count; ?>;
+        var fieldCTR = <?php echo (isset($count)?$count:"0"); ?>;
 
         $('.video-urls').on('click','#add-video',function(e){
             $(this).remove();
@@ -572,11 +560,29 @@
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
                 $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
             }
             else{
                 $('#ServiceMinParticipants').val(0);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
 
             }
 
@@ -592,6 +598,15 @@
             if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
 
 
             }
