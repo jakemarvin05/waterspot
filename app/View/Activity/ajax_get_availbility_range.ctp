@@ -43,11 +43,6 @@ else{ 	?>
 		} ?>
 		</ul>
 	<?php } ?>
-	<script type="text/javascript">
-		$('html, body').animate({
-        	scrollTop: $("#recommended_slots").offset().top
-    	}, 500);
-	</script>
 <? }?>
 
 <script type="text/javascript">
