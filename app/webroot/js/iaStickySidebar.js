@@ -1,4 +1,40 @@
+(function ($, root, undefined) {
 
+    /* hasClasses */
+    $.fn.hasClasses = function(classes) {
+
+        if (classes.constructor !== Array) {
+            var arr = classes.split(',');
+        } else {
+            var arr = classes;
+        }
+        
+        if (arr.length === 1) {
+            if(arr[0] === " ") {
+                arr[0] = arr[0].substring(1, arr[0].length);
+            }
+            return $(this).hasClass(arr[0]);
+        }
+
+        for(var i=0; i<arr.length; i++) {
+            var a = arr[i];
+            if (a[0] === " ") {
+                a = a.substring(1, a.length);
+            }
+            if (!$(this).hasClass(a)) { return false; }
+        }
+        return true;
+    }
+    
+    $(function () {
+        
+        'use strict';
+        
+        // DOM ready, take it away
+        
+    });
+    
+})(jQuery, this);
 /*!
  * MODIFIED by Calvin
  * - Added "scrollThrough" option which allows specifying containers that will not stick.
@@ -101,7 +137,7 @@
             resetSidebar();
 
             //for scrollThrough classes, don't attach onScroll handlers.
-            if ($(this).hasClass(options.scrollThrough)) {
+            if ($(this).hasClasses(options.scrollThrough)) {
                 o.onScroll = function(o) { return false; }
             } else {
                 o.onScroll = function(o) {
@@ -191,11 +227,14 @@
                      * It's way slower to first check if the values have changed.
                      */
                     if (position == 'fixed') {
+                        var osidebar = o.sidebar.css('padding-left');
+                        var osidebarnum = Number(osidebar.substr(0, osidebar.length - 2));
+
                         o.stickySidebar.css({
                             'position': 'fixed',
                             'width': o.sidebar.width(),
                             'top': top,
-                            'left': o.sidebar.offset().left + parseInt(o.sidebar.css('padding-left'))
+                            'left': o.sidebar.offset().left + osidebarnum
                         });
                     }
                     else if (position == 'absolute') {
