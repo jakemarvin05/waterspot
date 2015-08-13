@@ -1,18 +1,7 @@
-a{ text-decoration:none;}
-/*-------LOGIN STARTS HERE -------*/
-
-
-/* Forgot your password */
-#loginForm span {
-    text-align:center;
-    display:block;
-    padding:7px 0 4px 0;
-}
-
-#loginForm span a {
-    color:#3a454d;
-    text-shadow:1px 1px #fff;
-    font-size:12px;
+.activityTitle {
+    font-size: 20px;
+    margin: 0px;
+    padding: 40px 0px 0px;
 }
 
 input:focus {
@@ -46,7 +35,190 @@ div#splashVideoCropper {
 }
 
 .slider-holder {
-    height: 540px;
+    max-height: 540px;
+    overflow: hidden;
+}
+
+.fotorama__arr.fotorama__arr--next {
+    width: 60px;
+    height: 90px;
+    background: url('../img/banner-arrow-right.png');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.24);
+    background-position: center;
+}
+.fotorama__arr.fotorama__arr--prev {
+    width: 60px;
+    height: 90px;
+    background: url('../img/banner-arrow-left.png');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.24);
+    background-position: center;
+}
+
+.fotorama__thumb-border {
+    border-color: #FFA11A!important;
+}
+div.spacer {
+    position: relative;
+    padding: 20px 0px;
+    width: 100%;
+    clear: both;
+}
+
+/* White background */
+#activityWhiteBg {
+    border-bottom: 1px solid #ccc;
+    position: absolute; 
+    width: 100%; 
+    background-color:#fff;
+    height: 622px;
+}
+@media (min-width: 1024px) {
+    #activityWhiteBg {
+        height: 640px;
+    }
+}
+@media (min-width: 901px) and (max-width:1023px) {
+    #activityWhiteBg {
+        height: 622px;
+    }
+}
+@media (min-width: 321px) and (max-width: 900px) {
+    #activityWhiteBg {
+        height: 460px;
+    }
+}
+
+@media (max-width: 320px) {
+    #activityWhiteBg {
+        height: 330px;
+    }
+}
+
+.activityTitle {
+    text-align: center;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@media (max-width: 767px) {
+    .activityTitle {
+        text-align: center;
+        padding-bottom: 10px;
+    }
+}
+
+
+.activity-section:not(:first-child) {
+    margin-top: 40px;
+}
+
+/* Activity Page - Right Sidebar */
+.activity-price-info {
+    background-color: #feab32;
+    color: #fff;
+    width: 71%;
+    padding: 23px 22px 13px;
+    height: 50px;
+    /*margin: -50px -1px 0px; /* -1px for left and right is to counter the borders */
+    font-size: 16px;
+    z-index: 99;
+    min-width: 180px;
+}
+
+.activity-price-info .unit {
+    font-family: "Crete Round";
+    float: right;
+}
+article.activity-description {
+    padding-top: 30px;
+    line-height: 22px;
+}
+section.right-section {
+    margin-left: 2%;
+    width: 31.33%;
+    max-width: 360px;
+    padding: 0;
+}
+section.right-section .blocks {
+    color: #606060;
+    font-size: 14pt;
+    clear: both;
+}
+.sidebar-inner {
+    margin-top: -52px;
+}
+.theiaStickySidebar {
+    padding-top: 0px !important;
+}
+.sidebar-line {
+    width: 100%; height: 2px;
+    background-color: #FEAB32;
+}
+.sidebar-inner-after-price {
+    padding: 20px 15px;
+    border-left: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+    background-color: #fff;
+}
+.completion {
+    position: relative;
+    width: 200px;
+    height: 29px;
+    background-color: #ddd;
+    margin-bottom: 5px;
+    float: left;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+.progressbar {
+    position: relative;
+    height: 100%;
+    width: 0%;
+    background-color: rgb(254, 171, 50);
+}
+
+.rating {
+    position: relative;
+    background-image: url('../img/rating.png');
+    height: 41px;
+    width: 169px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: -130px 10px;
+}
+div#rating h4 {
+    float: left;
+    width: 82px;
+}
+
+p.info {
+    padding: 20px 0px 20px 31px;
+    background: url('../img/infoicon.png') no-repeat left center;
+    font-size: 11pt;
+}
+.progressinfo {
+    font-family: "Lato";
+    font-weight: bold;
+    color: #FEAB32;
+    display: block;
+    float: left;
+    width: 127px;
+    height: 25px;
+    margin-top: 7px;
+}
+
+.progressinfo .current {
+    color: #606060;
+}
+
+section.right-section h4{
+    text-transform: uppercase;
+    font-size: 16px;
+    color: #606060;
 }
 
 
@@ -177,15 +349,9 @@ h2.suggestion-title {
     .slider-holder {
         /* height: 410px!important; */
     }
-    .whitebg {
-        height: 520px;
-    }
 }
 
 @media (max-width: 767px) {
-    .whitebg {
-        height: 480px!important;
-    }
 
     section.right-section {
         max-width: 767px;
@@ -230,10 +396,6 @@ h2.suggestion-title {
 
     .fotorama__stage {
         height: 180px !important;
-    }
-
-    .whitebg {
-        height: 420px !important;
     }
 
     .fotorama__arr.fotorama__arr--next {
