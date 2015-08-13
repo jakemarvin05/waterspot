@@ -158,7 +158,7 @@ $email->config('gmail');
 
 		$this->loadModel('Cart');
 		$this->loadModel('MailManager.Mail');
-		$cart = $this->Cart->find('first', array('conditions' => array('Cart.id' =>$cart_id,'Cart.status' =>0,'Cart.vendor_confirm' =>3)));
+		$cart = $this->Cart->find('first', array('conditions' => array('Cart.id' =>$cart_id,'Cart.status' =>1,'Cart.vendor_confirm' =>3)));
 		
 		if(!empty($cart)){
 			$update_cart['Cart']['id'] = $cart['Cart']['id'];

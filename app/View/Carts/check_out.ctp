@@ -116,27 +116,23 @@
 							<div class="checkout-activity-date"><strong><?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date'])); ?> To <?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date'])); ?></strong></div>
 						</div>
 					</div>
-					<? if(!empty($cart_detail['Cart']['slots'])) { ?>
-						<div class="checkout-activity-slots">
+					<div class="checkout-activity-details">
+						<? if(!empty($cart_detail['Cart']['slots'])) { ?>
 							<? foreach($cart_detail['Cart']['slots'] as $slot_key=>$slot_time) { ?>
-								<div class="checkout-activity-slot">
-									<?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']); ?>
+								<div class="checkout-activity-row">
+									<div class="checkout-activity-left">Slot <?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']); ?> </div>
+									<div class="checkout-activity-right"><?="$".number_format($slot_time['price'],2)?></div>
 								</div>
 							<?php } ?>
-						</div>
-					<? } ?>
-					<div class="checkout-activity-details">
-						<div class="checkout-activity-row">
-							<div class="checkout-activity-left">Per Slot/Day Price </div>
-							<div class="checkout-activity-right"><?="$".number_format($cart_detail['Cart']['price'],2)?></div>
-						</div>
+						<? } ?>
+						
 						<div class="checkout-activity-row">
 							<div class="checkout-activity-left">No. of Days </div>
 							<div class="checkout-activity-right"><?=$cart_detail['Cart']['no_of_booking_days'];?></div>
 						</div>
 						<div class="checkout-activity-row">
-							<div class="checkout-activity-left"><?=$cart_detail['Cart']['no_participants']?> x Adult(s) </div>
-							<div class="checkout-activity-right"><?=$cart_detail['Cart']['no_participants'];?></div>
+							<div class="checkout-activity-left"><?=$cart_detail['Cart']['no_participants']-count(json_decode($cart_detail['Cart']['invite_friend_email']))?> x Adult(s) </div>
+							<div class="checkout-activity-right"><?=$cart_detail['Cart']['no_participants']-count(json_decode($cart_detail['Cart']['invite_friend_email']))?></div>
 						</div>
 						<? if(!empty($cart_detail['Cart']['value_added_price'])) { ?>
 						<div class="checkout-activity-row">
@@ -158,10 +154,6 @@
 						
 						
 						 ?>
-						<div class="checkout-activity-row">
-							<div class="checkout-activity-left">Service Price( $<?=number_format($cart_detail['Cart']['price'],2);?> x <?=($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1 ?>&nbsp;x&nbsp;<?=$no_interval;?>&nbsp;<?=$interval_msg;?>)</div>
-							<div class="checkout-activity-right">$<?=number_format(($cart_detail['Cart']['price']*(($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1)* $no_interval),2);?></div>
-						</div>
 						<? } ?>
 						<div class="checkout-activity-row checkout-activity-row-subtotal">
 							<div class="checkout-activity-left">Subtotal</div>
