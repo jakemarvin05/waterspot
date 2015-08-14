@@ -1,9 +1,106 @@
+
     <section id="activityPanorama">
-
-            <img src="/img/splash-statics/slide1.jpg" style="width: 100%;">
-      
-
+        <img src="/img/splash-statics/slide1.jpg">
     </section>
+
+    <script>
+    var autoCropper = {
+
+        /* configurables */
+
+        imageToBeCropped: null,
+        listenToResize: true,
+        aspectRatio: "2.35:1",
+
+        /* main function */
+        init: function(imageToBeCropped) {
+            if(!imageToBeCropped) throw Error('Needs a jQuery obj to crop.');
+
+            var self = this;
+
+            this.imageToBeCropped = imageToBeCropped;
+            this.imageToBeCropped.css({
+                'width': '100%', // set 100% initially
+                'position': 'relative'
+            }); 
+
+            this.outerWrapper = $(document.createElement('div'));
+            this.outerWrapper.css({
+                'position': 'relative',
+                'width': '100%'
+            });
+
+            this.imageToBeCropped.wrap(this.outerWrapper);
+            this.imageToBeCropped[0].onload = function() { self._cropper() };
+
+            // force refresh to trigger the onload event should the image raced ahead of this script.
+            this.imageToBeCropped[0].src = this.imageToBeCropped[0].src;
+
+            // bind to window resize listener
+            if (this.listenToResize) {
+                $(window).on('resize', function() { self._cropper(); });
+            }
+        },
+
+        _cropper: function() {
+            
+            if(this._isImageTallerThanAspect) {
+                // taller image, set width to 100% and crop height
+                var heightToCrop = this.imageToBeCropped.height() - this.imageToBeCropped.width() / this._getAspectRatio().decimal();
+
+                // height to move up is half the amount
+                this.imageToBeCropped.css({
+                    'top': '-' + heightToCrop/2 + 'px',
+                    'right': null
+                });
+
+            } else {
+                // width image, set height to 100% and crop width
+                console.log(this)
+                this.imageToBeCropped.css({
+                    'width': null,
+                    'height': '100%'
+                });
+
+                var widthToCrop = this.imageToBeCropped.width() - this.imageToBeCropped.height() * this._getAspectRatio().decimal();
+
+                // width to move left is half the amount
+                this.imageToBeCropped.css({
+                    'top': null,
+                    'right': '-' + widthToCrop/2 + 'px',
+                });
+            }
+
+        },
+
+        /* helpers */
+        _getAspectRatio: function() {
+            if (this.aspects) return this.aspects;
+
+            var aspects = this.aspectRatio.split(':');
+            if (aspects.length !== 2) throw Error('aspectRatio is not valid.');
+
+            this.aspects = {
+                width: parseFloat(aspects[0]),
+                height: parseFloat(aspects[1]),
+                decimal: function() {
+                    if(this._decimal) return this._decimal;
+                    return this._decimal = this.width/this.height;
+                }
+            };
+
+            return this.aspects;
+        },
+        _isImageTallerThanAspect: function() {
+            var imageAspectRatio = this.imageToBeCropped.width() / this.imageToBeCropped.height();
+
+            return imageAspectRatio < this._getAspectRatio();
+        }
+    }
+
+    var cropper = Object.create(autoCropper);
+    cropper.init($('#activityPanorama img'));
+    </script>
 
 
 <div class="wrapper">
@@ -151,7 +248,7 @@
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
                                     <div class="cart-btn">
-                                        <input type="submit" value="Book Now" class="addtocart-button" id="loginButton" />
+                                        <input type="submit" value="Book Now" class="addtocart-button btn btnDefaults btnFillOrange" id="loginButton" />
                                     </div>
                                     <?=$this->Form->end(); ?>
                                 </div>

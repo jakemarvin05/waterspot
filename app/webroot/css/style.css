@@ -81,6 +81,7 @@
 
 body {
     color: #606060; /* default dark font color */
+    font-family: 'Lato', sans-serif;
 }
 h1, h2, h3, h4 {
     font-weight: 700;
@@ -635,25 +636,12 @@ div.wrapper {
     position: relative;
 }
 
-input#loginButton {
-    background-color: #ff9700;
-    color: #fff;
-    border: none;
-    width: 100%;
-    padding: 17px;
-    margin-top: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.39);
-    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.16);
-}
-
 /* Restyle Date Picker */
 .ui-datepicker {
     border-radius: 0px !important;;
     border-color: #cccccc !important;
     font-family: "Lato" !important;
-    font-size: 14pt !important;
+    font-size: 12pt !important;
     width: 100% !important;
     color: #595959 !important;
     text-align: center!important;
@@ -687,8 +675,8 @@ input#loginButton {
     text-align: center;
     background: none!important;
     border: none!important;
-    padding: 8px 0px;
-    font-size: 16px;
+    padding: 6px 0px;
+    font-size: 13px;
 }
 
 .ui-widget-content .ui-state-default.ui-state-active{
