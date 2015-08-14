@@ -1120,3 +1120,7 @@ h4.h4.fix {
 .load-more-row {
     text-align: center;
 }
+
+section#navWrapper div.navButtonOuter ul.dropdown-menu a {
+    color: #606060;
+}
