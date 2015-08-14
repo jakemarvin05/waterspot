@@ -56,11 +56,11 @@ $( document ).ready(function() {
 			<td class="align-center"><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['start_date'])); ?></td>
 			<td class="align-center"><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['end_date'])); ?></td>
 			<td class="align-center">
-				   <?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Member Details','title'=>'View Member Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_member_invite_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?>
+				   <?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_member_invite_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?>
 				   <span class="number">(<?=($order_detail['BookingOrder']['no_participants']-1)?>)</span>
 			</td>
-			<td class="align-center"><?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Slots Details','title'=>'View Slots Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
-			<td class="align-center"><?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View VAS Details','title'=>'View VAS Details')),array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
+			<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
+			<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
 			<td class="align-right"><?=number_format(($order_detail['BookingOrder']['total_amount']),2); ?></td>
 		</tr>
 		<tr class="subtotal">
