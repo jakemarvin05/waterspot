@@ -442,6 +442,7 @@ section#activityPanorama {
     max-height: 400px;
 }
 section#activityPanorama img {
-    margin-top: -20%;
+    margin-top: 0%;
     position: relative;
+    width: 100%;
 }
