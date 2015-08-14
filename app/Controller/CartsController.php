@@ -122,6 +122,7 @@ Class CartsController extends AppController
             $this->sessionKey = MemberAuthComponent::$sessionKey;
             $this->member_data = $this->Session->read($this->sessionKey);
 
+
             if ($this->Session->read($this->sessionKey)) {
 
                 $query = "UPDATE carts SET status = 1, vendor_confirm = 1, member_id = '".$this->member_data['MemberAuth']['id']."'  WHERE session_id='" . $this->Session->id()."'";
@@ -129,8 +130,10 @@ Class CartsController extends AppController
             } else {
                 $query = "UPDATE carts SET status = 1, vendor_confirm = 1 WHERE session_id='" . $this->Session->id() . "'";
                 $this->Cart->query($query);
+
             }
             if ($this->Session->read($this->sessionKey)) {
+
                 $cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id(), 'member_id' => $this->member_data['MemberAuth']['id'])));
 
 
@@ -209,6 +212,14 @@ Class CartsController extends AppController
         //pr($cart_data);exit;
 
 
+        if(!empty($this->member_data)){
+            $email = $this->member_data['MemberAuth']['email_id'];
+            $phone = $this->member_data['MemberAuth']['phone'];
+        }
+        else{
+            $email = $cart_data['Cart']['guest_email'];
+            $phone = $this->request->data['Cart']['phone'];
+        }
         if (!empty($cart_data)) {
 
 
@@ -226,8 +237,8 @@ Class CartsController extends AppController
 
           //  $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
           //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
-            $data['Booking']['email'] = $this->member_data['MemberAuth']['email_id'];
-            $data['Booking']['phone'] = $this->member_data['MemberAuth']['phone'];
+            $data['Booking']['email'] = $email;
+            $data['Booking']['phone'] = $phone;
 
             $this->Booking->create();
             $this->Booking->save($data);
