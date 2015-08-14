@@ -405,3 +405,7 @@ input.dashboard-buttons {
 .frame {
     padding: 15px;    max-width: 50%;
 }
+
+.member-panel .right-area td {
+    padding: 8px;
+}
