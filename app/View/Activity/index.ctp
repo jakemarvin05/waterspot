@@ -357,8 +357,7 @@ function get_recommended_dates() {
         
        // invite friends 
     
-    $('#add_invite').submit(function(){
-        
+    $('#add_invite').submit(function(e){
         //var data = $(this).serializeArray();
         var data = new FormData(this);
         var formData = $(this);
@@ -370,11 +369,11 @@ function get_recommended_dates() {
                
         $('.error-message').remove();
         $('#add_invite > span#for_owner_cms').show();
-        $('input[type="submit"]').attr({'disabled':true});
+        //$('input[type="submit"]').attr({'disabled':true});
         
         $.ajax({
             url: '<?=$path?>carts/validation/cart',
-            async: false,
+            async: true,
             data: data,
             dataType:'json', 
             type:'post',
@@ -382,7 +381,6 @@ function get_recommended_dates() {
             contentType: false,
             processData: false,
             success: function(data) {
-                     
                 if(data.error==1){
                     $.each(data.errors,function(i,v){
                         $('#'+i).addClass("invalid form-error").after('<div class="error-message">'+v+'</div>'); 
@@ -391,19 +389,18 @@ function get_recommended_dates() {
                             $(this).next().remove();
                             });
                     });
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    $('input[type="submit"]').attr({'disabled':false});
+                    $('#add_invite > span#for_owner_cms').hide();
                 }else{
                     status = 1;
+                    return true;
+
                 }
                    
             }
             });
-            if(status==0){
-               $("html, body").animate({ scrollTop: 0 }, "slow");
-               $('input[type="submit"]').attr({'disabled':false});
-               $('#add_invite > span#for_owner_cms').hide();
-            }
-           
-           return (status===1)?true:false; 
+
             
         });
    
