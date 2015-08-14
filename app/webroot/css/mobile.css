@@ -79,10 +79,6 @@
     .ch_element.ch_wrapper {
         min-height: 220px;
     }
-    section#navWrapper {
-        background-color: #fff;
-        padding-bottom: 20px;
-    }
     .tile-info .activity-rating-wrapper .rating-label {
         float: right;
     }
@@ -104,10 +100,6 @@
 @media (max-width: 767px) {
     .ch_element.ch_wrapper {
         min-height: 162px ;
-    }
-    section#navWrapper {
-        background-color: #fff;
-        padding-bottom: 20px;
     }
     .tile-info .vendor-rating-wrapper .rating-label{
         float: right;
@@ -175,10 +167,7 @@
     .ch_element.ch_wrapper {
         min-height: 162px ;
     }
-    section#navWrapper {
-        background-color: #fff;
-        padding-bottom: 20px;
-    }
+
     .tile-info .vendor-rating-wrapper .rating-label{
         float: right  ;
     }

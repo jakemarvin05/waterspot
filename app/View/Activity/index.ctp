@@ -24,13 +24,13 @@
                 'position': 'relative'
             }); 
 
-            this.outerWrapper = $(document.createElement('div'));
+            this.outerWrapper = this.imageToBeCropped.wrap('<div></div>').parent();
             this.outerWrapper.css({
                 'position': 'relative',
-                'width': '100%'
+                'width': '100%',
+                'overflow': 'hidden'
             });
 
-            this.imageToBeCropped.wrap(this.outerWrapper);
             this.imageToBeCropped[0].onload = function() { self._cropper() };
 
             // force refresh to trigger the onload event should the image raced ahead of this script.
@@ -46,13 +46,15 @@
             
             if(this._isImageTallerThanAspect) {
                 // taller image, set width to 100% and crop height
-                var heightToCrop = this.imageToBeCropped.height() - this.imageToBeCropped.width() / this._getAspectRatio().decimal();
+                var heightOfContainer = this.imageToBeCropped.width() / this._getAspectRatio().decimal();
+                var heightToCrop = this.imageToBeCropped.height() - heightOfContainer;
 
                 // height to move up is half the amount
                 this.imageToBeCropped.css({
                     'top': '-' + heightToCrop/2 + 'px',
                     'right': null
                 });
+                this.outerWrapper.css('height', heightOfContainer);
 
             } else {
                 // width image, set height to 100% and crop width
@@ -69,6 +71,7 @@
                     'top': null,
                     'right': '-' + widthToCrop/2 + 'px',
                 });
+                this.outerWrapper.css('height', null)
             }
 
         },
