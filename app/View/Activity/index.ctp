@@ -1,4 +1,4 @@
-
+    <div class="topResponsivePadding"></div>
     <section id="activityPanorama">
         <img src="/img/splash-statics/slide1.jpg">
     </section>

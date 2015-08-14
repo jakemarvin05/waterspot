@@ -320,6 +320,33 @@ button:focus, button:active, input:focus, input:active {
     border-color: #ff9700;
     color: #ff9700;
 }
+
+/* when not in home, all the rest of the nav bars should be thin */
+.stickyCollapsedFix {
+    background-color: #fff;
+    padding-top: 5px !important;
+}
+.stickyCollapsedFix .navButtonOuter {
+    text-shadow: 0px 0px 0px!important;
+    color: rgb(96, 96, 96);
+}
+.stickyCollapsedFix .navActive, .stickyCollapsedFix .navButtonOuter:hover, .navButtonOuter:focus {
+    border-color: #ff9700!important;;
+    color: #ff9700!important;;
+}
+.stickyCollapsedFix div.navButtonOuter.navActive a{
+    color: #ff9700!important;;
+}
+.stickyCollapsedFix div.navButtonOuter a:hover{
+    color: #ff9700!important;;
+}
+.stickyCollapsedFix  img#whiteLogo{
+    opacity: 0!important;
+}
+.stickyCollapsedFix img#coloredLogo {
+    opacity: 1!important;
+}
+
 .navTextLabel {
     margin-left: 7px;
 }
@@ -685,36 +712,17 @@ div.wrapper {
     border-radius: 5px;
 }
 
-
-.stickyCollapsedFix .navButtonOuter {
-    text-shadow: 0px 0px 0px!important;
-    color: rgb(96, 96, 96);
-}
-.stickyCollapsedFix .navActive, .stickyCollapsedFix .navButtonOuter:hover, .navButtonOuter:focus {
-    border-color: #ff9700!important;;
-    color: #ff9700!important;;
-}
 ul.dropdown-menu{
     color: rgb(96, 96, 96)!important;;
     padding-bottom: 0px;
     overflow: hidden;
 }
-section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
-    color: #ff9700!important;;
-}
-section#navWrapper.stickyCollapsedFix div.navButtonOuter a:hover{
-    color: #ff9700!important;;
-}
+
 .navButtonOuter {
     /* background-color: #fff; */
     padding-top: 10px;
 }
-section#navWrapper.stickyCollapsedFix  img#whiteLogo{
-    opacity: 0!important;
-}
-section#navWrapper.stickyCollapsedFix img#coloredLogo {
-    opacity: 1!important;
-}
+
 .container-fluid.wrapper.activities-page {
     margin-top: 50px;
     background-color: #fff;
@@ -1075,13 +1083,6 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     text-shadow: 1px 1px 0px rgba(255, 0, 0, 0.7);
 }
 
-section#navWrapper.stickyCollapsedFix {
-    background-color: #fff;
-    padding-bottom: 20px;
-}
-section#navWrapper.stickyCollapsedFix.stickyCollapsed {
-    padding-bottom: 5px;
-}
 .vendor-rating-wrapper em {
     display: none!important;
 }
