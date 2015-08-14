@@ -421,6 +421,8 @@ $(document).ready(function() {
         if(!$('.fotorama__nav-wrap').length>0){
         $('#activityWhiteBg').height(512);
     }
+
+
 });
  
  </script>

@@ -1085,6 +1085,7 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     background-color: #F98686;
     color: #fff;
     text-shadow: 1px 1px 0px rgba(255, 0, 0, 0.7);
+    display: inline-block;
 }
 
 section#navWrapper.stickyCollapsedFix {
