@@ -301,7 +301,7 @@
                     <label>Panorama Image (recommended 1600x680): </label>
                 </div>
                 <div class="fieldbox">
-                    <div id="panorama-image-container" style="text-align:center;">
+                    <div id="panorama-image-container" >
                         <?php
                             if ($this->request->data['Service']) {
                                 echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
@@ -532,7 +532,7 @@
         $('[name="data[Service][is_private]"]').change(function(){
             if($('[name="data[Service][is_private]').is(':checked')){
                 $('.to-hide').animate({
-                    opacity: 0,
+                    opacity: 1,
                     height: "toggle",
                     "padding-bottom": 0
                 }, 600, function() {
@@ -543,7 +543,7 @@
             else{
 
                         $('.to-hide').animate({
-                            "opacity": 1,
+                            "opacity": 0,
                             "height": "toggle",
                             "padding-bottom": 19
                         }, 600, function () {
