@@ -159,7 +159,7 @@ $email->config('gmail');
 					$email->emailFormat('html');
 					$email->template('default');
 					$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-					// $email->send();
+					$email->send();
 					// do not send!
 					$booking_id = $this->add_order($data['Cart']['id'], $data['Cart']['service_id']);
 					
@@ -171,8 +171,8 @@ $email->config('gmail');
 			}
 			
 		}
-		$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
-		$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'check_out'));
+		//$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
+		//$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'check_out'));
 	}
 	
 	function add_order($id=null, $service_id=null){

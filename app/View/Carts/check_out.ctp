@@ -192,7 +192,7 @@
            
            $.ajax({
                 url: '<?=$path?>carts/validation/check_out',
-                async: false,
+                async: true,
 				data: data,
                 dataType:'json', 
                 type:'post',
@@ -209,18 +209,18 @@
 								$(this).next().remove();
 								});
                         });
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+						$('#CartId > button[type=submit]').attr({'disabled':false});
+						$('#CartId > span#for_owner_cms').hide();
                     }else{
                         status = 1;
-                    }
+						console.log('success');
+						return true;
+					}
                    
                  }
             });
-            if(status==0){
-               $("html, body").animate({ scrollTop: 0 }, "slow");
-               $('#CartId > button[type=submit]').attr({'disabled':false});
-               $('#CartId > span#for_owner_cms').hide();
-            }
-           return (status===1)?true:false; 
+
             
         });
         <? if(empty($guest_email)){ ?>
@@ -241,7 +241,7 @@
 			
 			$.ajax({
 				url: '<?=$path?>carts/guest_validation',
-				async: false,
+				async: true,
 				data: data,
 				dataType:'json', 
 				type:'post',
@@ -258,19 +258,16 @@
 								$(this).next().remove();
 								});
 						});
+						$("html, body").animate({ scrollTop: 0 }, "slow");
+						$('input[type="submit"]').attr({'disabled':false});
 					}else{
 						status = 1;
+						return true;
 					}
 					   
 				}
 				});
-				if(status==0){
-				   $("html, body").animate({ scrollTop: 0 }, "slow");
-				   $('input[type="submit"]').attr({'disabled':false});
-				 //  $('#add_invite > span#for_owner_cms').hide();
-				}
-			   
-			   return (status===1)?true:false; 
+
 				
 			}); 
 <? } ?>

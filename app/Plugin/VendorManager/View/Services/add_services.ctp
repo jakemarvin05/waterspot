@@ -190,7 +190,7 @@
                         geocoder = new google.maps.Geocoder();
                         var latlng = new google.maps.LatLng(-34.397, 150.644);
                         var mapOptions = {
-                            zoom: 15,
+                            zoom: 11,
                             center: latlng,
                             scrollwheel: false
                         };
@@ -298,7 +298,7 @@
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
-                    <label>Panorama Image (recommended 1600x900): </label>
+                    <label>Panorama Image (recommended 1600x500): </label>
                 </div>
                 <div class="fieldbox">
                     <div id="panorama-image-container" style="text-align:center;">

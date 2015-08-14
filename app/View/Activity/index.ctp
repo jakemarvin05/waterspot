@@ -1,6 +1,6 @@
     <section id="activityPanorama">
 
-           <img src="/img/service_images/<?php echo $service_detail['Service']['panorama_image']; ?>">
+           <img src="/img/service_images/<?php echo (isset($service_detail['Service']['panorama_image'])?$service_detail['Service']['panorama_image']:'panorama.png'); ?>">
       
 
     </section>
@@ -36,12 +36,12 @@
                         geocoder = new google.maps.Geocoder();
                         var latlng = new google.maps.LatLng(-34.397, 150.644);
                         var mapOptions = {
-                          zoom: 15,
+                          zoom: 11,
                           center: latlng,
                                       scrollwheel: false
                         }
                         map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-                        geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+                        geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',(isset($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
                           if (status == google.maps.GeocoderStatus.OK) {
                             map.setCenter(results[0].geometry.location);
                             var marker = new google.maps.Marker({
@@ -417,6 +417,12 @@ $(document).ready(function() {
         additionalMarginTop: 120,
         scrollThrough: ['.left-section']
     });
+
+        if(!$('.fotorama__nav-wrap').length>0){
+        $('#activityWhiteBg').height(512);
+    }
+
+
 });
  
  </script>
@@ -441,4 +447,6 @@ $(document).ready(function() {
 
     <script type="text/javascript">
         $('#ActivityNoParticipants').selectpicker().hide();
+
+
     </script>
