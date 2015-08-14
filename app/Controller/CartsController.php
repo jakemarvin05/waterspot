@@ -107,17 +107,25 @@ Class CartsController extends AppController{
 	
 	function booking_request(){ 
 		//$this->autoRender = false;
-
 		if(!empty($this->request->data)){
 			$this->loadModel('Cart');
 			App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 			$this->sessionKey = MemberAuthComponent::$sessionKey;
 			$this->member_data = $this->Session->read($this->sessionKey);
-			$query = "UPDATE carts SET status = 0, vendor_confirm=3 WHERE session_id='".$this->Session->id()."' AND member_id='".$this->member_data['MemberAuth']['id']."'";
-			$this->Cart->query($query);
+
+			if ($this->Session->read($this->sessionKey)) {
+				$query = "UPDATE carts SET status = 1, vendor_confirm = 1 WHERE session_id='".$this->Session->id()."' AND member_id='".$this->member_data['MemberAuth']['id']."'";
+				$this->Cart->query($query);
+			} else {
+				$query = "UPDATE carts SET status = 1, vendor_confirm = 1 WHERE session_id='".$this->Session->id()."'";
+				$this->Cart->query($query);
+			}
 			
-			
-			$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id(), 'member_id' => $this->member_data['MemberAuth']['id'])));
+			if ($this->Session->read($this->sessionKey)) {
+				$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id(), 'member_id' => $this->member_data['MemberAuth']['id'])));
+			} else {
+				$cart_value = $this->Cart->find('all', array('conditions' => array('session_id' => $this->Session->id()), 'order' => 'time_stamp DESC'));
+			}
 			//Send mail to vender for booking request
 			// send to Admin mail
 			//pr($this->request->data);die;
@@ -152,14 +160,19 @@ $email->config('gmail');
 					$email->template('default');
 					$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
 					$email->send();
+					// do not send!
+					$booking_id = $this->add_order($data['Cart']['id'], $data['Cart']['service_id']);
 					
 				}
-				$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'booking_success'));
+				$this->loadModel('Booking');
+				$booking_id = $this->Booking->find('first',array('fields'=>array('id'),'conditions'=>array('Booking.session_id'=>$this->Session->id())));
+				$this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'index',$booking_id['Booking']['id']));
+				// $this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_request',$cart_value[0]['Cart']['id']));
 			}
 			
 		}
-		$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
-		$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'check_out'));
+		//$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
+		//$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'check_out'));
 	}
 	
 	function add_order($id=null, $service_id=null){
@@ -197,14 +210,15 @@ $email->config('gmail');
 			$this->Cart->save($cart);
 			
 			if(!empty($this->Booking->id)){
-				$this->redirect(array('plugin'=>false,'controller'=>'bookings','action'=>'payment_process',$this->Booking->id));
+				$this->payment_process($this->Booking->id);
+				return $this->Booking->id;
 				//$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'booking_success',$this->Booking->id));
 			}
 			else {
-				$this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>false));
+				// $this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>false));
 			}
 		}
-		$this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>false));
+		// $this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>false));
 		
 	}
 	
@@ -357,6 +371,114 @@ $email->config('gmail');
 			return;
 		  }
 			return (int)($result['error'])?0:1;
+	}
+
+	function payment_process($booking_id=null){
+		ob_start();
+		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		$this->sessionKey = MemberAuthComponent::$sessionKey;		
+		$this->member_data = $this->Session->read($this->sessionKey);
+		//check guest email or login 
+		$guest_email=$this->Session->read('Guest_email');
+		if(!empty($guest_email) || !empty($this->member_data['MemberAuth']['id'])){
+		}else{
+			$this->Session->setFlash('Please login/email to book activity.','default','','error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'registration'));
+		}
+		if(empty($booking_id)) {
+			throw new NotFoundException('Could not find that booking id');
+		} 
+		$this->loadModel('Cart');
+		$this->loadModel('Booking');
+		$criteria = array();
+		$criteria['fields']= array('Cart.price','Cart.value_added_price','Service.service_title','Cart.total_amount');
+		$criteria['joins'] = array(
+			array(
+				'table' => 'services',
+				'alias' => 'Service',
+				'type' => 'INNER',
+				'conditions' => array('Service.id = Cart.service_id')
+			) 
+		);
+		$criteria['conditions'] =array('Cart.session_id'=>$this->Session->id(),'Cart.status'=>1);
+		$criteria['order'] =array('Cart.id DESC');
+		$cart_details=$this->Cart->find('all', $criteria);
+		$booking_ref_no=$this->Booking->getBookingRefenceByBooking_id($booking_id);
+		$total_cart_price=0;
+		foreach($cart_details as $cart_detail){
+			$total_cart_price+=$cart_detail['Cart']['total_amount'];
+			$cart_service_names[]=$cart_detail['Service']['service_title'];
+		}
+		// PAYPAL SEND CUSTOM VARIABLE
+		$custom_variable="member_id=".$this->member_data['MemberAuth']['id'].'&booking_id='.$booking_id.'&session_id=' . $this->Session->id();
+		// save data before payment
+		self::_before_booking_data_save($custom_variable);
+		// $this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'index',$booking_id));
+	}
+
+	private function _before_booking_data_save($booking_custom_data){
+		if(!empty($booking_custom_data)){
+			$this->loadModel('Cart');
+			$this->loadModel('BookingOrder');
+			$this->loadModel('BookingSlot');
+			$this->loadModel('Booking');
+			$this->loadModel('VendorManager.ServiceImage');
+			$custom_field = explode('&', $booking_custom_data);
+			$params = array();
+			$booking_data = array();
+			$service_row = '';
+			$slot_row = '';
+			foreach ($custom_field as $param) {
+				$item = explode('=', $param);
+				$custom_variable[$item[0]] = $item[1];
+			}
+			$criteria = array();
+			$criteria['fields']= array('Cart.*','Service.service_title');
+			$criteria['joins'] = array(
+				array(
+					'table' => 'services',
+					'alias' => 'Service',
+					'type' => 'INNER',
+					'conditions' => array('Service.id = Cart.service_id')
+				) 
+			);
+			$criteria['conditions'] =array('Cart.session_id'=>$custom_variable['session_id'],'Cart.status'=>1);
+			$criteria['order'] =array('Cart.id DESC');
+			$cart_details=$this->Cart->find('all', $criteria);
+			$row='';
+			$booking_detail=$this->Booking->getBookingDetailsByBooking_id($custom_variable['booking_id']);
+			$service_slot_details='';
+			$total_cart_price=0;
+			$slots='';
+			// update booking status processing 
+			$booking_data['Booking']['id']=$custom_variable['booking_id'];
+			$booking_data['Booking']['time_stamp']=date('Y-m-d H:i:s');
+			$booking_data['Booking']['browser_name']=$_SERVER['HTTP_USER_AGENT'];
+			$booking_data['Booking']['status']=4; // status 4 for processing 	
+			$this->Booking->create();
+			$this->Booking->save($booking_data,array('validate' => false));
+			// check payment status
+			if(!empty($cart_details)){
+				foreach($cart_details as $cart_detail) {
+					$total_cart_price=0; 
+					unset($cart_detail['Cart']['id']);
+					$newData['BookingOrder']=$cart_detail['Cart'];
+					$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
+					$newData['BookingOrder']['service_title']=$cart_detail['Service']['service_title'];
+					$newData['BookingOrder']['status']=4;
+					$this->BookingOrder->create();
+					$this->BookingOrder->save($newData,array('validate' => false));
+					$slots=json_decode($newData['BookingOrder']['slots'],true);
+					$this->booking_order_id=$this->BookingOrder->id;
+					//save booking slots
+					self::before_saving_booking_slot($slots,$booking_detail['Booking']['ref_no'],$newData['BookingOrder']['service_id'],$newData['BookingOrder']['no_participants']);
+					// save invite save data
+					$total_cart_price=$cart_detail['Cart']['total_amount'];
+					self::before_sent_invite_save($cart_detail,$total_cart_price,$booking_detail);
+				}
+			}
+		}
+		return true;
 	}
 }
 ?>

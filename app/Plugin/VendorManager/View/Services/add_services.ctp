@@ -64,8 +64,8 @@
                    </div>
                </div>
            </div>
-
-            <div class="dashboard-form-row minimum-participants  row servcont">
+           <div class="minimum-participants">
+            <div class="dashboard-form-row   row servcont">
 
                     <div class="labelbox">
                         <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
@@ -76,9 +76,11 @@
                     <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
+           </div>
+
             <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
-                        <label>Max Capacity:<span style="color:#ff0000;">*</span> </label>
+                        <label>Max Capacity per Timeslot:<span style="color:#ff0000;">*</span> </label>
                     </div>
                     <div class="fieldbox addservedit form">
                         <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
@@ -188,7 +190,7 @@
                         geocoder = new google.maps.Geocoder();
                         var latlng = new google.maps.LatLng(-34.397, 150.644);
                         var mapOptions = {
-                            zoom: 15,
+                            zoom: 11,
                             center: latlng,
                             scrollwheel: false
                         };
@@ -243,7 +245,21 @@
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
                 </div>
                 <div class="fieldbox video-urls">
-                    <div data-target="0"><?= $this->Form->input('youtube_url', array('type' => 'text','data-inputId'=>'0', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
+                    <?php if ($this->request->data['Service']['youtube_url']):
+                    $count = 0;
+                            foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
+                    ?>
+                    <div data-target="0">
+                        <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>" class="add-service add-video-field" type="text" id="ServiceYoutubeUrl][" value="<?php echo $youtube; ?>">
+                    </div>
+                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    <a class="delete-video" data-target="<?php echo $count; ?>" href="#"><i class="fa fa-minus-square"></i> </a>
+                    <?php
+                    $count++;
+                    endforeach;
+                    endif;
+                    ?>
+                    <div data-target="<?php echo $count; ?>"><?= $this->Form->input('youtube_url][', array('type' => 'text','data-inputId'=>'<?php echo $count; ?>', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                     <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
@@ -280,6 +296,22 @@
                     <div id="show_upload_image" style="display:none;"></div>
                 </div>
             </div>
+            <div class="dashboard-form-row row servcont">
+                <div class="labelbox">
+                    <label>Panorama Image (recommended 1600x500): </label>
+                </div>
+                <div class="fieldbox">
+                    <div id="panorama-image-container" style="text-align:center;">
+                        <?php
+                            if ($this->request->data['Service']) {
+                                echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                            }
+                        ?>
+                    </div>
+                    <input type="file" name="data[panorama]" id="panorama-input">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php $this->request->data['Service'] ? $this->request->data['Service']['panorama_image'] : '' ?>">
+                </div>
+            </div>
             <div class="dashboard-form-row servcont">
                 <div class="labelbox">
                     <label>Description:</label>
@@ -302,20 +334,6 @@
 
                 </div>
             </div>
-
-            <div class="dashboard-form-row servcont">
-                <div class="labelbox">
-                    <label>How to get there:</label>
-                </div>
-                <div class="fieldbox">
-                    <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
-                    // echo $fck->load('Page.content'); ?>
-                    <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-
-                </div>
-            </div>
-
-
             <div class="dashboard-form-row servcont">
                 <input class="dashboard-buttons" value="Submit" type="submit">
             </div>
@@ -482,12 +500,12 @@
                 scrollThrough: ['vendor-panel']
             });
         }
-        var fieldCTR = 0;
+        var fieldCTR = <?php echo (isset($count)?$count:"0"); ?>;
 
         $('.video-urls').on('click','#add-video',function(e){
             $(this).remove();
             e.preventDefault();
-            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('youtube_url', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
             $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
             fieldCTR++;
         });
@@ -542,11 +560,29 @@
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
                 $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
             }
             else{
                 $('#ServiceMinParticipants').val(0);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
 
             }
 
@@ -558,11 +594,19 @@
 
     });
 
-
     $(window).load(function(){
             if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function(){
+                        //done
+                    }
+                );
 
 
             }
@@ -572,4 +616,25 @@
 
         }
     );
-    </script>
+
+</script>
+
+<script type="text/javascript">
+    $('#panorama-input').change(function(){
+        var formData = new FormData();
+        formData.append('data[panorama]', this.files[0]);
+        $.ajax({
+            url: "<?=$path?>vendor_manager/services/panorama_image_handle",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                var image = '<img src="<?php echo '/img' . DS . 'service_images' . DS; ?>' + data + '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                $('#panorama-field').val(data);
+                $('#panorama-image-container').html(image);
+            }
+        });
+    });
+</script>
+

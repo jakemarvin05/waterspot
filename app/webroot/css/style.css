@@ -839,13 +839,13 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
 }
 .vendors-page .middle-area {
     background-color: #F9F9F9;
-    padding-top: 15px;
+    padding-top: 30px;
 }
 .tile-info .rating {
     background-image: url('../img/rating-small.png');
     float: right;
     width: 100px;
-    height: 20px;
+    height: 13px;
     background-position: -100px 0px;
     margin: 8px 0px;
 }
@@ -1085,6 +1085,7 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     background-color: #F98686;
     color: #fff;
     text-shadow: 1px 1px 0px rgba(255, 0, 0, 0.7);
+    display: inline-block;
 }
 
 section#navWrapper.stickyCollapsedFix {
@@ -1118,4 +1119,8 @@ h4.h4.fix {
 }
 .load-more-row {
     text-align: center;
+}
+
+section#navWrapper div.navButtonOuter ul.dropdown-menu a {
+    color: #606060;
 }

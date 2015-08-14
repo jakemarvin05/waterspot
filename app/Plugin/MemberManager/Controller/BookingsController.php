@@ -117,7 +117,7 @@ $email->config('gmail');
 	function booking_status(){
 		//die('sdfsd');
             array_push(self::$css_for_layout,'member/member-panel.css');
-		$this->bookingNotification();
+		// $this->bookingNotification();
 		$this->loadModel('Cart');
 		$criteria = array();
 		$this->paginate = array();

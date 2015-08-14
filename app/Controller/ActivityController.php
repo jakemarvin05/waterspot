@@ -445,6 +445,7 @@ Class ActivityController extends AppController{
 	function ajax_get_availbility_range(){
 		$this->layout='';
 		$this->loadModel('VendorManager.ServiceSlot');
+		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
 
@@ -454,6 +455,7 @@ Class ActivityController extends AppController{
 			$capacity      = $_POST['no_participants'];
 			$service_id    = $_POST['service_id'];
 
+			$this->set('service_price', $this->Service->find('first', ['conditions'=>['Service.id'=>$service_id]])['Service']['service_price']);
 			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
 			if (count($service) !== 0) {
 				$service = $service[0]['VendorServiceAvailability'];
@@ -461,8 +463,38 @@ Class ActivityController extends AppController{
 				$slots = json_decode('{'.substr($service['slots'], 1, -1).'}');
 
 				$new_service_slots=$this->VendorServiceAvailability->getSlotByServiceID($_POST);
+				$new_service_slots_now = [];
+				foreach ($new_service_slots as $key => $service_slot) {
+					$slot_index_new = [];
+					foreach($service_slot['slotindex'] as $slotkey=>$slot_index) {
+						$criteria = [
+							'conditions' => [
+								'ServiceSlot.service_id' => $service_id,
+								'ServiceSlot.start_time' => $slot_index->start_time,
+								'ServiceSlot.end_time'   => $slot_index->end_time,
+								'ServiceSlot.price'      => $slot_index->price,
+							],
+						];
+						$slot = $this->ServiceSlot->find('first', $criteria);
+						
+						$new = new stdClass;
+						$new->id = $slot['ServiceSlot']['id'];
+						$new->service_id = $slot['ServiceSlot']['service_id'];
+						$new->start_time = $slot['ServiceSlot']['start_time'];
+						$new->end_time = $slot['ServiceSlot']['end_time'];
+						$new->price = $slot['ServiceSlot']['price'];
+						$new->fire_sales_price = $slot['ServiceSlot']['fire_sales_price'];
+						$new->fire_sales_day_margin = $slot['ServiceSlot']['fire_sales_day_margin'];
+						$slot_index_new[] = $new;
+					}
+					$new_service_slots_now[$key]['service_id'] = $service_slot['service_id'];
+					$new_service_slots_now[$key]['start_date'] = $service_slot['start_date'];
+					$new_service_slots_now[$key]['end_date'] = $service_slot['end_date'];
+					$new_service_slots_now[$key]['slotindex'] = $slot_index_new;
+				}
+
 				if (!empty($new_service_slots)) {
-					$this->set('service_slots',$new_service_slots);
+					$this->set('service_slots',$new_service_slots_now);
 				} else {
 					$dates = [];
 					$one_day = 60*60*24;
@@ -546,6 +578,7 @@ Class ActivityController extends AppController{
 						if($slot_key==2)$slot_booking_type='slot_id';
 						if($slot_key==3)$slot_booking_type='start_time';
 						if($slot_key==4)$slot_booking_type='end_time'; 
+						if($slot_key==5)$slot_booking_type='price'; 
 						//
 						$slot_booking_detail[$slot_booking_type]=$slot_attb;
 					}
@@ -563,7 +596,11 @@ Class ActivityController extends AppController{
 				}
 			// calculate no of slot price  
 			$no_of_slots=count($slot_data['Slot']);
-			$total_slot_price=($no_of_slots >0 &&  $service_price>0)?$service_price*$no_of_slots:0;
+			// $total_slot_price=($no_of_slots >0 &&  $service_price>0)?$service_price*$no_of_slots:0;
+			$total_slot_price=0;
+			foreach($slot_data['Slot'] as $slot) {
+				$total_slot_price = $total_slot_price + $slot['price'];
+			}
 			$full_day_status=0;
 			}else {
 				$diff = abs(strtotime($data['Cart']['end_date']) - strtotime($data['Cart']['start_date']));

@@ -596,5 +596,39 @@ $email->config('gmail');
 		}
 		$this->MemberAuth->login_facebook();
 	}
+
+	function messages($vendor_id = null)
+	{
+		$this->loadModel('Message');
+		$this->loadModel('VendorManager.Vendor');
+		$this->loadModel('MemberManager.Member');
+		array_push(self::$css_for_layout,'member/member-panel.css');
+		// javascript set
+		array_push(self::$script_for_layout,'http://code.jquery.com/jquery-1.9.1.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js');
+		array_push(self::$css_for_layout,'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		$member_id = $this->MemberAuth->id();
+		$this->set('member_id', $member_id);
+		if ($vendor_id == null) {
+			$all_messages = $this->Message->getAllListById($member_id);
+			$messages = [];
+			foreach ($all_messages as $message) {
+				$message['vendor_name'] = $this->Vendor->find('first', ['fields' => 'CONCAT(Vendor.fname, " ", Vendor.lname) as vendor_name', 'conditions' => ['Vendor.id' => $message['vendor_id']]])[0]['vendor_name'];
+				$message['member_name'] = $this->Member->find('first', ['fields' => 'CONCAT(Member.first_name, " ", Member.last_name) as member_name', 'conditions' => ['Member.id' => $message['member_id']]])[0]['member_name'];
+				$messages[] = $message;
+			}
+			// print_r($messages);die;
+			$this->set('messages', $messages);
+		} else {
+			$this->set('vendor_id', $vendor_id);
+			$all_conversations = $this->Message->getAllConversation($member_id, $vendor_id);
+			$conversations = [];
+			foreach ($all_conversations as $conversation) {
+				$conversation['vendor_name'] = $this->Vendor->find('first', ['fields' => 'CONCAT(Vendor.fname, " ", Vendor.lname) as vendor_name', 'conditions' => ['Vendor.id' => $conversation['vendor_id']]])[0]['vendor_name'];
+				$conversation['member_name'] = $this->Member->find('first', ['fields' => 'CONCAT(Member.first_name, " ", Member.last_name) as member_name', 'conditions' => ['Member.id' => $conversation['member_id']]])[0]['member_name'];
+				$conversations[] = $conversation;
+			}
+			$this->set('messages', $conversations);
+		}
+	}
 }
 ?>

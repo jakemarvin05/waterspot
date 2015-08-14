@@ -69,8 +69,8 @@ div.spacer {
 /* White background */
 #activityWhiteBg {
     border-bottom: 1px solid #ccc;
-    position: absolute; 
-    width: 100%; 
+    position: absolute;
+    width: 100%;
     background-color:#fff;
     height: 622px;
 }
@@ -434,4 +434,15 @@ button.rate {
 .rate img {
     height: 30px;
     width: 30px;
+}
+
+section#activityPanorama {
+    min-height: 140px;
+    background-color: #E4E4E4;
+    max-height: 400px;
+}
+section#activityPanorama img {
+    margin-top: 0%;
+    position: relative;
+    width: 100%;
 }

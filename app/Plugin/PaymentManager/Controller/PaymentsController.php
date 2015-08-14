@@ -24,7 +24,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('Cart');
 		$this->loadModel('Booking');
 		$criteria = array();
-		$criteria['fields']= array('Cart.price','Cart.value_added_price','Cart.no_participants','Cart.start_date','Cart.end_date','Service.service_title','Service.description','Cart.total_amount');
+		$criteria['fields']= array('Cart.price','Cart.value_added_price','Cart.no_participants','Cart.start_date','Cart.end_date','Service.service_title','Service.description','Cart.total_amount','Cart.slots','Cart.invite_friend_email');
 		$criteria['joins'] = array(
 			array(
 				'table' => 'services',
@@ -114,17 +114,25 @@ class PaymentsController extends PaymentManagerAppController{
 					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 					$no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
 					$itemname = $cart_detail['Service']['service_title'];
-					$desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
+					// $desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
 					$participants = ($cart_detail['Cart']['no_participants']+$no_of_booking_days);
 					//$participants = $no_of_booking_days;
 					$itemprice = $cart_detail['Cart']['price'];
-					$html .= "<input type='hidden' name='item_name_$i' value='$itemname'/>";
-					$html .="<input type='hidden' name='item_description_$i' value='$desc' />";
-					$html .="<input type='hidden' name='item_quantity_$i' value='$participants'/>";
-					$html .="<input type='hidden' name='item_amount_$i' value='$itemprice' />";
-					$i++;
+
+					$slots = json_decode($cart_detail['Cart']['slots'],true);
+					foreach ($slots['Slot'] as $slot_key=>$slot_time) {
+						$desc = date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date'])) . ', Slot ' . date('H:ia', strtotime($slot_time['start_time'])) . ' to ' . date('H:ia', strtotime($slot_time['end_time']));
+						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
+						$itemprice = $slot_time['price'];
+						$html .= "<input type='hidden' name='item_name_$i' value='$itemname'/>";
+						$html .="<input type='hidden' name='item_description_$i' value='$desc' />";
+						$html .="<input type='hidden' name='item_quantity_$i' value='$participants'/>";
+						$html .="<input type='hidden' name='item_amount_$i' value='$itemprice' />";
+						$i++;
+					}
 				}
 			} 
+			
 			$html .= "<input type='hidden' name='currency' value='SGD' />";
 			$html .= "<input type='hidden' name='total_amount' value='$payment_data[amount]'/>";
 			$html .= "<input type='hidden' name='success_url' value='$payment_data[successUrl]' />";
