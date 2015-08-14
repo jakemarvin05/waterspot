@@ -70,6 +70,19 @@ function saveform()
                 </div>
             </dd>
             <dt>
+                <label>How to get there:</label>
+            </dt>
+            <dd>
+                <?php 	
+                    echo $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3'));
+                   // echo $fck->load('Page.content');
+                ?>
+                <?=$this->Form->error('how_get_review',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
+                <div class="float_left"><a href="Javascript:void(0);" onclick="removeeditor(0)">hide editor</a> |
+                <a href="Javascript:void(0);" onclick="addeditor(0,'ServiceHowGetReview')">show editor</a>
+                </div>
+            </dd>
+            <dt>
                 <label>Price Per Slot:<span style="color:red;">*</span> <?=Configure::read('currency'); ?></label>
             </dt>
             <dd>

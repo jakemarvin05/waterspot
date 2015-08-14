@@ -298,7 +298,7 @@
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
-                    <label>Panorama Image (recommended 1600x500): </label>
+                    <label>Panorama Image (recommended 1600x680): </label>
                 </div>
                 <div class="fieldbox">
                     <div id="panorama-image-container" style="text-align:center;">
@@ -331,6 +331,17 @@
                     <?= $this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3', 'id' => 'ServiceItinerary', 'placeholder' => 'Please enter description here....'));
                     // echo $fck->load('Page.content'); ?>
                     <?= $this->Form->error('itinerary', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                </div>
+            </div>
+            <div class="dashboard-form-row servcont">
+                <div class="labelbox">
+                    <label>How to get there:</label>
+                </div>
+                <div class="fieldbox">
+                    <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
+                    // echo $fck->load('Page.content'); ?>
+                    <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                 </div>
             </div>

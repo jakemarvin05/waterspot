@@ -163,7 +163,18 @@
 
                 </div>
             </div>
-            
+
+            <div class="dashboard-form-row servcont">
+                <div class="labelbox">
+                    <label>How to get there:</label>
+                </div>
+                <div class="fieldbox">
+                    <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
+                    // echo $fck->load('Page.content'); ?>
+                    <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                </div>
+            </div>
 
 
             <div class="dashboard-form-row servcont">
