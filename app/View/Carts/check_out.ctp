@@ -20,7 +20,7 @@
 		<?php echo $this->element('message');?>
 		<div class="registration-form-box">
 			<?php echo $this->Form->create('Cart',array('name'=>'check_out','action'=>'booking_request','class'=>'registration-form','id'=>'CartId'))?>
-				<?php echo $this->Form->input('id');?>
+				<?php echo $this->Form->input('id',array('value'=>$cart_details[0]["Cart"]["id"]));?>
 				<div class="registration-form-row">
 				      <div class="labelbox">
 					      <label>Email address : <span style="color:#ff4142;">*</span></label>

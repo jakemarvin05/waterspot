@@ -46,8 +46,8 @@ Class CartsController extends AppController
         } else {
             $check_guest_status = 1;
             // Assign cart details if member is login
-            $this->request->data['Cart']['fname'] = $this->member_data['MemberAuth']['first_name'];
-            $this->request->data['Cart']['lname'] = $this->member_data['MemberAuth']['last_name'];
+          //  $this->request->data['Cart']['fname'] = $this->member_data['MemberAuth']['first_name'];
+          //  $this->request->data['Cart']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $this->request->data['Cart']['email'] = $this->member_data['MemberAuth']['email_id'];
             $this->request->data['Cart']['phone'] = $this->member_data['MemberAuth']['phone'];
         }
@@ -140,14 +140,15 @@ Class CartsController extends AppController
             $data = $this->request->data;
             $this->loadModel('MailManager.Mail');
 
-
             if (!empty($cart_value)) {
+
                 foreach ($cart_value as $val) {
+
                     $mail = $this->Mail->read(null, 27);
                     $activity = ($val['Cart']['full_day_status'] == 0) ? 'Slote' : 'Full Day';
                     $vas = ($val['Cart']['full_day_status'] == '[]') ? 'yes' : 'No';
                     $body = str_replace('{VENDOR}', $val['Cart']['vendor_name'], $mail['Mail']['mail_body']);
-                    $body = str_replace('{NAME}', $data['Cart']['fname'] . " " . $data['Cart']['lname'], $body);
+                  //  $body = str_replace('{NAME}', $data['Cart']['fname'] . " " . $data['Cart']['lname'], $body);
                     $body = str_replace('{EMAIL}', $data['Cart']['email'], $body);
                     $body = str_replace('{PHONE}', $data['Cart']['phone'], $body);
                     $body = str_replace('{ORDER_COMMENT}', (!empty($data['Cart']['order_message'])) ? $data['Cart']['order_message'] : 'There are no comments.', $body);
@@ -169,16 +170,22 @@ Class CartsController extends AppController
                     $email->emailFormat('html');
                     $email->template('default');
                     $email->viewVars(array('data' => $body, 'logo' => $this->setting['site']['logo'], 'url' => $this->setting['site']['site_url']));
-                    $email->send();
+                   // $email->send();
                     // do not send!
-                    $booking_id = $this->add_order($data['Cart']['id'], $data['Cart']['service_id']);
 
+
+
+                    $booking_id = $this->add_order($val['Cart']['id'], $val['Cart']['service_id']);
 
                 }
+
+
                 $this->loadModel('Booking');
+
                 $booking_id = $this->Booking->find('first', array('fields' => array('id'), 'conditions' => array('Booking.session_id' => $this->Session->id())));
-                $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id['Booking']['id']));
-                $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'bookings', 'action' => 'accept_request', $cart_value[0]['Cart']['id']));
+
+               // $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id['Booking']['id']));
+               // $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'bookings', 'action' => 'accept_request', $cart_value[0]['Cart']['id']));
             }
         }
         //$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
@@ -187,18 +194,23 @@ Class CartsController extends AppController
 
     function add_order($id = null, $service_id = null)
     {
+
         App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
         $this->sessionKey = MemberAuthComponent::$sessionKey;
         $this->member_data = $this->Session->read($this->sessionKey);
-        $cart_data = $this->Cart->find('first', array('conditions' => array('Cart.id' => $id, 'Cart.member_id' => $this->member_data['MemberAuth']['id'], 'Cart.service_id' => $service_id, 'Cart.status' => 0, 'Cart.vendor_confirm' => 1)));
+
+        $cart_data = $this->Cart->find('first', array('conditions' => array('Cart.id' => $id, 'Cart.member_id' => $this->member_data['MemberAuth']['id'], 'Cart.service_id' => $service_id, 'Cart.status' => 1, 'Cart.vendor_confirm' => 1)));
+
         //pr($this->Session->id()); die;
         //pr($cart_data);exit;
         if (!empty($cart_data)) {
+
 
             $this->loadModel('Booking');
 
             $booking_ref_no = $this->Booking->find('first', array('fields' => array('ref_no'), 'order' => array('Booking.ref_no' => 'Desc')));
             $ref_no = (empty($booking_ref_no['Booking']['ref_no'])) ? 1000 : ($booking_ref_no['Booking']['ref_no'] + 1);
+
 
             $data['Booking']['member_id'] = $this->member_data['MemberAuth']['id'];
             $data['Booking']['session_id'] = $this->Session->id();
@@ -206,25 +218,31 @@ Class CartsController extends AppController
             $data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
             $data['Booking']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 
-            $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
-            $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
+          //  $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
+          //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $data['Booking']['email'] = $this->member_data['MemberAuth']['email_id'];
             $data['Booking']['phone'] = $this->member_data['MemberAuth']['phone'];
 
             $this->Booking->create();
             $this->Booking->save($data);
 
-            $cart['Cart']['id'] = $cart_data['Cart']['id'];
-            $cart['Cart']['status'] = 1;
-            $cart['Cart']['session_id'] = $this->Session->id();
-            $this->Cart->create();
-            $this->Cart->save($cart);
+
+//            $cart['Cart']['id'] = $cart_data['Cart']['id'];
+//            $cart['Cart']['status'] = 1;
+//            $cart['Cart']['session_id'] = $this->Session->id();
+//            $this->Cart->create();
+//            $this->Cart->save($cart);
+
 
             if (!empty($this->Booking->id)) {
+
                 $this->payment_process($this->Booking->id);
+
                 return $this->Booking->id;
                 //$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'booking_success',$this->Booking->id));
             } else {
+
+                return false;
                 // $this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>false));
             }
         }
@@ -242,7 +260,6 @@ Class CartsController extends AppController
         }
 
         $this->Cart->set($this->request->data);
-        var_dump($this->Cart->set($this->request->data));
         if ($this->Cart->validates()) {
             $result['error'] = 0;
         } else {
