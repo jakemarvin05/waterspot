@@ -244,6 +244,7 @@ $email->config('gmail');
 	}
 	
 	function booking_details($ref_no=null){
+		array_push(self::$css_for_layout,'member/member-panel.css');
 		if(empty($ref_no)){
 				 $this->redirect('/');
 		} 
@@ -313,6 +314,7 @@ $email->config('gmail');
 	}
 	
 	function send_feedback($order_id=null){
+		array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->loadModel('VendorManager.ServiceReview');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('BookingOrder');
