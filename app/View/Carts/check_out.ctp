@@ -90,16 +90,19 @@
 				</div>
 				<div class="col-sm-6 col-xs-12">
 					<div class="checkout-activity-header-content" style="margin-top: 20px">
+						<span style="float:right"><a href="/carts/delete_cart/<?php echo $cart_detail['Cart']['id']; ?>">X</a></span>
 						<h6><?=$cart_detail['Service']['service_title']; ?></h6>
 						<div class="checkout-activity-date"><strong><?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date'])); ?> To <?=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date'])); ?></strong></div>
 					</div>
 					<div class="checkout-activity-details">
+						<?php $total_price = 0; ?>
 						<? if(!empty($cart_detail['Cart']['slots'])) { ?>
 							<? foreach($cart_detail['Cart']['slots'] as $slot_key=>$slot_time) { ?>
 								<div class="checkout-activity-row">
 									<div class="checkout-activity-left">Slot <?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']); ?> </div>
 									<div class="checkout-activity-right"><?="$".number_format($slot_time['price'],2)?></div>
 								</div>
+								<?php $total_price += $slot_time['price']; ?>
 							<?php } ?>
 						<? } ?>
 						
@@ -132,8 +135,8 @@
 
 							?>
 							<div class="checkout-activity-row">
-								<div class="checkout-activity-left">Service Price( $<?=number_format($cart_detail['Cart']['price'],2);?> x <?=($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1 ?>&nbsp;x&nbsp;<?=$no_interval;?>&nbsp;<?=$interval_msg;?>)</div>
-								<div class="checkout-activity-right">$<?=number_format(($cart_detail['Cart']['price']*(($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1)* $no_interval),2);?></div>
+								<div class="checkout-activity-left">Service Price( $<?=number_format($total_price,2);?> x <?=($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1 ?>&nbsp;x&nbsp;<?=$no_interval;?>&nbsp;<?=$interval_msg;?>)</div>
+								<div class="checkout-activity-right">$<?=number_format(($total_price*(($cart_detail['Cart']['invite_payment_status']==1)?$cart_detail['Cart']['no_participants']:1)* $no_interval),2);?></div>
 							</div>
 						<? } ?>
 						<div class="checkout-activity-row checkout-activity-row-subtotal">

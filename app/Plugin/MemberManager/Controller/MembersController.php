@@ -79,7 +79,7 @@ class MembersController extends MemberManagerAppController{
 		// delete all cart when logout
 		$ses_id=$this->Session->id();
 		$this->Cart->deleteAll(array('Cart.session_id'=>$ses_id, 'Cart.vendor_confirm'=>0));
-		$this->MemberAuth->logout();
+		$this->MemberAuth->logout(array('plugin'=>false,'controller'=>'pages','action'=>'home'));
 	}
 	
 	function resetpassword() {

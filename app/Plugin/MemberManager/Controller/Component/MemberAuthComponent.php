@@ -129,11 +129,14 @@ class MemberAuthComponent extends Component{
 		return $this->id;
 	}
 	
-	public function logout(){
+	public function logout($redirect = null){
 		$this->Session->delete(self::$sessionKey);
 		$this->Cookie->delete('keep_me_login'); //Only for keep loged in
 		$this->Session->setFlash(__('You\'re now logged out', true));
-		$this->controller->redirect($this->logoutRedirect);
+		if ($redirect == null) {
+			$redirect = $this->logoutRedirect;
+		}
+		$this->controller->redirect($redirect);
 	}
 	
 	public function updateMemberSession($detail = array()){
