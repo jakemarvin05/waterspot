@@ -866,7 +866,7 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     color: #fff;
     font-weight: normal;
     font-family: "Lato";
-    font-size: 11pt;
+    font-size: 12px;
     line-height: 20px;
     display: block;
     padding: 10px 20px;
@@ -1123,4 +1123,8 @@ h4.h4.fix {
 
 section#navWrapper div.navButtonOuter ul.dropdown-menu a {
     color: #606060;
+}
+
+body{
+    font-size: 12px;
 }

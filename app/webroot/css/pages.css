@@ -600,3 +600,6 @@ button.book-now.btn.btnDefaults.btnFillOrange {
     padding: 0;
 }
 
+.checkout-activity-date {
+    margin: 10px 0px;
+}
