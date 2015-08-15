@@ -1,6 +1,4 @@
-<div class="container-fluid vendor-panel">
-<div class="hr-line"></div>
-<div class="clear" style="margin-top:80px;"></div>
+<div class="container-fluid vendor-panel topResponsivePadding">
 
 <h2 class="page-title">Slots - <?=$service_title?></h2>
 

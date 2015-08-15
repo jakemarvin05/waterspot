@@ -1,5 +1,3 @@
-  <div class="hr-line"></div>
-  <div class="clear"></div>
   <div class="container-fluid wrapper vendors-page">
   <header clas="page-header">
   <p class="beforeHeader">Your request has been sent.</p>

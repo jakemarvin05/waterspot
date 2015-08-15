@@ -186,6 +186,23 @@ button:focus, button:active, input:focus, input:active {
     vertical-align: middle;
 }
 
+@media (min-width: 768px) {
+    .topResponsivePadding {
+        padding-top: 52px;
+    }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .topResponsivePadding {
+        padding-top: 93px;
+    }
+}
+@media (max-width: 480px) {
+    .topResponsivePadding {
+        padding-top: 85px;
+    }
+}
+
+
 /* NAVIGATION */
 #navWrapper {
     position: fixed;
@@ -810,10 +827,6 @@ ul.dropdown-menu{
     background-color: #fff;
     padding: 0px;
     margin: 0;
-}
-.container-fluid.wrapper.vendors-page {
-    background-color: #fff;
-    padding-top: 120px;
 }
 .activities-page .page-header h1, .vendors-page .page-header h1 {
     text-align:center;

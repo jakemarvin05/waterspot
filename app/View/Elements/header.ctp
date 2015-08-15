@@ -88,20 +88,16 @@
 
                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                           <i class="fa fa-user"></i>
-                           <?php if($this->Vendor->isVendorLogin()) { ?>
-                           Vendor Menu
-                           <?php }
-                           else {?>
-                               Member Menu
-                           <?php } ?>
+                            <i class="fa fa-user"></i>
+                            <?php 
+                                if($this->Vendor->isVendorLogin()) { echo "Vendor Menu";
+                                } else { echo "Member Menu"; } 
+                            ?>
                            <span class="caret"></span>
                        </button>
-                   <?php
-
-                    echo $this->LoginMenu->show(); ?>
+                    <?php echo $this->LoginMenu->show(); ?>
                     </div> 
-                <?php } else { ?>
+                    <?php } else { ?>
                     <div class="navButtonOuter" data-toggle="popover" data-placement="bottom">
                         <i class="fa fa-user"></i><span class="navTextLabel">LOGIN/SIGNUP</span>
                     </div>

@@ -1,5 +1,5 @@
-<div class="container-fluid vendor-panel">
-	<br><br><br>
+<div class="container-fluid topResponsivePadding">
+
 <script type="text/javascript">
 	function formsubmit(action) {
 		var flag = true;
