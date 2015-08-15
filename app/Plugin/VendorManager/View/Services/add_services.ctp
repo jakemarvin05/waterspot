@@ -536,6 +536,7 @@
 
         $('[name="data[Service][is_private]"]').change(function () {
             if (!$('[name="data[Service][is_private]').is(':checked')) {
+                $('[name="data[Service][no_person]"]').val("1");
                 $('.to-hide').animate({
                     opacity: 1,
                     height: "toggle",
