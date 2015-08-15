@@ -1,9 +1,108 @@
-    <section id="activityPanorama">
-
-           <img src="/img/service_images/<?php echo (isset($service_detail['Service']['panorama_image'])?$service_detail['Service']['panorama_image']:'panorama.png'); ?>">
-      
-
+    <section id="activityPanorama" class="topResponsivePadding">
+        <img src="/img/service_images/<?php echo (isset($service_detail['Service']['panorama_image'])?$service_detail['Service']['panorama_image']:'panorama.png'); ?>">
     </section>
+
+    <script>
+    var autoCropper = {
+
+        /* configurables */
+
+        imageToBeCropped: null,
+        listenToResize: true,
+        aspectRatio: "2.35:1",
+
+        /* main function */
+        init: function(imageToBeCropped) {
+            if(!imageToBeCropped) throw Error('Needs a jQuery obj to crop.');
+
+            var self = this;
+
+            this.imageToBeCropped = imageToBeCropped;
+            this.imageToBeCropped.css({
+                'width': '100%', // set 100% initially
+                'position': 'relative'
+            }); 
+
+            this.outerWrapper = this.imageToBeCropped.wrap('<div></div>').parent();
+            this.outerWrapper.css({
+                'position': 'relative',
+                'width': '100%',
+                'overflow': 'hidden'
+            });
+
+            this.imageToBeCropped[0].onload = function() { self._cropper() };
+
+            // force refresh to trigger the onload event should the image raced ahead of this script.
+            this.imageToBeCropped[0].src = this.imageToBeCropped[0].src;
+
+            // bind to window resize listener
+            if (this.listenToResize) {
+                $(window).on('resize', function() { self._cropper(); });
+            }
+        },
+
+        _cropper: function() {
+            
+            if(this._isImageTallerThanAspect) {
+                // taller image, set width to 100% and crop height
+                var heightOfContainer = this.imageToBeCropped.width() / this._getAspectRatio().decimal();
+                var heightToCrop = this.imageToBeCropped.height() - heightOfContainer;
+
+                // height to move up is half the amount
+                this.imageToBeCropped.css({
+                    'top': '-' + heightToCrop/2 + 'px',
+                    'right': null
+                });
+                this.outerWrapper.css('height', heightOfContainer);
+
+            } else {
+                // width image, set height to 100% and crop width
+                console.log(this)
+                this.imageToBeCropped.css({
+                    'width': null,
+                    'height': '100%'
+                });
+
+                var widthToCrop = this.imageToBeCropped.width() - this.imageToBeCropped.height() * this._getAspectRatio().decimal();
+
+                // width to move left is half the amount
+                this.imageToBeCropped.css({
+                    'top': null,
+                    'right': '-' + widthToCrop/2 + 'px',
+                });
+                this.outerWrapper.css('height', null)
+            }
+
+        },
+
+        /* helpers */
+        _getAspectRatio: function() {
+            if (this.aspects) return this.aspects;
+
+            var aspects = this.aspectRatio.split(':');
+            if (aspects.length !== 2) throw Error('aspectRatio is not valid.');
+
+            this.aspects = {
+                width: parseFloat(aspects[0]),
+                height: parseFloat(aspects[1]),
+                decimal: function() {
+                    if(this._decimal) return this._decimal;
+                    return this._decimal = this.width/this.height;
+                }
+            };
+
+            return this.aspects;
+        },
+        _isImageTallerThanAspect: function() {
+            var imageAspectRatio = this.imageToBeCropped.width() / this.imageToBeCropped.height();
+
+            return imageAspectRatio < this._getAspectRatio();
+        }
+    }
+
+    var cropper = Object.create(autoCropper);
+    cropper.init($('#activityPanorama img'));
+    </script>
 
 
 <div class="wrapper">
@@ -22,41 +121,7 @@
                     </div>
                 </div>
 
-
-
                 <?=$this->element('activity/serviceDescriptiontabs');?>
-
-                
-                <section class="activity-section">
-                    <h3>How to get There</h3>
-                    <div id="map-canvas" style="height:400px; width:100%;"></div>
-                    <script src="https://maps.googleapis.com/maps/api/js"></script>
-                    <script>
-                      function initialize() {
-                        geocoder = new google.maps.Geocoder();
-                        var latlng = new google.maps.LatLng(-34.397, 150.644);
-                        var mapOptions = {
-                          zoom: 11,
-                          center: latlng,
-                                      scrollwheel: false
-                        }
-                        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-                        geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',(isset($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
-                          if (status == google.maps.GeocoderStatus.OK) {
-                            map.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: results[0].geometry.location
-                            });
-                          } else {
-                           // alert("Geocode was not successful for the following reason: " + status);
-                          }
-                        });
-                      }
-                      google.maps.event.addDomListener(window, 'load', initialize);
-                    </script>
-                </section>
-                
 
             </div>
 
@@ -151,7 +216,7 @@
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
                                     <div class="cart-btn">
-                                        <input type="submit" value="Book Now" class="addtocart-button" id="loginButton" />
+                                        <input type="submit" value="Book Now" class="addtocart-button btn btnDefaults btnFillOrange" id="loginButton" />
                                     </div>
                                     <?=$this->Form->end(); ?>
                                 </div>

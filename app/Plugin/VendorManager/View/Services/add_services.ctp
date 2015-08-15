@@ -1,9 +1,8 @@
 <? if (empty($this->request->data['Service']['description'])) { ?>
     <? //$this->request->data['Service']['description']="Please enter description here";
 } ?>
-<div class="container-fluid vendor-panel">
-    <div class="hr-line"></div>
-    <div class="clear" style="margin-top:80px;"></div>
+<div class="container-fluid vendor-panel topResponsivePadding">
+
     <h2 class="page-title">
         <?php
         if (isset($this->request->data['Service']['id']) && $this->request->data['Service']['id']):

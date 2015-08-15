@@ -81,6 +81,7 @@
 
 body {
     color: #606060; /* default dark font color */
+    font-family: 'Lato', sans-serif;
 }
 h1, h2, h3, h4 {
     font-weight: 700;
@@ -185,6 +186,23 @@ button:focus, button:active, input:focus, input:active {
     vertical-align: middle;
 }
 
+@media (min-width: 768px) {
+    .topResponsivePadding {
+        padding-top: 52px;
+    }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .topResponsivePadding {
+        padding-top: 93px;
+    }
+}
+@media (max-width: 480px) {
+    .topResponsivePadding {
+        padding-top: 85px;
+    }
+}
+
+
 /* NAVIGATION */
 #navWrapper {
     position: fixed;
@@ -233,7 +251,7 @@ button:focus, button:active, input:focus, input:active {
         padding-right: 20px;
     }
 }
-@media (min-width: 568px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 767px) {
     #navWrapper {
         padding-top: 10px;
         padding-left: 20px;
@@ -243,7 +261,7 @@ button:focus, button:active, input:focus, input:active {
         font-size: 13px;
     }
 }
-@media (max-width: 567px) {
+@media (max-width: 480px) {
     #navWrapper {
         padding-top: 10px;
         padding-left: 5px;
@@ -272,6 +290,13 @@ button:focus, button:active, input:focus, input:active {
     top: 0px; left: 0px;
     opacity: 0;
 }
+#logoWrapper:hover > #whiteLogo {
+    opacity: 0;
+}
+#logoWrapper:hover > #coloredLogo {
+    opacity: 1;
+}
+
 .navGroup {
     display: inline-block;
     vertical-align: middle;
@@ -281,20 +306,21 @@ button:focus, button:active, input:focus, input:active {
     text-shadow: 1px 1px 1px rgba(0,0,0,.2);
     border: 1px solid transparent;
     cursor: pointer;
+    color: #fff;
 }
 @media (min-width: 768px) {
     .navButtonOuter {
         padding: 10px 17px;
     }
 }
-@media (min-width: 568px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 767px) {
     .navButtonOuter {
-        padding: 2px 4px;
+        padding: 6px 4px;
     }
 }
-@media (max-width: 567px) {
+@media (max-width: 480px) {
     .navButtonOuter {
-        padding: 2px 2px;
+        padding: 4px 2px;
     }
     .contenthover .short-desc {
         display: none;
@@ -307,18 +333,115 @@ button:focus, button:active, input:focus, input:active {
         margin: 29% auto;
     }
 }
-.stickyCollapsed .navButtonOuter {
-    text-shadow: 0px 0px 0px;
+
+/* font color inherit from navButtonOuter */
+.navButtonOuter a, .navButtonOuter .btn-default {
+    color: inherit !important;
+    font-size: inherit !important;
 }
 
-.navActive, .navButtonOuter:hover, .navButtonOuter:focus {
+/* to override bootstrap button's default styles */
+.navButtonOuter.dropdown button {
+    line-height: 1;
+    margin-top: -3px;
+}  
+.navButtonOuter.dropdown button:active, .navButtonOuter.dropdown button:hover, .navButtonOuter.dropdown button:focus {
+    color: inherit !important;
+}
+/* navActive and hover states in uncollapsed */
+.navActive, .navButtonOuter:hover, .navButtonOuter:focus, .navButtonOuter:active {
     border: 1px solid rgba(255,255,255,0.5);
     border-radius: 2px;
+    color: #fff;
 }
+
+/* font color when collapsed */
+.stickyCollapsed .navButtonOuter {
+    text-shadow: 0px 0px 0px;
+    color: #606060;
+}
+
+/* navActive and hover states in collapsed */
 .stickyCollapsed .navActive, .stickyCollapsed .navButtonOuter:hover, .navButtonOuter:focus {
     border-color: #ff9700;
     color: #ff9700;
 }
+
+/* nav dropdown styles */
+.navButtonOuter.dropdown .btn-default {
+    padding: 0;
+    text-transform: uppercase;
+    border: 0px !important;
+    background: transparent!important;
+}
+
+.open>.dropdown-toggle.btn-default{
+    background-color: #fff;
+    color: #FF9700;
+    border: 1px solid  #FF9700;
+
+}
+
+.open>.dropdown-menu li a {
+    padding: 5px 20px 6px;
+    border-bottom: solid 1px #ccc;
+}
+
+
+.open>.dropdown-menu li:last-child a {
+    border: none;
+}
+
+ul.dropdown-menu ul {
+    padding: 0px 0px 10px 0px;
+    margin: 0;
+    border-bottom: solid 1px #D1D1D1;
+}
+
+ul.dropdown-menu ul li {
+    display: block;
+    padding: 0;
+}
+
+ul.dropdown-menu ul li a {
+    display: block;
+    padding: 6px 0px 0px 20px !important;
+    border: none!important;
+}
+
+ul.dropdown-menu ul li a:before {
+    content: "\f105";
+    font-family: "FontAwesome";
+    display: block;
+    float: left;
+    margin-right: 8px;
+    color: #B3B3B3;
+}
+
+
+/* when not in home, all the rest of the nav bars should be thin */
+.stickyCollapsedFix {
+    background-color: #fff;
+    padding-top: 5px !important;
+}
+.stickyCollapsedFix .navButtonOuter {
+    text-shadow: 0px 0px 0px!important;
+    color: #606060;
+}
+.stickyCollapsedFix .navActive, .stickyCollapsedFix .navButtonOuter:hover, .navButtonOuter:focus {
+    border-color: #ff9700!important;;
+    color: #ff9700!important;;
+}
+.stickyCollapsedFix .navButtonOuter.navActive, .stickyCollapsedFix .navButtonOuter:hover, .stickyCollapsedFix .navButtonOuter:active, .stickyCollapsedFix .navButtonOuter:focus {
+    color: #ff9700!important;
+}
+.stickyCollapsedFix  img#whiteLogo{
+    opacity: 0!important;
+}
+.stickyCollapsedFix img#coloredLogo {
+    opacity: 1!important;
+}
+
 .navTextLabel {
     margin-left: 7px;
 }
@@ -582,23 +705,9 @@ select.selectpicker.bs-select-hidden {
     max-width: 1024px;
 }
 
-section#navWrapper.stickyCollapsed div.navButtonOuter a{
-    color: rgb(96, 96, 96);
-}
-section#navWrapper.stickyCollapsed div.navButtonOuter.navActive a{
-    color: #ff9700;
-}
-section#navWrapper.stickyCollapsed div.navButtonOuter a:hover{
-    color: #ff9700;
-}
 
 
-section#navWrapper div.navButtonOuter a{
-    color: #fff;
-}
-section#navWrapper div.navButtonOuter a:hover{
-    color: #fff;
-}
+
 
 /* wrapper's h2 font size */
 div.wrapper h2{
@@ -635,25 +744,12 @@ div.wrapper {
     position: relative;
 }
 
-input#loginButton {
-    background-color: #ff9700;
-    color: #fff;
-    border: none;
-    width: 100%;
-    padding: 17px;
-    margin-top: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.39);
-    box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.16);
-}
-
 /* Restyle Date Picker */
 .ui-datepicker {
     border-radius: 0px !important;;
     border-color: #cccccc !important;
     font-family: "Lato" !important;
-    font-size: 14pt !important;
+    font-size: 12pt !important;
     width: 100% !important;
     color: #595959 !important;
     text-align: center!important;
@@ -687,8 +783,8 @@ input#loginButton {
     text-align: center;
     background: none!important;
     border: none!important;
-    padding: 8px 0px;
-    font-size: 16px;
+    padding: 6px 0px;
+    font-size: 13px;
 }
 
 .ui-widget-content .ui-state-default.ui-state-active{
@@ -697,36 +793,14 @@ input#loginButton {
     border-radius: 5px;
 }
 
-
-.stickyCollapsedFix .navButtonOuter {
-    text-shadow: 0px 0px 0px!important;
-    color: rgb(96, 96, 96);
-}
-.stickyCollapsedFix .navActive, .stickyCollapsedFix .navButtonOuter:hover, .navButtonOuter:focus {
-    border-color: #ff9700!important;;
-    color: #ff9700!important;;
-}
 ul.dropdown-menu{
     color: rgb(96, 96, 96)!important;;
     padding-bottom: 0px;
     overflow: hidden;
 }
-section#navWrapper.stickyCollapsedFix div.navButtonOuter.navActive a{
-    color: #ff9700!important;;
-}
-section#navWrapper.stickyCollapsedFix div.navButtonOuter a:hover{
-    color: #ff9700!important;;
-}
-.navButtonOuter {
-    /* background-color: #fff; */
-    padding-top: 10px;
-}
-section#navWrapper.stickyCollapsedFix  img#whiteLogo{
-    opacity: 0!important;
-}
-section#navWrapper.stickyCollapsedFix img#coloredLogo {
-    opacity: 1!important;
-}
+
+
+
 .container-fluid.wrapper.activities-page {
     margin-top: 50px;
     background-color: #fff;
@@ -760,10 +834,6 @@ section#navWrapper.stickyCollapsedFix img#coloredLogo {
     background-color: #fff;
     padding: 0px;
     margin: 0;
-}
-.container-fluid.wrapper.vendors-page {
-    background-color: #fff;
-    padding-top: 120px;
 }
 .activities-page .page-header h1, .vendors-page .page-header h1 {
     text-align:center;
@@ -985,82 +1055,6 @@ div#share.blocks h4 {
 }
 
 
-.navButtonOuter.dropdown {
-    padding: 0;
-    border: none;
-    border-radius: 0;
-}
-
-.navButtonOuter.dropdown button {
-    padding: 10px 17px;
-    border: 1px solid;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    background-color: transparent;
-}
-
-.navButtonOuter.dropdown button:hover {
-    background-color: transparent;
-    color: #FF9700;
-}
-.open>.dropdown-toggle.btn-default{
-    background-color: #fff;
-    color: #FF9700;
-    border: 1px solid  #FF9700;
-
-}
-
-.open>.dropdown-menu li a {
-    padding: 5px 20px 6px;
-    border-bottom: solid 1px #ccc;
-}
-
-
-.open>.dropdown-menu li:last-child a {
-    border: none;
-}
-
-ul.dropdown-menu ul {
-    padding: 0px 0px 10px 0px;
-    margin: 0;
-    border-bottom: solid 1px #D1D1D1;
-}
-
-ul.dropdown-menu ul li {
-    display: block;
-    padding: 0;
-}
-
-ul.dropdown-menu ul li a {
-    display: block;
-    padding: 6px 0px 0px 20px !important;
-    border: none!important;
-}
-
-ul.dropdown-menu ul li a:before {
-    content: "\f105";
-    font-family: "FontAwesome";
-    display: block;
-    float: left;
-    margin-right: 8px;
-    color: #B3B3B3;
-}
-section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
-    color: #606060;
-}
-.stickyCollapsed .navButtonOuter.dropdown button {
-    color: #626A68;
-}
-.stickyCollapsed .open>.dropdown-toggle.btn-default {
-    color: #F29C14;
-}
-.stickyCollapsedFix .navButtonOuter.dropdown button {
-    color: #626A68;
-}
-
-.stickyCollapsedFix .open>.dropdown-toggle.btn-default {
-    color: #F29C14;
-}
 
 
 .vendorwise-listing.col-sm-4.col-xs-12 {
@@ -1088,13 +1082,6 @@ section#navWrapper.stickyCollapsedFix div.navButtonOuter a {
     display: inline-block;
 }
 
-section#navWrapper.stickyCollapsedFix {
-    background-color: #fff;
-    padding-bottom: 20px;
-}
-section#navWrapper.stickyCollapsedFix.stickyCollapsed {
-    padding-bottom: 5px;
-}
 .vendor-rating-wrapper em {
     display: none!important;
 }

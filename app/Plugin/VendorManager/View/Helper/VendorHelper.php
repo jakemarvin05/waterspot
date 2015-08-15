@@ -28,7 +28,7 @@ class VendorHelper extends AppHelper {
 	public function show(){
 		$vendor = $this->vendor_data[$this->sessionKey];
 		$totalcart = (!empty($this->_View->viewVars['totalcart']))?$this->_View->viewVars['totalcart']:0;
-		$data= '<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">';
+		$data= '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">';
 		//$data .= '<span style="float:left;">Welcome,</span>';
 		//$data .= ' <li><a href="">'.$vendor['fname'].' '.$vendor['lname'].'</a></li>';
 		$data .= '<li>'.$this->Html->link('Dashboard',array('plugin'=>'vendor_manager','controller'=>'vendors','action'=>'dashboard')).'</li>';

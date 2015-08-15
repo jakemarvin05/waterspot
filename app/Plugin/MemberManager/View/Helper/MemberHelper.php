@@ -35,7 +35,7 @@ class MemberHelper extends AppHelper {
 		}
 		$data = '<div class="navButtonOuter"><i class="fa fa-user"></i><span class="navTextLabel" style="font-weight:bold; ">Logged in as '. $member['first_name'].' '.$member['last_name'] . ' ' . $this->Html->link('LOGOUT',array('plugin'=>'member_manager','controller'=>'members','action'=>'logout')).'</div>';
 		//return $data;
-		$data= '<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">';
+		$data= '<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">';
 		//$data .= '<span style="float:left;">Welcome,</span>';
 		//$data .= ' <li><a href="">'.$member['first_name'].' '.$member['last_name'].'</a></li>';
 		$data .= '<li>'.$this->Html->link('Dashboard',array('plugin'=>'member_manager','controller'=>'members','action'=>'dashboard')).'</li>';	

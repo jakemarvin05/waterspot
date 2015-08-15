@@ -1,6 +1,4 @@
-<div class="container-fluid vendor-panel">
-
-<br/><br/><br/><br><br>
+<div class="container-fluid topResponsivePadding">
 
 <div class="middle-area">
     <div class="registration-form-box">

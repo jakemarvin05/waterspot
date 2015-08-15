@@ -1,5 +1,4 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
+
 <?=$this->element('breadcrumbs');?>
 <h2 class="page-title">Vendor <span style="color:#000;">Login</span></h2>
 

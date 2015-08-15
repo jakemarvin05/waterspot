@@ -1,5 +1,4 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
+
 <div class="bredcrum"><?=$this->element('breadcrumbs');?></div>
 <h2 class="page-title">Vendors</h2>
 <div class="middle-area">
