@@ -226,11 +226,9 @@ table#booking_list td {
     font-size: 14px;
 }
 
-h3.dashboard-heading {}
-
 th {
     border: 1px solid #ccc;
-    height: 57px;
+    height: auto;
     vertical-align: top;
     background-color: #F5F5F5;
     padding: 8px;
@@ -408,4 +406,25 @@ input.dashboard-buttons {
 
 .member-panel .right-area td {
     padding: 8px;
+}
+
+.right-area .details {
+    padding: 0px 11px;
+}
+
+.member-panel .right-area.feedback label{
+    display: block;
+}
+.member-panel .right-area.feedback .dashboard-form-row{
+    display: block;
+    padding: 10px;
+}
+
+
+.member-panel .right-area textarea {
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
