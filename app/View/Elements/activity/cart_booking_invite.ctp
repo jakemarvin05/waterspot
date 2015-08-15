@@ -37,12 +37,12 @@
 					</div>
 					
 					<div class="cart-invite-frnds" id="go_dutch_field" style="display:none;">
-						<h4>Invite your Friends</h4>
 						<span id='CartEmail'></span>
 						<div id="cart-email-scrollable" style="max-height:152px;">
 							<span id='CartEmail'></span>
 							I will pay for <select id="participants_count"></select> of my friends
 							
+							<h5>Enter email address of friend to "go-dutch":</h5>
 							<div id='email_inputs'>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 					}
 					?>
 					<div class="cart-vas <?=$no_scroll_css; ?>">
-						<h4>Value Added Services</h4>
+						<!-- <h4>Value Added Services</h4>
 						<div id="cart-vas-scrollable" style="max-height:95px;">
 							<? if($count>0){
 							?>
@@ -89,7 +89,7 @@
 							<? } else {?>
 								<div class="cart-vas-no-details">There are no value added services</div>
 							<? } ?>
-						</div>
+						</div> -->
 					</div>
 					<div class="cart-payment-details">
 						<h4>Payment Details</h4>
@@ -112,10 +112,10 @@
 									</tr>
 								<?php } ?>	
 							<? } ?>
-							<tr>
+							<!-- <tr>
 								<th>VAS Total <span id="Vas_detail"></span>:</th>
 								<td><span id='Vas_total'></span></td>
-							</tr>
+							</tr> -->
 							<tr>
 								<th>Total:</th>
 								<td><span id='sub_total'> $<?=number_format($cart_details['Cart']['total_amount'],2);?></span></td>
@@ -144,7 +144,11 @@
 								var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
 								var options = '';
 								for(i = 0; i <= participants; i++) {
-									options += '<option value="'+ i +'">'+ i +'</option>';
+									if (i == 0) {
+										options += '<option value="'+ i +'">none</option>';
+									} else {
+										options += '<option value="'+ i +'">'+ i +'</option>';
+									}
 								}
 								$('#participants_count').html(options);
 								$('#go_dutch_field').css('display','block');
