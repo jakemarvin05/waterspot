@@ -55,7 +55,7 @@ class PaymentsController extends PaymentManagerAppController{
 
 		$payment_data['orderRef'] = $payment_ref;
 
-		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
+		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'smoovPay_success/'.$payment_ref));
 		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn'));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
@@ -84,6 +84,26 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->Booking->save($bookingData,array('validate'=>false)); 
 	}
 	
+	function smoovPay_success($payment_ref = null)
+	{
+		if ($payment_ref) {
+			$this->loadModel('Cart');
+			$this->loadModel('VendorManager.ServiceImage');
+			$this->loadModel('ServiceManager.ServiceType');
+			$this->loadModel('BookingOrder');
+			$this->loadModel('Booking');
+			$booking = $this->Booking->find('first', ['conditions' => ['payment_ref' => $payment_ref]]);
+			// remove the cart
+			$this->Cart->deleteAll(['Cart.session_id'=>$this->Session->id(),'Cart.status'=>1]);
+			// update booking orders
+			$query = "UPDATE booking_orders SET payment_ref = $payment_ref WHERE ref_no=" . $booking['Booking']['ref_no'];
+            $this->BookingOrder->query($query);
+            // redirect to payment summary
+			$this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
+		}
+		$this->redirect(array('plugin'=>false,'controller'=>'pages','action'=>'home'));
+	}
+
 	private function _smoovPay($payment_data=null, $cartData=array()){
 		if(Configure::read('Payment.sandbox_mode')==1){
 			$url = Configure::read('Payment.test_url');

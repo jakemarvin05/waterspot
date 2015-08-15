@@ -1,6 +1,5 @@
-<div class="container-fluid vendor-panel">
+<div class="container-fluid vendor-panel topResponsivePadding">
 
-	<br><br><br>
 <div class="wrapper">
 	<div class="hr-line"></div>
 	<div class="clear"></div>

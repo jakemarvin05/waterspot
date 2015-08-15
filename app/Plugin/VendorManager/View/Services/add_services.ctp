@@ -1,9 +1,8 @@
 <? if (empty($this->request->data['Service']['description'])) { ?>
     <? //$this->request->data['Service']['description']="Please enter description here";
 } ?>
-<div class="container-fluid vendor-panel">
-    <div class="hr-line"></div>
-    <div class="clear" style="margin-top:80px;"></div>
+<div class="container-fluid vendor-panel topResponsivePadding">
+
     <h2 class="page-title">
         <?php
         if (isset($this->request->data['Service']['id']) && $this->request->data['Service']['id']):
@@ -245,11 +244,11 @@
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
                 </div>
                 <div class="fieldbox video-urls">
+                    <?php $count = 0; ?>
                     <?php if ($this->request->data['Service']['youtube_url']):
-                    $count = 0;
                             foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
                     ?>
-                    <div data-target="0">
+                    <div data-target="<?php echo $count; ?>">
                         <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>" class="add-service add-video-field" type="text" id="ServiceYoutubeUrl][" value="<?php echo $youtube; ?>">
                     </div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
@@ -309,7 +308,7 @@
                         ?>
                     </div>
                     <input type="file" name="data[panorama]" id="panorama-input">
-                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php $this->request->data['Service'] ? $this->request->data['Service']['panorama_image'] : '' ?>">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php echo !empty($this->request->data['Service']['panorama_image']) ? $this->request->data['Service']['panorama_image'] : '' ?>">
                 </div>
             </div>
             <div class="dashboard-form-row servcont">

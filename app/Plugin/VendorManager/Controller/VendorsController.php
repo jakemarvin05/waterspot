@@ -649,7 +649,7 @@ $email->config('gmail');
     }
     
     function logout(){
-		$this->VendorAuth->logout();
+		$this->VendorAuth->logout(array('plugin'=>false,'controller'=>'pages','action'=>'home'));
 	}
 	
 	private function _manage_image($image = array(),$vendor_id=null) {

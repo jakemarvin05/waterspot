@@ -62,18 +62,6 @@ foreach($cssBlocks as $cssBlock) {
 } 
 ?>
 
-<!--Start of Zopim Live Chat Script-->
-<script type="text/javascript">
-window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-$.src='//v2.zopim.com/?22xiIuDbFx71G2grZvKsPLWDNEWrYeB6';z.t=+new Date;$.
-type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
-</script>
-
-
-
-<!--End of Zopim Live Chat Script-->
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="css/ie.css" />
 <![endif]-->
@@ -124,11 +112,11 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
 
   <section id="navWrapper" class="<?php if($this->params['controller']!="pages"){
-      echo "stickyCollapsedFix";
+      echo "stickyCollapsed stickyCollapsedFix";
   }
   else{
       if($this->params['action']!="home" ) {
-          echo "stickyCollapsedFix";
+          echo "stickyCollapsed stickyCollapsedFix";
       }
   }?>">
         <?=$this->element('header');?>
@@ -368,6 +356,16 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
         <script src="/js/velocity/velocity.ui.min.js"></script>
         <script src="/js/iaStickySidebar.js"></script>
         <script src="/js/lib.js"></script>
+        
+        <!--Start of Zopim Live Chat Script-->
+        <script type="text/javascript">
+        window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+        d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+        $.src='//v2.zopim.com/?22xiIuDbFx71G2grZvKsPLWDNEWrYeB6';z.t=+new Date;$.
+        type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+        </script>
+        <!--End of Zopim Live Chat Script-->
 
 </body>
 </html>
