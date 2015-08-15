@@ -245,8 +245,8 @@
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
                 </div>
                 <div class="fieldbox video-urls">
+                    <?php $count = 0; ?>
                     <?php if ($this->request->data['Service']['youtube_url']):
-                    $count = 0;
                             foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
                     ?>
                     <div data-target="<?php echo $count; ?>">

@@ -1,5 +1,5 @@
 <? if(!empty($service_detail['image'])) { ?>
-	<? if(count($service_detail['image'])>1){?>
+	<? if(count($service_detail['image'])+count($service_detail['Service']['youtube_url'])>1){?>
 		<div class="fotorama" data-nav="thumbs" data-width="730" data-height="468">
 		<? }else {?>
 			<div data-width="730" data-height="468">
@@ -17,9 +17,11 @@
 				
 			<? }?>
 		</div>
-<? } else if ($service_detail['Service']['youtube_url']) { ?>
+<? } else if (!empty($service_detail['Service']['youtube_url'])) { ?>
 	<div class="fotorama" data-nav="thumbs" data-width="730" data-height="468">
-		<a href="<?php echo $service_detail['Service']['youtube_url']; ?>"></a>
+		<?php foreach (unserialize($service_detail['Service']['youtube_url']) as $youtube_url): ?>
+			<a href="<?php echo $youtube_url; ?>"></a>
+		<?php endforeach; ?>
 	</div>
 <?php } else {?> 
 	<div>
