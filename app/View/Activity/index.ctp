@@ -107,7 +107,7 @@
                                 <div class="completion">
                                     <div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
                                 </div>
-                                <div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $minimumParticipants; ?></div>
+                                <div class="progressinfo"><span class="current"><?php echo (isset($booking_count)?$booking_count:"0"); ?></span> out of <?php echo $minimumParticipants; ?></div>
                                 <div class="clearfix"></div>
 
                                 <?php 
