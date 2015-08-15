@@ -290,6 +290,13 @@ button:focus, button:active, input:focus, input:active {
     top: 0px; left: 0px;
     opacity: 0;
 }
+#logoWrapper:hover > #whiteLogo {
+    opacity: 0;
+}
+#logoWrapper:hover > #coloredLogo {
+    opacity: 1;
+}
+
 .navGroup {
     display: inline-block;
     vertical-align: middle;

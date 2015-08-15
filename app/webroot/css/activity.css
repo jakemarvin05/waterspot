@@ -118,29 +118,51 @@ div.spacer {
 .activity-price-info {
     background-color: #feab32;
     color: #fff;
-    width: 71%;
     padding: 23px 22px 13px;
     height: 50px;
-    /*margin: -50px -1px 0px; /* -1px for left and right is to counter the borders */
     font-size: 16px;
     z-index: 99;
-    min-width: 180px;
 }
 
 .activity-price-info .unit {
     font-family: "Crete Round";
-    float: right;
 }
+@media (max-width: 767px) {
+    .activity-price-info {
+        width: 100%;
+    }
+}
+@media (min-width: 768px) {
+    .activity-price-info .unit {
+        float: right;
+    }
+    .activity-price-info {
+        width: 71%;
+        min-width: 180px;
+    }
+}
+
 article.activity-description {
     padding-top: 30px;
     line-height: 22px;
 }
-section.right-section {
-    margin-left: 2%;
-    width: 31.33%;
-    max-width: 360px;
-    padding: 0;
+
+@media (max-width: 767px) {
+    section.right-section {
+        padding: 0px 15px;
+        width: 100%;
+        text-align: center;
+    }
 }
+@media (min-width: 768px) {
+    section.right-section {
+        margin-left: 2%;
+        width: 31.33%;
+        max-width: 360px;
+        padding: 0;
+    }
+}
+
 section.right-section .blocks {
     color: #606060;
     font-size: 14pt;
@@ -182,17 +204,18 @@ section.right-section .blocks {
 }
 
 .rating {
-    position: relative;
     background-image: url('../img/rating.png');
-    height: 41px;
+    height: 32px;
     width: 169px;
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
     background-repeat: no-repeat;
     background-position: -130px 10px;
 }
 div#rating h4 {
-    float: left;
     width: 82px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 p.info {
@@ -361,28 +384,27 @@ h2.suggestion-title {
 
 @media (max-width: 767px) {
 
-    section.right-section {
-        max-width: 767px;
+    .blocks {
         width: 100%;
-
-
-        margin-top: 80px;
+        max-width: 380px;
+        margin: auto;
     }
-    .startDate, .endDate {
-        width: 45%;
-        margin-right:5%;
-        float:left
+
+    section.right-section {
+        width: 100%;
+        margin-top: 80px;
     }
 
     input#loginButton {
-        width: 45%;
+        width: 100%;
+        max-width: 380px;
         clear: both;
         margin-top: 20px;
-        float: left;
     }
     .activity-price-info {
-        max-width: 200px;
+        max-width: 100%;
     }
+
 }
 
 @media (max-width: 320px) {
