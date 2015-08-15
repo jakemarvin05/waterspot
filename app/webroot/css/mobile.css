@@ -124,10 +124,6 @@
         overflow: hidden;
     }
 
-    .stickyCollapsedFix .navButtonOuter {
-        padding-bottom: 8px;
-    }
-
     .tile-info h4 {
         max-width: 50%;
         font-size: 12px;

@@ -124,11 +124,11 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 
 
   <section id="navWrapper" class="<?php if($this->params['controller']!="pages"){
-      echo "stickyCollapsedFix";
+      echo "stickyCollapsed stickyCollapsedFix";
   }
   else{
       if($this->params['action']!="home" ) {
-          echo "stickyCollapsedFix";
+          echo "stickyCollapsed stickyCollapsedFix";
       }
   }?>">
         <?=$this->element('header');?>
