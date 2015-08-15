@@ -1124,3 +1124,7 @@ h4.h4.fix {
 section#navWrapper div.navButtonOuter ul.dropdown-menu a {
     color: #606060;
 }
+
+body{
+    font-size: 12px;
+}
