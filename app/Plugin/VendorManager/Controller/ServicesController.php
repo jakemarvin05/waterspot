@@ -190,7 +190,7 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$savemsg="added";
 			}else{
-				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
+				$this->request->data['Service']['youtube_url']=serialize(array_filter($this->request->data['Service']['youtube_url']));
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$savemsg="updated";
 			}

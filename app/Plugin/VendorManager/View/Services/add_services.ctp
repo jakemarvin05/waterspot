@@ -249,7 +249,7 @@
                     $count = 0;
                             foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
                     ?>
-                    <div data-target="0">
+                    <div data-target="<?php echo $count; ?>">
                         <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>" class="add-service add-video-field" type="text" id="ServiceYoutubeUrl][" value="<?php echo $youtube; ?>">
                     </div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
@@ -309,7 +309,7 @@
                         ?>
                     </div>
                     <input type="file" name="data[panorama]" id="panorama-input">
-                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php $this->request->data['Service'] ? $this->request->data['Service']['panorama_image'] : '' ?>">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php echo !empty($this->request->data['Service']['panorama_image']) ? $this->request->data['Service']['panorama_image'] : '' ?>">
                 </div>
             </div>
             <div class="dashboard-form-row servcont">
