@@ -18,12 +18,12 @@
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(-34.397, 150.644);
             var mapOptions = {
-              zoom: 15,
+              zoom: 11,
               center: latlng,
                           scrollwheel: false
             }
             map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-            geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',$service_detail['location_name']); ?>"}, function(results, status) {
+            geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',(isset($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
@@ -31,7 +31,7 @@
                     position: results[0].geometry.location
                 });
               } else {
-                alert("Geocode was not successful for the following reason: " + status);
+               // alert("Geocode was not successful for the following reason: " + status);
               }
             });
           }
