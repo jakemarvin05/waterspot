@@ -39,6 +39,8 @@ Router::connect('/services/add_slots/*', array('controller' => 'services', 'acti
 
 Router::connect('/services/ajax_end_time/*', array('controller' => 'services', 'action' => 'ajax_end_time','plugin'=>'vendor_manager'));
 
+Router::connect('/vendor/messages/*', array('controller' => 'vendors', 'action' => 'messages','plugin'=>'vendor_manager'));
+
 // reviews controller
  Router::connect('/vendor/services/reviews/*', array('controller' => 'service_reviews', 'action' => 'reviews','plugin'=>'vendor_manager'));
  

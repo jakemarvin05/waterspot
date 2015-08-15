@@ -1,5 +1,5 @@
     <section id="activityPanorama" class="topResponsivePadding">
-        <img src="/img/splash-statics/slide1.jpg">
+        <img src="/img/service_images/<?php echo (isset($service_detail['Service']['panorama_image'])?$service_detail['Service']['panorama_image']:'panorama.png'); ?>">
     </section>
 
     <script>
@@ -172,7 +172,7 @@
                                 <div class="completion">
                                     <div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
                                 </div>
-                                <div class="progressinfo"><span class="current"><?php echo $booking_count; ?></span> out of <?php echo $minimumParticipants; ?></div>
+                                <div class="progressinfo"><span class="current"><?php echo (isset($booking_count)?$booking_count:"0"); ?></span> out of <?php echo $minimumParticipants; ?></div>
                                 <div class="clearfix"></div>
 
                                 <?php 
@@ -422,8 +422,7 @@ function get_recommended_dates() {
         
        // invite friends 
     
-    $('#add_invite').submit(function(){
-        
+    $('#add_invite').submit(function(e){
         //var data = $(this).serializeArray();
         var data = new FormData(this);
         var formData = $(this);
@@ -435,11 +434,11 @@ function get_recommended_dates() {
                
         $('.error-message').remove();
         $('#add_invite > span#for_owner_cms').show();
-        $('input[type="submit"]').attr({'disabled':true});
+        //$('input[type="submit"]').attr({'disabled':true});
         
         $.ajax({
             url: '<?=$path?>carts/validation/cart',
-            async: false,
+            async: true,
             data: data,
             dataType:'json', 
             type:'post',
@@ -447,7 +446,6 @@ function get_recommended_dates() {
             contentType: false,
             processData: false,
             success: function(data) {
-                     
                 if(data.error==1){
                     $.each(data.errors,function(i,v){
                         $('#'+i).addClass("invalid form-error").after('<div class="error-message">'+v+'</div>'); 
@@ -456,19 +454,18 @@ function get_recommended_dates() {
                             $(this).next().remove();
                             });
                     });
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    $('input[type="submit"]').attr({'disabled':false});
+                    $('#add_invite > span#for_owner_cms').hide();
                 }else{
                     status = 1;
+                    return true;
+
                 }
                    
             }
             });
-            if(status==0){
-               $("html, body").animate({ scrollTop: 0 }, "slow");
-               $('input[type="submit"]').attr({'disabled':false});
-               $('#add_invite > span#for_owner_cms').hide();
-            }
-           
-           return (status===1)?true:false; 
+
             
         });
    
@@ -482,6 +479,12 @@ $(document).ready(function() {
         additionalMarginTop: 120,
         scrollThrough: ['.left-section']
     });
+
+        if(!$('.fotorama__nav-wrap').length>0){
+        $('#activityWhiteBg').height(512);
+    }
+
+
 });
  
  </script>
@@ -506,4 +509,6 @@ $(document).ready(function() {
 
     <script type="text/javascript">
         $('#ActivityNoParticipants').selectpicker().hide();
+
+
     </script>

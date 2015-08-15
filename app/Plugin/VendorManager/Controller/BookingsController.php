@@ -155,9 +155,11 @@ $email->config('gmail');
 	}
 	
 	function accept_request($cart_id=null){
+
 		$this->loadModel('Cart');
 		$this->loadModel('MailManager.Mail');
-		$cart = $this->Cart->find('first', array('conditions' => array('Cart.id' =>$cart_id,'Cart.status' =>0,'Cart.vendor_confirm' =>3, 'Cart.vendor_id' =>$this->VendorAuth->id())));
+		$cart = $this->Cart->find('first', array('conditions' => array('Cart.id' =>$cart_id,'Cart.status' =>1,'Cart.vendor_confirm' =>3)));
+		
 		if(!empty($cart)){
 			$update_cart['Cart']['id'] = $cart['Cart']['id'];
 			$update_cart['Cart']['vendor_confirm'] = 1;
@@ -196,10 +198,11 @@ $email->config('gmail');
 			$email->emailFormat('html');
 			$email->template('default');
 			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-			$email->send();
-			
-			$this->Session->setFlash(__('Booking has been accepeted successfully.'));
-			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_request'));
+			// $email->send();
+			// do not send!
+
+			// $this->Session->setFlash(__('Booking has been accepeted successfully.'));
+			$this->redirect(array('plugin'=>false,'controller'=>'carts','action'=>'add_order', $cart_id, $cart['Cart']['service_id']));
 		}else{
 			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_request'));

@@ -9,6 +9,11 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
+    <?php if ($this->Session->check('Message.error')): ?>
+        <div class="error-message">
+        <p><?=$this->Session->flash('error'); ?></p>
+        </div>
+    <?php endif;?>
         <br/>
 	<p class="beforeHeader">Register and be a Member</p>
         <h1 class="headerAlt">CREATE A MEMBER ACCOUNT</h1>

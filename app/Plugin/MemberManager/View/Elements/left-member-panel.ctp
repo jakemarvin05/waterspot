@@ -16,6 +16,9 @@
 				<i class="fa fa-calendar"></i> &nbsp; <?=$this->Html->link("My Bookings",array('controller' => 'bookings', 'action' => 'booking_list','plugin'=>'member_manager'),array('escape' => false,'class'=>($this->params->action=='booking_list')?'active':''));?>
 			</li>
 			<li>
+				<i class="fa fa-comments-o"></i> &nbsp; <?=$this->Html->link("Messages",array('controller' => 'members', 'action' => 'messages','plugin'=>'member_manager'),array('escape' => false,'class'=>($this->params->action=='messages')?'active':''));?>
+			</li>
+			<li>
 				<i class="fa fa-user"></i> &nbsp; <?=$this->Html->link("Edit Profile",array('controller' => 'members', 'action' => 'edit_profile','plugin'=>'member_manager'),array('escape' => false,'class'=>($this->params->action=='edit_profile')?'active':''));?>
 			</li>
 			<li>

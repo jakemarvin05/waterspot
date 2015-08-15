@@ -10,13 +10,7 @@
 			<div class="cart-activity-txt">
 				<strong><?=date(Configure::read('Calender_format_php'),strtotime($cart_details['Cart']['start_date'])); ?>&nbsp;&nbsp;To&nbsp;&nbsp;<?=date(Configure::read('Calender_format_php'),strtotime($cart_details['Cart']['end_date'])); ?></strong>
 				<div class="cart-activity-slot-box">
-					<? if(is_array($cart_details['Cart']['slots'])) {?> 
-						<? foreach($cart_details['Cart']['slots'] as $slot_key=>$slot_time) {?>
-							<div class="cart-activity-slot">
-								<?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']);?>
-							</div>
-						<?php } ?>	
-					<? } ?>
+					
 				</div>
 			</div>
 		</div>
@@ -30,7 +24,7 @@
 				<div class="leftContentBox">
 					<div class="cart-payment-method">
 						<h4>Cost Sharing</h4>
-						<? $options = array('0' => '<span>Go Dutch</span><br />','1'=> '<span>Single Payment</span>');
+						<? $options = array('1'=> '<span>Single Payment</span>','0' => '<span>Go Dutch</span><br />');
 						$attributes = array(
 							'legend' => false,
 							'label' => true,
@@ -47,8 +41,8 @@
 						<span id='CartEmail'></span>
 						<div id="cart-email-scrollable" style="max-height:152px;">
 							<span id='CartEmail'></span>
-							I will pay for # of my friends
-							<select id="participants_count"></select>
+							I will pay for <select id="participants_count"></select> of my friends
+							
 							<div id='email_inputs'>
 							</div>
 						</div>
@@ -110,17 +104,17 @@
 									<td><?=$no_of_booking_days;?></td>
 								</tr>
 							<?php } ?>
-							<tr>
-								<th>Per Slot/Day Price :</th>
-								<td><?="$".number_format($cart_details['Cart']['price'],2)?></td>
-							</tr>
+							<? if(is_array($cart_details['Cart']['slots'])) {?> 
+								<? foreach($cart_details['Cart']['slots'] as $slot_key=>$slot_time) {?>
+									<tr>
+										<th>Slot <?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']);?> : </th>
+										<td><?="$".number_format($slot_time['price'],2)?></td>
+									</tr>
+								<?php } ?>	
+							<? } ?>
 							<tr>
 								<th>VAS Total <span id="Vas_detail"></span>:</th>
 								<td><span id='Vas_total'></span></td>
-							</tr>
-							<tr>
-								<th>Service Price (<?="$".number_format($cart_details['Cart']['price'],2)?>&nbsp;x&nbsp;<span id="total_participate">1</span>&nbsp;x&nbsp;<span id="no_of_booking_days">&nbsp;1&nbsp;</span>):</th>
-								<td>$<span id="total_participate_amount"><?=number_format($cart_details['Cart']['price'],2);?></span></td>
 							</tr>
 							<tr>
 								<th>Total:</th>
@@ -147,13 +141,15 @@
 						//for the go dutch script
 						function payment_method(method) {
 							if (method == 'go_dutch') {
-								var participants = <?php echo $cart_details['Cart']['no_participants']; ?>;
+								var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
 								var options = '';
-								for(i = 1; i <= participants; i++) {
+								for(i = 0; i <= participants; i++) {
 									options += '<option value="'+ i +'">'+ i +'</option>';
 								}
 								$('#participants_count').html(options);
 								$('#go_dutch_field').css('display','block');
+								$('#participants_count').val('0');
+								email_inputs();
 							} else {
 								$('#go_dutch_field').css('display','none');
 								$('#email_inputs').html('');
@@ -163,15 +159,18 @@
 
 						$('#CartInvitePaymentStatus0').click(function(){payment_method('go_dutch');});
 						$('#CartInvitePaymentStatus1').click(function(){payment_method('pay_all');});
+						$('#CartInvitePaymentStatus1').click();
 
 						function email_inputs(){
-							var participants = <?php echo $cart_details['Cart']['no_participants']; ?>;
-							count = $('#participants_count').val();
+							var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
+							count = $('#participants_count').val()*1;
 							var texts = '';
 							for(i = count; i < participants; i++) {
 								texts += '<input name="data[Cart][email][]" placeholder="Enter email address" type="text" ><br />';
 							}
 							$('#email_inputs').html(texts);
+							var current_total = <?php echo $cart_details['Cart']['total_amount']; ?>;
+							$('#sub_total').html( '$' + (current_total * (count+1)) );
 						}
 
 						$('#participants_count').change(function(){email_inputs();});

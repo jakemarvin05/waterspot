@@ -24,7 +24,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('Cart');
 		$this->loadModel('Booking');
 		$criteria = array();
-		$criteria['fields']= array('Cart.price','Cart.value_added_price','Cart.no_participants','Cart.start_date','Cart.end_date','Service.service_title','Service.description','Cart.total_amount');
+		$criteria['fields']= array('Cart.price','Cart.value_added_price','Cart.no_participants','Cart.start_date','Cart.end_date','Service.service_title','Service.description','Cart.total_amount','Cart.slots','Cart.invite_friend_email');
 		$criteria['joins'] = array(
 			array(
 				'table' => 'services',
@@ -55,7 +55,7 @@ class PaymentsController extends PaymentManagerAppController{
 
 		$payment_data['orderRef'] = $payment_ref;
 
-		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
+		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'smoovPay_success/'.$payment_ref));
 		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn'));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
@@ -84,6 +84,26 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->Booking->save($bookingData,array('validate'=>false)); 
 	}
 	
+	function smoovPay_success($payment_ref = null)
+	{
+		if ($payment_ref) {
+			$this->loadModel('Cart');
+			$this->loadModel('VendorManager.ServiceImage');
+			$this->loadModel('ServiceManager.ServiceType');
+			$this->loadModel('BookingOrder');
+			$this->loadModel('Booking');
+			$booking = $this->Booking->find('first', ['conditions' => ['payment_ref' => $payment_ref]]);
+			// remove the cart
+			$this->Cart->deleteAll(['Cart.session_id'=>$this->Session->id(),'Cart.status'=>1]);
+			// update booking orders
+			$query = "UPDATE booking_orders SET payment_ref = $payment_ref WHERE ref_no=" . $booking['Booking']['ref_no'];
+            $this->BookingOrder->query($query);
+            // redirect to payment summary
+			$this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
+		}
+		$this->redirect(array('plugin'=>false,'controller'=>'pages','action'=>'home'));
+	}
+
 	private function _smoovPay($payment_data=null, $cartData=array()){
 		if(Configure::read('Payment.sandbox_mode')==1){
 			$url = Configure::read('Payment.test_url');
@@ -114,17 +134,25 @@ class PaymentsController extends PaymentManagerAppController{
 					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 					$no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
 					$itemname = $cart_detail['Service']['service_title'];
-					$desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
+					// $desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
 					$participants = ($cart_detail['Cart']['no_participants']+$no_of_booking_days);
 					//$participants = $no_of_booking_days;
 					$itemprice = $cart_detail['Cart']['price'];
-					$html .= "<input type='hidden' name='item_name_$i' value='$itemname'/>";
-					$html .="<input type='hidden' name='item_description_$i' value='$desc' />";
-					$html .="<input type='hidden' name='item_quantity_$i' value='$participants'/>";
-					$html .="<input type='hidden' name='item_amount_$i' value='$itemprice' />";
-					$i++;
+
+					$slots = json_decode($cart_detail['Cart']['slots'],true);
+					foreach ($slots['Slot'] as $slot_key=>$slot_time) {
+						$desc = date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date'])) . ', Slot ' . date('H:ia', strtotime($slot_time['start_time'])) . ' to ' . date('H:ia', strtotime($slot_time['end_time']));
+						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
+						$itemprice = $slot_time['price'];
+						$html .= "<input type='hidden' name='item_name_$i' value='$itemname'/>";
+						$html .="<input type='hidden' name='item_description_$i' value='$desc' />";
+						$html .="<input type='hidden' name='item_quantity_$i' value='$participants'/>";
+						$html .="<input type='hidden' name='item_amount_$i' value='$itemprice' />";
+						$i++;
+					}
 				}
 			} 
+			
 			$html .= "<input type='hidden' name='currency' value='SGD' />";
 			$html .= "<input type='hidden' name='total_amount' value='$payment_data[amount]'/>";
 			$html .= "<input type='hidden' name='success_url' value='$payment_data[successUrl]' />";

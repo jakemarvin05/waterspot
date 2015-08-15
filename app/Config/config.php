@@ -22,12 +22,12 @@ $config['AsiaPay']['secureHashSecret'] = 'KSkQJmtnAM3O2VGhZUIULMys9lJNCrbf';
 $config['AsiaPay']['payment_action'] =  'https://test.paydollar.com/b2cDemo/eng/payment/payForm.jsp';
 
 /* used for Smoov Pay */
-$config['Payment']['sandbox_mode'] = '2';
+$config['Payment']['sandbox_mode'] = '1';
 $config['Payment']['test_url']='https://sandbox.smoovpay.com/access';
 $config['Payment']['live_url'] = 'https://secure.smoovpay.com/access';
-//$config['Payment']['merchant'] = 'pavans@burgeonsoft.net';
-//$config['Payment']['secret_key'] = "580251263cfd4da1a28bc7d69e5ef6ac";
+$config['Payment']['merchant'] = 'pavans@burgeonsoft.net';
+$config['Payment']['secret_key'] = "580251263cfd4da1a28bc7d69e5ef6ac";
 
-$config['Payment']['merchant'] = 'lanceryosuke@gmail.com';
-$config['Payment']['secret_key'] = "809d76c6ecbe48a59ff268114ade471e";
+// $config['Payment']['merchant'] = 'lanceryosuke@gmail.com';
+// $config['Payment']['secret_key'] = "809d76c6ecbe48a59ff268114ade471e";
 ?>
