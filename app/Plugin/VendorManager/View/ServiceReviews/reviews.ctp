@@ -14,6 +14,7 @@
 			<?=$this->Form->create('ServiceReview',array('class'=>'dashboard-form','action'=>'reviews',$service_id,'novalidate' => true)); ?>
 				<?=$this->Form->input('searchtext',array('div'=>false,'label'=>false,'Placeholder'=>'Type your message here...')); ?>
 				<input type="submit" value="Search" class="dashboard-buttons btn orange">
+			<div class="clearfix"></div>
 			<?=$this->Form->end();?>
 			
 		<div class="clear"></div>
