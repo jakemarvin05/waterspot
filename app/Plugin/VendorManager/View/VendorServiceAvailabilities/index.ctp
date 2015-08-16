@@ -12,13 +12,22 @@
 <div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
 
-	<? if(!empty($service_availabity_details)){ ?>
 
-        <div class="dashboard-form-row indexedit edit">
+    <div class="dashboard-form-row indexedit edit">
         <h3 class="dashboard-heading">Recent Service Slot Availability</h3>
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 
-        <? foreach($service_availabity_details as $service_availabity_detail) { ?>
+        <? if (count($service_availabity_details) == 0) { ?>
+            <th>No availabilities created yet.</th>
+
+        <? } else { ?>
+
+            <th>Availability duration</th>
+            <th>Timeslots</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+            <? foreach($service_availabity_details as $service_availabity_detail) { ?>
             <tr>
                 <td>
                     <? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
@@ -55,12 +64,13 @@
                 <td class="align-center">
                 <?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
                 </td>
- </tr>
- <? } ?>
- </table>
-<br>
- </div>
- <? }?>
+            </tr>
+            <? } ?>
+        <? } ?>
+        </table>
+        <br>
+    </div>
+
 
 	<div class="clear"></div>
 
