@@ -166,7 +166,7 @@
 						$('#CartInvitePaymentStatus1').click();
 
 						function email_inputs(){
-							var participants = <?php echo $cart_details['Cart']['no_participants'] - 2; ?>;
+							var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
 							count = $('#participants_count').val()*1;
 							var texts = '';
 							for(i = count; i < participants; i++) {
