@@ -573,7 +573,9 @@ $email->config('gmail');
 				$body=str_replace('{ACTIVITY_NAME}',$booking_participates_mail['BookingParticipate']['service_title'],$body);  
 				$body=str_replace('{ACTIVITY_DATE}',$booking_participates_mail['BookingParticipate']['start_end_date'],$body);  
 				$body=str_replace('{ACTIVITY_AMOUNT}',$booking_participates_mail['BookingParticipate']['amount'],$body);  
-				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_new/',$booking_participates_mail['BookingParticipate']['id'])),$body);  
+				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['email' => $booking_participates_mail['BookingParticipate']['email'], 'ref_no' => $booking_participates_mail['BookingParticipate']['ref_no'], 'booking_order_id' => $booking_participates_mail['BookingParticipate']['booking_order_id']]]);
+				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
+				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_new/',$booking_participates_id)),$body);  
 				
 				$email = new CakeEmail();
 $email->config('gmail');
