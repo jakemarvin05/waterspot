@@ -261,7 +261,8 @@ foreach($cssBlocks as $cssBlock) {
                                 <script>
                                     $(function () {
                                         $('#searchDate').datetimepicker({
-                                            format: 'DD-MMM-YYYY'
+                                            format: 'DD-MMM-YYYY',
+                                            minDate: new Date
                                         }).on('dp.hide', function() {
                                             $(this).blur();
                                         }).on('keydown', function(e) {

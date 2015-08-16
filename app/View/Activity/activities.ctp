@@ -11,7 +11,7 @@
 		}); */
 	});
 </script>
-<div class="container-fluid wrapper activities-page">
+<div class="container-fluid activities-page topResponsivePadding">
 
 	<section class="row">
 

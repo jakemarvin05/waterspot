@@ -14,8 +14,8 @@
 				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
 				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
 				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
-				<th>Fire Sales Price</th>
-				<th>Fire Sales Margin</th>
+				<!--<th>Fire Sales Price</th>
+				<th>Fire Sales Margin</th>-->
 				<th>Action</th>
 
 			</tr>
@@ -24,8 +24,12 @@
 					<td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
 					<td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
 					<td class="align-center"><?=$service_slot['price']?></td>
-					<td class="align-center"><?php echo $service_slot['fire_sales_price'] ? $service_slot['fire_sales_price'] : '<em>No fire sales</em>'; ?></td>
+
+					<!--
+                    <td class="align-center"><?php echo $service_slot['fire_sales_price'] ? $service_slot['fire_sales_price'] : '<em>No fire sales</em>'; ?></td>
 					<td class="align-center"><?php echo $service_slot['fire_sales_day_margin'] ? $service_slot['fire_sales_day_margin'] : '<em>No fire sales</em>'; ?></td>
+                    -->
+
 					<td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
 				</tr> 
 			<?php }?> 
@@ -36,19 +40,34 @@
 
 	<h3 class="dashboard-heading">Add New Slot</h3>
         <div class="dashboard-form-row with-padding edit">
-	<?=$this->Form->create('ServiceSlot',array('id'=>'add_slots','class'=>'add-slot-form','url'=>array('controller'=>'services','action'=>'add_service_slots',$service_id),'novalidate' => true)); ?>
-		<?php echo $this->Form->hidden('id'); ?>
-		<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
-		<?=$this->Form->input('start_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
-		<span class="txt edit">TO</span>
-		<?=$this->Form->input('end_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
-		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=>false,'div'=>false, 'placeholder'=>'price'));?>
-		<?=$this->Form->text('fire_sales_price',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Price'));?>
-		<?=$this->Form->text('fire_sales_day_margin',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Margin'));?>
-		<input class="dashboard-buttons dashboard-buttons btn orange" type="submit" value="Add Slot" />
-	<?php echo $this->Form->end();?>
+            <h4>Timeslot</h4>
+        	<?=$this->Form->create('ServiceSlot',array('id'=>'add_slots','class'=>'add-slot-form','url'=>array('controller'=>'services','action'=>'add_service_slots',$service_id),'novalidate' => true)); ?>
+    		<?php echo $this->Form->hidden('id'); ?>
+    		<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
+    		<?=$this->Form->input('start_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $hours_format,'label'=>false,'div'=>false));?>
+    		<span class="txt edit">TO</span>
+    		<?=$this->Form->input('end_time',array('class'=>'selectpicker', 'type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
         </div>
-</div>
+
+        <div class="dashboard-form-row with-padding edit">
+            <h4>Price</h4>
+    		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=> false,'div'=>false, 'placeholder'=>'price'));?>
+        </div>
+
+        <!--
+        <div class="dashboard-form-row with-padding edit">
+    		<?=$this->Form->text('fire_sales_price',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Price'));?>
+    		<?=$this->Form->text('fire_sales_day_margin',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Margin'));?>
+        </div>
+        -->
+
+        <div class="dashboard-form-row with-padding edit">
+    		<input class="dashboard-buttons dashboard-buttons btn orange" type="submit" value="Add Slot" />
+        </div>
+
+    	<?php echo $this->Form->end();?>
+
+    </div>
 </div>
 
 <script>
