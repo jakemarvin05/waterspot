@@ -158,6 +158,7 @@ div#slots_form .dates {
 .box-center {
     margin: auto;
     text-align: center;
+    overflow: hidden;
 }
 
 
