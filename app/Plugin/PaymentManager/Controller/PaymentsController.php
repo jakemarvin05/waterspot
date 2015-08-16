@@ -573,7 +573,7 @@ $email->config('gmail');
 				$body=str_replace('{ACTIVITY_NAME}',$booking_participates_mail['BookingParticipate']['service_title'],$body);  
 				$body=str_replace('{ACTIVITY_DATE}',$booking_participates_mail['BookingParticipate']['start_end_date'],$body);  
 				$body=str_replace('{ACTIVITY_AMOUNT}',$booking_participates_mail['BookingParticipate']['amount'],$body);  
-				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['email' => $booking_participates_mail['BookingParticipate']['email'], 'ref_no' => $booking_participates_mail['BookingParticipate']['ref_no'], 'booking_order_id' => $booking_participates_mail['BookingParticipate']['booking_order_id']]]);
+				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['BookingParticipate.email' => $booking_participates_mail['BookingParticipate']['email'], 'BookingParticipate.ref_no' => $booking_participates_mail['BookingParticipate']['ref_no']]]);
 				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
 				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_new/',$booking_participates_id)),$body);  
 				
@@ -732,6 +732,9 @@ $email->config('gmail');
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('BookingParticipate');
+		$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['email' => 'po.cruz@gmail.com', 'ref_no' => '1147', 'booking_order_id' => '159']]);
+				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
+				print_r($booking_participates_id);die;
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 		$this->sessionKey = MemberAuthComponent::$sessionKey;
 		$this->member_data = $this->Session->read($this->sessionKey);
