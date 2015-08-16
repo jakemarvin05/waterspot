@@ -183,7 +183,7 @@
 
                     mapper.init({
                         loaderIcon: $('#mapAjaxLoader')
-                    }));
+                    });
                 });
 
 
