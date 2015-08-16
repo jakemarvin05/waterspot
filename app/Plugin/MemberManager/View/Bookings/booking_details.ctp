@@ -67,7 +67,7 @@
                         <td class="align-center"><?= $this->Html->link("<i class=\"fa fa-search\"></i>", array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'booking_vas_details', $order_detail['BookingOrder']['id']), array('escape' => false, 'class' => 'fancybox fancybox.iframe')); ?></td>
                         <td class="align-center">
                             <?php if ($order_detail['BookingOrder']['status'] == 1 && $customer_detail['Booking']['status'] == 1) {
-                                echo $this->Html->link('<i class="fa fa-commenting-o"></i>', array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'send_feedback', $order_detail['BookingOrder']['id']), array('escape' => false));
+                                echo $this->Html->link('<i class="fa fa-comment-o"></i>', array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'send_feedback', $order_detail['BookingOrder']['id']), array('escape' => false));
                             }
                             ?>
                         </td>
