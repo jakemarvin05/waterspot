@@ -11,38 +11,66 @@
 
 <div class="right-area col-sm-9 col-xs-12">
 	<?=$this->element('message');?>
-	<? if(!empty($service_availabity_details)){ ?>
- <div class="dashboard-form-row indexedit edit">
- <h3 class="dashboard-heading">Recent Service Slot Availability</h3>
- <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
- <? foreach($service_availabity_details as $service_availabity_detail) { ?>
- <tr>
- <td>
- <? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
- echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
- }else {
- echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
- }?>
- </td>
- <td>
- <? $slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
- foreach($slots as $slot) { 
- $slot_time=explode('_',$slot);
- echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
- } ?>
- </td>
- <td class="align-center">
- <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
- </td>
- <td class="align-center">
- <?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
- </td>
- </tr>
- <? } ?>
- </table>
-<br>
- </div>
- <? }?>
+
+
+    <div class="dashboard-form-row indexedit edit">
+        <h3 class="dashboard-heading">Recent Service Slot Availability</h3>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+
+        <? if (count($service_availabity_details) == 0) { ?>
+            <th>No availabilities created yet.</th>
+
+        <? } else { ?>
+
+            <th>Availability duration</th>
+            <th>Timeslots</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+            <? foreach($service_availabity_details as $service_availabity_detail) { ?>
+            <tr>
+                <td>
+                    <? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
+                             echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
+                    } else {
+                        echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
+                    } ?>
+                </td>
+                <td>
+                    <? 
+                    // TODO: remove this function once the square brackets are fixed?
+                    //echo $service_availabity_detail['VendorServiceAvailability']['slots'];
+                    function _json_decode($json) {
+                        if ($json[0] == "[") {
+                            $newString = substr($json, 1, strlen($json)-2);
+                            $json = '{'.$newString.'}';
+                        }
+                        //print_r(json_decode($json));
+                        return json_decode($json);
+                    }
+
+                    $slots = _json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
+
+                    foreach($slots as $slot) { 
+                        echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
+                    } 
+                    ?>
+
+                </td>
+
+                <td class="align-center">
+                <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i> Edit",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
+                </td>
+                <td class="align-center">
+                <?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
+                </td>
+            </tr>
+            <? } ?>
+        <? } ?>
+        </table>
+        <br>
+    </div>
+
 
 	<div class="clear"></div>
 
@@ -92,11 +120,11 @@
 						<span class="inedxedit">
 							<? // check filter on edit case
 								$checkstaus='';
-								if(!empty($this->request->data['VendorServiceAvailability']['slots'])) {
-									$checkstaus=in_array($slot,$this->request->data['VendorServiceAvailability']['slots'])?'checked':'';
+								if(!empty($serviceAvailabilitySlots)) {
+									$checkstaus=in_array($slot, $serviceAvailabilitySlots)?'checked':'';
 								}
 							 ?>
-							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?>
+							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstatus));?>
 							<label for="<?=$key?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
 								echo $this->Time->meridian_format($slot_time[0]). " - ".$this->Time->end_meridian_format($slot_time[1]).", Price:".$slot_time[2];?></label>
 						</span>
@@ -117,8 +145,12 @@
 				<? }?>
 			</div>
                         <br>
-		
-			<input type="submit" class="dashboard-buttons btn" value="Add Availability" />
+			<?php if (!empty($serviceAvailabilitySlots)): ?>
+				<input type="submit" class="dashboard-buttons btn" value="Amend Availability" />
+			<?php else: ?>
+				<input type="submit" class="dashboard-buttons btn" value="Add Availability" />
+			<?php endif; ?>
+
                 </div>
 		</div>
 	<?php echo $this->Form->end();?>

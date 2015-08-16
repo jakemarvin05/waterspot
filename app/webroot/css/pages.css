@@ -116,11 +116,13 @@ div#slots_form {
 
 .search-page .row{
     margin:0;
-
+    padding: 0 -15px;
 }
 .activities {
     background-color: rgb(249, 249, 249);
-    padding-top: 15px;
+    padding: 15px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 div#slots_form .check {
@@ -158,6 +160,7 @@ div#slots_form .dates {
 .box-center {
     margin: auto;
     text-align: center;
+    overflow: hidden;
 }
 
 

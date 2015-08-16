@@ -265,6 +265,7 @@ Class ActivityController extends AppController{
 		$this->loadModel('VendorManager.Vendor');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.ServiceImage');
+		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.ServiceReview');
 		$this->loadModel('VendorManager.ValueAddedService');
 		$this->loadModel('LocationManager.City');
@@ -440,6 +441,9 @@ Class ActivityController extends AppController{
 		$this->set('web_url', 'http://128.199.214.85' . $_SERVER['REQUEST_URI']);
 		$this->set('web_image', $service_detail['image'][0]);
 		$this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
+		$price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice'] ]);
+		$this->set('max_price', $price_range[0]['maxprice']);
+		$this->set('min_price', $price_range[0]['minprice']);
                 
 	}
 	function ajax_get_availbility_range(){

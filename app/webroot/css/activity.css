@@ -118,6 +118,7 @@ div.spacer {
 .activity-price-info {
     background-color: #feab32;
     color: #fff;
+    width: 80%;
     padding: 23px 22px 13px;
     height: 50px;
     font-size: 16px;

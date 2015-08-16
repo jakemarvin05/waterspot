@@ -12,7 +12,7 @@ Class CartsController extends AppController
     {
     }
 
-    function check_out()
+    function check_out($participate_id)
     {
         // load model
         $check_guest_status = 0;

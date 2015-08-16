@@ -49,8 +49,8 @@ class EmailConfig {
 	public $gmail = array(
 		'host' => 'smtp.gmail.com',
         'port' => 587,
-        'username' => 'jakemarvin05@gmail.com', // set yout email here
-        'password' => "ceit05601a", // set your password here
+        'username' => 'gmtestacc001@gmail.com', // set yout email here
+        'password' => "happytest1", // set your password here
         'transport' => 'Smtp',
         'tls' => true
 	);

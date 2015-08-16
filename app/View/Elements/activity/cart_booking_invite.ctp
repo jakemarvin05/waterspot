@@ -141,7 +141,7 @@
 						//for the go dutch script
 						function payment_method(method) {
 							if (method == 'go_dutch') {
-								var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
+								var participants = <?php echo $cart_details['Cart']['no_participants'] - 2; ?>;
 								var options = '';
 								for(i = 0; i <= participants; i++) {
 									if (i == 0) {

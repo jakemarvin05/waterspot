@@ -799,12 +799,6 @@ ul.dropdown-menu{
     overflow: hidden;
 }
 
-
-
-.container-fluid.wrapper.activities-page {
-    margin-top: 50px;
-    background-color: #fff;
-}
 .filter select {
     display: none;
 }
@@ -855,10 +849,7 @@ ul.dropdown-menu{
     width: 100%;
 
 }
-.activities-page .row {
-    padding: 15px;
-    padding-top: 0;
-}
+
 .activities-listing .tile .price, .vendorwise-listing .tile .price {
     position: absolute;
     top: 60%;
@@ -1066,8 +1057,7 @@ div#share.blocks h4 {
 }
 
 .search-listing {
-    padding: 15px;
-    padding-top: 0;
+    padding: 0;
 }
 
 .error-message {

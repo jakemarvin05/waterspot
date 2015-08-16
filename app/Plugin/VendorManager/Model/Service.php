@@ -58,7 +58,7 @@ Class Service extends VendorManagerAppModel{
 							'message' => 'No of persons should be numeric.'
 						),
 						array(
-							'rule' => array('range', 0, 21),
+							'rule' => array('range', 1, 2000),
 							'message' => 'No of persons range 1 to 2000.'
 						),
 					),

@@ -331,7 +331,7 @@ $email->config('gmail');
 			$this->request->data['ServiceReview']['ref_no']=$booking_order['BookingOrder']['ref_no'];
 			$this->request->data['ServiceReview']['member_id']= $member_id;
 			$this->request->data['ServiceReview']['vendor_id']= $this->Service->getVendor_idByService_id($booking_order['BookingOrder']['service_id']);
-			$this->request->data['ServiceReview']['status']=0;
+			$this->request->data['ServiceReview']['status']=1;
 			$this->request->data['ServiceReview']['date']=date('Y-m-d H:i:s');
 			$this->request->data['ServiceReview']['ip_address']=$_SERVER['REMOTE_ADDR'];
 			$this->ServiceReview->create();
