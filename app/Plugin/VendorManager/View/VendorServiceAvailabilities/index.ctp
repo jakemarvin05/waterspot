@@ -92,8 +92,8 @@
 						<span class="inedxedit">
 							<? // check filter on edit case
 								$checkstaus='';
-								if(!empty($this->request->data['VendorServiceAvailability']['slots'])) {
-									$checkstaus=in_array($slot,$this->request->data['VendorServiceAvailability']['slots'])?'checked':'';
+								if(!empty($serviceAvailabilitySlots)) {
+									$checkstaus=in_array($slot, $serviceAvailabilitySlots)?'checked':'';
 								}
 							 ?>
 							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?>
@@ -117,8 +117,12 @@
 				<? }?>
 			</div>
                         <br>
-		
-			<input type="submit" class="dashboard-buttons btn" value="Add Availability" />
+			<?php if (!empty($serviceAvailabilitySlots)): ?>
+				<input type="submit" class="dashboard-buttons btn" value="Amend Availability" />
+			<?php else: ?>
+				<input type="submit" class="dashboard-buttons btn" value="Add Availability" />
+			<?php endif; ?>
+
                 </div>
 		</div>
 	<?php echo $this->Form->end();?>
