@@ -165,78 +165,33 @@
                 <div class="labelbox">
                     <label>Location: </label>
                 </div>
-                <div class="fieldbox addservedit form">
+                <div class="fieldbox addservedit form" style="position: relative;">
                     <?=$this->Form->input('location_string',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
                     <?=$this->Form->error('location_string',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-
+                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
                 </div>
                 <br><br>
                 <div id="map-canvas" style="height:400px; width:100%;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js"></script>
-                <?php
-
-                ?>
                 <script>
+                var mapper = Object.create(Mapper);
+                mapper.previousLocation = "<?php          
+                    $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                    echo str_replace(' ','+',$string);
+                ?>"
 
-                    var previousLocation = "<?php
+                google.maps.event.addDomListener(window, 'load', mapper.init({
+                    loaderIcon: $('#mapAjaxLoader')
+                }));
 
-                     $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
-                     echo str_replace(' ','+',$string);
-                      ?>";
+                $('#ServiceLocationString').keyup(function(e){
 
+                    var location = $('#ServiceLocationString').val().replace(' ','+');
+                    if (location === "") return false;
 
-                    function initialize() {
-                        geocoder = new google.maps.Geocoder();
-                        var latlng = new google.maps.LatLng(-34.397, 150.644);
-                        var mapOptions = {
-                            zoom: 11,
-                            center: latlng,
-                            scrollwheel: false
-                        };
-
-                        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-                        geocoder.geocode( { 'address': "<?php
-                         $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
-                         echo str_replace(' ','+',$string);
-                         ?>"}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                map.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: map,
-                                    position: results[0].geometry.location
-                                });
-                            } else {
-                             //   alert("Geocode was not successful for the following reason: " + status);
-                            }
-                        });
-                    }
-
-                    google.maps.event.addDomListener(window, 'load', initialize);
-
-                    $('#ServiceLocationString').keyup(function(e){
-
-
-                        var locationString =  $('#ServiceLocationString').val();
-                        var location = locationString.replace(' ','+');
-
-                        if (location==""){
-                            location = previousLocation;
-                        }
-
-                        geocoder.geocode( { 'address': location}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                map.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: map,
-                                    position: results[0].geometry.location
-                                });
-                            } else {
-                               // alert("Geocode was not successful for the following reason: " + status);
-                            }
-                        });
-                        google.maps.event.trigger(map, 'resize');
-
-                    });
+                    mapper.mapping(location);
+                
+                });
                 </script>
             </div>
             <div class="dashboard-form-row row servcont">

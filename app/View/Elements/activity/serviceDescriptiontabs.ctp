@@ -14,28 +14,12 @@
         <div id="map-canvas" style="height:400px; width:100%;"></div>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
         <script>
-          function initialize() {
-            geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(-34.397, 150.644);
-            var mapOptions = {
-              zoom: 11,
-              center: latlng,
-                          scrollwheel: false
-            }
-            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-            geocoder.geocode( { 'address': "<?php echo str_replace(' ','+',(isset($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>"}, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-              } else {
-               // alert("Geocode was not successful for the following reason: " + status);
-              }
-            });
-          }
-          google.maps.event.addDomListener(window, 'load', initialize);
+        $(document).ready(function() {
+          var mapper = Object.create(Mapper);
+          mapper.previousLocation = "<?php echo str_replace(' ','+',(isset($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:$service_detail['location_name'])); ?>";
+          mapper.init();
+        });
+
         </script>
     </section>
 </article>
