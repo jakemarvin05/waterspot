@@ -184,16 +184,18 @@
                     mapper.init({
                         loaderIcon: $('#mapAjaxLoader')
                     });
+                    
+                    $('#ServiceLocationString').keyup(function(e){
+
+                        var location = $('#ServiceLocationString').val().replace(' ','+');
+                        if (location === "") return false;
+
+                        mapper.mapping(location);
+                    });
                 });
 
 
-                $('#ServiceLocationString').keyup(function(e){
 
-                    var location = $('#ServiceLocationString').val().replace(' ','+');
-                    if (location === "") return false;
-
-                    mapper.mapping(location);
-                });
                 </script>
             </div>
             <div class="dashboard-form-row row servcont">
