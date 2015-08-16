@@ -158,46 +158,6 @@
                 </div>
             </div>
 
-
-            <div class="dashboard-form-row row servcont">
-                <div class="labelbox">
-                    <label>Location: </label>
-                </div>
-
-                <div class="fieldbox addservedit form" style="position: relative;">
-                    <?= $this->Form->input('location_string', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
-                    <?= $this->Form->error('location_string', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
-                </div>
-                <br><br>
-
-                <div id="map-canvas" style="height:400px; width:100%;"></div>
-                <script src="https://maps.googleapis.com/maps/api/js"></script>
-                <script>
-                $(document).ready(function() {
-                    var mapper = Object.create(Mapper);
-                    mapper.previousLocation = "<?php          
-                        $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
-                        echo str_replace(' ','+',$string);
-                    ?>"
-
-                    mapper.init({
-                        loaderIcon: $('#mapAjaxLoader')
-                    });
-                    
-                    $('#ServiceLocationString').keyup(function(e){
-
-                        var location = $('#ServiceLocationString').val().replace(' ','+');
-                        if (location === "") return false;
-
-                        mapper.mapping(location);
-                    });
-                });
-
-
-
-                </script>
-            </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
@@ -301,6 +261,43 @@
                 <div class="labelbox">
                     <label>How to get there:</label>
                 </div>
+
+                <div class="fieldbox addservedit form" style="position: relative;">
+                    <?= $this->Form->input('location_string', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit', 'placeholder' => 'Enter address...', 'style' => 'width: 100%;')); ?>
+                    <?= $this->Form->error('location_string', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
+                </div>
+                <br><br>
+
+                <div id="map-canvas" style="height:400px; width:100%;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <script>
+                $(document).ready(function() {
+                    var mapper = Object.create(Mapper);
+                    mapper.previousLocation = "<?php          
+                        $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                        echo str_replace(' ','+',$string);
+                    ?>"
+
+                    mapper.init({
+                        loaderIcon: $('#mapAjaxLoader')
+                    });
+                    
+                    $('#ServiceLocationString').keyup(function(e){
+
+                        var location = $('#ServiceLocationString').val().replace(' ','+');
+                        if (location === "") return false;
+
+                        mapper.mapping(location);
+                    });
+                });
+
+                </script>
+
+                <br><br>
+
+
+
                 <div class="fieldbox">
                     <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
                     // echo $fck->load('Page.content');  ?>
