@@ -585,8 +585,9 @@ input#GuestLoginGuestLogin0 {
 }
 
 .guest-login-button-box #loginButton {
-    padding: 13px;
     border-radius: 4px;
+    width: 98%;
+    margin: 10px auto 0px;
 }
 .guest-login-option-box label.current {
     background-color: #286090;

@@ -21,6 +21,10 @@
 	<?php echo $this->Form->create('Member',array('name'=>'members','id'=>'MemberRegistration','action'=>'registration' ,'type'=>'file','novalidate' => true, 'class'=>'registration-form'));?>
 	    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'RegistrationForm')); ?>
             <div class="registration-form-row">
+                <div class="fieldbox">
+                    <?=$this->Form->text('first_name',array("placeholder"=>"Name :",'class'=>'registration_inputbox','required'=>false)); ?>
+                    <?=$this->Form->error('first_name',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
                 <br/>
             <div class="registration-form-row">

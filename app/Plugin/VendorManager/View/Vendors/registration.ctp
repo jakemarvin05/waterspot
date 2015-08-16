@@ -26,9 +26,13 @@
 			</div>
         </div>
         
-
+<br>
 		
             <div class="registration-form-row">
+                <div class="fieldbox">
+                    <?=$this->Form->text('fname',array("placeholder"=>"Name :", 'class'=>'registration_inputbox','required'=>false)); ?>
+                    <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
         <br/>
             <div class="registration-form-row">
