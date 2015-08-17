@@ -612,10 +612,21 @@ button.book-now.btn.btnDefaults.btnFillOrange {
     margin: 0;
 }
 
-.listing-boxes .no-record {
+.listing-boxes .no-record, .activities .no-record {
     padding: 20px;
     text-align: center;
     font-size: 18px;
     color: #606060;
     font-family: Lato;
+}
+
+.vendors-page {
+    padding-top: 30px;
+
+}
+div.wrapper.vendors-page{
+    background-color: #fff;
+}
+.vendors-page .page-header {
+    padding-top: 50px;
 }
