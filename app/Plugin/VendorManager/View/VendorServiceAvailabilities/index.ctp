@@ -40,14 +40,14 @@
                     <?php
                     // TODO: remove this function once the square brackets are fixed?
                     //echo $service_availabity_detail['VendorServiceAvailability']['slots'];
-                    function jsonDecode($json) {
-                        if ($json[0] == "[") {
-                            $newString = substr($json, 1, strlen($json)-2);
-                            $json = '{'.$newString.'}';
-                        }
-                        //print_r(json_decode($json));
-                        return json_decode($json);
-                    }
+//                    function jsonDecode($json) {
+//                        if ($json[0] == "[") {
+//                            $newString = substr($json, 1, strlen($json)-2);
+//                            $json = '{'.$newString.'}';
+//                        }
+//                        //print_r(json_decode($json));
+//                        return json_decode($json);
+//                    }
 
 
                     $slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
