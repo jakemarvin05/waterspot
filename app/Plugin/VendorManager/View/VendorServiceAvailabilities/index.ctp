@@ -49,6 +49,8 @@
 //                        return json_decode($json);
 //                    }
 
+					var_dump($service_availabity_detail['VendorServiceAvailability']['slots']);
+
                     $slots = json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
 
                     foreach($slots as $slot) { 
