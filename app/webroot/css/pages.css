@@ -610,6 +610,7 @@ button.book-now.btn.btnDefaults.btnFillOrange {
 }
 .vendor-area.row .row {
     margin: 0;
+    padding: 3px 13px 20px;
 }
 
 .listing-boxes .no-record, .activities .no-record {
