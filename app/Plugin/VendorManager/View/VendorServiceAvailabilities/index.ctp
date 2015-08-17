@@ -37,7 +37,7 @@
                     } ?>
                 </td>
                 <td>
-                    <? 
+                    <?php
                     // TODO: remove this function once the square brackets are fixed?
                     //echo $service_availabity_detail['VendorServiceAvailability']['slots'];
                     function _json_decode($json) {
