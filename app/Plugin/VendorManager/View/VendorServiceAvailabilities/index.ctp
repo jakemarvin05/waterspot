@@ -40,18 +40,17 @@
                     <?php
                     // TODO: remove this function once the square brackets are fixed?
                     //echo $service_availabity_detail['VendorServiceAvailability']['slots'];
-//                    function _json_decode($json) {
-//                        if ($json[0] == "[") {
-//                            $newString = substr($json, 1, strlen($json)-2);
-//                            $json = '{'.$newString.'}';
-//                        }
-//                        //print_r(json_decode($json));
-//                        return json_decode($json);
-//                    }
+                    function _json_decode($json) {
+                        if ($json[0] == "[") {
+                            $newString = substr($json, 1, strlen($json)-2);
+                            $json = '{'.$newString.'}';
+                        }
+                        //print_r(json_decode($json));
+                        return json_decode($json);
+                    }
 
-					var_dump($service_availabity_detail['VendorServiceAvailability']['slots']);
-
-                    $slots = json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
+					
+                    $slots = _json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
 
                     foreach($slots as $slot) { 
                         echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
