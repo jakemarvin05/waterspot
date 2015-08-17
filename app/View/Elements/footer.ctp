@@ -46,6 +46,25 @@
                         </span>
                 </div>
             </div>
+            <script type="text/javascript">
+            $('#subscribeButton').click(function(){
+                var email = $('#subscribeInput').val();
+                var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                if (re.test(email)) {
+                    $.ajax({
+                         url :'/Subscriber/subscribe',
+                         type:'POST',
+                         data:{'email':email},
+                         success: function (result)
+                         {
+                             $('#footerBeforeEmailInput').html(result);
+                         }
+                    }); 
+                } else {
+                    $('#footerBeforeEmailInput').html('Invalid Email Format');
+                }
+            });
+            </script>
 
             <!-- popular block -->
             <div class="footerCol col-sm-4">

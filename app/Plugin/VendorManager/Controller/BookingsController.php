@@ -209,6 +209,114 @@ $email->config('gmail');
 		}
 		
 	}
+
+	function accept_paid($booking_id)
+	{
+		$this->loadModel('VendorManager.Booking');
+		$this->loadModel('VendorManager.BookingOrder');
+		$this->loadModel('MailManager.Mail');
+		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' =>$booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
+
+		if(!empty($booking)){
+			$update_booking['Booking']['id'] = $booking['Booking']['id'];
+			$update_booking['Booking']['vendor_confirm'] = 1;
+			$this->Booking->save($update_booking);
+			
+			//send mail to the member
+			$this->loadModel('MemberManager.Member');
+			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
+			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
+			$mail = $this->Mail->read(null,28);
+			//create eamil for Member
+			$thanksTxt = 'Thank you for showing interest in '.$booking_order['BookingOrder']['service_title'];
+			$body=str_replace('{USER-NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$mail['Mail']['mail_body']);
+			$body=str_replace('{EMAIL}',$memberinfo['Member']['email_id'],$body);		
+			$body=str_replace('{PHONE}',$memberinfo['Member']['phone'],$body);
+			$body=str_replace('{THANKSTXT}',$thanksTxt,$body);
+			$body=str_replace('{RESPONSE}','ACCEPTED',$body);
+			$body=str_replace('{NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$body);
+			$body=str_replace('{VENDOR}',$booking_order['BookingOrder']['vendor_name'],$body);
+			$body=str_replace('{SERVICE}',$booking_order['BookingOrder']['service_title'],$body);
+			
+			$body=str_replace('{DATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])),$body);
+			$body=str_replace('{STARTDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])),$body);
+			$body=str_replace('{ENDDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])),$body);
+			$body=str_replace('{PARTICIPANT}',$booking_order['BookingOrder']['no_participants'],$body);
+			$body=str_replace('{VAS}',$booking_order['BookingOrder']['service_title'],$body);
+			$body=str_replace('{PRICE}',$booking_order['BookingOrder']['total_amount'],$body);
+
+			$email = new CakeEmail();
+			$email->config('gmail');
+			
+			$email->to($memberinfo['Member']['email_id']);
+			$email->subject($mail['Mail']['mail_subject']);
+			$email->from($booking_order['BookingOrder']['vendor_email']);
+	
+			$email->emailFormat('html');
+			$email->template('default');
+			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+			$email->send();
+
+			$this->Session->setFlash('Booking has been accepeted successfully.','','message');
+		}else{
+			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
+		}
+		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_list'));
+	}
+
+	function cancel_paid($booking_id)
+	{
+		$this->loadModel('VendorManager.Booking');
+		$this->loadModel('VendorManager.BookingOrder');
+		$this->loadModel('MailManager.Mail');
+		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
+		
+		if(!empty($booking)){
+			$update_booking['Booking']['id'] = $booking['Booking']['id'];
+			$update_booking['Booking']['vendor_confirm'] = 2;
+			$this->Booking->save($update_booking);
+			
+			//send mail to the member
+			$this->loadModel('MemberManager.Member');
+			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
+			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
+			$mail = $this->Mail->read(null,30);
+			//create eamil for Member
+			$body=str_replace('{USER-NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$mail['Mail']['mail_body']);
+			$body=str_replace('{EMAIL}',$memberinfo['Member']['email_id'],$body);		
+			$body=str_replace('{PHONE}',$memberinfo['Member']['phone'],$body);
+			$body=str_replace('{RESPONSE}','DECLINED',$body);
+			$body=str_replace('{NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$body);
+			$body=str_replace('{VENDOR}',$booking_order['BookingOrder']['vendor_name'],$body);
+			$body=str_replace('{SERVICE}',$booking_order['BookingOrder']['service_title'],$body);
+			//$body=str_replace('{ACTIVITY}',$booking_order['BookingOrder']['service_title'],$body);
+			$body=str_replace('{DATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])),$body);
+			$body=str_replace('{STARTDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])),$body);
+			$body=str_replace('{ENDDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])),$body);
+			$body=str_replace('{PARTICIPANT}',$booking_order['BookingOrder']['no_participants'],$body);
+			$body=str_replace('{VAS}',$booking_order['BookingOrder']['service_title'],$body);
+			$body=str_replace('{PRICE}',$booking_order['BookingOrder']['total_amount'],$body);
+
+			$email = new CakeEmail();
+			$email->config('gmail');
+
+			$email->to($memberinfo['Member']['email_id']);
+			$email->bcc($this->setting['site']['site_contact_email']);
+			$email->subject($mail['Mail']['mail_subject']);
+			$email->from($booking_order['BookingOrder']['vendor_email']);
+	
+			$email->emailFormat('html');
+			$email->template('default');
+			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+			$email->send();
+			
+			$this->Session->setFlash('Booking has been decline successfully.','','message');
+		}else{
+			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
+		}
+		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_list'));
+		
+	}
 	
 	function cancel_request($cart_id=null){
 		$this->loadModel('Cart');
