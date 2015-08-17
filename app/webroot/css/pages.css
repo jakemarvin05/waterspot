@@ -122,7 +122,7 @@ div#slots_form {
 .activities {
     background-color: rgb(249, 249, 249);
     padding: 15px;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: auto;
 }
 
@@ -629,4 +629,9 @@ div.wrapper.vendors-page{
 }
 .vendors-page .page-header {
     padding-top: 50px;
+}
+
+.search-page .load-more-listings {
+    margin-bottom: 20px;
+    background-color: #F9F9F9;
 }
