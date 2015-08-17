@@ -301,7 +301,7 @@ $email->config('gmail');
 			$email->config('gmail');
 
 			$email->to($memberinfo['Member']['email_id']);
-			$email->to($this->setting['site']['site_contact_email']);
+			$email->bcc($this->setting['site']['site_contact_email']);
 			$email->subject($mail['Mail']['mail_subject']);
 			$email->from($booking_order['BookingOrder']['vendor_email']);
 	
