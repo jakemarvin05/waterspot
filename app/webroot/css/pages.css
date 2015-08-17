@@ -45,6 +45,7 @@ h4{
     background-color: #FFFFFF;
     max-width: 1190px;
     margin: AUTO;
+    margin-bottom: 20px;
 }
 .img-holder img {
     width: 100%;
@@ -606,4 +607,7 @@ button.book-now.btn.btnDefaults.btnFillOrange {
 
 .checkout-activity-date {
     margin: 10px 0px;
+}
+.vendor-area.row .row {
+    margin: 0;
 }
