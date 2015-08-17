@@ -611,3 +611,11 @@ button.book-now.btn.btnDefaults.btnFillOrange {
 .vendor-area.row .row {
     margin: 0;
 }
+
+.listing-boxes .no-record {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #606060;
+    font-family: Lato;
+}
