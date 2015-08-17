@@ -50,7 +50,12 @@
                     }
 
 
-                    $slots = jsonDecode($service_availabity_detail['VendorServiceAvailability']['slots']);
+                    $slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
+					if ($slotsJSONString[0] == "[") {
+						$newString = substr($slotsJSONString, 1, strlen($slotsJSONString)-2);
+						$json = '{'.$newString.'}';
+					}
+					$slots = json_decode($json);
 
                     foreach($slots as $slot) { 
                         echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
