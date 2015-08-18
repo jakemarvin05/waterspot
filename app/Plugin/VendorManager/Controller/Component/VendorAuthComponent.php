@@ -126,7 +126,7 @@ class VendorAuthComponent extends Component{
 			//$vendor_status=$Model->find('count',$criteria);
 			 
 			$this->Session->setFlash($this->messages['auth_fail'],'default','','login_error');
-			$this->controller->redirect($this->logoutRedirect);
+			$this->controller->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'log_in'));
 		}
 		
 		

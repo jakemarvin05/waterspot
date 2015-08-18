@@ -58,6 +58,24 @@ class MembersController extends MemberManagerAppController{
 			$this->request->data['Member']['email_id']=urldecode($email);
 		}
 	}
+
+	public function log_in() {
+        array_push(self::$css_for_layout,'vendor/registration.css');
+		$member_id = $this->MemberAuth->id();
+		if(isset($_POST['facebook_login'])) {
+			$criteria['conditions'] = array('Member.fb_id'=>$this->request->data['Member']['fb_id']);
+			$member_details =  $this->Member->find('first', $criteria);
+			if ($member_details){
+				$this->MemberAuth->login_facebook();
+			}
+			return;
+		}
+		if($member_id) {
+			$this->redirect(array('controller'=>'members','action'=>'dashboard','plugin'=>'member_manager'));
+		} 
+	}
+
+
 	
 	private function login($email=null) {
 		$member_id = $this->MemberAuth->id();
@@ -438,7 +456,7 @@ $email->config('gmail');
 		$body=str_replace('{NAME}',$mail_data['Member']['first_name'],$mail['Mail']['mail_body']);
 		$body=str_replace('{EMAIL}',$mail_data['Member']['email_id'],$body);
 		$body=str_replace('{PASSWORD}',$password,$body);   
-		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'registration',$mail_data['Member']['email_id'])),$body); 
+		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'log_in')),$body); 
 		$email = new CakeEmail();
 $email->config('gmail');
 		$email->to($mail_data['Member']['email_id']);

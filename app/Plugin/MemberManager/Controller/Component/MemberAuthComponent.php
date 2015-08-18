@@ -67,7 +67,7 @@ class MemberAuthComponent extends Component{
 				$this->Session->setFlash($this->messages['auth_fail'],'default','','error');
 			}
 				$refer_url=$this->loginRedirect;
-				$this->controller->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'registration','?'=>array('redirect_url'=>$refer_url)));	
+				$this->controller->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'log_in','?'=>array('redirect_url'=>$refer_url)));	
 		}
 	}
 	

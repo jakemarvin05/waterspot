@@ -301,6 +301,15 @@ Class VendorsController extends VendorManagerAppController{
 		$this->metakeyword = 'Vendor Registration';
 		$this->metadescription = 'Vendor Registration';
 	}
+
+	function log_in()
+	{
+		array_push(self::$css_for_layout,'vendor/registration.css');
+
+		if($this->VendorAuth->id()){
+			$this->redirect($this->VendorAuth->loginRedirect);
+		}
+	}
 	function login(){
 		if($this->VendorAuth->id()){
 			$this->redirect($this->VendorAuth->loginRedirect);
@@ -516,7 +525,7 @@ Class VendorsController extends VendorManagerAppController{
 		$body=str_replace('{NAME}',$mail_data['Vendor']['fname'],$mail['Mail']['mail_body']);
 		$body=str_replace('{EMAIL}',$mail_data['Vendor']['email'],$body);
 		$body=str_replace('{PASSWORD}',$password,$body); 
-		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')),$body);   
+		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'log_in')),$body);   
 		$email = new CakeEmail();
 $email->config('gmail');
 		$email->to($mail_data['Vendor']['email']);

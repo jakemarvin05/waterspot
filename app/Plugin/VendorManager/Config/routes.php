@@ -2,6 +2,7 @@
 // vendors controller
 
 Router::connect('/vendors/registration', array('controller' => 'vendors', 'action' => 'registration','plugin'=>'vendor_manager'));
+Router::connect('/vendor/log_in', array('controller' => 'vendors', 'action' => 'log_in','plugin'=>'vendor_manager'));
 Router::connect('/vendors/login', array('controller' => 'vendors', 'action' => 'login','plugin'=>'vendor_manager'));
 Router::connect('/vendor/dashboard', array('controller' => 'vendors', 'action' => 'dashboard','plugin'=>'vendor_manager'));
 Router::connect('/vendor/thankyou', array('controller' => 'vendors', 'action' => 'thankyou','plugin'=>'vendor_manager'));
