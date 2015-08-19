@@ -28,7 +28,7 @@
                 <div class="dashboard-form-row row">
                     <div class="col-sm-12 col-xs-12">
                         <div class="labelbox">
-                            <label>First Name : <span style="color:#ff4142;">*</span></label>
+                            <label>Name : <span style="color:#ff4142;">*</span></label>
                         </div>
                         <div class="fieldbox">
                             <?= $this->Form->text('fname'); ?>
@@ -37,18 +37,18 @@
                     </div>
 
                 </div>
-                <div class="dashboard-form-row row">
-                    <div class="col-sm-12 col-xs-12">
-                        <div class="labelbox">
-                            <label>Last Name : <span style="color:#ff4142;">*</span></label>
-                        </div>
-                        <div class="fieldbox">
-                            <?= $this->Form->text('lname'); ?>
-                            <?= $this->Form->error('lname', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                        </div>
-                    </div>
-
-                </div>
+<!--                <div class="dashboard-form-row row">-->
+<!--                    <div class="col-sm-12 col-xs-12">-->
+<!--                        <div class="labelbox">-->
+<!--                            <label>Last Name : <span style="color:#ff4142;">*</span></label>-->
+<!--                        </div>-->
+<!--                        <div class="fieldbox">-->
+<!--                            --><?//= $this->Form->text('lname'); ?>
+<!--                            --><?//= $this->Form->error('lname', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                </div>-->
 
                 <div class="dashboard-form-row row">
                     <div class="col-sm-12 col-xs-12">
