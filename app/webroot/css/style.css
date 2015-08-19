@@ -1114,3 +1114,6 @@ body{
     clear: both;
     height: 50px;
 }
+form .form-row {
+    margin: 15px 0px;
+}
