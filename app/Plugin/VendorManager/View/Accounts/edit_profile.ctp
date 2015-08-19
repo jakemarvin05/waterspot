@@ -12,6 +12,7 @@
 
         <?php echo $this->Form->create('Vendor', array('id' => 'VendorRegistration', 'url' => array('plugin' => 'vendor_manager', 'controller' => 'accounts', 'action' => 'editProfile'), 'class' => 'dashboard-edit-form', 'novalidate' => true, 'type' => 'file')); ?>
         <?= $this->Form->hidden('form-name', array('required' => false, 'value' => 'ChangeProfile')); ?>
+        <?= $this->Form->hidden('id'); ?>
         <div class="row">
             <div class="col-sm-9">
                 <div class="dashboard-form-row row">

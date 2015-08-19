@@ -56,18 +56,18 @@ Class Vendor extends VendorManagerAppModel {
 				array(
 					'rule1' =>
 					array(
-						  'rule' => 'notEmpty',
-						'message' => 'Please enter email id.'
-						
+						'rule' => 'notEmpty',
+						'message' => 'Please enter email id.',
+						'on' => 'create'
 					),
 					array(
 					   'rule' => array('email', true),
 						'message' => 'Please enter email address in a correct format.'
 					),
-					'isUnique'=>array(
-						'rule'=>array('isUnique'),
+					'unique'=>array(
+						'rule'=> 'isUnique',
 						'message'=>'This email is already registered.',
-						 
+						'on' => 'create',
 					) 
 				),
 				'phone' => array(
