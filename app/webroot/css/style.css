@@ -1108,3 +1108,9 @@ body{
 .btnFillGrey {
     background-color: #CAC9C9;
 }
+
+.spacer{
+    width: 100%;
+    clear: both;
+    height: 50px;
+}

@@ -465,7 +465,7 @@ $email->config('gmail');
 		$participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']);
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
-		
+
 		$booking_content='<tr>	
 			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
 			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
@@ -606,6 +606,7 @@ $email->config('gmail');
 	}
 	function payment_summary($payment_ref=null){
 
+		array_push(self::$css_for_layout,'payment/payment.css');
 		if(empty($payment_ref)) {
 			throw new NotFoundException('Could not find that payment reference');
 		}
