@@ -776,3 +776,7 @@ input#BookingSearchbydate {
     margin: 0;
     padding: 0;
 }
+
+.right-area .details {
+    padding: 1px 10px;
+}

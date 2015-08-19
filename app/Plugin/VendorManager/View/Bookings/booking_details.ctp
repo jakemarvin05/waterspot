@@ -1,3 +1,4 @@
+<div class="container-fluid vendor-panel">
 <? $payment_status=Configure::read('payment_status');?>
 <link rel="stylesheet" type="text/css" href="/css/fancybox/jquery.fancybox(new).css" />
 <script type="text/javascript" src="/js/jquery.fancybox.js"></script>
@@ -16,7 +17,7 @@ $( document ).ready(function() {
 <h2 class="page-title">Booking <span style="color: #000;">Details</span></h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 		<h3 class="dashboard-heading">Order Details</h3>
 		<?=$this->element('message');?>
 		<p class="details"><span>Order Number:</span> <?if(!empty($customer_detail['Booking']['ref_no'])){
@@ -28,6 +29,7 @@ $( document ).ready(function() {
 			echo $customer_detail['Booking']['transaction_id'];
 			} ?>
 		</p>
+		<br>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
 				<th width="5%">S.No.</th>
@@ -96,3 +98,10 @@ $( document ).ready(function() {
 			</div>
 		<? }?>
 	</div>
+</div>
+
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+</script>
