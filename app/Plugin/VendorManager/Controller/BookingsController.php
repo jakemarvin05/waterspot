@@ -472,6 +472,7 @@ $email->config('gmail');
 	}
 	
 	function booking_details($ref_no=null){
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		if(empty($ref_no)){
 			 $this->redirect('/');
 		} 

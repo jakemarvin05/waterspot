@@ -119,7 +119,7 @@ div.spacer {
     background-color: #feab32;
     color: #fff;
     width: 80%;
-    padding: 23px 22px 13px;
+    padding: 12px 22px 13px;
     height: 50px;
     font-size: 16px;
     z-index: 99;
@@ -136,6 +136,8 @@ div.spacer {
 @media (min-width: 768px) {
     .activity-price-info .unit {
         float: right;
+
+        margin-top: 5px;
     }
     .activity-price-info {
         width: 71%;

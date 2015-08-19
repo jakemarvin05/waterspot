@@ -530,6 +530,8 @@ $email->config('gmail');
 	}
 	
 	function invite_booking($booking_order_id=null) {
+
+		array_push(self::$css_for_layout,'member/member-panel.css');
 		if(empty($booking_order_id)){
 				 $this->redirect('/');
 		} 

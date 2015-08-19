@@ -53,7 +53,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 				<? } ?>
 			<? } else {?>
 				<tr>
-					<td colspan='7'>There are no booking details</td>
+					<td colspan='8'>There are no booking details</td>
 				</tr>
 			<? }?>
 		   </table>
@@ -89,6 +89,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 
 
 <div class="clearfix"></div>
+			</div>
 
 <script type='text/javascript'>
     $(function(){

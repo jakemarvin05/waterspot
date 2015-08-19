@@ -225,7 +225,7 @@ label.namefield2 {
 input.dashboard-buttons.btn.orange {
     max-width: 130px;
     padding: 8px;
-    margin: 10px 0 0px!important;
+    margin: 6px 0 0px!important;
 }
 
 table#booking_list th {
@@ -775,4 +775,8 @@ input#BookingSearchbydate {
 .dashboard-form-row .col-sm-12 {
     margin: 0;
     padding: 0;
+}
+
+.right-area .details {
+    padding: 1px 10px;
 }

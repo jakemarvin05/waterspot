@@ -47,7 +47,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 			<th width="16%">Email</th>
 			<th width="15%">Phone</th>
 			<th width="12%">Status</th>
-			<th width="13%">Action</th>
+			<th width="13%" class="text-center">Action</th>
 			 
 		    </tr>
 		    <? $i = $this->Paginator->counter('{:start}'); ?>
@@ -63,7 +63,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 					<td><?=$booking_detail['Booking']['phone']?></td>
 					<td><?=($payment_status[$booking_detail['Booking']['status']]);?></td>
 					<td class="align-center">
-						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px;'));?>
+						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?>
 						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 3): ?>
 							<?=$this->Html->link("<i class=\"fa fa-check\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px;'));?>
 							<?=$this->Html->link("<i class=\"fa fa-remove\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px;'));?>
