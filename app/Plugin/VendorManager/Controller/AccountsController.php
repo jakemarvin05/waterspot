@@ -171,6 +171,7 @@ $email->config('gmail');
 	}
 	
 	function passwordurl($str=null){
+		array_push(self::$css_for_layout,'account/account.css');
 		$checklink= $this->Vendor->find('first',array('conditions'=>array('Vendor.passwordurl'=>$str)));
 		if(!empty($checklink)){
 			if(!empty($this->request->data) && $this->validation()){
