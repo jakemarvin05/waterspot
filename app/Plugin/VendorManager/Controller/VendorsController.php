@@ -527,7 +527,7 @@ Class VendorsController extends VendorManagerAppController{
 		$body=str_replace('{PASSWORD}',$password,$body); 
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'log_in')),$body);   
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		$email->to($mail_data['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
@@ -546,7 +546,7 @@ $email->config('gmail');
 		$body=str_replace('{NAME}',$vendordetail['Vendor']['fname'],$mail['Mail']['mail_body']);
 		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')),$body);
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		$email->to($vendordetail['Vendor']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
