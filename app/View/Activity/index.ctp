@@ -481,8 +481,11 @@ $(document).ready(function() {
     });
 
         if(!$('.fotorama__nav-wrap').length>0){
-        $('#activityWhiteBg').height(570);
+        $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
     }
+    else{
+            $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
+        }
 
 
 });

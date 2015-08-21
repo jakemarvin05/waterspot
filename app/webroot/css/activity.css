@@ -99,7 +99,7 @@ div.spacer {
 .activityTitle {
     text-align: center;
     padding-bottom: 10px;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
 }
 @media (max-width: 767px) {
