@@ -304,7 +304,7 @@ class UsersController extends AppController {
 	$body=str_replace('{PASSWORD}',$user['User']['password2'],$body);
 	
 	$email = new CakeEmail();
-$email->config('gmail');
+
 	
 	$email->to(trim($user['User']['email']));
 	$email->subject($mail['Mail']['mail_subject']);

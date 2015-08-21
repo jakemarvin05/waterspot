@@ -187,7 +187,7 @@ class UsersController extends SubadminManagerAppController {
 		$body=str_replace('{USERNAME}',$user['User']['username'],$body);
 		$body=str_replace('{url}',$linkmerge,$body);
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		$email->to(trim($user['User']['email']));
 		$email->subject($mail['Mail']['mail_subject']);
 		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);

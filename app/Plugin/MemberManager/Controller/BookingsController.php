@@ -64,7 +64,7 @@ Class BookingsController extends MemberManagerAppController{
 			
 			//Notify mail for Vendor	
 			$email = new CakeEmail();
-$email->config('gmail');
+
 			$email->to($this->MemberAut->results['MemberAuth']['email_id']);
 			//$email->to($this->VendorAuth->results['VendorAuth']['email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -96,7 +96,7 @@ $email->config('gmail');
 				
 				//Notify mail for Members	
 				$email = new CakeEmail();
-$email->config('gmail');
+
 				$email->to($data['Cart']['vendor_email']);
 				$email->to($memberinfo["Member"]["email_id"]);
 				$email->subject($mail['Mail']['mail_subject']);
