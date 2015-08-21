@@ -480,17 +480,23 @@ $(document).ready(function() {
         scrollThrough: ['.left-section']
     });
 
-        if(!$('.fotorama__nav-wrap').length>0){
-        $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
-    }
-    else{
-            $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
-        }
+
 
 
 });
  
  </script>
+    <script type="application/javascript">
+        $(window).load(function(){
+            if(!$('.fotorama__nav-wrap').length>0){
+                $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
+            }
+            else{
+                $('#activityWhiteBg').height($('#headerAndPhotos').height()+20);
+            }
+        })
+
+    </script>
 
 
 
