@@ -138,9 +138,11 @@
                 <aside class="sidebar-inner">
                     <div class="sidebar-inner-wrapper">
                         <div class="activity-price-info">
-                            <span><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
-                                - <?= Configure::read('currency'); ?><?= number_format($max_price, 2); ?></span> <span
-                                class="unit">PER PAX</span>
+                            <div style="height: 100%; width: 100%;">
+                                <span class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
+                                    - <?= Configure::read('currency'); ?><?= number_format($max_price, 2); ?></span> <span
+                                    class="unit">PER PAX</span>
+                            </div>
                         </div>
 
                         <div class="sidebar-line"></div>
