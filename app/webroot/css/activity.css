@@ -260,7 +260,9 @@ p.info {
     font-size: 0.8em;
 }
 
-section.right-section h4{
+section.right-section h4 {
+    font-family: 'Crete Round', sans-serif;
+    font-style: italic;
     text-transform: uppercase;
     font-size: 16px;
     color: #606060;
