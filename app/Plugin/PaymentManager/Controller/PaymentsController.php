@@ -1173,6 +1173,14 @@ class PaymentsController extends PaymentManagerAppController{
 
 	function paypal_ipn_simple($ref_id = null)
 	{
+		$v = '';
+		foreach ($_POST as $k => $va) {
+			$v .= "$k = $va\n";
+		}
+		$f = fopen('ipn.txt', 'w');
+		fwrite($f, $v);
+		fclose($f);
+		
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('Cart');
