@@ -30,4 +30,6 @@ $config['Payment']['live_url'] = 'https://secure.smoovpay.com/access';
 
 $config['Payment']['merchant'] = 'lanceryosuke@gmail.com';
 $config['Payment']['secret_key'] = "809d76c6ecbe48a59ff268114ade471e";
+
+$config['Paypal']['email'] = 'admin@waterspot.com.sg';
 ?>

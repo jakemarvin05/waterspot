@@ -8,6 +8,7 @@ class PaymentsController extends PaymentManagerAppController{
 	// This is used to payment by booking id  
 	function index($booking_id=null){
 		$this->loadModel('BookingSlot');
+		$this->layout='';
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 		$this->sessionKey = MemberAuthComponent::$sessionKey;		
 		$this->member_data = $this->Session->read($this->sessionKey);
@@ -56,11 +57,11 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['orderRef'] = $payment_ref;
 
 		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
-		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn'));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn/'.$booking_ref_no));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
-		$formData = self::_smoovPay($payment_data,$cart_details);
+		$formData = self::_paypal_form($payment_data,$cart_details);
 		
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
@@ -1108,6 +1109,199 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['secureHash']=$assiapay->generatePaymentSecureHash($payment_data['merchantId'], $payment_data['orderRef'], $payment_data['currCode'], $payment_data['amount'], $payment_data['payType'], Configure::read('AsiaPay.secureHashSecret'));
 		$this->set('payment_action',Configure::read('AsiaPay.payment_action'));
 		$this->set('payment_data',$payment_data);
+	}
+
+
+	function _paypal_form($payment_data=null, $cartData=array())
+	{
+		if(Configure::read('Payment.sandbox_mode')==1){
+			$url = Configure::read('Payment.test_url');
+		}
+		else{
+			$url = Configure::read('Payment.live_url');
+		}
+		$secret_key = Configure::read('Payment.secret_key');
+		$merchant =Configure::read('Payment.merchant');
+		$action = 'pay';
+		$total_amount = $payment_data['amount'];
+		$currency ="SGD"; 
+		$ref_id = $payment_data['orderRef'];
+		$dataToBeHashed = $secret_key. $merchant. $action. $ref_id. $total_amount. $currency;
+		$get_signature = $this->SmoovPay->encryption($dataToBeHashed);
+		$paypal_email = Configure::read('Paypal.email');
+		$html = '';
+		$i = 1;
+		if(!empty($payment_data['amount'])){
+			$html .= "<form action='https://www.sandbox.paypal.com/cgi-bin/webscr' method='post' id='paypal_form'>";
+			$html .= '<input type="hidden" name="cmd" value="_cart" />';
+			$html .= '<input type="hidden" name="upload" value="1" />';
+			$html .= "<input type='hidden' name='business' value='$paypal_email' />";
+			$html .= '<input type="hidden" name="currency_code" value="SGD" />';
+			if(!empty($cartData)){
+				foreach($cartData as $cart_detail){
+					$diff = abs(strtotime($cart_detail['Cart']['end_date']) - strtotime($cart_detail['Cart']['start_date']));
+					$years = floor($diff / (365*60*60*24));
+					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+					$no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
+					$itemname = $cart_detail['Service']['service_title'];
+					// $desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
+					$participants = ($cart_detail['Cart']['no_participants']+$no_of_booking_days);
+					//$participants = $no_of_booking_days;
+					$itemprice = $cart_detail['Cart']['price'];
+
+					$slots = json_decode($cart_detail['Cart']['slots'],true);
+					foreach ($slots['Slot'] as $slot_key=>$slot_time) {
+						$desc = date('M d',strtotime($cart_detail['Cart']['start_date'])) . ',' . date('H:ia', strtotime($slot_time['start_time'])) . '-' . date('H:ia', strtotime($slot_time['end_time']));
+						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
+						$itemprice = $slot_time['price'];
+						$html .= "<input type='hidden' name='item_name_$i' value='$itemname ($desc)' />";
+						$html .= "<input type='hidden' name='quantity_$i' value='$participants' />";
+						$html .= "<input type='hidden' name='amount_$i' value='$itemprice' />";
+						$i++;
+					}
+				}
+			} 
+			
+			
+			$html .= "<input type='hidden' name='cancel_return' value='$payment_data[cancelUrl]'/>";
+			$html .= "<input type='hidden' name='return' value='$payment_data[successUrl]' />";
+			$html .= "<input type='hidden' name='notify_url' value='$payment_data[strUrl]' />";
+			$html .="</form>";
+		}
+		return $html;
+	}
+
+	function paypal_ipn_simple($ref_id = null)
+	{
+		$this->loadModel('Booking');
+		$this->loadModel('BookingOrder');
+		$this->loadModel('Cart');
+		$this->loadModel('BookingSlot');
+		$this->loadModel('ServiceManager.ServiceType');
+		if ($_SERVER["REQUEST_METHOD"]=="POST") {
+			$flag = $_POST['payment_status'] == 'Completed';
+			if($flag==true && $ref_id != null){
+				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$ref_id)));
+				$booking_id = $booking['Booking']['id'];
+				$sessionId = $booking['Booking']['session_id'];
+				$booking_ref_no = $this->Booking->getBookingRefenceByBooking_id($booking['Booking']['id']);
+				
+				$criteria = array();
+				$criteria['fields']= array('Cart.*');
+				$criteria['conditions'] =array('Cart.session_id'=>$sessionId,'Cart.status'=>1);
+				$criteria['order'] =array('Cart.id ASC');
+				$criteria['group'] =array('Cart.id');
+				$cart_details=$this->Cart->find('all', $criteria);
+				
+				//update booking table
+				$booking_data['Booking']['id']= $booking_id;
+				$booking_data['Booking']['transaction_amount']=$_POST['payment_gross'];
+				$booking_data['Booking']['status']=1;
+				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
+				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
+				$booking_data['Booking']['payment_ref'] = $ref_id;
+				$booking_data['Booking']['payment_log'] = json_encode($_POST);
+				$booking_data['Booking']['currency_code'] = $_POST['mc_currency'];
+				//$booking_data['Booking']['card_holder']=$post_data['Holder'];
+				//$booking_data['Booking']['authid']=$post_data['AuthId'];
+				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
+				$booking_data['Booking']['price'] = $_POST['payment_gross'];
+				$this->Booking->create();
+				$this->Booking->save($booking_data,array('validate' => false));
+				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
+				$this->BookingOrder->updateAll(
+					array('BookingOrder.status' =>1,'BookingOrder.payment_ref' => $ref_id),
+					array('BookingOrder.ref_no =' => $booking_ref_no)
+				);
+				$this->BookingSlot->updateAll(
+					array('BookingSlot.status' => 1),
+					array('BookingSlot.ref_no =' => $booking_ref_no)
+				); 
+
+				$service_slot_details='';
+				$total_cart_price=0;
+				// check payment status
+				if(!empty($cart_details)){
+					if($booking_data['Booking']['status']==1){
+						foreach($cart_details as $cart_detail) {
+							$slot_details=array();
+							unset($cart_detail['Cart']['id']);
+							$newData['BookingOrder']=$cart_detail['Cart'];
+							$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
+							// get serviceType name 
+							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
+							$service_slot_details.=self::getBookedServices($newData); 	
+							$total_cart_price+=$cart_detail['Cart']['total_amount'];
+							//echo $service_slot_details;die;
+							self::sent_invite_mail($cart_detail,number_format($total_cart_price,2),$booking_detail);
+							// end of booking slot
+							 
+							 
+						}
+						 // send to Admin mail
+						$this->loadModel('MailManager.Mail');
+						$maill=$this->Mail->read(null,13);
+						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
+						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
+						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						
+						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+						
+						$emaill = new CakeEmail();
+						
+						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
+						$emaill->subject($maill['Mail']['mail_subject']);
+						$emaill->from($booking_detail['Booking']['email']);
+						$emaill->emailFormat('html');
+						$emaill->template('default');
+						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						$emaill->send();
+
+						// send to user mail
+						$mail=$this->Mail->read(null,14);
+						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
+						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
+						
+						$email = new CakeEmail();
+
+						
+						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
+						$email->subject($mail['Mail']['mail_subject']);
+						$email->to($booking_detail['Booking']['email']);
+						$email->emailFormat('html');
+						$email->template('default');
+						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						$email->send();
+						
+						// cart empty 
+						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
+						
+						// send to vendor mail
+						self::vendor_mails($booking_detail['Booking']['ref_no']);
+						
+					}
+					else{
+						//self::payment_failed_mail($booking_detail);
+					}
+				}
+			}
+			else{
+				self::payment_failed_mail($booking_detail);
+			}
+		} 
 	}
 }
 ?>
