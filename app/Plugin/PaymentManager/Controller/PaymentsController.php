@@ -57,7 +57,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['orderRef'] = $payment_ref;
 
 		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
-		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn/'.$booking_ref_no));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_simple/'.$booking_ref_no));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
