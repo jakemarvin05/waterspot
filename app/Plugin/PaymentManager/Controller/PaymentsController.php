@@ -1177,9 +1177,6 @@ class PaymentsController extends PaymentManagerAppController{
 		foreach ($_POST as $k => $va) {
 			$v .= "$k = $va\n";
 		}
-		$f = fopen('ipn.txt', 'w');
-		fwrite($f, $v);
-		fclose($f);
 
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
@@ -1187,12 +1184,16 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('BookingSlot');
 		$this->loadModel('ServiceManager.ServiceType');
 		if ($_SERVER["REQUEST_METHOD"]=="POST") {
+			$v .= "YES IT IS POST\n";
 			if ($_POST['payment_status'] == 'Completed') {
 				$status_num = 1;
+				$v .= "status_num = 1\n";
 			} else if ( $_POST['payment_status'] == 'Pending') {
 				$status_num = 4;
+				$v .= "status_num = 4\n";
 			}
 			if($ref_id != null && ($status_num == 1 || $status_num == 4)){
+				$v .= "passed = $ref_id \n";
 				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$ref_id)));
 				$booking_id = $booking['Booking']['id'];
 				$sessionId = $booking['Booking']['session_id'];
@@ -1236,6 +1237,7 @@ class PaymentsController extends PaymentManagerAppController{
 				$total_cart_price=0;
 				// check payment status
 				if(!empty($cart_details)){
+					$v .= "with cart\n";
 					if($booking_data['Booking']['status']==1){
 						foreach($cart_details as $cart_detail) {
 							$slot_details=array();
@@ -1313,7 +1315,11 @@ class PaymentsController extends PaymentManagerAppController{
 			else{
 				self::payment_failed_mail($booking_detail);
 			}
-		} 
+		}
+
+		$f = fopen('ipn.txt', 'w');
+		fwrite($f, $v);
+		fclose($f);
 	}
 }
 ?>
