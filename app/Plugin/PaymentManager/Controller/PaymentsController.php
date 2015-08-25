@@ -1180,15 +1180,19 @@ class PaymentsController extends PaymentManagerAppController{
 		$f = fopen('ipn.txt', 'w');
 		fwrite($f, $v);
 		fclose($f);
-		
+
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('Cart');
 		$this->loadModel('BookingSlot');
 		$this->loadModel('ServiceManager.ServiceType');
 		if ($_SERVER["REQUEST_METHOD"]=="POST") {
-			$flag = $_POST['payment_status'] == 'Completed';
-			if($flag==true && $ref_id != null){
+			if ($_POST['payment_status'] == 'Completed') {
+				$status_num = 1;
+			} else if ( $_POST['payment_status'] == 'Pending') {
+				$status_num = 4;
+			}
+			if($ref_id != null && ($status_num == 1 || $status_num == 4)){
 				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$ref_id)));
 				$booking_id = $booking['Booking']['id'];
 				$sessionId = $booking['Booking']['session_id'];
