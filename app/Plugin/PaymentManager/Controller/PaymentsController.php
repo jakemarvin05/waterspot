@@ -1112,7 +1112,7 @@ class PaymentsController extends PaymentManagerAppController{
 	}
 
 
-	function _paypal_form($payment_data=null, $cartData=array())
+	function _paypal_form($payment_data=null, $cartData=array(), $is_participant = false)
 	{
 		if(Configure::read('Payment.sandbox_mode')==1){
 			$url = Configure::read('Payment.test_url');
@@ -1160,6 +1160,9 @@ class PaymentsController extends PaymentManagerAppController{
 						$desc = date('M d',strtotime($cart_detail['Cart']['start_date'])) . ',' . date('H:ia', strtotime($slot_time['start_time'])) . '-' . date('H:ia', strtotime($slot_time['end_time']));
 						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
 						$itemprice = $slot_time['price'];
+						if ($is_participant) {
+							$participants = 1;
+						}
 						$html .= "<input type='hidden' name='item_name_$i' value='$itemname ($desc)' />";
 						$html .= "<input type='hidden' name='quantity_$i' value='$participants' />";
 						$html .= "<input type='hidden' name='amount_$i' value='$itemprice' />";
@@ -1398,6 +1401,7 @@ class PaymentsController extends PaymentManagerAppController{
 	function invite_payment_paypal($booking_participate_id = null)
 	{
 		//$this->autoRender=false;
+		$this->layout = '';
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('BookingParticipate');
@@ -1477,7 +1481,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_invite/'.$booking_participate_id.'/'.$booking_order_id.'/'.$payment_ref));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
-		$formData = self::_paypal_form($payment_data,$bookingData);
+		$formData = self::_paypal_form($payment_data, $bookingData, true);
 		
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
