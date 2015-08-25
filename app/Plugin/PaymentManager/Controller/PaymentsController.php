@@ -1171,30 +1171,30 @@ class PaymentsController extends PaymentManagerAppController{
 		return $html;
 	}
 
-	function paypal_ipn_simple($ref_id = null)
+	function paypal_ipn_simple($payment_ref = null)
 	{
-		$v = '';
-		foreach ($_POST as $k => $va) {
-			$v .= "$k = $va\n";
-		}
-
+		// $v = '';
+		// foreach ($_POST as $k => $va) {
+		// 	$v .= "$k = $va\n";
+		// }
+		$this->layout='';
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('Cart');
 		$this->loadModel('BookingSlot');
 		$this->loadModel('ServiceManager.ServiceType');
 		if ($_SERVER["REQUEST_METHOD"]=="POST") {
-			$v .= "YES IT IS POST\n";
+			// $v .= "YES IT IS POST\n";
 			if ($_POST['payment_status'] == 'Completed') {
 				$status_num = 1;
-				$v .= "status_num = 1\n";
+				// $v .= "status_num = 1\n";
 			} else if ( $_POST['payment_status'] == 'Pending') {
 				$status_num = 4;
-				$v .= "status_num = 4\n";
+				// $v .= "status_num = 4\n";
 			}
-			if($ref_id != null && ($status_num == 1 || $status_num == 4)){
-				$v .= "passed = $ref_id \n";
-				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$ref_id)));
+			if($payment_ref != null && ($status_num == 1 || $status_num == 4)){
+				// $v .= "passed = $payment_ref \n";
+				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$payment_ref)));
 				$booking_id = $booking['Booking']['id'];
 				$sessionId = $booking['Booking']['session_id'];
 				$booking_ref_no = $this->Booking->getBookingRefenceByBooking_id($booking['Booking']['id']);
@@ -1208,24 +1208,24 @@ class PaymentsController extends PaymentManagerAppController{
 				
 				//update booking table
 				$booking_data['Booking']['id']= $booking_id;
-				$booking_data['Booking']['transaction_amount']=$_POST['payment_gross'];
+				$booking_data['Booking']['transaction_amount']=$_POST['mc_gross'];
 				$booking_data['Booking']['status']=1;
 				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
 				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
 				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
 				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
-				$booking_data['Booking']['payment_ref'] = $ref_id;
+				$booking_data['Booking']['payment_ref'] = $payment_ref;
 				$booking_data['Booking']['payment_log'] = json_encode($_POST);
 				$booking_data['Booking']['currency_code'] = $_POST['mc_currency'];
 				//$booking_data['Booking']['card_holder']=$post_data['Holder'];
 				//$booking_data['Booking']['authid']=$post_data['AuthId'];
 				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
-				$booking_data['Booking']['price'] = $_POST['payment_gross'];
+				$booking_data['Booking']['price'] = $_POST['mc_gross'];
 				$this->Booking->create();
 				$this->Booking->save($booking_data,array('validate' => false));
 				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
 				$this->BookingOrder->updateAll(
-					array('BookingOrder.status' =>1,'BookingOrder.payment_ref' => $ref_id),
+					array('BookingOrder.status' =>1,'BookingOrder.payment_ref' => $payment_ref),
 					array('BookingOrder.ref_no =' => $booking_ref_no)
 				);
 				$this->BookingSlot->updateAll(
@@ -1237,7 +1237,7 @@ class PaymentsController extends PaymentManagerAppController{
 				$total_cart_price=0;
 				// check payment status
 				if(!empty($cart_details)){
-					$v .= "with cart\n";
+					// $v .= "with cart\n";
 					if($booking_data['Booking']['status']==1){
 						foreach($cart_details as $cart_detail) {
 							$slot_details=array();
@@ -1317,9 +1317,9 @@ class PaymentsController extends PaymentManagerAppController{
 			}
 		}
 
-		$f = fopen('ipn.txt', 'w');
-		fwrite($f, $v);
-		fclose($f);
+		// $f = fopen('ipn.txt', 'w');
+		// fwrite($f, $v);
+		// fclose($f);
 	}
 }
 ?>
