@@ -57,7 +57,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['orderRef'] = $payment_ref;
 
 		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
-		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_simple/'.$booking_ref_no));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_simple/'.$payment_ref));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
@@ -1129,10 +1129,16 @@ class PaymentsController extends PaymentManagerAppController{
 		$dataToBeHashed = $secret_key. $merchant. $action. $ref_id. $total_amount. $currency;
 		$get_signature = $this->SmoovPay->encryption($dataToBeHashed);
 		$paypal_email = Configure::read('Paypal.email');
+		$paypal_url = Configure::read('Paypal.url');
+		if (Configure::read('Paypal.sandbox_mode')) {
+			$paypal_email = Configure::read('Paypal.test_email');
+			$paypal_url = Configure::read('Paypal.test_url');
+		}
+		
 		$html = '';
 		$i = 1;
 		if(!empty($payment_data['amount'])){
-			$html .= "<form action='https://www.sandbox.paypal.com/cgi-bin/webscr' method='post' id='paypal_form'>";
+			$html .= "<form action='$paypal_url' method='post' id='paypal_form'>";
 			$html .= '<input type="hidden" name="cmd" value="_cart" />';
 			$html .= '<input type="hidden" name="upload" value="1" />';
 			$html .= "<input type='hidden' name='business' value='$paypal_email' />";
