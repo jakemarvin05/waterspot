@@ -1182,10 +1182,10 @@ class PaymentsController extends PaymentManagerAppController{
 
 	function paypal_ipn_simple($payment_ref = null)
 	{
-		// $v = '';
-		// foreach ($_POST as $k => $va) {
-		// 	$v .= "$k = $va\n";
-		// }
+		$v = '';
+		foreach ($_POST as $k => $va) {
+			$v .= "$k = $va\n";
+		}
 		$this->layout='';
 		$this->loadModel('Booking');
 		$this->loadModel('BookingOrder');
@@ -1194,19 +1194,20 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('ServiceManager.ServiceType');
 		if ($_SERVER["REQUEST_METHOD"]=="POST") {
 			$status_num = 5;
-			// $v .= "YES IT IS POST\n";
+			$v .= "YES IT IS POST\n";
 			if ($_POST['payment_status'] == 'Completed') {
 				$status_num = 1;
-				// $v .= "status_num = 1\n";
+				$v .= "status_num = 1\n";
 			} else if ( $_POST['payment_status'] == 'Pending') {
 				$status_num = 4;
-				// $v .= "status_num = 4\n";
+				$v .= "status_num = 4\n";
 			}
 			if($payment_ref != null && ($status_num == 1 || $status_num == 4)){
-				// $v .= "passed = $payment_ref \n";
+				$v .= "passed = $payment_ref \n";
 				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$payment_ref)));
 				$booking_id = $booking['Booking']['id'];
 				$sessionId = $booking['Booking']['session_id'];
+				$v .= "sessionID = $sessionId \n";
 				$booking_ref_no = $this->Booking->getBookingRefenceByBooking_id($booking['Booking']['id']);
 				
 				$criteria = array();
@@ -1247,7 +1248,7 @@ class PaymentsController extends PaymentManagerAppController{
 				$total_cart_price=0;
 				// check payment status
 				if(!empty($cart_details)){
-					// $v .= "with cart\n";
+					$v .= "with cart\n";
 					if($booking_data['Booking']['status']==1 || $booking_data['Booking']['status']==4){
 						foreach($cart_details as $cart_detail) {
 							$slot_details=array();
@@ -1327,9 +1328,9 @@ class PaymentsController extends PaymentManagerAppController{
 			}
 		}
 
-		// $f = fopen('ipn.txt', 'w');
-		// fwrite($f, $v);
-		// fclose($f);
+		$f = fopen('ipn.txt', 'w');
+		fwrite($f, $v);
+		fclose($f);
 	}
 
 	public function paypal_ipn_invite($b_p_id=null,$booking_order_id=null,$payment_ref=null){
