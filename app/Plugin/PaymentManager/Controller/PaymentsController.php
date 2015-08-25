@@ -1264,6 +1264,11 @@ class PaymentsController extends PaymentManagerAppController{
 							 
 							 
 						}
+
+						// cart empty 
+						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
+
+						
 						 // send to Admin mail
 						$this->loadModel('MailManager.Mail');
 						$maill=$this->Mail->read(null,13);
@@ -1286,7 +1291,7 @@ class PaymentsController extends PaymentManagerAppController{
 						$emaill->emailFormat('html');
 						$emaill->template('default');
 						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						// $emaill->send();
+						$emaill->send();
 
 						// send to user mail
 						$mail=$this->Mail->read(null,14);
@@ -1310,8 +1315,6 @@ class PaymentsController extends PaymentManagerAppController{
 						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
 						$email->send();
 						
-						// cart empty 
-						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
 						
 						// send to vendor mail
 						self::vendor_mails($booking_detail['Booking']['ref_no']);
