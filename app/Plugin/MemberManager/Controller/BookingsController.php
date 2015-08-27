@@ -208,7 +208,7 @@ Class BookingsController extends MemberManagerAppController{
 					'conditions'=>array('BookingOrder.ref_no = Booking.ref_no')
 				)
 			),
-			'conditions'=>array('Booking.member_id'=>$member_id,'Booking.status'=>array(0,1)),
+			'conditions'=>array('Booking.member_id'=>$member_id,'Booking.status'=>array(0,1,4)),
 			'group'=>'BookingOrder.ref_no',
 		    'fields'=>array('Booking.*'),
 			'limit'=>20,

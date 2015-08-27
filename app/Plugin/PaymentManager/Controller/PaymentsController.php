@@ -619,12 +619,12 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('Booking');
 		$total_amount =0;
 		$criteria = array();
+		$booking_detail=$this->Booking->getBookingDetailsByPayment_ref($payment_ref);
 		$criteria['fields']= array('BookingOrder.*');
-		$criteria['conditions'] =array('BookingOrder.payment_ref'=>$payment_ref);
+		$criteria['conditions'] =array('BookingOrder.ref_no'=>$booking_detail['Booking']['ref_no']);
 		$criteria['order'] =array('BookingOrder.id DESC');
 		$criteria['group'] =array('BookingOrder.id');
 		$order_details=$this->BookingOrder->find('all', $criteria);
-		$booking_detail=$this->Booking->getBookingDetailsByPayment_ref($payment_ref);
 		if(empty($order_details)) {
 			throw new NotFoundException('Could not find that booking id');
 		}
@@ -1314,7 +1314,7 @@ class PaymentsController extends PaymentManagerAppController{
 
 						// cart empty 
 						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
-						
+
 						// send to vendor mail
 						self::vendor_mails($booking_detail['Booking']['ref_no']);
 						
