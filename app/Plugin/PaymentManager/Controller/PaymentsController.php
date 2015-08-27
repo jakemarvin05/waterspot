@@ -1410,7 +1410,7 @@ class PaymentsController extends PaymentManagerAppController{
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 		$this->sessionKey = MemberAuthComponent::$sessionKey;
 		$this->member_data = $this->Session->read($this->sessionKey);
-		if(empty($this->member_data['MemberAuth']['id'])) {
+		if(!isset($this->member_data['MemberAuth']['id'])) {
 			$this->Session->setFlash('Please Register&login and click the link again for payment.','default','','error');
 			$this->redirect(array('controller'=>'members','action'=>'log_in','plugin'=>'member_manager'));
 		} 
