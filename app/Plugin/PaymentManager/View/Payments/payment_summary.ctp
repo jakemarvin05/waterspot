@@ -9,7 +9,15 @@
 <div class="row text-center">
 	<div class="col-sm-6 col-sm-offset-3">
 	<div class="booking-status-message">
-		<?=($booking_detail['Booking']['status']==1)?'Your booking has been completed successfully.<br />Please find the booking details below:':'Your booking was not completed successfully.<br />Please try again.';?>
+		<?php
+			if ($booking_detail['Booking']['status']==1) {
+				echo 'Your booking has been completed successfully.<br />Please find the booking details below:';
+			} else if ($booking_detail['Booking']['status']==4) {
+				echo 'Your booking is now being processed.<br />Please wait for email for confirmation:';
+			} else {
+				echo 'Your booking was not completed successfully.<br />Please try again.';
+			}
+		?>
 	</div>
 	<div class="transactionid-info">
 		<strong>Transaction ID:</strong> <?=$booking_detail['Booking']['transaction_id'];?>
