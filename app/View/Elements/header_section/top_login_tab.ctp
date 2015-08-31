@@ -26,7 +26,6 @@
     		document.getElementById('fb_fname').value = first_name;
     		document.getElementById('fb_lname').value = last_name;
     		document.getElementById('fb_login').submit();
-    		document.getElementById('fb_login').submit();
 		});
     } else if (response.status === 'not_authorized') {
     	// logged in facebook but not authorized
