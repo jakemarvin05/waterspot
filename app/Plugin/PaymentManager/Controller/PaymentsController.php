@@ -830,6 +830,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('Booking');
+		array_push(self::$css_for_layout,'payment/payment.css');
 
 		if(empty($payment_ref)) {
 			throw new NotFoundException('Could not find that payment reference');
