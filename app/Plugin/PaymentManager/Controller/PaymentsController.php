@@ -1411,7 +1411,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->sessionKey = MemberAuthComponent::$sessionKey;
 		$this->member_data = $this->Session->read($this->sessionKey);
 		if(!isset($this->member_data['MemberAuth']['id'])) {
-			$this->Session->setFlash('Please Register&login and click the link again for payment.','default','','error');
+			$this->Session->setFlash('Please Register & login and click the link again for payment.','default','','error');
 			$this->redirect(array('controller'=>'members','action'=>'log_in','plugin'=>'member_manager'));
 		} 
 
@@ -1436,7 +1436,6 @@ class PaymentsController extends PaymentManagerAppController{
 		
 		$invite_details=$this->BookingParticipate->find('first',$criteria);
 		$booking_order_id = $invite_details['BookingParticipate']['booking_order_id'];
-		// print_r($invite_details['BookingParticipate']['email']);die;
 		if (empty($invite_details)) {
 			throw new NotFoundException('Could not find that booking id');
 		}
