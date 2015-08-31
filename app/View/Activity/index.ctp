@@ -250,7 +250,7 @@
 
                                 <div class="socialicons">
                                     <a id="shareFB"
-                                       href="https://www.facebook.com/sharer/sharer.php?app_id=381957422009700&sdk=joey&u=<?php echo(isset($web_url) ? urlencode($web_url) : urlencode('http://128.199.214.85')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
+                                       href="https://www.facebook.com/sharer/sharer.php?app_id=1725992164290232&sdk=joey&u=<?php echo(isset($web_url) ? urlencode($web_url) : urlencode('http://128.199.214.85')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

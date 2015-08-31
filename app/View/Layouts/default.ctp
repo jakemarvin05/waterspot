@@ -153,7 +153,7 @@ foreach($cssBlocks as $cssBlock) {
     }
     window.fbAsyncInit = function() {
     FB.init({
-      appId      : '381957422009700',
+      appId      : '1725992164290232',
       cookie     : true,  // enable cookies to allow the server to access 
                           // the session
       xfbml      : true,  // parse social plugins on this page
