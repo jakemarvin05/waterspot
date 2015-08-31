@@ -438,7 +438,7 @@ Class ActivityController extends AppController{
 
 		$this->set('web_title', 'Waterspot Activity | ' . $this->title_for_layout);
 		$this->set('web_type', 'website');
-		$this->set('web_url', 'http://128.199.214.85' . $_SERVER['REQUEST_URI']);
+		$this->set('web_url', 'http://www.waterspot.com.sg/' . $_SERVER['REQUEST_URI']);
 		$this->set('web_image', $service_detail['image'][0]);
 		$this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
 		$price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice'] ]);
