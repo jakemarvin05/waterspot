@@ -32,7 +32,7 @@
 						<div style="float: left; text-align: left; font-size: 13px;">
 							Don't have an account? <?php echo $this->Html->link('Sign Up',array('controller'=>'members','action'=>'registration','plugin'=>'member_manager'),array('class'=>'signup-link','target'=>'_blank','alt'=>'Sign Up','title'=>'Sign Up'));?>
 						</div>
-						<input type="submit" value="Continue" id="loginButton" class="submit-button" />
+						<input type="submit" value="Continue" id="loginButton" class="btn btnDefaults btnFillOrange" />
 					</div>
 				</div>
 			<?=$this->Form->end(); ?>	

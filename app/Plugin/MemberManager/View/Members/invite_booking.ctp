@@ -1,3 +1,4 @@
+<div class="container-fluid member-panel invite-booking">
 <link rel="stylesheet" type="text/css" href="/css/fancybox/jquery.fancybox(new).css" />
 <script type="text/javascript" src="/js/jquery.fancybox.js"></script>
 <script type="text/javascript">
@@ -15,7 +16,7 @@ $( document ).ready(function() {
 <h2 class="page-title">Invite <span style="color: #000;">Details</span></h2>
 
 <?=$this->element('MemberManager.left-member-panel');?>
-<div class="right-area">
+<div class="right-area  col-sm-9 col-xs-12">
 
 <? if(!empty($customer_detail)) {?>
 	<h3 class="dashboard-heading">Invited By</h3>
@@ -40,12 +41,12 @@ $( document ).ready(function() {
 	<tr>
 		<th width="5%">S.No.</th>
 		<th width="15%">Service Name</th>
-		<th width="15%">Location</th>
+		<th width="20%">Location</th>
 		<th width="10%">From</th>
 		<th width="10%">To</th>
 		<th width="17%">Invited Members</th>
 		<th width="5%">Slots</th>
-		<th width="5%">VAS</th>
+		<!--<th width="5%">VAS</th>-->
 		<th width="13%">Price ($)</th>
 	</tr>
 	<? if(!empty($order_detail )){?>
@@ -60,16 +61,16 @@ $( document ).ready(function() {
 				   <span class="number">(<?=($order_detail['BookingOrder']['no_participants']-1)?>)</span>
 			</td>
 			<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
-			<td class="align-center"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?></td>
+<!--			<td class="align-center">--><?//=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'member_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?><!--</td>-->
 			<td class="align-right"><?=number_format(($order_detail['BookingOrder']['total_amount']),2); ?></td>
 		</tr>
 		<tr class="subtotal">
-			<td colspan="8" class="align-right">Sub-Total</td>
+			<td colspan="7" class="align-right">Sub-Total</td>
 			<td colspan="1" class="align-right">$<?=number_format(($order_detail['BookingOrder']['total_amount']),2); ?></td>
 		</tr>
 	<? }else{ ?>
 		<tr class="no-details">
-			<td colspan="9">No invitation details are available</td>
+			<td colspan="8">No invitation details are available</td>
 		</tr>
 	<? }?>
 </table>
@@ -81,3 +82,9 @@ $( document ).ready(function() {
 
 <div class="clear"></div>
 </div>
+</div>
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+</script>

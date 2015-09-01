@@ -1,6 +1,4 @@
-<div class="container-fluid vendor-panel">
-
-<br/><br/><br/><br><br>
+<div class="container-fluid topResponsivePadding">
 
 <div class="middle-area">
     <div class="registration-form-box">
@@ -9,6 +7,11 @@
 		<p><?=$this->Session->flash('register_error'); ?></p>
 	    </div>
 	<?php endif;?>
+    <?php if ($this->Session->check('Message.login_error')): ?>
+        <div class="error-message">
+        <p><?=$this->Session->flash('login_error'); ?></p>
+        </div>
+    <?php endif;?>
         <br/>
 	<p class="beforeHeader">Register and Start selling Services</p>
         <h1 class="headerAlt">Create a New Vendor account</h1>
@@ -23,9 +26,13 @@
 			</div>
         </div>
         
-
+<br>
 		
             <div class="registration-form-row">
+                <div class="fieldbox">
+                    <?=$this->Form->text('fname',array("placeholder"=>"Name :", 'class'=>'registration_inputbox','required'=>false)); ?>
+                    <?=$this->Form->error('fname',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
         <br/>
             <div class="registration-form-row">

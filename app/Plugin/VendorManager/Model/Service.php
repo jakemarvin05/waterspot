@@ -51,14 +51,14 @@ Class Service extends VendorManagerAppModel{
 						array(
 							'rule' => 'notEmpty',
 							'message' => 'Please enter no of persons.'
-                
+
 						),
 						array(
 							'rule'    => 'numeric',
 							'message' => 'No of persons should be numeric.'
 						),
 						array(
-							'rule' => array('range', 0, 21),
+							'rule' => array('range', 0, 2001),
 							'message' => 'No of persons range 1 to 2000.'
 						),
 					),

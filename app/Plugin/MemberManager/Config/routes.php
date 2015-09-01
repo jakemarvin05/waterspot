@@ -16,4 +16,5 @@ Router::connect('/members/booking_status', array('controller' => 'bookings', 'ac
 Router::connect('/members/fb_login/*', array('controller' => 'members', 'action' => 'fb_login','plugin'=>'member_manager'));
 Router::connect('/members/messages/*', array('controller' => 'members', 'action' => 'messages','plugin'=>'member_manager'));
 Router::connect('/members/message', array('controller' => 'members', 'action' => 'message','plugin'=>'member_manager'));
+Router::connect('/members/log_in', array('controller' => 'members', 'action' => 'log_in','plugin'=>'member_manager'));
 ?>

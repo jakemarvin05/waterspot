@@ -1,5 +1,5 @@
-<div class="container-fluid vendor-panel">
-	<br><br><br>
+<div class="container-fluid topResponsivePadding">
+
 <script type="text/javascript">
 	function formsubmit(action) {
 		var flag = true;
@@ -106,7 +106,7 @@
 						<td style="text-align: right;" valign="middle"><?= number_format($service['service_price'],2) ?></td>
 						<td class="action" style="text-align: center;" valign="middle">
 							 <?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
-							 <?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Service'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'activity','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Service'));?>
 							
 							 <?=$this->Html->link("<i class=\"fa fa-calendar\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Add/Update Slots'));?>
 							

@@ -67,7 +67,7 @@ class MemberAuthComponent extends Component{
 				$this->Session->setFlash($this->messages['auth_fail'],'default','','error');
 			}
 				$refer_url=$this->loginRedirect;
-				$this->controller->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'registration','?'=>array('redirect_url'=>$refer_url)));	
+				$this->controller->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'log_in','?'=>array('redirect_url'=>$refer_url)));	
 		}
 	}
 	
@@ -129,11 +129,14 @@ class MemberAuthComponent extends Component{
 		return $this->id;
 	}
 	
-	public function logout(){
+	public function logout($redirect = null){
 		$this->Session->delete(self::$sessionKey);
 		$this->Cookie->delete('keep_me_login'); //Only for keep loged in
 		$this->Session->setFlash(__('You\'re now logged out', true));
-		$this->controller->redirect($this->logoutRedirect);
+		if ($redirect == null) {
+			$redirect = $this->logoutRedirect;
+		}
+		$this->controller->redirect($redirect);
 	}
 	
 	public function updateMemberSession($detail = array()){

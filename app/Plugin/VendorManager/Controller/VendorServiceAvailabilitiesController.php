@@ -106,6 +106,13 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 		    $this->set('service_availabity_details',$service_availabity_details);
 		    $this->set('service_slots',$service_slots);
 		    $this->set('service_id',$service_id);
+		    if ($availability_id != null) {
+			    $serviceAvailabilitySlots = [];
+			    foreach (json_decode('{' . substr($data['VendorServiceAvailability']['slots'], 1, -1) . '}') as $slot) {
+			    	$serviceAvailabilitySlots[] = $slot->start_time . '_' . $slot->end_time . '_' . $slot->price;
+			    }
+			    $this->set('serviceAvailabilitySlots', $serviceAvailabilitySlots);
+			}
 	}
 	function admin_index($vendor_id=null,$service_id=null,$availability_id=null) {
 		// load model

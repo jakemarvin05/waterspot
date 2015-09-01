@@ -11,7 +11,6 @@
 	});
 </script>
 <div class="container-fluid vendors-page">
-	<br><br><br><br><br><br>
 	<header class="page-header">
 		<p class="beforeHeader">See what they offer</p>
 		<h1 class=" headerAlt">Vendor Activities</h1>

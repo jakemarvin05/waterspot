@@ -34,17 +34,11 @@
     height: auto;
 }
 
-h4{
-    font-family: 'Crete Round', sans-serif;
-    font-style: italic;
-    color: #ff9700;
-    font-size: 19px;
-}
-
 .vendor-area.row {
     background-color: #FFFFFF;
     max-width: 1190px;
     margin: AUTO;
+    margin-bottom: 20px;
 }
 .img-holder img {
     width: 100%;
@@ -116,11 +110,13 @@ div#slots_form {
 
 .search-page .row{
     margin:0;
-
+    padding: 0 -15px;
 }
 .activities {
     background-color: rgb(249, 249, 249);
-    padding-top: 15px;
+    padding: 15px;
+    /* max-width: 1200px; */
+    margin: auto;
 }
 
 div#slots_form .check {
@@ -158,6 +154,7 @@ div#slots_form .dates {
 .box-center {
     margin: auto;
     text-align: center;
+    overflow: hidden;
 }
 
 
@@ -585,8 +582,9 @@ input#GuestLoginGuestLogin0 {
 }
 
 .guest-login-button-box #loginButton {
-    padding: 13px;
     border-radius: 4px;
+    width: 98%;
+    margin: 10px auto 0px;
 }
 .guest-login-option-box label.current {
     background-color: #286090;
@@ -602,4 +600,32 @@ button.book-now.btn.btnDefaults.btnFillOrange {
 
 .checkout-activity-date {
     margin: 10px 0px;
+}
+.vendor-area.row .row {
+    margin: 0;
+    padding: 3px 13px 20px;
+}
+
+.listing-boxes .no-record, .activities .no-record {
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #606060;
+    font-family: Lato;
+}
+
+.vendors-page {
+    padding-top: 30px;
+
+}
+div.wrapper.vendors-page{
+    background-color: #fff;
+}
+.vendors-page .page-header {
+    padding-top: 50px;
+}
+
+.search-page .load-more-listings {
+    margin-bottom: 20px;
+    background-color: #F9F9F9;
 }

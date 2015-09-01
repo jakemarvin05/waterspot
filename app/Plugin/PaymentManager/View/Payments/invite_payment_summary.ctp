@@ -1,8 +1,15 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<h2 class="page-title">Booking <span style="color: #000;">Summary</span></h2>
+
+<div class="container-fluid wrapper payment-page summary">
+
+	<header class="page-header text-center">
+		<p class="beforeHeader">Congratulation!</p>
+		<h1 class=" headerAlt">Booking Summary</h1>
+	</header>
 
 <div class="middle-area">
+
+	<div class="row text-center">
+		<div class="col-sm-6 col-sm-offset-3">
 
 	<div class="booking-status-message">
 		<?=($booking_detail['Booking']['status']==1)?'Your booking has been completed successfully.<br />Please find the booking details below:':'Your booking was not completed successfully.<br />Please try again.';?>
@@ -11,9 +18,13 @@
 	<div class="transactionid-info">
 		<strong>Transaction ID</strong> <?=$booking_detail['Booking']['transaction_id'];?>
 	</div>
+		</div>
+	</div>
+	<div class="row">
 
+		<div class="col-sm-8 col-sm-offset-2">
 	<h3 class="dashboard-heading">Personal Details</h3>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+	<table width="100%" border="1" bordercolor="#ccc"  cellpadding="0" cellspacing="0" class="dashboard-content">
 		<tr>
 			<th width="32%">Name</th>
 			<th width="32%">Email</th>
@@ -25,17 +36,21 @@
 			<td><?=$booking_detail['Booking']['phone'];?></td>
 		</tr>
 	</table>
+		</div>
+	</div>
+	<div class="row">
 
+		<div class="col-sm-8 col-sm-offset-2">
 	<h3 class="dashboard-heading">Booking Details</h3>
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+	<table width="100%"  border="1" bordercolor="#ccc" cellpadding="0" cellspacing="0" class="dashboard-content">
 		<tr>
 			<th class="align-left" width="10%">Vendor</th>
 			<th width="10%">Service Name</th>
 			<th width="15%">Activity</th>
-			<th width="8%">Date</th>
-			<th width="8%">Time</th>
-			<th width="15%">VAS</th>
-			<th width="15%">Participant(s)</th>
+			<th width="10%">Cost Sharing</th>
+			<th width="11%">Date</th>
+			<th width="11%">Time</th>
+			<th width="9%">Participant(s)</th>
 			<th width="8%">Price ($)</th>
 		</tr>
 		<? if(!empty($booking_order_detail)){
@@ -93,4 +108,7 @@
 			</tr>
 		<? } // end of if ?>
 	</table>
+			<div class="spacer"></div>
+		</div></div>
+</div>
 </div>

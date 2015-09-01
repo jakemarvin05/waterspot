@@ -1,9 +1,8 @@
 <? if (empty($this->request->data['Service']['description'])) { ?>
     <? //$this->request->data['Service']['description']="Please enter description here";
 } ?>
-<div class="container-fluid vendor-panel">
-    <div class="hr-line"></div>
-    <div class="clear" style="margin-top:80px;"></div>
+<div class="container-fluid vendor-panel topResponsivePadding">
+
     <h2 class="page-title">
         <?php
         if (isset($this->request->data['Service']['id']) && $this->request->data['Service']['id']):
@@ -25,22 +24,22 @@
                     <label>Select your services:</label>
                 </div>
                 <div class="fieldbox">
-                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false,'class'=>'selectpicker')); ?>
+                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false, 'class' => 'selectpicker')); ?>
                     <?= $this->Form->error('service_type_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
         </div>
         <div style="padding-top: 0" class="cont col-sm-9">
 
-	<div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row row servcont">
 
-		<div class="labelbox">
-			<label>Title: <span style="color:#ff0000;">*</span></label>
-		</div>
-		<div class="fieldbox">
-			<?=$this->Form->input('service_title',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service'));?>
-			<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-		</div>
+                <div class="labelbox">
+                    <label>Title: <span style="color:#ff0000;">*</span></label>
+                </div>
+                <div class="fieldbox">
+                    <?= $this->Form->input('service_title', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+                    <?= $this->Form->error('service_title', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </div>
             </div>
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
@@ -52,33 +51,33 @@
                     </div>
                 </div>
             </div>
-       <div class="to-hide">
+            <div class="to-hide">
 
-           <div class="dashboard-form-row row servcont">
-               <div class="labelbox">
-                   <label>Has Minimum-To-Go? <span style="color:#ff0000;">*</span></label>
-
-                   <div class="fieldbox">
-                       <?= $this->Form->checkbox('is_minimum_to_go', array('label' => false, 'div' => false)); ?>
-                       <?= $this->Form->error('is_minimum_to_go', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                   </div>
-               </div>
-           </div>
-           <div class="minimum-participants">
-            <div class="dashboard-form-row   row servcont">
-
+                <div class="dashboard-form-row row servcont">
                     <div class="labelbox">
-                        <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
+                        <label>Has Minimum-To-Go? <span style="color:#ff0000;">*</span></label>
+
+                        <div class="fieldbox">
+                            <?= $this->Form->checkbox('is_minimum_to_go', array('label' => false, 'div' => false)); ?>
+                            <?= $this->Form->error('is_minimum_to_go', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                        </div>
                     </div>
-
-                <div class="fieldbox addservedit">
-                    <?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false,'class'=>'selectpicker')); ?>
-                    <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
-            </div>
-           </div>
+                <div class="minimum-participants">
+                    <div class="dashboard-form-row   row servcont">
 
-            <div class="dashboard-form-row  row servcont">
+                        <div class="labelbox">
+                            <label>Minimum Participants: <span style="color:#ff0000;">*</span></label>
+                        </div>
+
+                        <div class="fieldbox addservedit">
+                            <?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false, 'class' => 'selectpicker')); ?>
+                            <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-form-row  row servcont">
                     <div class="labelbox">
                         <label>Max Capacity per Timeslot:<span style="color:#ff0000;">*</span> </label>
                     </div>
@@ -86,10 +85,10 @@
                         <?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
                         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                     </div>
+                </div>
+
             </div>
 
-       </div>
-       
             <!--
             <div class="dashboard-form-row row servcont">
                 <div id="p_scents" class="labelbox">
@@ -108,7 +107,7 @@
 
                     <?php } else { ?>
                         <?php
-                        foreach ($this->request->data['ValueAddedService'] as $key => $value_added_service) { ?>
+                foreach ($this->request->data['ValueAddedService'] as $key => $value_added_service) { ?>
                             <?php if ($key == 0) { ?>
                                 <? echo $this->Form->input('ValueAddedService.value_added_name.', array('label' => false, 'div' => false, 'class' => 'add-service value-added-service', 'value' => $value_added_service['value_added_name'])); ?>
                                 <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
@@ -118,7 +117,7 @@
                                     <?= $this->Html->link('Delete', array('controller' => 'services', 'action' => 'value_added_delete', $value_added_service['id'], $value_added_service['service_id']), array('class' => 'vas-delete-btn', "onclick" => "return confirm('Are you sure you wish to delete this value added service?')")); ?>
                                 </div>
                             <? } else {
-                                if ($key == 1) { ?>
+                    if ($key == 1) { ?>
                                     <div id="extender">
                                 <? } ?>
                                 <div class="add-values" style="display: block;">
@@ -132,10 +131,10 @@
                                 <? if ($key == (count($this->request->data['ValueAddedService']) - 1)) { ?>
                                     </div>
                                 <? }
-                            }
-                        }
-                    }
-                    ?>
+                }
+                }
+            }
+            ?>
                     <div id="extender"></div>
                 </div>
             </div>
@@ -143,103 +142,22 @@
             -->
 
 
-
-                <div class="dashboard-form-row adjustable row servcont">
-                    <div class="labelbox">
-                        <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
-                    </div>
-                    <div class="addservedit">
-                        <div class="dollarsign">
-                            <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
-                        </div>
-                        <div class="addservedit form">
-                            <?= $this->Form->input('service_price', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
-                            <div id="service_price"></div>
-                            <?= $this->Form->error('service_price', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                        </div>
-                    </div>
-                </div>
-                
-
-
-            <div class="dashboard-form-row row servcont">
+            <div class="dashboard-form-row adjustable row servcont">
                 <div class="labelbox">
-                    <label>Location: </label>
+                    <label>Price Per Slot:<span style="color:#ff0000;">*</span></label>
                 </div>
-                <div class="fieldbox addservedit form">
-                    <?=$this->Form->input('location_string',array('type'=>'text','label'=>false,'div'=>false,'class'=>'add-service edit'));?>
-                    <?=$this->Form->error('location_string',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-
+                <div class="addservedit">
+                    <div class="dollarsign">
+                        <span class="currency-symbol"><?= Configure::read('currency'); ?></span>
+                    </div>
+                    <div class="addservedit form">
+                        <?= $this->Form->input('service_price', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
+                        <div id="service_price"></div>
+                        <?= $this->Form->error('service_price', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    </div>
                 </div>
-                <br><br>
-                <div id="map-canvas" style="height:400px; width:100%;"></div>
-                <script src="https://maps.googleapis.com/maps/api/js"></script>
-                <?php
-
-                ?>
-                <script>
-
-                    var previousLocation = "<?php
-
-                     $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
-                     echo str_replace(' ','+',$string);
-                      ?>";
-
-
-                    function initialize() {
-                        geocoder = new google.maps.Geocoder();
-                        var latlng = new google.maps.LatLng(-34.397, 150.644);
-                        var mapOptions = {
-                            zoom: 11,
-                            center: latlng,
-                            scrollwheel: false
-                        };
-
-                        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-                        geocoder.geocode( { 'address': "<?php
-                         $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
-                         echo str_replace(' ','+',$string);
-                         ?>"}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                map.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: map,
-                                    position: results[0].geometry.location
-                                });
-                            } else {
-                             //   alert("Geocode was not successful for the following reason: " + status);
-                            }
-                        });
-                    }
-
-                    google.maps.event.addDomListener(window, 'load', initialize);
-
-                    $('#ServiceLocationString').keyup(function(e){
-
-
-                        var locationString =  $('#ServiceLocationString').val();
-                        var location = locationString.replace(' ','+');
-
-                        if (location==""){
-                            location = previousLocation;
-                        }
-
-                        geocoder.geocode( { 'address': location}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                map.setCenter(results[0].geometry.location);
-                                var marker = new google.maps.Marker({
-                                    map: map,
-                                    position: results[0].geometry.location
-                                });
-                            } else {
-                               // alert("Geocode was not successful for the following reason: " + status);
-                            }
-                        });
-                        google.maps.event.trigger(map, 'resize');
-
-                    });
-                </script>
             </div>
+
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <label>Add videos by Youtube URL:<span style="color:#ff0000;"></span> </label>
@@ -247,19 +165,23 @@
                 <div class="fieldbox video-urls">
                     <?php $count = 0; ?>
                     <?php if ($this->request->data['Service']['youtube_url']):
-                            foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
-                    ?>
-                    <div data-target="<?php echo $count; ?>">
-                        <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>" class="add-service add-video-field" type="text" id="ServiceYoutubeUrl][" value="<?php echo $youtube; ?>">
-                    </div>
-                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    <a class="delete-video" data-target="<?php echo $count; ?>" href="#"><i class="fa fa-minus-square"></i> </a>
-                    <?php
-                    $count++;
-                    endforeach;
+                        foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
+                            ?>
+                            <div data-target="<?php echo $count; ?>">
+                                <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>"
+                                       class="add-service add-video-field" type="text" id="ServiceYoutubeUrl]["
+                                       value="<?php echo $youtube; ?>">
+                            </div>
+                            <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                            <a class="delete-video" data-target="<?php echo $count; ?>" href="#"><i
+                                    class="fa fa-minus-square"></i> </a>
+                            <?php
+                            $count++;
+                        endforeach;
                     endif;
                     ?>
-                    <div data-target="<?php echo $count; ?>"><?= $this->Form->input('youtube_url][', array('type' => 'text','data-inputId'=>'<?php echo $count; ?>', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
+                    <div
+                        data-target="<?php echo $count; ?>"><?= $this->Form->input('youtube_url][', array('type' => 'text', 'data-inputId' => '<?php echo $count; ?>', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
                     <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                     <a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>
@@ -301,15 +223,16 @@
                     <label>Panorama Image (recommended 1600x680): </label>
                 </div>
                 <div class="fieldbox">
-                    <div id="panorama-image-container" >
+                    <div id="panorama-image-container">
                         <?php
-                            if ($this->request->data['Service']) {
-                                echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
-                            }
+                        if ($this->request->data['Service']) {
+                            echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                        }
                         ?>
                     </div>
                     <input type="file" name="data[panorama]" id="panorama-input">
-                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field" value="<?php echo !empty($this->request->data['Service']['panorama_image']) ? $this->request->data['Service']['panorama_image'] : '' ?>">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field"
+                           value="<?php echo !empty($this->request->data['Service']['panorama_image']) ? $this->request->data['Service']['panorama_image'] : '' ?>">
                 </div>
             </div>
             <div class="dashboard-form-row servcont">
@@ -318,7 +241,7 @@
                 </div>
                 <div class="fieldbox">
                     <?= $this->Form->textarea('description', array('cols' => '60', 'rows' => '3', 'id' => 'ServiceDescription', 'placeholder' => 'Please enter description here....'));
-                    // echo $fck->load('Page.content'); ?>
+                    // echo $fck->load('Page.content');  ?>
                     <?= $this->Form->error('description', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                 </div>
@@ -329,7 +252,7 @@
                 </div>
                 <div class="fieldbox">
                     <?= $this->Form->textarea('itinerary', array('cols' => '60', 'rows' => '3', 'id' => 'ServiceItinerary', 'placeholder' => 'Please enter description here....'));
-                    // echo $fck->load('Page.content'); ?>
+                    // echo $fck->load('Page.content');  ?>
                     <?= $this->Form->error('itinerary', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                 </div>
@@ -338,9 +261,46 @@
                 <div class="labelbox">
                     <label>How to get there:</label>
                 </div>
+
+                <div class="fieldbox addservedit form" style="position: relative;">
+                    <?= $this->Form->input('location_string', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit', 'placeholder' => 'Enter address...', 'style' => 'width: 100%;')); ?>
+                    <?= $this->Form->error('location_string', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
+                </div>
+                <br><br>
+
+                <div id="map-canvas" style="height:400px; width:100%;"></div>
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <script>
+                $(document).ready(function() {
+                    var mapper = Object.create(Mapper);
+                    mapper.previousLocation = "<?php          
+                        $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                        echo str_replace(' ','+',$string);
+                    ?>"
+
+                    mapper.init({
+                        loaderIcon: $('#mapAjaxLoader')
+                    });
+                    
+                    $('#ServiceLocationString').keyup(function(e){
+
+                        var location = $('#ServiceLocationString').val().replace(' ','+');
+                        if (location === "") return false;
+
+                        mapper.mapping(location);
+                    });
+                });
+
+                </script>
+
+                <br><br>
+
+
+
                 <div class="fieldbox">
                     <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
-                    // echo $fck->load('Page.content'); ?>
+                    // echo $fck->load('Page.content');  ?>
                     <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
 
                 </div>
@@ -513,60 +473,55 @@
         }
         var fieldCTR = <?php echo (isset($count)?$count:"0"); ?>;
 
-        $('.video-urls').on('click','#add-video',function(e){
+        $('.video-urls').on('click', '#add-video', function (e) {
             $(this).remove();
             e.preventDefault();
-            $('.video-urls').append('<a class="delete-video" data-target='+fieldCTR+' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="'+(fieldCTR+1)+'"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a class="delete-video" data-target=' + fieldCTR + ' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="' + (fieldCTR + 1) + '"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
             $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
             fieldCTR++;
         });
 
-        $('.video-urls').on('click','a.delete-video',function(e) {
+        $('.video-urls').on('click', 'a.delete-video', function (e) {
             e.preventDefault();
-           var target = $(this).data('target');
-            $('div[data-target="'+target+'"]').remove();
+            var target = $(this).data('target');
+            $('div[data-target="' + target + '"]').remove();
             $(this).remove();
 
         });
 
-        $('[name="data[Service][is_private]"]').change(function(){
-            if($('[name="data[Service][is_private]').is(':checked')){
+        $('[name="data[Service][is_private]"]').change(function () {
+            if (!$('[name="data[Service][is_private]').is(':checked')) {
+                $('[name="data[Service][no_person]"]').val("1");
                 $('.to-hide').animate({
                     opacity: 1,
                     height: "toggle",
                     "padding-bottom": 0
-                }, 600, function() {
+                }, 600, function () {
                     // Animation complete.
                     $('this').hide()
                 });
             }
-            else{
+            else {
+                $('.to-hide').animate({
+                    "opacity": 0,
+                    "height": "toggle",
+                    "padding-bottom": 19
+                }, 600, function () {
+                    // Animation complete
 
-                        $('.to-hide').animate({
-                            "opacity": 0,
-                            "height": "toggle",
-                            "padding-bottom": 19
-                        }, 600, function () {
-                            // Animation complete
-                            
-                        });
+                });
             }
         });
 
-        var prevValue =  $('#ServiceMinParticipants option[selected="selected"]').text();
+        var prevValue = $('#ServiceMinParticipants option[selected="selected"]').text();
 
 
+        $('[name="data[Service][is_minimum_to_go]"]').change(function () {
 
 
+            if ($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
-
-
-        $('[name="data[Service][is_minimum_to_go]"]').change(function(){
-
-
-            if($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
-
-                $('select[name="data[Service][min_participants]"]').val(prevValue-1);
+                $('select[name="data[Service][min_participants]"]').val(prevValue - 1);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
                 $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
@@ -576,12 +531,12 @@
                         height: "toggle"
                     },
                     400,
-                    function(){
+                    function () {
                         //done
                     }
                 );
             }
-            else{
+            else {
                 $('#ServiceMinParticipants').val(0);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
@@ -590,7 +545,7 @@
                         height: "toggle"
                     },
                     400,
-                    function(){
+                    function () {
                         //done
                     }
                 );
@@ -600,12 +555,9 @@
         });
 
 
-
-
-
     });
 
-    $(window).load(function(){
+    $(window).load(function () {
             if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
                 $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
@@ -614,16 +566,32 @@
                         height: "toggle"
                     },
                     400,
-                    function(){
+                    function () {
                         //done
                     }
                 );
-
-
             }
-            else{
+            else {
                 $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
             }
+
+
+            if ($('[name="data[Service][is_private]"]').is(':checked')) {
+
+                $('.to-hide').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function () {
+                        //done
+                    }
+                );
+            }
+            else {
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+            }
+
 
         }
     );
@@ -631,7 +599,7 @@
 </script>
 
 <script type="text/javascript">
-    $('#panorama-input').change(function(){
+    $('#panorama-input').change(function () {
         var formData = new FormData();
         formData.append('data[panorama]', this.files[0]);
         $.ajax({
@@ -640,7 +608,7 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function(data){
+            success: function (data) {
                 var image = '<img src="<?php echo '/img' . DS . 'service_images' . DS; ?>' + data + '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
                 $('#panorama-field').val(data);
                 $('#panorama-image-container').html(image);

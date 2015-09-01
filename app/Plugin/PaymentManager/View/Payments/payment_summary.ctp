@@ -1,19 +1,35 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<h2 class="page-title">Booking <span style="color: #000;">Summary</span></h2>
+<div class="container-fluid wrapper payment-page summary">
+
+<header class="page-header text-center">
+	<p class="beforeHeader">Congratulation!</p>
+	<h1 class=" headerAlt">Booking Summary</h1>
+</header>
 
 <div class="middle-area">
-
+<div class="row text-center">
+	<div class="col-sm-6 col-sm-offset-3">
 	<div class="booking-status-message">
-		<?=($booking_detail['Booking']['status']==1)?'Your booking has been completed successfully.<br />Please find the booking details below:':'Your booking was not completed successfully.<br />Please try again.';?>
+		<?php
+			if ($booking_detail['Booking']['status']==1) {
+				echo 'Your booking has been completed successfully.<br />Please find the booking details below:';
+			} else if ($booking_detail['Booking']['status']==4) {
+				echo 'Your booking is now being processed.<br />Please wait for email for confirmation:';
+			} else {
+				echo 'Your booking was not completed successfully.<br />Please try again.';
+			}
+		?>
 	</div>
 	<div class="transactionid-info">
 		<strong>Transaction ID:</strong> <?=$booking_detail['Booking']['transaction_id'];?>
 	</div>
+	</div>
+</div>
+	<div class="row">
 
+		<div class="col-sm-8 col-sm-offset-2">
 	<h3 class="dashboard-heading">Personal Details</h3>
 	<? if(!empty($booking_detail)) { ?>
-		<table width="100%" cellspacing="0" cellpadding="0" border="0" class="dashboard-content">
+		<table width="100%" cellspacing="0" cellpadding="0" border="1" bordercolor="#ccc" class="dashboard-content">
 			<tr>
 				<th width="32%">Name</th>
 				<th width="32%">Email</th>
@@ -26,18 +42,21 @@
 			</tr>
 		</table>
 	<? } ?>
+			</div>
+	</div>
+	<div class="row">
 
+		<div class="col-sm-8 col-sm-offset-2">
 	<h3 class="dashboard-heading">Booking Details</h3>
-	<table width="100%" cellspacing="0" cellpadding="0" border="0" class="dashboard-content">
+	<table width="100%" cellspacing="0" cellpadding="0" border="1" bordercolor="#ccc" class="dashboard-content">
 		<tr>
 			<th class="align-left" width="10%">Vendor</th>
 			<th width="10%">Service Name</th>
 			<th width="15%">Activity</th>
 			<th width="10%">Cost Sharing</th>
-			<th width="8%">Date</th>
-			<th width="8%">Time</th>
-			<th width="15%">VAS</th>
-			<th width="15%">Participant(s)</th>
+			<th width="11%">Date</th>
+			<th width="11%">Time</th>
+			<th width="9%">Participant(s)</th>
 			<th width="8%">Price ($)</th>
 		</tr>
 		<? if(!empty($order_details)){
@@ -88,7 +107,6 @@
 							echo "Full Day";
 						} ?>
 					</td>
-					<td class="align-center"><?=$booked_vas_details?></td>
 					<td class="align-center"><?=$participant_emails?></td>
 					<td class="align-right">
 						$<?=number_format(($order['BookingOrder']['total_amount']),2);?>
@@ -96,9 +114,12 @@
 				</tr>
 			 <? }?>
 			 <tr class="subtotal">
-				<td class="align-right" colspan="8">Total</td>
+				<td class="align-right" colspan="7">Total</td>
 				<td class="align-right">$<?=number_format($total_amount,2);?></td>
 			</tr>
 		<? } // end of if ?>
 	</table>
+			<div class="spacer"></div>
+	</div></div>
+</div>
 </div>

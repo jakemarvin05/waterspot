@@ -11,10 +11,8 @@
 		});
 	});
 </script>
-<br><br><br><br>
 
-
-<div class="middle-area search-page container-fluid">
+<div class="middle-area search-page container-fluid topResponsivePadding">
 	<div class="row">
 
 		<header class="page-header text-center">

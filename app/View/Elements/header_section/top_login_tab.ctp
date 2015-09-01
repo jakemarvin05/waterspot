@@ -26,7 +26,6 @@
     		document.getElementById('fb_fname').value = first_name;
     		document.getElementById('fb_lname').value = last_name;
     		document.getElementById('fb_login').submit();
-    		document.getElementById('fb_login').submit();
 		});
     } else if (response.status === 'not_authorized') {
     	// logged in facebook but not authorized
@@ -41,7 +40,7 @@
   }
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '381957422009700',
+    appId      : '1725992164290232',
     cookie     : true,  // enable cookies to allow the server to access 
                         // the session
     xfbml      : true,  // parse social plugins on this page

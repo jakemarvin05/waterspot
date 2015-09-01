@@ -64,7 +64,7 @@ Class BookingsController extends MemberManagerAppController{
 			
 			//Notify mail for Vendor	
 			$email = new CakeEmail();
-$email->config('gmail');
+
 			$email->to($this->MemberAut->results['MemberAuth']['email_id']);
 			//$email->to($this->VendorAuth->results['VendorAuth']['email']);
 			$email->subject($mail['Mail']['mail_subject']);
@@ -96,7 +96,7 @@ $email->config('gmail');
 				
 				//Notify mail for Members	
 				$email = new CakeEmail();
-$email->config('gmail');
+
 				$email->to($data['Cart']['vendor_email']);
 				$email->to($memberinfo["Member"]["email_id"]);
 				$email->subject($mail['Mail']['mail_subject']);
@@ -208,7 +208,7 @@ $email->config('gmail');
 					'conditions'=>array('BookingOrder.ref_no = Booking.ref_no')
 				)
 			),
-			'conditions'=>array('Booking.member_id'=>$member_id,'Booking.status'=>array(0,1)),
+			'conditions'=>array('Booking.member_id'=>$member_id,'Booking.status'=>array(0,1,4)),
 			'group'=>'BookingOrder.ref_no',
 		    'fields'=>array('Booking.*'),
 			'limit'=>20,
@@ -244,6 +244,7 @@ $email->config('gmail');
 	}
 	
 	function booking_details($ref_no=null){
+		array_push(self::$css_for_layout,'member/member-panel.css');
 		if(empty($ref_no)){
 				 $this->redirect('/');
 		} 
@@ -313,6 +314,7 @@ $email->config('gmail');
 	}
 	
 	function send_feedback($order_id=null){
+		array_push(self::$css_for_layout,'member/member-panel.css');
 		$this->loadModel('VendorManager.ServiceReview');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('BookingOrder');
@@ -329,7 +331,7 @@ $email->config('gmail');
 			$this->request->data['ServiceReview']['ref_no']=$booking_order['BookingOrder']['ref_no'];
 			$this->request->data['ServiceReview']['member_id']= $member_id;
 			$this->request->data['ServiceReview']['vendor_id']= $this->Service->getVendor_idByService_id($booking_order['BookingOrder']['service_id']);
-			$this->request->data['ServiceReview']['status']=0;
+			$this->request->data['ServiceReview']['status']=1;
 			$this->request->data['ServiceReview']['date']=date('Y-m-d H:i:s');
 			$this->request->data['ServiceReview']['ip_address']=$_SERVER['REMOTE_ADDR'];
 			$this->ServiceReview->create();

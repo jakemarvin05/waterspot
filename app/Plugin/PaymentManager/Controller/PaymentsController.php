@@ -8,6 +8,7 @@ class PaymentsController extends PaymentManagerAppController{
 	// This is used to payment by booking id  
 	function index($booking_id=null){
 		$this->loadModel('BookingSlot');
+		$this->layout='';
 		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
 		$this->sessionKey = MemberAuthComponent::$sessionKey;		
 		$this->member_data = $this->Session->read($this->sessionKey);
@@ -56,11 +57,11 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['orderRef'] = $payment_ref;
 
 		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
-		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'simple_payment_ipn'));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_simple/'.$payment_ref));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
-		$formData = self::_smoovPay($payment_data,$cart_details);
+		$formData = self::_paypal_form($payment_data,$cart_details);
 		
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
@@ -84,6 +85,26 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->Booking->save($bookingData,array('validate'=>false)); 
 	}
 	
+	function smoovPay_success($payment_ref = null)
+	{
+		if ($payment_ref) {
+			$this->loadModel('Cart');
+			$this->loadModel('VendorManager.ServiceImage');
+			$this->loadModel('ServiceManager.ServiceType');
+			$this->loadModel('BookingOrder');
+			$this->loadModel('Booking');
+			$booking = $this->Booking->find('first', ['conditions' => ['payment_ref' => $payment_ref]]);
+			// remove the cart
+			$this->Cart->deleteAll(['Cart.session_id'=>$this->Session->id(),'Cart.status'=>1]);
+			// update booking orders
+			$query = "UPDATE booking_orders SET payment_ref = $payment_ref WHERE ref_no=" . $booking['Booking']['ref_no'];
+            $this->BookingOrder->query($query);
+            // redirect to payment summary
+			$this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'payment_summary/'.$payment_ref));
+		}
+		$this->redirect(array('plugin'=>false,'controller'=>'pages','action'=>'home'));
+	}
+
 	private function _smoovPay($payment_data=null, $cartData=array()){
 		if(Configure::read('Payment.sandbox_mode')==1){
 			$url = Configure::read('Payment.test_url');
@@ -318,7 +339,7 @@ class PaymentsController extends PaymentManagerAppController{
 						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
 						
 						$email = new CakeEmail();
-$email->config('gmail');
+
 						
 						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 						$email->subject($mail['Mail']['mail_subject']);
@@ -398,7 +419,7 @@ $email->config('gmail');
 				$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
 				$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 				$email = new CakeEmail();
-$email->config('gmail');
+
 				
 				//$email->to('pavans@burgeonsoft.net');
 				$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
@@ -428,7 +449,7 @@ $email->config('gmail');
 		$body=str_replace('{TXN_ID}',$_REQUEST['txn_id'],$body);  
 		$body=str_replace('{PAYMENT_STATUS}',$_REQUEST['payment_status'],$body);  
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		
 		$email->to($booking_detail['Booking']['email'],$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
@@ -445,7 +466,7 @@ $email->config('gmail');
 		$participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']);
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
-		
+
 		$booking_content='<tr>	
 			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
 			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
@@ -553,10 +574,12 @@ $email->config('gmail');
 				$body=str_replace('{ACTIVITY_NAME}',$booking_participates_mail['BookingParticipate']['service_title'],$body);  
 				$body=str_replace('{ACTIVITY_DATE}',$booking_participates_mail['BookingParticipate']['start_end_date'],$body);  
 				$body=str_replace('{ACTIVITY_AMOUNT}',$booking_participates_mail['BookingParticipate']['amount'],$body);  
-				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','controller'=>'members','action'=>'registration',$booking_participates_mail['BookingParticipate']['email'])),$body);  
+				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['BookingParticipate.email' => $booking_participates_mail['BookingParticipate']['email'], 'BookingParticipate.ref_no' => $booking_participates_mail['BookingParticipate']['ref_no']]]);
+				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
+				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_paypal/',$booking_participates_id)),$body);  
 				
 				$email = new CakeEmail();
-$email->config('gmail');
+
 				
 				$email->from($booking_detail['Booking']['email'],$mail['Mail']['mail_from']);
 				$email->subject(trim($mail['Mail']['mail_subject'])." ".$booking_detail['Booking']['fname']);
@@ -584,6 +607,7 @@ $email->config('gmail');
 	}
 	function payment_summary($payment_ref=null){
 
+		array_push(self::$css_for_layout,'payment/payment.css');
 		if(empty($payment_ref)) {
 			throw new NotFoundException('Could not find that payment reference');
 		}
@@ -595,12 +619,12 @@ $email->config('gmail');
 		$this->loadModel('Booking');
 		$total_amount =0;
 		$criteria = array();
+		$booking_detail=$this->Booking->getBookingDetailsByPayment_ref($payment_ref);
 		$criteria['fields']= array('BookingOrder.*');
-		$criteria['conditions'] =array('BookingOrder.payment_ref'=>$payment_ref);
+		$criteria['conditions'] =array('BookingOrder.ref_no'=>$booking_detail['Booking']['ref_no']);
 		$criteria['order'] =array('BookingOrder.id DESC');
 		$criteria['group'] =array('BookingOrder.id');
 		$order_details=$this->BookingOrder->find('all', $criteria);
-		$booking_detail=$this->Booking->getBookingDetailsByPayment_ref($payment_ref);
 		if(empty($order_details)) {
 			throw new NotFoundException('Could not find that booking id');
 		}
@@ -703,6 +727,102 @@ $email->config('gmail');
 		$this->set('formData',$formData);
 		$this->render('index');
 	} 
+
+	function invite_payment_new($booking_participate_id = null)
+	{
+		//$this->autoRender=false;
+		$this->loadModel('Booking');
+		$this->loadModel('BookingOrder');
+		$this->loadModel('BookingParticipate');
+		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		$this->sessionKey = MemberAuthComponent::$sessionKey;
+		$this->member_data = $this->Session->read($this->sessionKey);
+		if(empty($this->member_data['MemberAuth']['id'])) {
+			$this->Session->setFlash('Please Register&login and click the link again for payment.','default','','error');
+			$this->redirect(array('controller'=>'members','action'=>'registration','plugin'=>'member_manager'));
+		} 
+
+		if($booking_participate_id == null) {
+			throw new NotFoundException('Could not find that booking id');
+		}
+
+		$criteria=array(); 
+		$criteria['joins']=array(
+							array(
+								'table'=>'booking_orders',
+								'alias' => 'BookingOrder',
+								'type' => 'INNER',
+								/*'foreignKey' => false,*/
+								'conditions'=> array('BookingOrder.id=BookingParticipate.booking_order_id')
+								),
+							);
+		$criteria['fields'] = array('BookingParticipate.*','BookingOrder.*');
+		$criteria['conditions'] =array('BookingParticipate.id'=>$booking_participate_id);
+		 
+		$criteria['order'] =array('BookingParticipate.id'=>'DESC');
+		
+		$invite_details=$this->BookingParticipate->find('first',$criteria);
+		$booking_order_id = $invite_details['BookingParticipate']['booking_order_id'];
+		// print_r($invite_details['BookingParticipate']['email']);die;
+		if (empty($invite_details)) {
+			throw new NotFoundException('Could not find that booking id');
+		}
+
+		// check payment status of invite participate
+		if($invite_details['BookingParticipate']['status']==1 || $invite_details['BookingOrder']['status']==3){
+			$this->Session->setFlash('Payment already payments or cancelled.','default');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'dashboard'));
+		}
+		
+		// save booking 
+		$booking_data=array();
+		$booking_data['Booking']['ref_no']=$invite_details['BookingOrder']['ref_no'];
+		$booking_data['Booking']['member_id']=$this->member_data['MemberAuth']['id'];
+		$booking_data['Booking']['email']=$invite_details['BookingParticipate']['email'];
+		$booking_data['Booking']['fname']=$this->member_data['MemberAuth']['first_name'];
+		$booking_data['Booking']['lname']=$this->member_data['MemberAuth']['last_name'];
+		$booking_data['Booking']['phone']=$this->member_data['MemberAuth']['phone'];
+		$booking_data['Booking']['booking_date']=date('Y-m-d H:i:s');
+		$booking_data['Booking']['time_stamp']=date('Y-m-d H:i:s');
+		$booking_data['Booking']['price']=$invite_details['BookingParticipate']['amount'];
+		$booking_data['Booking']['session_id']=$this->Session->id();
+		$booking_data['Booking']['ip_address']=$_SERVER['REMOTE_ADDR'];
+		$booking_data['Booking']['browser_name']=$_SERVER['HTTP_USER_AGENT'];
+		$booking_data['Booking']['status']=4;
+		
+		$this->Booking->create();
+		$this->Booking->save($booking_data);
+		$booking_id = $this->Booking->id;
+		if(empty($this->Booking->id)){
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'dashboard'));
+		}
+		$siteurl=$this->setting['site']['site_url'];
+		$payment_data=array();
+		$booking_participate_id = $invite_details['BookingParticipate']['id'];
+		$payment_data['amount']=$invite_details['BookingParticipate']['amount'];
+		$memberid = $this->member_data['MemberAuth']['id'];
+		$payment_ref = time().$booking_id;
+		$bookingData[0]['Cart'] = $invite_details['BookingOrder'];
+		$bookingData[0]['Service']['service_title'] = $bookingData[0]['Cart']['service_title'];
+		$payment_data['orderRef'] = $payment_ref;
+
+		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_summary/'.$payment_ref.'/'.$booking_order_id));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_process_ipn/'.$booking_participate_id.'/'.$booking_order_id));
+		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
+		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
+		$formData = self::_paypal_form($payment_data,$bookingData);
+		
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Invite Payment'
+		);
+		$this->set('formData',$formData);
+		$this->render('index');
+	}
 	
 	function invite_payment_summary($payment_ref=null,$booking_order_id) {
 		// load model
@@ -710,6 +830,7 @@ $email->config('gmail');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('BookingOrder');
 		$this->loadModel('Booking');
+		array_push(self::$css_for_layout,'payment/payment.css');
 
 		if(empty($payment_ref)) {
 			throw new NotFoundException('Could not find that payment reference');
@@ -820,7 +941,7 @@ $email->config('gmail');
 		$body=str_replace('{TOTAL}',number_format($booking_detail['Booking']['transaction_amount']),$body);
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		
 		$email->to($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 		$email->subject($mail['Mail']['mail_subject']);
@@ -845,7 +966,7 @@ $email->config('gmail');
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
 		
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		
 		$email->to($booking_detail['Booking']['email']);
 		$email->subject($mail['Mail']['mail_subject']);
@@ -870,7 +991,7 @@ $email->config('gmail');
 		$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body); 
 		
 		$email = new CakeEmail();
-$email->config('gmail');
+
 		
 		if(!empty($vendor_details['Vendor']['email'])) {
 			$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
@@ -932,7 +1053,7 @@ $email->config('gmail');
 			///******Mail to Admin******/
 			
 			$email = new CakeEmail();
-$email->config('gmail');
+
 			
 			//$admindetails = $this->User->read(null,$this->Session->read('Auth.User.id'));
 			$email->to($this->setting['site']['site_contact_email']);
@@ -950,7 +1071,7 @@ $email->config('gmail');
 			$body=str_replace('{AMOUNT}','$'.$post_data['Amt'],$body);
 			
 			$email = new CakeEmail();
-$email->config('gmail');
+
 			
 
 			$email->to($vendorinfo['Vendor']['email']);
@@ -989,6 +1110,392 @@ $email->config('gmail');
 		$payment_data['secureHash']=$assiapay->generatePaymentSecureHash($payment_data['merchantId'], $payment_data['orderRef'], $payment_data['currCode'], $payment_data['amount'], $payment_data['payType'], Configure::read('AsiaPay.secureHashSecret'));
 		$this->set('payment_action',Configure::read('AsiaPay.payment_action'));
 		$this->set('payment_data',$payment_data);
+	}
+
+
+	function _paypal_form($payment_data=null, $cartData=array(), $is_participant = false)
+	{
+		if(Configure::read('Payment.sandbox_mode')==1){
+			$url = Configure::read('Payment.test_url');
+		}
+		else{
+			$url = Configure::read('Payment.live_url');
+		}
+		$secret_key = Configure::read('Payment.secret_key');
+		$merchant =Configure::read('Payment.merchant');
+		$action = 'pay';
+		$total_amount = $payment_data['amount'];
+		$currency ="SGD"; 
+		$ref_id = $payment_data['orderRef'];
+		$dataToBeHashed = $secret_key. $merchant. $action. $ref_id. $total_amount. $currency;
+		$get_signature = $this->SmoovPay->encryption($dataToBeHashed);
+		$paypal_email = Configure::read('Paypal.email');
+		$paypal_url = Configure::read('Paypal.url');
+		if (Configure::read('Paypal.sandbox_mode')) {
+			$paypal_email = Configure::read('Paypal.test_email');
+			$paypal_url = Configure::read('Paypal.test_url');
+		}
+		
+		$html = '';
+		$i = 1;
+		if(!empty($payment_data['amount'])){
+			$html .= "<form action='$paypal_url' method='post' id='paypal_form'>";
+			$html .= '<input type="hidden" name="cmd" value="_cart" />';
+			$html .= '<input type="hidden" name="upload" value="1" />';
+			$html .= "<input type='hidden' name='business' value='$paypal_email' />";
+			$html .= '<input type="hidden" name="currency_code" value="SGD" />';
+			if(!empty($cartData)){
+				foreach($cartData as $cart_detail){
+					$diff = abs(strtotime($cart_detail['Cart']['end_date']) - strtotime($cart_detail['Cart']['start_date']));
+					$years = floor($diff / (365*60*60*24));
+					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+					$no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
+					$itemname = $cart_detail['Service']['service_title'];
+					// $desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
+					$participants = ($cart_detail['Cart']['no_participants']+$no_of_booking_days);
+					//$participants = $no_of_booking_days;
+					$itemprice = $cart_detail['Cart']['price'];
+
+					$slots = json_decode($cart_detail['Cart']['slots'],true);
+					foreach ($slots['Slot'] as $slot_key=>$slot_time) {
+						$desc = date('M d',strtotime($cart_detail['Cart']['start_date'])) . ',' . date('H:ia', strtotime($slot_time['start_time'])) . '-' . date('H:ia', strtotime($slot_time['end_time']));
+						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
+						$itemprice = $slot_time['price'];
+						if ($is_participant) {
+							$participants = 1;
+						}
+						$html .= "<input type='hidden' name='item_name_$i' value='$itemname ($desc)' />";
+						$html .= "<input type='hidden' name='quantity_$i' value='$participants' />";
+						$html .= "<input type='hidden' name='amount_$i' value='$itemprice' />";
+						$i++;
+					}
+				}
+			} 
+			
+			
+			$html .= "<input type='hidden' name='cancel_return' value='$payment_data[cancelUrl]'/>";
+			$html .= "<input type='hidden' name='return' value='$payment_data[successUrl]' />";
+			$html .= "<input type='hidden' name='notify_url' value='$payment_data[strUrl]' />";
+			$html .="</form>";
+		}
+		return $html;
+	}
+
+	function paypal_ipn_simple($payment_ref = null)
+	{
+		// $v = '';
+		// foreach ($_POST as $k => $va) {
+		// 	$v .= "$k = $va\n";
+		// }
+		$this->layout='';
+		$this->loadModel('Booking');
+		$this->loadModel('BookingOrder');
+		$this->loadModel('Cart');
+		$this->loadModel('BookingSlot');
+		$this->loadModel('ServiceManager.ServiceType');
+		if ($_SERVER["REQUEST_METHOD"]=="POST") {
+			$status_num = 5;
+			// $v .= "YES IT IS POST\n";
+			if ($_POST['payment_status'] == 'Completed') {
+				$status_num = 1;
+				// $v .= "status_num = 1\n";
+			} else if ( $_POST['payment_status'] == 'Pending') {
+				$status_num = 4;
+				// $v .= "status_num = 4\n";
+			}
+			if($payment_ref != null && ($status_num == 1 || $status_num == 4)){
+				// $v .= "passed = $payment_ref \n";
+				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$payment_ref)));
+				$booking_id = $booking['Booking']['id'];
+				$sessionId = $booking['Booking']['session_id'];
+				$booking_ref_no = $this->Booking->getBookingRefenceByBooking_id($booking['Booking']['id']);
+				
+				$criteria = array();
+				$criteria['fields']= array('Cart.*');
+				$criteria['conditions'] =array('Cart.session_id'=>$sessionId,'Cart.status'=>1);
+				$criteria['order'] =array('Cart.id ASC');
+				$criteria['group'] =array('Cart.id');
+				$cart_details=$this->Cart->find('all', $criteria);
+				
+				//update booking table
+				$booking_data['Booking']['id']= $booking_id;
+				$booking_data['Booking']['transaction_amount']=$_POST['mc_gross'];
+				$booking_data['Booking']['status']=$status_num;
+				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
+				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
+				$booking_data['Booking']['payment_ref'] = $payment_ref;
+				$booking_data['Booking']['payment_log'] = json_encode($_POST);
+				$booking_data['Booking']['currency_code'] = $_POST['mc_currency'];
+				//$booking_data['Booking']['card_holder']=$post_data['Holder'];
+				//$booking_data['Booking']['authid']=$post_data['AuthId'];
+				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
+				$booking_data['Booking']['price'] = $_POST['mc_gross'];
+				$this->Booking->create();
+				$this->Booking->save($booking_data,array('validate' => false));
+				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
+				$this->BookingOrder->updateAll(
+					array('BookingOrder.status' =>$status_num,'BookingOrder.payment_ref' => $payment_ref),
+					array('BookingOrder.ref_no =' => $booking_ref_no)
+				);
+				$this->BookingSlot->updateAll(
+					array('BookingSlot.status' => $status_num),
+					array('BookingSlot.ref_no =' => $booking_ref_no)
+				); 
+
+				$service_slot_details='';
+				$total_cart_price=0;
+				// check payment status
+				if(!empty($cart_details)){
+					// $v .= "with cart\n";
+					if($booking_data['Booking']['status']==1 || $booking_data['Booking']['status']==4){
+						foreach($cart_details as $cart_detail) {
+							$slot_details=array();
+							unset($cart_detail['Cart']['id']);
+							$newData['BookingOrder']=$cart_detail['Cart'];
+							$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
+							// get serviceType name 
+							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
+							$service_slot_details.=self::getBookedServices($newData); 	
+							$total_cart_price+=$cart_detail['Cart']['total_amount'];
+							//echo $service_slot_details;die;
+							self::sent_invite_mail($cart_detail,number_format($total_cart_price,2),$booking_detail);
+							// end of booking slot
+							 
+							 
+						}
+						
+						 // send to Admin mail
+						$this->loadModel('MailManager.Mail');
+						$maill=$this->Mail->read(null,13);
+						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
+						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
+						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						
+						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+						
+						$emaill = new CakeEmail();
+						
+						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
+						$emaill->subject($maill['Mail']['mail_subject']);
+						$emaill->from($booking_detail['Booking']['email']);
+						$emaill->emailFormat('html');
+						$emaill->template('default');
+						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						$emaill->send();
+
+						// send to user mail
+						$mail=$this->Mail->read(null,14);
+						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
+						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
+						
+						$email = new CakeEmail();
+
+						
+						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
+						$email->subject($mail['Mail']['mail_subject']);
+						$email->to($booking_detail['Booking']['email']);
+						$email->emailFormat('html');
+						$email->template('default');
+						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						$email->send();
+						
+
+						// cart empty 
+						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
+
+						// send to vendor mail
+						self::vendor_mails($booking_detail['Booking']['ref_no']);
+						
+					}
+					else{
+						//self::payment_failed_mail($booking_detail);
+					}
+				}
+			}
+			else{
+				self::payment_failed_mail($booking_detail);
+			}
+		}
+
+		// $f = fopen('ipn.txt', 'w');
+		// fwrite($f, $v);
+		// fclose($f);
+	}
+
+	public function paypal_ipn_invite($b_p_id=null,$booking_order_id=null,$payment_ref=null){
+		 // load model
+		$this->loadModel('Cart');
+		$this->loadModel('Booking');
+		$this->loadModel('BookingOrder');
+		$this->loadModel('BookingSlot');
+		$this->loadModel('BookingParticipate');
+		$this->loadModel('VendorManager.ServiceImage');
+		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		$this->sessionKey = MemberAuthComponent::$sessionKey;
+		$this->member_data = $this->Session->read($this->sessionKey);
+		if ($_SERVER["REQUEST_METHOD"]=="POST") {
+			$status_num = 5;
+			// $v .= "YES IT IS POST\n";
+			if ($_POST['payment_status'] == 'Completed') {
+				$status_num = 1;
+				// $v .= "status_num = 1\n";
+			} else if ( $_POST['payment_status'] == 'Pending') {
+				$status_num = 4;
+				// $v .= "status_num = 4\n";
+			}
+			if($payment_ref != null && ($status_num == 1 || $status_num == 4)){
+
+				$booking = $this->Booking->find('first',array('conditions'=>array('Booking.payment_ref'=>$payment_ref)));
+				$booking_id = $booking['Booking']['id'];
+				$sessionId = $booking['Booking']['session_id'];
+				$booking_data = array();
+
+				$booking_data['Booking']['id'] = $booking_id;
+				$booking_data['Booking']['transaction_amount']=$_POST['mc_gross'];
+				$booking_data['Booking']['status'] = $status_num;
+				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
+				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
+				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
+				$booking_data['Booking']['payment_ref'] = $payment_ref;
+				$booking_data['Booking']['payment_log'] = json_encode($_POST);
+				$booking_data['Booking']['currency_code'] = $_POST['Holder'];
+				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
+				$booking_data['Booking']['price'] = $_POST['mc_gross'];
+				$this->Booking->create();
+				$this->Booking->save($booking_data,array('validate' => false));
+				$data=array();
+				$data['BookingParticipate']['id'] = $b_p_id;
+				$data['BookingParticipate']['booking_member_id']=$this->member_data['MemberAuth']['id'];
+				$data['BookingParticipate']['status'] = $status_num;
+				// updating booking participate table
+				$this->BookingParticipate->create();
+				$this->BookingParticipate->save($data,array('validate' => false));
+				// sending mail if payment status completed
+				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
+				$booking_order_detail=$this->BookingOrder->read(null,$booking_order_id);
+				// if booking is completed then mail
+					if($data['BookingParticipate']['status']==1 || $data['BookingParticipate']['status']==4){
+						self::invite_payment_mail($booking_detail,$booking_order_detail,$booking_or_id);
+					}else{
+						//self::payment_failed_mail($booking_detail);
+					}
+				$this->autoRender=false;
+			}
+			else{
+				self::payment_failed_mail($booking_detail);
+			}
+		}
+	}
+
+	function invite_payment_paypal($booking_participate_id = null)
+	{
+		//$this->autoRender=false;
+		$this->layout = '';
+		$this->loadModel('Booking');
+		$this->loadModel('BookingOrder');
+		App::uses('MemberAuthComponent', 'MemberManager.Controller/Component');
+		$this->sessionKey = MemberAuthComponent::$sessionKey;
+		$this->member_data = $this->Session->read($this->sessionKey);
+		if(!isset($this->member_data['MemberAuth']['id'])) {
+			$this->Session->setFlash('Please Register & login and click the link again for payment.','default','','error');
+			$this->redirect(array('controller'=>'members','action'=>'log_in','plugin'=>'member_manager'));
+		}
+		
+		$this->loadModel('BookingParticipate');
+
+		if($booking_participate_id == null) {
+			throw new NotFoundException('Could not find that booking id');
+		}
+
+		$criteria=array(); 
+		$criteria['joins']=array(
+							array(
+								'table'=>'booking_orders',
+								'alias' => 'BookingOrder',
+								'type' => 'INNER',
+								/*'foreignKey' => false,*/
+								'conditions'=> array('BookingOrder.id=BookingParticipate.booking_order_id')
+								),
+							);
+		$criteria['fields'] = array('BookingParticipate.*','BookingOrder.*');
+		$criteria['conditions'] =array('BookingParticipate.id'=>$booking_participate_id);
+		 
+		$criteria['order'] =array('BookingParticipate.id'=>'DESC');
+		
+		$invite_details=$this->BookingParticipate->find('first',$criteria);
+		$booking_order_id = $invite_details['BookingParticipate']['booking_order_id'];
+		if (empty($invite_details)) {
+			throw new NotFoundException('Could not find that booking id');
+		}
+
+		// check payment status of invite participate
+		if($invite_details['BookingParticipate']['status']==1 || $invite_details['BookingOrder']['status']==3){
+			$this->Session->setFlash('Payment already payments or cancelled.','default');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'dashboard'));
+		}
+		
+		// save booking 
+		$booking_data=array();
+		$booking_data['Booking']['ref_no']=$invite_details['BookingOrder']['ref_no'];
+		$booking_data['Booking']['member_id']=$this->member_data['MemberAuth']['id'];
+		$booking_data['Booking']['email']=$invite_details['BookingParticipate']['email'];
+		$booking_data['Booking']['fname']=$this->member_data['MemberAuth']['first_name'];
+		$booking_data['Booking']['lname']=$this->member_data['MemberAuth']['last_name'];
+		$booking_data['Booking']['phone']=$this->member_data['MemberAuth']['phone'];
+		$booking_data['Booking']['booking_date']=date('Y-m-d H:i:s');
+		$booking_data['Booking']['time_stamp']=date('Y-m-d H:i:s');
+		$booking_data['Booking']['price']=$invite_details['BookingParticipate']['amount'];
+		$booking_data['Booking']['session_id']=$this->Session->id();
+		$booking_data['Booking']['ip_address']=$_SERVER['REMOTE_ADDR'];
+		$booking_data['Booking']['browser_name']=$_SERVER['HTTP_USER_AGENT'];
+		$booking_data['Booking']['status']=4;
+		
+		$this->Booking->create();
+		$this->Booking->save($booking_data);
+		$booking_id = $this->Booking->id;
+		if(empty($this->Booking->id)){
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members','action'=>'dashboard'));
+		}
+		$siteurl=$this->setting['site']['site_url'];
+		$payment_data=array();
+		$booking_participate_id = $invite_details['BookingParticipate']['id'];
+		$payment_data['amount']=$invite_details['BookingParticipate']['amount'];
+		$memberid = $this->member_data['MemberAuth']['id'];
+		$payment_ref = time().$booking_id;
+		$bookingData[0]['Cart'] = $invite_details['BookingOrder'];
+		$bookingData[0]['Service']['service_title'] = $bookingData[0]['Cart']['service_title'];
+		$payment_data['orderRef'] = $payment_ref;
+
+		$payment_data['successUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_summary/'.$payment_ref.'/'.$booking_order_id));
+		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_invite/'.$booking_participate_id.'/'.$booking_order_id.'/'.$payment_ref));
+		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
+		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
+		$formData = self::_paypal_form($payment_data, $bookingData, true);
+		
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Invite Payment'
+		);
+		$this->set('formData',$formData);
+		$this->render('index');
 	}
 }
 ?>

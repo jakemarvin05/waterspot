@@ -12,7 +12,7 @@ Class CartsController extends AppController
     {
     }
 
-    function check_out()
+    function check_out($participate_id)
     {
         // load model
         $check_guest_status = 0;
@@ -46,10 +46,10 @@ Class CartsController extends AppController
         } else {
             $check_guest_status = 1;
             // Assign cart details if member is login
-          //  $this->request->data['Cart']['fname'] = $this->member_data['MemberAuth']['first_name'];
+            $this->request->data['Cart']['fname'] = $this->member_data['MemberAuth']['first_name'];
           //  $this->request->data['Cart']['lname'] = $this->member_data['MemberAuth']['last_name'];
-            //$this->request->data['Cart']['email'] = $this->member_data['MemberAuth']['email_id'];
-            //$this->request->data['Cart']['phone'] = $this->member_data['MemberAuth']['phone'];
+            $this->request->data['Cart']['email'] = $this->member_data['MemberAuth']['email_id'];
+            $this->request->data['Cart']['phone'] = $this->member_data['MemberAuth']['phone'];
 
         }
         // update guest email id
@@ -155,7 +155,7 @@ Class CartsController extends AppController
                     $activity = ($val['Cart']['full_day_status'] == 0) ? 'Slote' : 'Full Day';
                     $vas = ($val['Cart']['full_day_status'] == '[]') ? 'yes' : 'No';
                     $body = str_replace('{VENDOR}', $val['Cart']['vendor_name'], $mail['Mail']['mail_body']);
-                  //  $body = str_replace('{NAME}', $data['Cart']['fname'] . " " . $data['Cart']['lname'], $body);
+                    $body = str_replace('{NAME}', $data['Cart']['fname'], $body);
                     $body = str_replace('{EMAIL}', $data['Cart']['email'], $body);
                     $body = str_replace('{PHONE}', $data['Cart']['phone'], $body);
                     $body = str_replace('{ORDER_COMMENT}', (!empty($data['Cart']['order_message'])) ? $data['Cart']['order_message'] : 'There are no comments.', $body);
@@ -169,7 +169,7 @@ Class CartsController extends AppController
                     $body = str_replace('{PRICE}', $val['Cart']['total_amount'], $body);
 
                     $email = new CakeEmail();
-                    $email->config('gmail');
+                    
 
                     $email->to($val['Cart']['vendor_email'], $mail['Mail']['mail_from']);
                     $email->subject($mail['Mail']['mail_subject']);
@@ -235,7 +235,7 @@ Class CartsController extends AppController
             $data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
             $data['Booking']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 
-          //  $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
+            $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
           //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $data['Booking']['email'] = $email;
             $data['Booking']['phone'] = $phone;

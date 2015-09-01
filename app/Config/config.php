@@ -25,9 +25,15 @@ $config['AsiaPay']['payment_action'] =  'https://test.paydollar.com/b2cDemo/eng/
 $config['Payment']['sandbox_mode'] = '2';
 $config['Payment']['test_url']='https://sandbox.smoovpay.com/access';
 $config['Payment']['live_url'] = 'https://secure.smoovpay.com/access';
-//$config['Payment']['merchant'] = 'pavans@burgeonsoft.net';
-//$config['Payment']['secret_key'] = "580251263cfd4da1a28bc7d69e5ef6ac";
+// $config['Payment']['merchant'] = 'pavans@burgeonsoft.net';
+// $config['Payment']['secret_key'] = "580251263cfd4da1a28bc7d69e5ef6ac";
 
 $config['Payment']['merchant'] = 'lanceryosuke@gmail.com';
 $config['Payment']['secret_key'] = "809d76c6ecbe48a59ff268114ade471e";
+
+$config['Paypal']['email'] = 'admin@waterspot.com.sg';
+$config['Paypal']['test_email'] = 'admin-facilitator@waterspot.com.sg';
+$config['Paypal']['sandbox_mode'] = 1;
+$config['Paypal']['url'] = 'https://www.paypal.com/cgi-bin/webscr';
+$config['Paypal']['test_url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 ?>

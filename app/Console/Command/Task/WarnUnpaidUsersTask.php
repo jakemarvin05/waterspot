@@ -28,7 +28,7 @@ class WarnUnpaidUsersTask extends Shell {
 		foreach ($users as $user) {
 	        App::uses('CakeEmail', 'Network/Email');
 	        $email = new CakeEmail();
-$email->config('gmail');
+
 	        
 	        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
 	        $email->to($user['email']); // don't use the members email yet to avoid spamming

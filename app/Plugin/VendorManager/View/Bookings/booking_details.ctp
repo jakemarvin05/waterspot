@@ -1,3 +1,4 @@
+<div class="container-fluid vendor-panel">
 <? $payment_status=Configure::read('payment_status');?>
 <link rel="stylesheet" type="text/css" href="/css/fancybox/jquery.fancybox(new).css" />
 <script type="text/javascript" src="/js/jquery.fancybox.js"></script>
@@ -16,7 +17,7 @@ $( document ).ready(function() {
 <h2 class="page-title">Booking <span style="color: #000;">Details</span></h2>
 <?=$this->element('VendorManager.left-vendor-panel');?>
 
-	<div class="right-area">
+	<div class="right-area col-sm-9 col-xs-12">
 		<h3 class="dashboard-heading">Order Details</h3>
 		<?=$this->element('message');?>
 		<p class="details"><span>Order Number:</span> <?if(!empty($customer_detail['Booking']['ref_no'])){
@@ -28,6 +29,7 @@ $( document ).ready(function() {
 			echo $customer_detail['Booking']['transaction_id'];
 			} ?>
 		</p>
+		<br>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 			<tr>
 				<th width="5%">S.No.</th>
@@ -75,17 +77,17 @@ $( document ).ready(function() {
 		<? if(!empty($order_details)) {?>
 			<h3 class="dashboard-heading">Customer Information</h3>
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
-				<tr>
-					<th width="24%">First Name</th>
-					<th width="24%">Last Name</th>
-					<th width="24%">Email</th>
-					<th width="23%">Phone</th>
+				<tr class="text-center">
+					<th width="32%">Name</th>
+					<!--<th width="24%">Last Name</th>-->
+					<th width="32%">Email</th>
+					<th width="31%">Phone</th>
 				</tr>
 				<tr>
-					<td class="align-center"><?=$customer_detail['Booking']['fname']?></td>
-					<td class="align-center"><?=$customer_detail['Booking']['lname']?></td>
-					<td class="align-center"><a href="mailto:<?=$customer_detail['Booking']['email'];?>"><?=$customer_detail['Booking']['email'];?></a></td>
-					<td class="align-center"><a href="callto:<?=$customer_detail['Booking']['phone'];?>"><?=$customer_detail['Booking']['phone'];?></a></td>
+					<td class="align-left"><?=$customer_detail['Booking']['fname']?></td>
+<!--					<td class="align-center">--><?//=$customer_detail['Booking']['lname']?><!--</td>-->
+					<td class="align-left"><a href="mailto:<?=$customer_detail['Booking']['email'];?>"><?=$customer_detail['Booking']['email'];?></a></td>
+					<td class="align-left"><a href="callto:<?=$customer_detail['Booking']['phone'];?>"><?=$customer_detail['Booking']['phone'];?></a></td>
 				</tr>
 			</table>
 		<? }?>
@@ -96,3 +98,10 @@ $( document ).ready(function() {
 			</div>
 		<? }?>
 	</div>
+</div>
+
+<script type='text/javascript'>
+	$(document).ready(function () {
+		sameHeight('left-area','right-area');
+	});
+</script>

@@ -1,32 +1,32 @@
-<div class="hr-line"></div>
-<div class="clear"></div>
-<?=$this->element('breadcrumbs');?>
-<h2 class="page-title">Reset <span style="color:#000;">Password</span></h2>
+<div class="container-fluid wrapper accounts-page">
 
-<div class="middle-area">
-    <h6>Forgot your Password?</h6>
+    <header class="page-header row text-center">
+        <p class="beforeHeader">Did You Forgot Your Password?</p>
+
+        <h1 class=" headerAlt">Account Settings</h1>
+    </header>
+
+    <div class="middle-area row">
     <?=$this->element('message');?>
-    <div class="registration-form-box">
+    <div class="registration-form-box col-sm-6 col-sm-offset-3">
 	<?php echo $this->Form->create('Vendor', array('url'=>array('plugin'=>'vendor_manager','controller'=>'accounts','action'=>'reset_password'),'class'=>'registration-form','novalidate' => true,'type'=>'file'));?>
 	    <div class="registration-form-row">
-		<p>Don't worry! Just fill in your email and we'll help you reset your password.</p>
+		<p class="text-center">Don't worry! Just fill in your email and we'll help you reset your password.</p>
 	    </div>
-	    <div class="registration-form-row">
-		<div class="labelbox">
-		    <label>Email Address: <span style="color:#ff0000">*</span></label>
-		</div>
+	    <div class="registration-form-row form-row">
 		<div class="fieldbox">
 		    <?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'ResetPasswordForm')); ?>
-		    <?=$this->Form->email('email',array('required'=>false)); ?>
+		    <?=$this->Form->email('email',array('required'=>false,'class'=>'form-control','placeholder'=>'Email Address:')); ?>
 		</div>
 	    </div>
-	    <div class="registration-form-row" style="text-align: right;">
-		<input class="submit-button" value="Submit" type="submit">
+	    <div class="registration-form-row">
+		<input class="submit-button btn btnDefaults btnFillOrange registration_button" value="Submit" type="submit">
 	    </div>
 	<?php echo $this->Form->end();?>
     </div>
+        <div class="spacer"></div>
 </div>
-
+</div>
 <script type="text/javascript">
     <?php $path = $this->Html->webroot; ?>
     $(document).ready(function(){
