@@ -1,4 +1,64 @@
+<div id="fb-root"></div>
+<form id="fb_login" style="display:none;" action="/members/fb_login" method="post">
+    <input type="hidden" name="first_name" id="fb_fname">
+    <input type="hidden" name="last_name" id="fb_lname">
+    <input type="hidden" name="email_id" id="fb_email">
+    <input type="hidden" name="phone" id="fb_phone">
+    <input type="hidden" name="fb_id" id="fb_id">
+</form>
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+        FB.api('/me?fields=id,email,name', function(response) {
+            // alert(JSON.stringify(response));
+            email = response.email;
+            first_name = response.name;
+            fb_id = response.id;
+            //this is because in fb the user can use phone number to log in
+            if (email.indexOf('@') == -1) {
+                document.getElementById('fb_phone').value = email;
+            } else {
+                document.getElementById('fb_email').value = email;
+            }
+            document.getElementById('fb_id').value = fb_id;
+            document.getElementById('fb_fname').value = first_name;
+            document.getElementById('fb_login').submit();
+        });
+    } else if (response.status === 'not_authorized') {
+        // logged in facebook but not authorized
+    } else {
+        // not logged ni facebook
+    }
+  }
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1725992164290232',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.4' // use version 2.2
+  });
+  // auto check if the user is logged in.
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
 
+  };
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 
         <a href="/">
             <div id="logoWrapper" xmlns="http://www.w3.org/1999/html">
@@ -81,7 +141,7 @@
                          content += '<div class="loginLine"></div>';
                          content += '<div class="loginOr">OR</div>';
                      content += '</div>';
-                     content += '<button onclick="FB.login(function(response) {statusChangeCallback(response);})" class="btnDefaults" type="button" id="loginFB">Login with <i class="fa fa-facebook-official"></i></button>';
+                     content += '<button onclick="FB.login(function(response) {statusChangeCallback(response)}, {scope: \'public_profile,email,user_friends\', return_scopes: true})" class="btnDefaults" type="button" id="loginFB">Login with <i class="fa fa-facebook-official"></i></button>';
           
                      content += '</div>'; // .popoverFormBlock
                  content += '</div>'; // .popoverBlock
