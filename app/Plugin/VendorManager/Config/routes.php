@@ -23,6 +23,7 @@ Router::connect('/accounts/passwordurl/*', array('controller' => 'accounts', 'ac
 Router::connect('/vendor/booking_list/*', array('controller' => 'bookings', 'action' => 'booking_list','plugin'=>'vendor_manager'));
 Router::connect('/vendor/booking_request/*', array('controller' => 'bookings', 'action' => 'booking_request','plugin'=>'vendor_manager'));
 Router::connect('/vendor/booking_details/*', array('controller' => 'bookings', 'action' => 'booking_details','plugin'=>'vendor_manager'));
+Router::connect('/vendor/cancel_booking/*', array('controller' => 'bookings', 'action' => 'cancel_booking','plugin'=>'vendor_manager'));
 
 // vendor_service_availabilities controller
 
