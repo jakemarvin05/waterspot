@@ -723,10 +723,12 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['created_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['status']=1;
 				$this->request->data['Service']['vendor_id']=$vendor_id;
+				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$savemsg="added";
 			}else{
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['vendor_id']=$vendor_id;
+				$this->request->data['Service']['youtube_url']=serialize(array_filter($this->request->data['Service']['youtube_url']));
 				$savemsg="updated";
 			}
 			$this->Service->create();
@@ -773,7 +775,12 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('service_types',$service_types);	
 		$this->set('city_list',$city_list);	
 		$this->set('service_id',$service_id);
-		$this->set('vendor_id',$vendor_id);	
+		$this->set('vendor_id',$vendor_id);
+		$participantsNumList= [];
+		for($x=1; $x<=100; $x++){
+			array_push($participantsNumList,$x);
+		}
+		$this->set('participants_num_list',$participantsNumList);
 	}
 	
 	private function DeleteServiceImage($service_id=null){

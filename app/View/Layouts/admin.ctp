@@ -57,6 +57,13 @@
 			$('.fancybox').fancybox();
 			});
 	</script>
+	
+        <script src="/js/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/js/moment/min/moment.min.js"></script>
+        <script src="/js/velocity/velocity.min.js"></script>
+        <script src="/js/velocity/velocity.ui.min.js"></script>
+        <script src="/js/iaStickySidebar.js"></script>
+        <script src="/js/lib.js"></script>
 
 
 </head>

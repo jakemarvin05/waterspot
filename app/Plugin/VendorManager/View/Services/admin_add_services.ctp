@@ -47,66 +47,74 @@ function saveform()
 		<?=$this->Form->input('service_title',array('type'=>'text','label'=>false,'div'=>false,'class'=>'small'));?>
 		<?=$this->Form->error('service_title',null,array('wrap' => 'div', 'class' => 'error-message')); ?>             
             </dd>
-             <dt>
-                <label>Description:</label>
+            <dt>
+                <label>Private? <span style="color:red;">*</span></label>
             </dt>
             <dd>
-		<?=$this->Form->textarea('description',array('class'=>'small','style'=>'height:100px;width:300px','required'=>false));?>
-                <?=$this->Form->error('description',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
-                <div class="float_left">
-			<a href="Javascript:void(0);" onclick="removeeditor(2)">hide editor</a> |
-			<a href="Javascript:void(2);" onclick="addeditor(1,'ServiceDescription')">show editor</a>
-                </div>
-            </dd>
-            <dt>  
-                <label>Itinerary:</label>
-            </dt>
-            <dd>
-		<?=$this->Form->textarea('itinerary',array('class'=>'small','style'=>'height:100px;width:300px','required'=>false));?>
-                <?=$this->Form->error('itinerary',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
-                <div class="float_left">
-			<a href="Javascript:void(0);" onclick="removeeditor(1)">hide editor</a> |
-			<a href="Javascript:void(1);" onclick="addeditor(1,'ServiceItinerary')">show editor</a>
-                </div>
+				<?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
+                <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>          
             </dd>
             <dt>
-                <label>How to get there:</label>
+                <label>Has Minimum-To-Go? <span style="color:red;">*</span></label>
             </dt>
             <dd>
-                <?php 	
-                    echo $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3'));
-                   // echo $fck->load('Page.content');
-                ?>
-                <?=$this->Form->error('how_get_review',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
-                <div class="float_left"><a href="Javascript:void(0);" onclick="removeeditor(0)">hide editor</a> |
-                <a href="Javascript:void(0);" onclick="addeditor(0,'ServiceHowGetReview')">show editor</a>
+				<?= $this->Form->checkbox('is_minimum_to_go', array('label' => false, 'div' => false)); ?>
+                <?= $this->Form->error('is_minimum_to_go', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </dd>
+            <dt>
+                <label>Minimum Participants:<span style="color:red;">*</span></label>
+            </dt>
+            <dd>
+	<?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false, 'class' => 'selectpicker')); ?>
+    <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>           
+            </dd>
+            <dt>
+                <label>Max Capacity per Timeslot:<span style="color:red;">*</span></label>
+            </dt>
+            <dd>
+		<?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+        <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+            </dd>
+            <dt>
+                <label>Price Per Slot:<span style="color:red;">*</span></label>
+            </dt>
+            <dd>
+		<?= $this->Form->input('service_price', array('placeholder' => 'Per person', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
+                        <div id="service_price"></div>
+        <?= $this->Form->error('service_price', null, array('wrap' => 'div', 'class' => 'error-message')); ?>            
+            </dd>
+
+            <dt>
+                <label>Add videos by Youtube URL:<span style="color:red;">*</span></label>
+            </dt>
+            <dd>
+                <div class="fieldbox video-urls">
+                    <?php $count = 0; ?>
+                    <?php if (isset($this->request->data['Service']['youtube_url'])):
+                        foreach (unserialize($this->request->data['Service']['youtube_url']) as $youtube) :
+                            ?>
+                            <div data-target="<?php echo $count; ?>">
+                                <input name="data[Service][youtube_url][]" data-inputid="<?php echo $count; ?>"
+                                       class="add-service add-video-field" type="text" id="ServiceYoutubeUrl]["
+                                       value="<?php echo $youtube; ?>">
+                            </div>
+                            <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                            <a class="delete-video" data-target="<?php echo $count; ?>" href="#" style="font-size:20px; font-weight:600; text-decoration:none;">-</a>
+                            <?php
+                            $count++;
+                        endforeach;
+                    endif;
+                    ?>
+                    <div
+                        data-target="<?php echo $count; ?>"><?= $this->Form->input('youtube_url][', array('type' => 'text', 'data-inputId' => '<?php echo $count; ?>', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>
+                    <?= $this->Form->error('youtube_url', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                    <a id="add-video" class="add-video" href="#" style="font-size:20px; font-weight:600; text-decoration:none;">+</a>
                 </div>
             </dd>
-            <dt>
-                <label>Price Per Slot:<span style="color:red;">*</span> <?=Configure::read('currency'); ?></label>
-            </dt>
-            <dd>
-		<?=$this->Form->input('service_price',array('type'=>'text','label'=>false,'div'=>false,'class'=>'small'));?>
-		&nbsp;Per Person
-		<div id="service_price"></div>
-		<?=$this->Form->error('service_price',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-            </dd>      
-            <dt>
-                <label>Full Day Price:<span style="color:red;">*</span> <?=Configure::read('currency'); ?></label>
-            </dt>
-            <dd>
-		<?=$this->Form->input('full_day_amount',array('type'=>'text','label'=>false,'div'=>false,'class'=>'small'));?>
-		&nbsp;Per Person
-		<div id="full_day_amount"></div>
-		<?=$this->Form->error('full_day_amount',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-            </dd> 
-             <dt>
-                <label>No of Person:<span style="color:red;">*</span></label>
-            </dt>
-            <dd>
-		<?=$this->Form->input('no_person',array('type'=>'text','label'=>false,'div'=>false,'class'=>'small'));?>
-		<?=$this->Form->error('no_person',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
-            </dd>
+
+
+
             <dt>
                 <label>Images(Dimensions should be 600 X 400):<span style="color:red;">*</span></label>
             </dt>
@@ -133,52 +141,99 @@ function saveform()
 		</div>
 		<div id="show_upload_image" style="display:none;"></div>            
             </dd>
+
+
             <dt>
-                <label>Location:<span style="color:red;">*</span></label>
+                <label>Panorama Image (recommended 1600x680):<span style="color:red;">*</span></label>
             </dt>
             <dd>
-		<?=$this->Form->input('location_id',array('type' =>'select', 'options' => $city_list,'label'=>false,'class'=>'small'));?>
-		<?=$this->Form->error('location_id',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+                <div class="fieldbox">
+                    <div id="panorama-image-container">
+                        <?php
+                        if (isset($this->request->data['Service']['panorama_image'])) {
+                            echo '<img src="/img' . DS . 'service_images' . DS . $this->request->data['Service']['panorama_image'] . '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                        }
+                        ?>
+                    </div>
+                    <input type="file" name="data[panorama]" id="panorama-input">
+                    <input type="hidden" name="data[Service][panorama_image]" id="panorama-field"
+                           value="<?php echo !empty($this->request->data['Service']['panorama_image']) ? $this->request->data['Service']['panorama_image'] : '' ?>">
+                </div>
             </dd>
-            <dt class="form-row" id="p_scents">
-                <label>Value Added Services:</label>
+
+
+
+             <dt>
+                <label>Description:</label>
             </dt>
-            <dd class="vas-data">
-		<?php if(empty($this->request->data['ValueAddedService'])) { ?>
-			<?=$this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service value-added-service small'));?>
-			<div style="float:left; padding:5px 5px 0 0;"><?=Configure::read('currency'); ?></div><?=$this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price small'));?>
-			<div class="add-value"><a id="add_btn" class="vas-add-btn" href="#"> </a></div>
-		<?php } else { ?>
-			<?php
-			 foreach($this->request->data['ValueAddedService'] as $key=>$value_added_service) { ?>
-				<?php if($key==0) { ?>
-					<? echo $this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service value-added-service small','value'=>$value_added_service['value_added_name']));?>
-					<div style="float:left; padding:5px 5px 0 0;"><?=Configure::read('currency'); ?></div>
-					<?php echo $this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price small','value'=>$value_added_service['value_added_price']));?>
-					<div class="add-value">
-						<a id="add_btn" class="vas-add-btn" href="#"> </a>
-						<?=$this->Html->link('Delete',array('controller'=>'services','action'=>'value_added_delete',$value_added_service['id'],$value_added_service['service_id']),array('class'=>'vas-delete-btn',"onclick"=>"return confirm('Are you sure you wish to delete this value added service?')"));?>
-					</div>
-				<? } 
-				else {
-					if($key==1) { ?>
-						<div id="extender">
-					 <? }?>	
-					<div class="add-values" style="display: block;"><label></label>
-						<?=$this->Form->input('ValueAddedService.value_added_name.',array('label'=>false,'div'=>false,'class'=>'add-service value-added-service small','value'=>$value_added_service['value_added_name']));?>
-						<div style="float:left; padding:5px 5px 0 0;"><?=Configure::read('currency'); ?></div>
-						<?=$this->Form->input('ValueAddedService.value_added_price.',array('label'=>false,'div'=>false,'class'=>'enter-price small','value'=>$value_added_service['value_added_price']));?>
-						<?=$this->Html->link('Delete',array('controller'=>'services','action'=>'value_added_delete',$value_added_service['id'],$value_added_service['service_id']),array('class'=>'vas-delete-btn',"onclick"=>"return confirm('Are you sure you wish to delete this value added service?')"));?></div>
-					</a>
-					<? if($key==(count($this->request->data['ValueAddedService'])-1)) { ?>
-						</div>
-					<? }	
-				}
-			}
-		}	
-		?>
-		<div id="extender"></div>	            
+            <dd>
+		<?=$this->Form->textarea('description',array('class'=>'small','style'=>'height:100px;width:300px','required'=>false));?>
+                <?=$this->Form->error('description',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
+                <div class="float_left">
+			<a href="Javascript:void(0);" onclick="removeeditor(2)">hide editor</a> |
+			<a href="Javascript:void(2);" onclick="addeditor(1,'ServiceDescription')">show editor</a>
+                </div>
             </dd>
+            <dt>  
+                <label>Itinerary:</label>
+            </dt>
+            <dd>
+		<?=$this->Form->textarea('itinerary',array('class'=>'small','style'=>'height:100px;width:300px','required'=>false));?>
+                <?=$this->Form->error('itinerary',null,array('wrap' => 'span', 'class' => 'error-message')); ?>
+                <div class="float_left">
+			<a href="Javascript:void(0);" onclick="removeeditor(1)">hide editor</a> |
+			<a href="Javascript:void(1);" onclick="addeditor(1,'ServiceItinerary')">show editor</a>
+                </div>
+            </dd>
+            <dt>
+                <label>How to get there:</label>
+            </dt>
+            <dd>
+                
+                <div class="fieldbox addservedit form" style="position: relative;">
+                    <?= $this->Form->input('location_string', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit', 'placeholder' => 'Enter address...', 'style' => 'width: 100%;')); ?>
+                    <?= $this->Form->error('location_string', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
+                </div>
+                <br><br>
+
+                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                <div id="map-canvas" style="height:400px; width:100%;"></div>
+                <script>
+                $(document).ready(function() {
+                    var mapper = Object.create(Mapper);
+                    mapper.previousLocation = "<?php          
+                        $string = (!empty($service_detail['Service']['location_string'])?$service_detail['Service']['location_string']:'Singapore');
+                        echo str_replace(' ','+',$string);
+                    ?>"
+
+                    mapper.init({
+                        loaderIcon: $('#mapAjaxLoader')
+                    });
+                    
+                    $('#ServiceLocationString').keyup(function(e){
+
+                        var location = $('#ServiceLocationString').val().replace(' ','+');
+                        if (location === "") return false;
+
+                        mapper.mapping(location);
+                    });
+                });
+
+                </script>
+
+                <br><br>
+
+
+
+                <div class="fieldbox">
+                    <?= $this->Form->textarea('how_get_review', array('cols' => '60', 'rows' => '3', 'placeholder' => 'Please enter description here....'));
+                    // echo $fck->load('Page.content');  ?>
+                    <?= $this->Form->error('how_get_review', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+
+                </div>
+            </dd>
+
         </dl>
     </fieldset>
     <button type="submit">
@@ -358,3 +413,160 @@ function saveform()
 		});
     });
     </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.left-area').height($('.right-area').height() + 610);
+        if ($(window).width() > 768) {
+            $('.left-area').theiaStickySidebar({
+                // Settings
+                additionalMarginTop: 0,
+                additionalMarginBottom: 0,
+                scrollThrough: ['vendor-panel']
+            });
+        }
+        var fieldCTR = <?php echo (isset($count)?$count:"0"); ?>;
+
+        $('.video-urls').on('click', '#add-video', function (e) {
+            $(this).remove();
+            e.preventDefault();
+            $('.video-urls').append('<a class="delete-video" data-target=' + fieldCTR + ' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="' + (fieldCTR + 1) + '"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
+            fieldCTR++;
+        });
+
+        $('.video-urls').on('click', 'a.delete-video', function (e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+            $('div[data-target="' + target + '"]').remove();
+            $(this).remove();
+
+        });
+
+        $('[name="data[Service][is_private]"]').change(function () {
+            if (!$('[name="data[Service][is_private]').is(':checked')) {
+                $('[name="data[Service][no_person]"]').val("1");
+                $('.to-hide').animate({
+                    opacity: 1,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function () {
+                    // Animation complete.
+                    $('this').hide()
+                });
+            }
+            else {
+                $('.to-hide').animate({
+                    "opacity": 0,
+                    "height": "toggle",
+                    "padding-bottom": 19
+                }, 600, function () {
+                    // Animation complete
+
+                });
+            }
+        });
+
+        var prevValue = $('#ServiceMinParticipants option[selected="selected"]').text();
+
+
+        $('[name="data[Service][is_minimum_to_go]"]').change(function () {
+
+
+            if ($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('select[name="data[Service][min_participants]"]').val(prevValue - 1);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function () {
+                        //done
+                    }
+                );
+            }
+            else {
+                $('#ServiceMinParticipants').val(0);
+                $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function () {
+                        //done
+                    }
+                );
+
+            }
+
+        });
+
+
+    });
+
+    $(window).load(function () {
+            if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+
+                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('.minimum-participants').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function () {
+                        //done
+                    }
+                );
+            }
+            else {
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+            }
+
+
+            if ($('[name="data[Service][is_private]"]').is(':checked')) {
+
+                $('.to-hide').animate(
+                    {
+                        height: "toggle"
+                    },
+                    400,
+                    function () {
+                        //done
+                    }
+                );
+            }
+            else {
+                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+            }
+
+
+        }
+    );
+
+</script>
+
+<script type="text/javascript">
+    $('#panorama-input').change(function () {
+        var formData = new FormData();
+        formData.append('data[panorama]', this.files[0]);
+        $.ajax({
+            url: "<?=$path?>vendor_manager/services/panorama_image_handle",
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                var image = '<img src="<?php echo '/img' . DS . 'service_images' . DS; ?>' + data + '" style="max-height: 200px; margin: auto; max-width: 500px;" >';
+                $('#panorama-field').val(data);
+                $('#panorama-image-container').html(image);
+            }
+        });
+    });
+</script>
+
