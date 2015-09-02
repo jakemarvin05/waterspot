@@ -416,21 +416,14 @@ function saveform()
 <script type="text/javascript">
     $(document).ready(function () {
         $('.left-area').height($('.right-area').height() + 610);
-        if ($(window).width() > 768) {
-            $('.left-area').theiaStickySidebar({
-                // Settings
-                additionalMarginTop: 0,
-                additionalMarginBottom: 0,
-                scrollThrough: ['vendor-panel']
-            });
-        }
+        
         var fieldCTR = <?php echo (isset($count)?$count:"0"); ?>;
 
         $('.video-urls').on('click', '#add-video', function (e) {
             $(this).remove();
             e.preventDefault();
-            $('.video-urls').append('<a class="delete-video" data-target=' + fieldCTR + ' href="#"><i class="fa fa-minus-square"></i> </a><div data-target="' + (fieldCTR + 1) + '"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
-            $('.video-urls').append('<a id="add-video" class="add-video" href="#"><i class="fa fa-plus-square"></i> </a>');
+            $('.video-urls').append('<a class="delete-video" data-target=' + fieldCTR + ' href="#" style="font-size:20px; font-weight:600; text-decoration:none;">-</a><div data-target="' + (fieldCTR + 1) + '"><?= $this->Form->input('Service][youtube_url][', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service add-video-field')); ?></div>')
+            $('.video-urls').append('<a id="add-video" class="add-video" href="#" style="font-size:20px; font-weight:600; text-decoration:none;">+</a>');
             fieldCTR++;
         });
 
