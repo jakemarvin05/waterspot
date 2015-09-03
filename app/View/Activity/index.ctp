@@ -242,7 +242,7 @@
                                             <input name="terms_and_condition" type="checkbox"/>
 
                                             <p>
-                                                I have read and agree with the <a href="http://waterspot.dev.lan/terms"
+                                                I have read and I agree with the <a href="http://waterspot.dev.lan/terms"
                                                                                   target="_blank"> Terms &
                                                     Conditions</a>
 
