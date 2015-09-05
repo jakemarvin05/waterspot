@@ -109,8 +109,8 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="checkout-activity-header-content" style="margin-top: 20px">
-                                        <span style="float:right"><a
-                                                href="/carts/delete_cart/<?php echo $cart_detail['Cart']['id']; ?>">X</a></span>
+                                        <span style="float:right"><button class="delete-cart"
+                                                data-url="/carts/delete_cart/<?php echo $cart_detail['Cart']['id']; ?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-times"></i></button></span>
                                         <h6><?= $cart_detail['Service']['service_title']; ?></h6>
 
                                         <div class="checkout-activity-date">
@@ -214,11 +214,48 @@
         </div>
     </section>
 </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="cancel-delete" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Do you really want to delete this activity from your cart?</h4>
+            </div>
+            <div class="modal-body">
+                <p>If you already paid for this cart, deleting this before we receive the transaction will have your booking void, please wait when we receive the transaction from Paypal.
+                Click CONTINUE if you wish to delete, or close this dialog to cancel.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="proceed-to-delete"  class="btn btnDefaults btnFillOrange" data-dismiss="modal">CONTINUE</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script type="text/javascript">
     <?php $path = $this->Html->webroot; ?>
     $(document).ready(function () {
 
+        var deleteCartURL = "";
+       $('.delete-cart').click(function(e){
+           deleteCartURL = $(this).data('url');
+
+       });
+
+
+
+        $('#proceed-to-delete').click(function(){
+            window.open(deleteCartURL,"_self");
+
+        });
+        $('#cancel-delete').click(function(){
+            deleteCartURL = "";
+        });
 
         $('#CartId').submit(function () {
 

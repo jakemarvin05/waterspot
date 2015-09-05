@@ -139,7 +139,8 @@
                     <div class="sidebar-inner-wrapper">
                         <div class="activity-price-info">
                             <div style="height: 100%; width: 100%;">
-                                <span class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
+                                <span
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
                                     - <?= Configure::read('currency'); ?><?= number_format($max_price, 2); ?></span> <span
                                     class="unit">PER PAX</span>
                             </div>
@@ -236,6 +237,17 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
+                                    <div class="check-terms">
+                                        <label>
+                                            <input name="terms_and_condition" type="checkbox"/>
+
+                                            <p>
+                                                I have read and I agree with the <a href="http://waterspot.dev.lan/terms"
+                                                                                  target="_blank"> Terms &
+                                                    Conditions</a>
+
+                                            </p></label>
+                                    </div>
                                     <div class="cart-btn">
                                         <input type="submit" value="Book Now"
                                                class="addtocart-button btn btnDefaults btnFillOrange" id="loginButton"/>
@@ -502,6 +514,16 @@
             scrollThrough: ['.left-section']
         });
 
+        $('#loginButton').attr('disabled','disabled');
+
+        $('[name=terms_and_condition]').change(function(){
+            if($(this).is(":checked")){
+                $('#loginButton').removeAttr('disabled')
+            }
+            else{
+                $('#loginButton').attr('disabled','disabled');
+            }
+        });
 
     });
 
@@ -510,6 +532,7 @@
     $(window).load(function () {
 
         $('#activityWhiteBg').height($('#headerAndPhotos').height() + 25);
+
 
     })
 

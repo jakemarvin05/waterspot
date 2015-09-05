@@ -494,3 +494,26 @@ section#activityPanorama img {
     position: relative;
     width: 100%;
 }
+.check-terms {
+    font-size: 11px;
+    font-weight: normal;
+    margin: 15px 0px;
+    font-family: 'Lato';
+}
+
+.check-terms label {
+    display: block;
+    width: 100%;
+}
+.check-terms input[type=checkbox] {
+    float: left;
+    display: block;
+    width: 8%;
+    margin-right: 2%;
+}
+.check-terms p {
+    float: left;
+    display: block;
+    width: 90%;
+    line-height: 18px;
+}
