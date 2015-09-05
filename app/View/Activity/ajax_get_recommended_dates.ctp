@@ -34,10 +34,10 @@
 				foreach($slots as $slot){
 				?>
 				<div class="row">
-					<div class="time col-sm-5"><?php echo $slot->{'start_time'}; ?> - <?php echo $slot->{'end_time'}; ?></div>
-					<div class="price col-sm-3">SGD<?php echo $slot->{'price'}; ?></div>
+					<div class="time col-sm-5"><?php echo $slot->start_time; ?> - <?php echo $slot->end_time; ?></div>
+					<div class="price col-sm-3">SGD<?php echo $slot->price; ?></div>
 					<div class="status col-sm-4">
-						<?php if($slot->{'status'}=="available"){?>
+						<?php if($slot->status=="available"){?>
 						<span class="status av"><i class="fa fa-check-square-o"></i> Available</span></div>
 						<?php } else { ?>
 						<span class="status notav"><i class="fa fa-times"></i>Not Available</span></div>

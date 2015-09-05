@@ -88,15 +88,15 @@ Class ActivityController extends AppController{
 			$endDateComponents = explode('-',$endDate);
 			$endDay = $endDateComponents[2];
 
-			if ($daySelected==$startDay){
+			if (strtotime($selected_date)==strtotime($startDate)) {
 				$recommendSlots = [];
 				for($ctr = 0; $ctr<3; $ctr++) {
 					foreach($slots as $slot){
 						//var_dump($slot);
-						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-							$slot->{'status'} = 'unavailable';					}
+						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->start_time, $slot->end_time)){
+							$slot->status = 'unavailable';					}
 						else{
-							$slot->{'status'} = 'available';
+							$slot->status = 'available';
 						}
 						array_push($recommendSlots,$slot);
 					}
@@ -110,17 +110,17 @@ Class ActivityController extends AppController{
 				}
 
 			}
-			elseif(($daySelected-$startDay)<3){
+			elseif ((strtotime($selected_date) - strtotime($startDate)) < (60*60*24*3)) {
 				$recommendSlots = [];
 				$offSetDown = (strtotime($selected_date) - strtotime($startDate)) / (60*60*24);
 
 				for ($ctr = 0; $ctr <= $offSetDown; $ctr++) {
 					foreach($slots as $slot){
 						//var_dump($slot);
-						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-							$slot->{'status'} = 'unavailable';					}
+						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->start_time, $slot->end_time)){
+							$slot->status = 'unavailable';					}
 						else{
-							$slot->{'status'} = 'available';
+							$slot->status = 'available';
 						}
 						array_push($recommendSlots,$slot);
 					}
@@ -138,10 +138,10 @@ Class ActivityController extends AppController{
 					for ($ctr = 0; $ctr < 3; $ctr++) {
 						foreach($slots as $slot){
 							//var_dump($slot);
-							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-								$slot->{'status'} = 'unavailable';					}
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->start_time, $slot->end_time)){
+								$slot->status = 'unavailable';					}
 							else{
-								$slot->{'status'} = 'available';
+								$slot->status = 'available';
 							}
 							array_push($recommendSlots,$slot);
 						}
@@ -158,10 +158,10 @@ Class ActivityController extends AppController{
 					for ($ctr = 0; $ctr <= $offSetUp; $ctr++) {
 						foreach($slots as $slot){
 							//var_dump($slot);
-							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-								$slot->{'status'} = 'unavailable';					}
+							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->start_time, $slot->end_time)){
+								$slot->status = 'unavailable';					}
 							else{
-								$slot->{'status'} = 'available';
+								$slot->status = 'available';
 							}
 							array_push($recommendSlots,$slot);
 						}
@@ -176,63 +176,62 @@ Class ActivityController extends AppController{
 				}
 			}
 			else{
-
 				for ($ctr = 0; $ctr <= 3; $ctr++) {
 					$recommendSlots = [];
+					$cur_date = date('Y-m-d', strtotime($selected_date) - (60*60*24)*$ctr);
 					foreach($slots as $slot){
-						if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-							$slot->{'status'} = 'unavailable';					}
+						if($this->BookingSlot->isSlotBooked($service_id, $cur_date, $slot->start_time, $slot->end_time)){
+							$slot->status = 'unavailable';					}
 						else{
-							$slot->{'status'} = 'available';
+							$slot->status = 'available';
 						}
 						array_push($recommendSlots,$slot);
 					}
 
 					array_unshift($recommendations, [
-						'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected - ($ctr)),
+						'date' => $cur_date,
 						'slots'=> $recommendSlots
 					]);
-
 				}
 
 				$offSetUp = (strtotime($endDate) - strtotime($selected_date)) / (60*60*24);
-
+					
 				if ($offSetUp > 3) {
-
-					for ($ctr = 0; $ctr < 3; $ctr++) {
+					for ($ctr = 1; $ctr <= 3; $ctr++) {
 						$recommendSlots = [];
+						$cur_date = date('Y-m-d', strtotime($selected_date) + (60*60*24)*$ctr);
 						foreach($slots as $slot){
-							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-								$slot->{'status'} = 'unavailable';					}
+							if($this->BookingSlot->isSlotBooked($service_id, $cur_date, $slot->start_time, $slot->end_time)){
+								$slot->status = 'unavailable';					}
 							else{
-								$slot->{'status'} = 'available';
+								$slot->status = 'available';
 							}
 							array_push($recommendSlots,$slot);
 						}
 
 
 						array_push($recommendations, [
-							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'date' => $cur_date,
 							'slots'=> $recommendSlots
 						]);
 
 
 					}
 				} else {
-
-					for ($ctr = 0; $ctr <= $offSetUp; $ctr++) {
+					for ($ctr = 1; $ctr <= $offSetUp; $ctr++) {
 						$recommendSlots = [];
+						$cur_date = date('Y-m-d', strtotime($selected_date) + (60*60*24)*$ctr);
 						foreach($slots as $slot){
-							if($this->BookingSlot->isSlotBooked($service_id, $selected_date, $slot->{'start_time'}, $slot->{'end_time'})){
-								$slot->{'status'} = 'unavailable';					}
+							if($this->BookingSlot->isSlotBooked($service_id, $cur_date, $slot->start_time, $slot->end_time)){
+								$slot->status = 'unavailable';					}
 							else{
-								$slot->{'status'} = 'available';
+								$slot->status = 'available';
 							}
 							array_push($recommendSlots,$slot);
 						}
 
 						array_push($recommendations, [
-							'date' => "$dateComponents[0]-$dateComponents[1]-" . ($daySelected + 1 + $ctr),
+							'date' => $cur_date,
 							'slots'=> $recommendSlots
 						]);
 
@@ -489,7 +488,9 @@ Class ActivityController extends AppController{
 						$new->price = $slot['ServiceSlot']['price'];
 						$new->fire_sales_price = $slot['ServiceSlot']['fire_sales_price'];
 						$new->fire_sales_day_margin = $slot['ServiceSlot']['fire_sales_day_margin'];
-						$slot_index_new[] = $new;
+						if (!$this->BookingSlot->isSlotBooked($service_id, $selected_date, $new->start_time, $new->end_time)) {
+							$slot_index_new[] = $new;
+						}
 					}
 					$new_service_slots_now[$key]['service_id'] = $service_slot['service_id'];
 					$new_service_slots_now[$key]['start_date'] = $service_slot['start_date'];
