@@ -132,7 +132,6 @@
             </div>
 
         </section>
-
         <section id="sidebar" class="right-section col-sm-4 col-xs-12">
             <div class="theiaStickySidebar">
                 <aside class="sidebar-inner">
@@ -140,8 +139,8 @@
                         <div class="activity-price-info">
                             <div style="height: 100%; width: 100%;">
                                 <span
-                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format($max_price, 2); ?></span> <span
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
+                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span> <span
                                     class="unit">PER PAX</span>
                             </div>
                         </div>
