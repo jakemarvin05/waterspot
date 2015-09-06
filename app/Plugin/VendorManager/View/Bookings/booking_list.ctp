@@ -42,11 +42,11 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		<table id="booking_list" width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 		    <tr>
 			<th width="5%">S.No.</th>
-			<th width="13%">Order No.</th>
-			<th width="20%">Name</th>
-			<th width="16%">Email</th>
+			<th width="12%">Order No.</th>
+			<th width="19%">Name</th>
+			<th width="18%">Email</th>
 			<th width="15%">Phone</th>
-			<th width="12%">Status</th>
+			<th width="18%">Status</th>
 			<th width="13%" class="text-center">Action</th>
 			 
 		    </tr>
