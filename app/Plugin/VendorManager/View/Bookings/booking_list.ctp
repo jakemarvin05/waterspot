@@ -43,11 +43,11 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		    <tr>
 			<th width="5%">S.No.</th>
 			<th width="12%">Order No.</th>
-			<th width="19%">Name</th>
+			<th width="18%">Name</th>
 			<th width="18%">Email</th>
 			<th width="15%">Phone</th>
-			<th width="18%">Status</th>
-			<th width="13%" class="text-center">Action</th>
+			<th width="17%">Status</th>
+			<th width="15%" class="text-center">Action</th>
 			 
 		    </tr>
 		    <? $i = $this->Paginator->counter('{:start}'); ?>
