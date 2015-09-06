@@ -64,10 +64,10 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 					<td>
 						<?=($payment_status[$booking_detail["BookingOrder"]["status"]]);?>
 						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
-							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#D20000;"><i class="fa fa-remove"></i></a>
+							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#D20000;position: absolute;top: 14px;right: 15px;"><i class="fa fa-remove"></i></a>
 						<?php endif; ?>
 						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
-							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#00D21B;"><i class="fa fa-check"></i></a>
+							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#00D21B;position: absolute;top: 14px;right: 15px;"><i class="fa fa-check"></i></a>
 						<?php endif; ?>
 					</td>
 					<td class="align-center">
