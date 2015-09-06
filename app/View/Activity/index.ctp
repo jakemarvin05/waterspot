@@ -137,12 +137,21 @@
                 <aside class="sidebar-inner">
                     <div class="sidebar-inner-wrapper">
                         <div class="activity-price-info">
+                            <?php if($min_price==$max_price): ?>
                             <div style="height: 100%; width: 100%;">
                                 <span
                                     class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span> <span
+                                    </span> <span
                                     class="unit">PER PAX</span>
                             </div>
+                            <?php else: ?>
+                                <div style="height: 100%; width: 100%;">
+                                <span
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
+                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span> <span
+                                        class="unit">PER PAX</span>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="sidebar-line"></div>
