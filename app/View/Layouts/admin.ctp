@@ -15,20 +15,22 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<?php echo $this->Html->script('ckeditor/ckeditor.js');?>
 	<?php echo $this->Html->script('ckfinder/ckfinder.js'); ?>
-	<script src= 
-	"//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" 
-	></script>
-	
-	 <script type='text/javascript' src= 
-	'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.m
-	in.js'></script> 
-	
+
+	<!-- jQuery -->
+	<script src="/js/jquery-1.11.1/jquery.min.js"></script>
+
+	<!-- Page specific scripts required for early rendering -->
+	<script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href= 
 	"http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base
 	/jquery-ui.css" />
-	
-	<?php echo $this->Html->script('fancybox/jquery.fancybox-1.3.4.pack.js'); ?>
-	
+
+
+	<!-- Add fancyBox -->
+	<link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+	<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
 	<!-- CSS Styles -->
 	<?php echo $this->Html->css('admin/style.css');?>
 	<?php echo $this->Html->css('admin/colors.css');?>
@@ -47,8 +49,7 @@
 	<?php //echo $this->Html->script('admin/managecontent.js'); ?>
     <?php //echo $this->Html->script('jscalendar/calendar.js'); ?>
     <?php //echo $this->Html->script('jscalendar/lang/calendar-en.js'); ?>
-     <?php echo $this->Html->css('fancybox/jquery.fancybox-1.3.4.css');?>
-
+   
 	<!-- Google WebFonts -->
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 	<?php //echo $this->Html->script('admin/libs/modernizr-1.7.min.js'); ?>
@@ -57,8 +58,7 @@
 			$('.fancybox').fancybox();
 			});
 	</script>
-	
-        <script src="/js/bootstrap/js/bootstrap.min.js"></script>
+
         <script src="/js/moment/min/moment.min.js"></script>
         <script src="/js/velocity/velocity.min.js"></script>
         <script src="/js/velocity/velocity.ui.min.js"></script>
