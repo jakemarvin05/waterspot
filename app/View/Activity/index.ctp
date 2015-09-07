@@ -193,14 +193,14 @@
                                     ?>
 
                                     <p class="info">
-                                        Event has a minimum-to-go of <?php echo $minimumParticipants; ?> pax.
+                                        Event has a minimum-to-go of <?php echo $minimumParticipants+1; ?> pax.
                                     </p>
                                     <div class="completion">
                                         <div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
                                     </div>
                                     <div class="progressinfo"><span
                                             class="current"><?php echo(isset($booking_count) ? $booking_count : "0"); ?></span>
-                                        out of <?php echo $minimumParticipants; ?></div>
+                                        out of <?php echo $minimumParticipants+1; ?></div>
                                     <div class="clearfix"></div>
 
                                     <?php
