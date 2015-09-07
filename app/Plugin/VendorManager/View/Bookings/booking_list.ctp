@@ -42,12 +42,12 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 		<table id="booking_list" width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
 		    <tr>
 			<th width="5%">S.No.</th>
-			<th width="12%">Order No.</th>
-			<th width="18%">Name</th>
-			<th width="18%">Email</th>
+			<th width="13%">Order No.</th>
+			<th width="20%">Name</th>
+			<th width="16%">Email</th>
 			<th width="15%">Phone</th>
-			<th width="17%">Status</th>
-			<th width="15%" class="text-center">Action</th>
+			<th width="12%">Status</th>
+			<th width="13%" class="text-center">Action</th>
 			 
 		    </tr>
 		    <? $i = $this->Paginator->counter('{:start}'); ?>
@@ -62,14 +62,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 					<td><?=$booking_detail['Booking']['email']?></td>
 					<td><?=$booking_detail['Booking']['phone']?></td>
 					<td>
-						<?=($payment_status[$booking_detail["BookingOrder"]["status"]]);?>
-						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
-							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#D20000;position: absolute;top: 14px;right: 15px;"><i class="fa fa-remove"></i></a>
-						<?php endif; ?>
-						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
-							<a href="#" class="actions" style="cursor:default;float:right;margin:2px;color:#00D21B;position: absolute;top: 14px;right: 15px;"><i class="fa fa-check"></i></a>
-						<?php endif; ?>
-					</td>
+						<?=($payment_status[$booking_detail["BookingOrder"]["status"]]);?></td>
 					<td class="align-center">
 						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?>
 
@@ -77,7 +70,12 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 							<?=$this->Html->link("<i class=\"fa fa-check\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px;'));?>
 							<?=$this->Html->link("<i class=\"fa fa-remove\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px;'));?>
 						<?php endif; ?>
-
+						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
+							<a href="#" class="actions" style="float:left;margin:2px;color:#D20000;"><i class="fa fa-remove"></i></a>
+						<?php endif; ?>	
+						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
+							<a href="#" class="actions" style="float:left;margin:2px;color:#00D21B;"><i class="fa fa-check"></i></a>
+						<?php endif; ?>	
 
 					</td>
 					 
