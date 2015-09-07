@@ -451,6 +451,7 @@ Class ActivityController extends AppController{
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
+		$this->loadModel('BookingParticipate');
 
 		if(!empty($_POST)) {
 			//Inputs
@@ -459,6 +460,9 @@ Class ActivityController extends AppController{
 			$service_id    = $_POST['service_id'];
 
 			$this->set('service_price', $this->Service->find('first', ['conditions'=>['Service.id'=>$service_id]])['Service']['service_price']);
+			$service_details = $this->Service->find('first', ['conditions'=>['Service.id'=>$service_id]])['Service'];
+			$this->set('service_details', $service_details);
+			// print_r($service_details);die;
 			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
 			if (count($service) !== 0) {
 				$service = $service[0]['VendorServiceAvailability'];
@@ -488,7 +492,11 @@ Class ActivityController extends AppController{
 						$new->price = $slot['ServiceSlot']['price'];
 						$new->fire_sales_price = $slot['ServiceSlot']['fire_sales_price'];
 						$new->fire_sales_day_margin = $slot['ServiceSlot']['fire_sales_day_margin'];
-						if (!$this->BookingSlot->isSlotBooked($service_id, $selected_date, $new->start_time, $new->end_time)) {
+						$current_booked_count = $this->BookingSlot->usedSlotCount($service_id, $selected_date, $new->start_time, $new->end_time);
+						$new->available_count = $service_details['no_person'] - $current_booked_count;
+						$new->current_booked_count = $current_booked_count;
+
+						if ($capacity <= $new->available_count) {
 							$slot_index_new[] = $new;
 						}
 					}

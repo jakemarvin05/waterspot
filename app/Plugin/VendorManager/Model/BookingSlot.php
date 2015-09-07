@@ -3,6 +3,7 @@ Class BookingSlot extends VendorManagerAppModel {
 	public $name = "BookingSlot";
 	public $validate = array();
 
+
 	//coded by po
 	public function isSlotBooked($service_id, $date, $start_time, $end_time)
 	{
@@ -23,6 +24,26 @@ Class BookingSlot extends VendorManagerAppModel {
 			return $data;
 		}
 		return false;
+	}
+
+	public function usedSlotCount($service_id, $date, $start_time, $end_time)
+	{
+		$end_time = date('H:i:s', strtotime($end_time) + 1);
+		$count = null;
+		$count = $this->find('all', array(
+			'conditions' => array(
+				'BookingSlot.service_id'=>$service_id,
+				'BookingSlot.start_time'=>"$date $start_time",
+				'BookingSlot.end_time'=>"$date $end_time",
+				),
+			'fields' => array(
+				'SUM(BookingSlot.no_participants) as count'
+				),
+			)
+		)[0][0]['count'];
+
+				
+		return $count;
 	}
 }
 ?>
