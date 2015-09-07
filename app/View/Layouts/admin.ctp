@@ -15,20 +15,19 @@
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	<?php echo $this->Html->script('ckeditor/ckeditor.js');?>
 	<?php echo $this->Html->script('ckfinder/ckfinder.js'); ?>
-	<script src= 
-	"//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" 
-	></script>
-	
-	 <script type='text/javascript' src= 
-	'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.m
-	in.js'></script> 
-	
+
+	<!-- jQuery -->
+	<script src="/js/jquery-1.11.1/jquery.min.js"></script>
+
+	<!-- Page specific scripts required for early rendering -->
+	<script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href= 
 	"http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base
 	/jquery-ui.css" />
-	
-	<?php echo $this->Html->script('fancybox/jquery.fancybox-1.3.4.pack.js'); ?>
-	
+
+	<?php echo $this->Html->script('fancybox/jquery.fancybox-2.1.5.pack.js'); ?>
+
 	<!-- CSS Styles -->
 	<?php echo $this->Html->css('admin/style.css');?>
 	<?php echo $this->Html->css('admin/colors.css');?>
@@ -54,10 +53,10 @@
 	<?php //echo $this->Html->script('admin/libs/modernizr-1.7.min.js'); ?>
     <script type="text/javascript">
 		$(document).ready(function(){
-			$('.fancybox').fancybox();
+			//$('.fancybox').fancybox();
 			});
 	</script>
-	
+
         <script src="/js/bootstrap/js/bootstrap.min.js"></script>
         <script src="/js/moment/min/moment.min.js"></script>
         <script src="/js/velocity/velocity.min.js"></script>

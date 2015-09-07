@@ -571,6 +571,7 @@ Class ActivityController extends AppController{
 		if(!empty($this->request->data) && $this->validation()) {
 			//check Guest check email or  
 			$guest_email=$this->Session->read('Guest_email');
+
 			$data['Cart']=$this->request->data['Activity'];
 			$slot_data=array();
 			//get price of service  by id

@@ -132,18 +132,26 @@
             </div>
 
         </section>
-
         <section id="sidebar" class="right-section col-sm-4 col-xs-12">
             <div class="theiaStickySidebar">
                 <aside class="sidebar-inner">
                     <div class="sidebar-inner-wrapper">
                         <div class="activity-price-info">
+                            <?php if($min_price==$max_price): ?>
                             <div style="height: 100%; width: 100%;">
                                 <span
-                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price, 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format($max_price, 2); ?></span> <span
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
+                                    </span> <span
                                     class="unit">PER PAX</span>
                             </div>
+                            <?php else: ?>
+                                <div style="height: 100%; width: 100%;">
+                                <span
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
+                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span> <span
+                                        class="unit">PER PAX</span>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="sidebar-line"></div>
@@ -185,14 +193,16 @@
                                     ?>
 
                                     <p class="info">
-                                        Event has a minimum-to-go of <?php echo $minimumParticipants; ?> pax.
+                                        Event has a minimum-to-go of <?php echo $minimumParticipants+1; ?> pax.
                                     </p>
                                     <!-- <div class="completion">
                                         <div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
                                     </div> -->
                                    <!--  <div class="progressinfo"><span
                                             class="current"><?php echo(isset($booking_count) ? $booking_count : "0"); ?></span>
-                                        out of <?php echo $minimumParticipants; ?></div> -->
+
+                                        out of <?php echo $minimumParticipants+1; ?></div> -->
+
                                     <div class="clearfix"></div>
 
                                     <?php

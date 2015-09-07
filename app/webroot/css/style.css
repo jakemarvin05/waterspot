@@ -1116,3 +1116,6 @@ body{
 form .form-row {
     margin: 15px 0px;
 }
+.popoverFormBlock form [type=submit] {
+    margin-top: 6px;
+}

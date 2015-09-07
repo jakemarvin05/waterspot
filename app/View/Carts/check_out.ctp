@@ -192,6 +192,7 @@
                                         <?= $this->Html->link('<i class=\"fa fa-times\"></i>', array('plugin' => false, 'controller' => 'carts', 'action' => 'delete_cart', $cart_detail['Cart']['id']), array('escape' => false, "onclick" => "return confirm('Are you sure want to remove this services?')")); ?>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <?
                                 // total record count
                                 $sub_total += $cart_detail['Cart']['total_amount'];

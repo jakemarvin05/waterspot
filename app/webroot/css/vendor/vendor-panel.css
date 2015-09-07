@@ -245,6 +245,7 @@ table#booking_list td {
     border: 1px solid #ddd;
     padding: 10px;
     font-size: 14px;
+    position: relative;
 }
 
 th {
