@@ -54,6 +54,7 @@ function saveform()
 				<?= $this->Form->checkbox('is_private', array('label' => false, 'div' => false)); ?>
                 <?= $this->Form->error('is_private', null, array('wrap' => 'div', 'class' => 'error-message')); ?>          
             </dd>
+            <div class="to-hide">
             <dt>
                 <label>Has Minimum-To-Go? <span style="color:red;">*</span></label>
             </dt>
@@ -65,7 +66,7 @@ function saveform()
                 <label>Minimum Participants:<span style="color:red;">*</span></label>
             </dt>
             <dd>
-	<?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false, 'class' => 'selectpicker')); ?>
+	<?= $this->Form->input('min_participants', array('type' => 'select', 'options' => $participants_num_list, 'label' => false, 'class' => '')); ?>
     <?= $this->Form->error('min_participants', null, array('wrap' => 'div', 'class' => 'error-message')); ?>           
             </dd>
             <dt>
@@ -75,6 +76,7 @@ function saveform()
 		<?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
             </dd>
+                </div>
             <dt>
                 <label>Price Per Slot:<span style="color:red;">*</span></label>
             </dt>
@@ -193,7 +195,7 @@ function saveform()
                 <div class="fieldbox addservedit form" style="position: relative;">
                     <?= $this->Form->input('location_string', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit', 'placeholder' => 'Enter address...', 'style' => 'width: 100%;')); ?>
                     <?= $this->Form->error('location_string', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="display:none; position: absolute; top: 13px; right: 5px;">
+                    <img id="mapAjaxLoader" src="/img/admin/icons/ajax_loading_nested.gif" style="position: absolute; top: 5px; right: 5px; display: none;width: 20px; height: 20px;">
                 </div>
                 <br><br>
 
@@ -562,4 +564,3 @@ function saveform()
         });
     });
 </script>
-

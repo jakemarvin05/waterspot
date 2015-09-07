@@ -26,10 +26,7 @@
 	"http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base
 	/jquery-ui.css" />
 
-
-	<!-- Add fancyBox -->
-	<link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-	<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<?php echo $this->Html->script('fancybox/jquery.fancybox-2.1.5.pack.js'); ?>
 
 	<!-- CSS Styles -->
 	<?php echo $this->Html->css('admin/style.css');?>
@@ -49,16 +46,18 @@
 	<?php //echo $this->Html->script('admin/managecontent.js'); ?>
     <?php //echo $this->Html->script('jscalendar/calendar.js'); ?>
     <?php //echo $this->Html->script('jscalendar/lang/calendar-en.js'); ?>
-   
+     <?php echo $this->Html->css('fancybox/jquery.fancybox-1.3.4.css');?>
+
 	<!-- Google WebFonts -->
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
 	<?php //echo $this->Html->script('admin/libs/modernizr-1.7.min.js'); ?>
     <script type="text/javascript">
 		$(document).ready(function(){
-			$('.fancybox').fancybox();
+			//$('.fancybox').fancybox();
 			});
 	</script>
 
+        <script src="/js/bootstrap/js/bootstrap.min.js"></script>
         <script src="/js/moment/min/moment.min.js"></script>
         <script src="/js/velocity/velocity.min.js"></script>
         <script src="/js/velocity/velocity.ui.min.js"></script>

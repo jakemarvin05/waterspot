@@ -189,8 +189,9 @@
 								<ul class="actions">
 									 <li><?php echo $this->Html->link('edit', array('controller' => 'services', 'action' => 'add_services',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'edit', 'title' => 'Edit Service', 'rel' => 'tooltip')); ?></li>
 
-									<li><?=$this->Html->link('view', array('controller' => 'services', 'action' => 'view_service',$vendor_service['Service']['id']), array('escape' => false,'class'=>'view fancybox','title'=> __('View'),'rel'=>'tooltip'))?></li>
-									<li><?php echo $this->Html->link('Add Slot', array('controller' => 'services', 'action' => 'add_service_slots',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-slot', 'title' => 'Edit Service Slot', 'rel' => 'tooltip')); ?></li>
+									<li>
+                                        <a href="/activity/index/<?=$vendor_service['Service']['id'] ?>" target="_blank" class="view fancybox" title="View" rel="tooltip">view</a>
+                                  	<li><?php echo $this->Html->link('Add Slot', array('controller' => 'services', 'action' => 'add_service_slots',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-slot', 'title' => 'Edit Service Slot', 'rel' => 'tooltip')); ?></li>
 									<li><?php echo $this->Html->link('Service Availability', array('controller' => 'vendor_service_availabilities', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-avail', 'title' => 'Edit Service Availability', 'rel' => 'tooltip')); ?></li>
 									
 									<li><?php echo $this->Html->link('Service Review', array('controller' => 'service_reviews', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-review', 'title' => 'Edit Service Review', 'rel' => 'tooltip')); ?></li>

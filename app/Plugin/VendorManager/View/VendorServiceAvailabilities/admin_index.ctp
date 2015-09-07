@@ -39,20 +39,35 @@ function saveform(){
 								echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
 					 }else {
 						 echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
-					 }?>
+
+
+					}?>
 				</td>
-				<td align="left" width="40%"><? $slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
-				foreach($slots as $slot) { 
-					$slot_time=explode('_',$slot);
-					echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
-				 }
-				
-				?></td>
+				<td align="left" width="40%"><?php
+
+//					$slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
+//				foreach($slots as $slot) {
+//					$slot_time=explode('_',$slot);
+//					echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
+//				 }
+
+					$slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
+					if ($slotsJSONString[0] == "[") {
+						$newString = substr($slotsJSONString, 1, strlen($slotsJSONString)-2);
+						$json = '{'.$newString.'}';
+					}
+					$slots = json_decode($json);
+
+					foreach($slots as $slot) {
+						echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
+					}
+
+					?></td>
 				<td align="right" width="15%">
-					<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
+					<?=$this->Html->link($this->Html->image('editprofile-icon.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
 				</td>
 				<td align="right" width="15%">	
-					<?=$this->Html->link("<i class=\"fa fa-times\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you want to delete availability slots?')"));?>
+					<?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you sure you want to delete availability slots?')"));?>
 				</td>
 			</tr>
 			<? } ?>
@@ -67,7 +82,7 @@ function saveform(){
 		<div class="first-box">
 			<h3>Add</h3>
 		<?=$this->Form->create('VendorServiceAvailability',array('id'=>'service_availability','url'=>array('controller'=>'vendor_service_availabilities','action'=>'index',$vendor_id,$service_id),'novalidate' => true));
-		echo $this->Form->hidden('id'); 
+		echo $this->Form->hidden('id');
 		echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
                 <div style="margin: 15px 0 20px 0;"></div>
 		<?=$this->Form->hidden('form-name',array('required'=>false,'value'=>'date_range')); ?>
@@ -108,7 +123,7 @@ function saveform(){
 							 
 							 ?>
 							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?><label for="<?=$key?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
-							echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]);?></label></span>
+							echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]).", Price:".$slot_time[2];;?></label></span>
 						
 						<? $i++;
 					}

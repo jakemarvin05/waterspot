@@ -15,7 +15,6 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
             array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.ServiceSlot');
-		
 		$vendor_id=$this->VendorAuth->id();
 		// check owner service id by vendor id 
 		if($this->Service->checkServiceById($vendor_id,$service_id)<=0) {
@@ -132,15 +131,24 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 			else{
 				$this->request->data['VendorServiceAvailability']['updated_at']=date('Y-m-d H:i:s');
 			}
+
 			// slot change in json encode
 			$filter_slots=array();
+			$cc = '1';
 			foreach($this->request->data['VendorServiceAvailability']['slots'] as $slot_time){
 				if(empty($slot_time)){
 					continue;
 				}
-			$filter_slots[]=$slot_time;
-				//$filter_slots=
+				$times = explode('_', $slot_time);
+				$new_slot = new stdClass();
+				$new_slot->start_time = $times[0];
+				$new_slot->end_time = $times[1];
+				$new_slot->price = (int) $times[2];
+				$filter_slots[$cc]=$new_slot;
+				$cc = $cc + 1;
+				$cc = (string) $cc;
 			}
+
 			if(!empty($this->request->data['VendorServiceAvailability']['start_date'])){
 				$this->request->data['VendorServiceAvailability']['start_date']=date('Y-m-d',strtotime($this->request->data['VendorServiceAvailability']['start_date']));
 				$this->request->data['VendorServiceAvailability']['end_date']=date('Y-m-d',strtotime($this->request->data['VendorServiceAvailability']['end_date']));
