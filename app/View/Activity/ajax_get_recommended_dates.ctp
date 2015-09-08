@@ -29,22 +29,25 @@
 				<div class="record-holder">
 
 				<?php
-
-				foreach($slots as $slot){
+				if (count($slots) > 0) {
+					foreach($slots as $slot){
 				?>
 				<div class="row">
 					<div class="time col-sm-7"><?php echo date('H:ia', strtotime($slot->start_time)); ?> - <?php echo date('H:ia', strtotime($slot->end_time)); ?></div>
 					<div class="price col-sm-5">SGD<?php echo $slot->price; ?></div>
 				<!--	<div class="book col-sm-2"><button class="book-now btn btnDefaults btnFillOrange"> add </button></div> -->
 				</div>
-			<?php
-			}
-			echo "</div></div>";
-			$n++;
-			}
+				<?php
+					}
+				} else {
+					echo '<div class="row"><div class="col-xs-12"><strong>No Slots Available</strong></div></div>';
+				}
+				echo "</div></div>";
+				$n++;
+				}
 
 
-			?>
+				?>
 		</div>
 		<br><br>
 	</div>

@@ -82,11 +82,12 @@ Class ActivityController extends AppController{
 			foreach (range(-3, 3) as $c) {
 				$recommendSlots = [];
 				$cdate = date('Y-m-d', $selected_date + $one_day*$c);
-				foreach ($slots as $slot) {
-					if (!$this->BookingSlot->isSlotFull($service_id, $cdate, $slot->start_time, $slot->end_time, $max_slot)) {
-						array_push($recommendSlots,$slot);
+				if (strtotime($endDate) >= strtotime($cdate)) {
+					foreach ($slots as $slot) {
+						if (!$this->BookingSlot->isSlotFull($service_id, $cdate, $slot->start_time, $slot->end_time, $max_slot)) {
+							array_push($recommendSlots,$slot);
+						}
 					}
-					
 				}
 				$recommendations[] = [
 					'date'  => $cdate,
