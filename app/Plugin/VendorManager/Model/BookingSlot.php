@@ -28,10 +28,10 @@ Class BookingSlot extends VendorManagerAppModel {
 		return false;
 	}
 
-	public function usedSlotCount($service_id, $date, $start_time, $end_time)
+	public function usedSlotCount ($service_id, $date, $start_time, $end_time)
 	{
 		$end_time = date('H:i:s', strtotime($end_time) + 1);
-		$count = null;
+		$count = 0;
 		$booking = $this->find('all', array(
 			'conditions' => array(
 				'BookingSlot.service_id'=>$service_id,
@@ -39,14 +39,14 @@ Class BookingSlot extends VendorManagerAppModel {
 				'BookingSlot.end_time'=>"$date $end_time",
 				),
 			'fields' => array(
-				'SUM(BookingSlot.no_participants) as count', //'SUM(BookingSlot.no_participants) as count',
+				'COUNT(BookingSlot.no_participants) as count', //'SUM(BookingSlot.no_participants) as count',
 				'ref_no'
 				),
 			)
 		)[0];
 		$count = $booking[0]['count'];
 		if ($count == 0) {
-			return $count;
+			return (int) $count;
 		}
 		$booking_participate = new BookingParticipate();
 		$participants = $booking_participate->find('all' , [
@@ -85,7 +85,12 @@ Class BookingSlot extends VendorManagerAppModel {
 			}
 		}
 		
-		return $count;
+		return (int) $count;
+	}
+
+	public function isSlotFull($service_id, $date, $start_time, $end_time, $max_slot)
+	{
+		return $this->usedSlotCount($service_id, $date, $start_time, $end_time) == $max_slot;
 	}
 }
 ?>
