@@ -11,7 +11,9 @@ $i = $this->paginator->counter('{:start}');?>
 			<td><?=$booking_detail['Booking']['email']?></td>
 			<td><?=$booking_detail['Booking']['phone']?></td>
 			<td><?=($payment_status[$booking_detail['Booking']['status']]);?></td>
-			<td class="align-center"><?=$this->Html->link('<i class="fa fa-search"></i>',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false));?></td>
+			<td class="align-center">
+				<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions",'style'=>'float:right;margin:2px 5px;'));?>
+			</td>
 			 
 		</tr>
 	<? }  //end of foreach ?>
