@@ -75,7 +75,7 @@ $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked 
 						<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
 							<a href="#" class="actions" style="float:left;margin:2px;color:#00D21B;"><i class="fa fa-check"></i></a>
 						<?php endif; ?>
-						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions",'style'=>'float:left;margin:2px 5px;'));?>
+						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions",'style'=>'float:right;margin:2px 5px;'));?>
 
 					</td>
 					 
