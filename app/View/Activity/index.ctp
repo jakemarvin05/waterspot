@@ -1,6 +1,6 @@
 <section id="activityPanorama" class="topResponsivePadding">
     <img
-        src="/img/service_images/<?php echo(isset($service_detail['Service']['panorama_image']) ? $service_detail['Service']['panorama_image'] : 'panorama.png'); ?>">
+        src="/img/service_images/<?php echo(isset($service_detail['Service']['panorama_image']) && $service_detail['Service']['panorama_image'] != ''  ? $service_detail['Service']['panorama_image'] : 'default-panorama.jpg'); ?>">
 </section>
 
 <script>
