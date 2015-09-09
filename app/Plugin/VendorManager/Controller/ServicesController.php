@@ -242,7 +242,7 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('service_types',$service_types);
 		$participantsNumList= [];
 		for($x=1; $x<=100; $x++){
-			array_push($participantsNumList,$x);
+			$participantsNumList[$x] = $x;
 		}
 		$this->set('participants_num_list',$participantsNumList);
 		$this->set('city_list',$city_list);	
@@ -778,7 +778,7 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('vendor_id',$vendor_id);
 		$participantsNumList= [];
 		for($x=1; $x<=100; $x++){
-			array_push($participantsNumList,$x);
+			$participantsNumList[$x] = $x;
 		}
 		$this->set('participants_num_list',$participantsNumList);
 	}
