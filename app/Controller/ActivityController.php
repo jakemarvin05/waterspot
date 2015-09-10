@@ -66,22 +66,21 @@ Class ActivityController extends AppController{
 		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('VendorManager.VendorServiceAvailability');
 		$this->loadModel('VendorManager.Service');
+		$recommendations = [];
+		$cdate = '';
+		foreach (range(-3, 3) as $c) {
+			$recommendSlots = [];
+			$cdate = date('Y-m-d', $selected_date + $one_day*$c);
+			$service = $this->VendorServiceAvailability->isDateAvailable($service_id, $cdate);
+			if ($service) {
+				$slots = $service[0]['VendorServiceAvailability']['slots'];
+				$startDate = $service[0]['VendorServiceAvailability']['start_date'];
+				$endDate = $service[0]['VendorServiceAvailability']['end_date'];
+				$max_slot = $this->Service->servieDetailByService_id($service_id)['Service']['no_person'];
 
-		$service = $this->VendorServiceAvailability->isDateAvailable($service_id, date('Y-m-d', $selected_date));
-		if ($service) {
-			$recommendations = [];
-			$slots = $service[0]['VendorServiceAvailability']['slots'];
-			$startDate = $service[0]['VendorServiceAvailability']['start_date'];
-			$endDate = $service[0]['VendorServiceAvailability']['end_date'];
-			$max_slot = $this->Service->servieDetailByService_id($service_id)['Service']['no_person'];
-
-			$slots = substr($slots, 1, -1);
-			$slots = '{' . $slots . '}';
-			$slots = json_decode($slots);
-			$cdate = '';
-			foreach (range(-3, 3) as $c) {
-				$recommendSlots = [];
-				$cdate = date('Y-m-d', $selected_date + $one_day*$c);
+				$slots = substr($slots, 1, -1);
+				$slots = '{' . $slots . '}';
+				$slots = json_decode($slots);
 				if (strtotime($endDate) >= strtotime($cdate)) {
 					foreach ($slots as $slot) {
 						if (!$this->BookingSlot->isSlotFull($service_id, $cdate, $slot->start_time, $slot->end_time, $max_slot)) {
@@ -89,15 +88,11 @@ Class ActivityController extends AppController{
 						}
 					}
 				}
-				$recommendations[] = [
-					'date'  => $cdate,
-					'slots' => $recommendSlots
-				];
 			}
-			// print_r($recommendations);die;
-		}
-		else{
-			 $recommendations = false;
+			$recommendations[] = [
+				'date'  => $cdate,
+				'slots' => $recommendSlots
+			];
 		}
 
 		return $recommendations;
