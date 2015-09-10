@@ -1,6 +1,7 @@
 <?php
 App::uses('BookingParticipate', 'Model');
 App::uses('BookingOrder', 'Model');
+App::uses('Booking', 'Model');
 Class BookingSlot extends VendorManagerAppModel {
 	public $name = "BookingSlot";
 	public $validate = array();
@@ -28,69 +29,112 @@ Class BookingSlot extends VendorManagerAppModel {
 		return false;
 	}
 
-	public function usedSlotCount ($service_id, $date, $start_time, $end_time)
+	public function usedSlotCount($service_id, $date, $start_time, $end_time)
 	{
 		$end_time = date('H:i:s', strtotime($end_time) + 1);
 		$count = 0;
-		$booking = $this->find('all', array(
+		$booking_slots = $this->find('all', array(
 			'conditions' => array(
 				'BookingSlot.service_id'=>$service_id,
 				'BookingSlot.start_time'=>"$date $start_time",
 				'BookingSlot.end_time'=>"$date $end_time",
 				),
 			'fields' => array(
-				'COUNT(BookingSlot.no_participants) as count', //'SUM(BookingSlot.no_participants) as count',
-				'ref_no'
+				'SUM(BookingSlot.no_participants) as count',
+				'BookingSlot.ref_no'
 				),
+			'group' => 'BookingSlot.ref_no'
 			)
-		)[0];
-		$count = $booking[0]['count'];
-		if ($count == 0) {
-			return (int) $count;
-		}
+		);
+		$count = $booking_slots[0][0]['count'];
+		if ($count == 0) return 0;
+		$count = 0;
 		$booking_participate = new BookingParticipate();
-		$participants = $booking_participate->find('all' , [
-			'conditions' => 
-			[
-				'ref_no' => $booking['BookingSlot']['ref_no']
-				],
- 			'fields' => [
- 				'status',
- 				]
- 			]
-		);
+		foreach ($booking_slots as $booking_slot) {
+			$participants = $booking_participate->find('all' , [
+				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
+	 			'fields' => ['status',]
+	 		]);
+	 		$bo = new BookingOrder();
+			$bo = $bo->find('first', [
+				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
+				'fields' => ['booking_date', 'no_participants', 'invite_friend_email']
+			]);
+			$booking_date = $bo['booking_orders']['booking_date'];
+			$invited = 0;
 
+			if ($bo['booking_orders']['invite_friend_email']) {
+				$invited = count($bo['booking_orders']['invite_friend_email']);
+			}
+			if (strtotime($booking_date)+60*60*24 > time()) {
+				$count += $bo['booking_orders']['no_participants'];
+			} else {
+				$count += $bo['booking_orders']['no_participants'] - $invited;
+			}
 
-		$bo = new BookingOrder();
-		$bo = $bo->find('first', [
-			'conditions' => [
-				'ref_no' => $booking['BookingSlot']['ref_no'],
-				],
-			'fields' => ['booking_date', 'no_participants', 'invite_friend_email']
-			]
-		);
-		$booking_date = $bo['booking_orders']['booking_date'];
-
-		if (strtotime($booking_date)+60*60*24 > time()) {
-			$count = $bo['booking_orders']['no_participants'];
-		} else {
-			$count = $bo['booking_orders']['no_participants'] - count($bo['booking_orders']['invite_friend_email']);
-		}
-
-		if (count($participants) > 0) {
-			foreach ($participants as $p) {
-				if ($p['booking_participates']['status'] == 1) {
-					$count++;
+			if (count($participants) > 0) {
+				foreach ($participants as $p) {
+					if ($p['booking_participates']['status'] == 1) {
+						$count++;
+					}
 				}
 			}
 		}
-		
 		return (int) $count;
 	}
 
 	public function isSlotFull($service_id, $date, $start_time, $end_time, $max_slot)
 	{
 		return $this->usedSlotCount($service_id, $date, $start_time, $end_time) == $max_slot;
+	}
+
+
+	public function paidSlotCount($service_id, $start_time, $end_time)
+	{
+		$count = 0;
+		$booking_slots = $this->find('all', array(
+			'conditions' => array(
+				'BookingSlot.service_id'=>$service_id,
+				'BookingSlot.start_time'=>"$start_time",
+				'BookingSlot.end_time'=>"$end_time",
+				),
+			'fields' => array(
+				'SUM(BookingSlot.no_participants) as count',
+				'ref_no'
+				),
+			'group' => 'BookingSlot.ref_no'
+			)
+		);
+		$count = $booking_slots[0][0]['count'];
+		if ($count == 0) return 0;
+		$count = 0;
+		$booking_participate = new BookingParticipate();
+		foreach ($booking_slots as $booking_slot) {
+	 		$participants = $booking_participate->find('all' , [
+				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
+	 			'fields' => ['status']
+	 		]);
+	 		$bo = new BookingOrder();
+	 		$bo = $bo->find('first', [
+				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
+				'fields' => ['booking_date', 'no_participants', 'invite_friend_email']
+			]);
+			$booking_date = $bo['BookingOrder']['booking_date'];
+			$invited = 0;
+			if ($bo['BookingOrder']['invite_friend_email']) {
+				$invited = count($bo['BookingOrder']['invite_friend_email']);
+			}
+			$count += $bo['BookingOrder']['no_participants'] - $invited;
+
+			if (count($participants) > 0) {
+				foreach ($participants as $p) {
+					if ($p['booking_participates']['status'] == 1) {
+						$count++;
+					}
+				}
+			}
+		}
+		return (int) $count;
 	}
 }
 ?>

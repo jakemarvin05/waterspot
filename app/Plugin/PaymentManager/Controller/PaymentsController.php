@@ -1324,6 +1324,25 @@ class PaymentsController extends PaymentManagerAppController{
 						//self::payment_failed_mail($booking_detail);
 					}
 				}
+				// check min-to-go
+				$this->loadModel('Service');
+				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
+				foreach ($booking_slots as $booking_slot) {
+					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['service_id']] ]);
+					if ($service['Service']['min_participants'] == 0) continue;
+					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['sevice_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					if ($paid_count < $service['Service']['min_participants']) continue;
+					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
+					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
+					$email = new CakeEmail();
+					$email->config('gmail');
+			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
+			        $email->to($vendor_email);
+			        $email->subject('Mimimum to go reached reached');
+			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[start_time] to $booking_slot[end_time]";
+			        $email->send($message);
+				}
+
 			}
 			else{
 				self::payment_failed_mail($booking_detail);
@@ -1394,6 +1413,25 @@ class PaymentsController extends PaymentManagerAppController{
 						//self::payment_failed_mail($booking_detail);
 					}
 				$this->autoRender=false;
+
+				// check min-to-go
+				$this->loadModel('Service');
+				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
+				foreach ($booking_slots as $booking_slot) {
+					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['service_id']] ]);
+					if ($service['Service']['min_participants'] == 0) continue;
+					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['sevice_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					if ($paid_count < $service['Service']['min_participants']) continue;
+					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
+					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
+					$email = new CakeEmail();
+					$email->config('gmail');
+			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
+			        $email->to($vendor_email);
+			        $email->subject('Mimimum to go reached reached');
+			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[start_time] to $booking_slot[end_time]";
+			        $email->send($message);
+				}
 			}
 			else{
 				self::payment_failed_mail($booking_detail);

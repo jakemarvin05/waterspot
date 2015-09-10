@@ -19,10 +19,10 @@
 						?></label><?php echo '<br/>Price : $'.$slot_price . '&nbsp;&nbsp;&nbsp; (' . $slot->available_count . "/ $service_details[no_person] slots remaining)" ;?>
 						<?php if ($service_details['min_participants'] > 0): ?>
 						<div class="progressinfo" style="color:#777;width:100%;">
-							<span class="current" style="color:#FEAB32"><?php echo $service_details['min_participants'] - $slot->current_booked_count ; ?></span> out of <?php echo $service_details['min_participants']; ?> Participants to go
+							<span class="current" style="color:#FEAB32"><?php echo ($service_details['min_participants'] - $slot->current_booked_count) < 0 ? 0 : ($service_details['min_participants'] - $slot->current_booked_count) ; ?></span> out of <?php echo $service_details['min_participants']; ?> Participants to go
 						</div>
 						<div class="completion" style="margin:5px 0 15px 0; height:5px; width:100%;">
-                            <div class="progressbar" style="width:<?php echo ($slot->current_booked_count/$service_details['min_participants'])*100 ?>%;"></div>
+                            <div class="progressbar" style="width:<?php echo ($slot->current_booked_count/$service_details['min_participants'])*100 > 100 ? 100 : ($slot->current_booked_count/$service_details['min_participants'])*100 ?>%;"></div>
                         </div>
                         <div class="clearfix"></div>
 						<?php endif; ?>
