@@ -4,7 +4,7 @@
         <?=$service_detail['Service']['description'] ?>
     </section>
     <section class="activity-section">
-        <h3>Itenerary</h3>
+        <h3>Itinerary</h3>
         <?=$service_detail['Service']['itinerary'] ?>
     </section>
 
