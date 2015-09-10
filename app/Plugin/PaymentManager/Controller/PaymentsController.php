@@ -1335,7 +1335,6 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
-					$email->config('gmail');
 			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');
@@ -1425,7 +1424,6 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
-					$email->config('gmail');
 			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');

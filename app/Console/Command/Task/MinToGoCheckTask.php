@@ -22,7 +22,6 @@ class MinToGoCheckTask extends Shell {
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
-					$email->config('gmail');
 			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go not reached');
@@ -33,7 +32,6 @@ class MinToGoCheckTask extends Shell {
 			        	// send email to booked & paid users
 			        	$mail_to = $booking['Booking']['email'];
 			        	$email = new CakeEmail();
-						$email->config('gmail');
 				        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
 				        $email->to($vendor_email);
 				        $email->subject('Mimimum to go not reached');
