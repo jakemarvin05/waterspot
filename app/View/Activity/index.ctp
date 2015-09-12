@@ -573,5 +573,6 @@
 
     $('#ActivityNoParticipants').val('1');
     $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
+    $('[data-id="ActivityNoParticipants"] .filter-option').text('1');
     get_service_availability();
 </script>
