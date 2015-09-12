@@ -571,4 +571,7 @@
     $('#ActivityNoParticipants').selectpicker().hide();
 
 
+    $('#ActivityNoParticipants').val('1');
+    $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
+    get_service_availability();
 </script>
