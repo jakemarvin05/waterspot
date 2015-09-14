@@ -259,7 +259,7 @@
                                             </p></label>
                                     </div>
                                     <div class="cart-btn">
-                                        <input type="submit" value="Book Now"
+                                        <input type="submit" value="Book A Spot"
                                                class="addtocart-button btn btnDefaults btnFillOrange" id="loginButton"/>
                                     </div>
                                     <?= $this->Form->end(); ?>
