@@ -1326,6 +1326,8 @@ class PaymentsController extends PaymentManagerAppController{
 				}
 				// check min-to-go
 				$this->loadModel('Service');
+				$this->loadModel('VendorManager.BookingSlot');
+
 				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
 				foreach ($booking_slots as $booking_slot) {
 					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['service_id']] ]);
@@ -1415,6 +1417,8 @@ class PaymentsController extends PaymentManagerAppController{
 
 				// check min-to-go
 				$this->loadModel('Service');
+				$this->loadModel('VendorManager.BookingSlot');
+				
 				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
 				foreach ($booking_slots as $booking_slot) {
 					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['service_id']] ]);
