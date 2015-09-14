@@ -208,7 +208,7 @@ foreach($cssBlocks as $cssBlock) {
                             </div>
 
                             <div class="searchInline">
-                                <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="submit">START YOUR ADVENTURE</button>
+                                <button id="startYourAdventure" class="btn btnDefaults btnFillOrange" type="submit">BOOK A SPOT</button>
                             </div>
                         </div>
                     </form>
