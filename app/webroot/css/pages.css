@@ -91,7 +91,7 @@ div.cont u {
 }
 div#slots_form h3 {
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 4px;
 }
 
@@ -122,8 +122,9 @@ div#slots_form {
 div#slots_form .check {
     background-color: rgb(255, 255, 255);
     margin: 5px 0px;
-    padding: 3px 7px;
+    padding: 10px 10px;
     border-radius: 4px;
+    font-size: 14px;
 }
 
 div#slots_form .check input[type=checkbox] {
