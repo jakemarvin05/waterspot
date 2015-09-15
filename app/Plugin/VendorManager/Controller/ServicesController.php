@@ -194,6 +194,11 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$savemsg="updated";
 			}
+			if ($this->request->data['Service']['is_private'] == 1) {
+				$this->request->data['Service']['min_participants'] = 0;
+				$this->request->data['Service']['no_person'] = 1;
+			}
+
 			// saving service 
 			$this->Service->create();
 			$this->Service->save($this->request->data);
