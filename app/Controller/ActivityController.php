@@ -345,6 +345,7 @@ Class ActivityController extends AppController{
 						$new->available_count = $service_details['no_person'] - $current_booked_count;
 						$new->current_booked_count = $current_booked_count;
 
+						if ($service_details['is_private'] == 1 && $current_booked_count > 0) continue;
 						if ($capacity <= $new->available_count) {
 							$slot_index_new[] = $new;
 						}
