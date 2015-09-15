@@ -517,3 +517,6 @@ section#activityPanorama img {
     width: 90%;
     line-height: 18px;
 }
+div#tabs {
+    width: 97%;
+}
