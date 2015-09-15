@@ -1337,7 +1337,7 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
-			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
+			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');
 			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[start_time] to $booking_slot[end_time]";
@@ -1428,7 +1428,7 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
-			        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
+			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');
 			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[start_time] to $booking_slot[end_time]";
