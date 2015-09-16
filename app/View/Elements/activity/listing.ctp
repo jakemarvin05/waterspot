@@ -12,7 +12,7 @@ $i = $this->paginator->counter('{:start}');
 				$imgArr = array('source_path'=>$path,'img_name'=>$search_service_list['image'],'width'=>293,'height'=>223,'noimg'=>$setting['site']['site_noimage']);
 				$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 				echo urldecode($this->Html->image($resizedImg,array('border'=>'0','alt'=>$search_service_list['Service']['service_title'])) ); ?>
-				<div class="price">$<?= number_format($search_service_list['Service']['service_price'],2)?></div>
+				<div class="price">From $<?= number_format($search_service_list['Service']['service_price'],2)?></div>
 
 				<div class="contenthover">
 					<div class="box-center">
