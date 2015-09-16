@@ -1332,7 +1332,7 @@ class PaymentsController extends PaymentManagerAppController{
 				foreach ($booking_slots as $booking_slot) {
 					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['BookingSlot']['service_id']] ]);
 					if ($service['Service']['min_participants'] == 0) continue;
-					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['sevice_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['service_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
 					if ($paid_count < $service['Service']['min_participants']) continue;
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
@@ -1423,7 +1423,7 @@ class PaymentsController extends PaymentManagerAppController{
 				foreach ($booking_slots as $booking_slot) {
 					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['BookingSlot']['service_id']] ]);
 					if ($service['Service']['min_participants'] == 0) continue;
-					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['sevice_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['service_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
 					if ($paid_count < $service['Service']['min_participants']) continue;
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
