@@ -35,7 +35,7 @@
 										$imgArr = array('source_path'=>$path,'img_name'=>$service_list['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
 										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
-								<div class="price">$<?= number_format($service_list['Service']['service_price'],2)?></div>
+								<div class="price">From $<?= number_format($service_list['Service']['service_price'],2)?></div>
 								<div class="contenthover">
 									<div class="box-center">
 										<div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
