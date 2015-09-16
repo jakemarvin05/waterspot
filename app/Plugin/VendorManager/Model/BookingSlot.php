@@ -61,16 +61,17 @@ Class BookingSlot extends VendorManagerAppModel {
 				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
 				'fields' => ['booking_date', 'no_participants', 'invite_friend_email']
 			]);
-			$booking_date = $bo['booking_orders']['booking_date'];
+			$bo = array_pop($bo);
+			$booking_date = $bo['booking_date'];
 			$invited = 0;
 
-			if ($bo['booking_orders']['invite_friend_email']) {
-				$invited = count($bo['booking_orders']['invite_friend_email']);
+			if ($bo['invite_friend_email']) {
+				$invited = count($bo['invite_friend_email']);
 			}
 			if (strtotime($booking_date)+60*60*24 > time()) {
-				$count += $bo['booking_orders']['no_participants'];
+				$count += $bo['no_participants'];
 			} else {
-				$count += $bo['booking_orders']['no_participants'] - $invited;
+				$count += $bo['no_participants'] - $invited;
 			}
 
 			if (count($participants) > 0) {

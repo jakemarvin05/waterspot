@@ -1330,17 +1330,18 @@ class PaymentsController extends PaymentManagerAppController{
 
 				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
 				foreach ($booking_slots as $booking_slot) {
-					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['BookingSlot']['service_id']] ]);
+					$bs = array_pop($booking_slot);
+					$service = $this->Service->find('first', ['conditions' => ['id' => $bs['service_id']] ]);
 					if ($service['Service']['min_participants'] == 0) continue;
-					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['service_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					$paid_count = $this->BookingSlot->paidSlotCount($bs['service_id'], $bs['start_time'], $bs['end_time']);
 					if ($paid_count < $service['Service']['min_participants']) continue;
-					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']] ]);
+					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $bs['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
 			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');
-			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[BookingSlot][start_time] to $booking_slot[BookingSlot][end_time]";
+			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $bs[start_time] to $bs[end_time]";
 			        $email->send($message);
 				}
 
@@ -1421,17 +1422,18 @@ class PaymentsController extends PaymentManagerAppController{
 				
 				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
 				foreach ($booking_slots as $booking_slot) {
-					$service = $this->Service->find('first', ['conditions' => ['id' => $booking_slot['BookingSlot']['service_id']] ]);
+					$bs = array_pop($booking_slot);
+					$service = $this->Service->find('first', ['conditions' => ['id' => $bs['service_id']] ]);
 					if ($service['Service']['min_participants'] == 0) continue;
-					$paid_count = $this->BookingSlot->paidSlotCount($booking_slot['BookingSlot']['service_id'], $booking_slot['BookingSlot']['start_time'], $booking_slot['BookingSlot']['end_time']);
+					$paid_count = $this->BookingSlot->paidSlotCount($bs['service_id'], $bs['start_time'], $bs['end_time']);
 					if ($paid_count < $service['Service']['min_participants']) continue;
-					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']] ]);
+					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $bs['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
 					$email = new CakeEmail();
 			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
 			        $email->to($vendor_email);
 			        $email->subject('Mimimum to go reached reached');
-			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $booking_slot[BookingSlot][start_time] to $booking_slot[BookingSlot][end_time]";
+			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['Service']['service_title'] . " $bs[start_time] to $bs[end_time]";
 			        $email->send($message);
 				}
 			}
