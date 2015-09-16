@@ -109,8 +109,10 @@ Class BookingSlot extends VendorManagerAppModel {
 		$count = $booking_slots[0][0]['count'];
 		if ($count == 0) return 0;
 		$count = 0;
+
 		$booking_participate = new BookingParticipate();
 		foreach ($booking_slots as $booking_slot) {
+	 		
 	 		$participants = $booking_participate->find('all' , [
 				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
 	 			'fields' => ['status']
@@ -120,13 +122,14 @@ Class BookingSlot extends VendorManagerAppModel {
 				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
 				'fields' => ['booking_date', 'no_participants', 'invite_friend_email']
 			]);
-			$booking_date = $bo['BookingOrder']['booking_date'];
+			$bo = array_pop($bo);
+			$booking_date = $bo['booking_date'];
 			$invited = 0;
-			if ($bo['BookingOrder']['invite_friend_email']) {
-				$invited = count($bo['BookingOrder']['invite_friend_email']);
+			if ($bo['invite_friend_email']) {
+				$invited = count($bo['invite_friend_email']);
 			}
-			$count += $bo['BookingOrder']['no_participants'] - $invited;
-
+			$count += $bo['no_participants'] - $invited;
+			
 			if (count($participants) > 0) {
 				foreach ($participants as $p) {
 					if ($p['booking_participates']['status'] == 1) {
