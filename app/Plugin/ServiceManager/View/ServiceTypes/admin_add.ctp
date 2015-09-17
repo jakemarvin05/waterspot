@@ -56,6 +56,13 @@ function saveform()
 					}
 					?>
 			 </dd>
+
+             <dt>
+                <label>Youtube Url </label>
+            </dt>
+            <dd>
+                <?=$this->Form->text('youtube_url',array('class'=> 'small','size'=>'45','required'=>false)); ?>                 
+            </dd>
             
 <!--
             <dt>

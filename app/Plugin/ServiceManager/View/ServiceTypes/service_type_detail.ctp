@@ -115,6 +115,7 @@
 				<br>
 
 				<div class="col-sm-3 col-xs-12 img-holder">
+					<a <?php echo $service_type_details['ServiceType']['youtube_url'] == null || $service_type_details['ServiceType']['youtube_url'] == '#' ? 'href="#"' : 'target="_blank" href="' . $service_type_details['ServiceType']['youtube_url'] . '"'; ?>>
 					<?php
 					/* Resize Image */
 					if(isset($service_type_details['ServiceType']['image'])) {
@@ -122,7 +123,8 @@
 						$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 						echo $this->Html->image($resizedImg,array('border'=>'0',  'alt'=>$service_type_details['ServiceType']['name']));
 					}
-					?></div>
+					?>
+					</a></div>
 
 				<div class="col-sm-9 col-xs-12">
 

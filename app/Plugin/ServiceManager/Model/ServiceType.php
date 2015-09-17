@@ -38,6 +38,15 @@ class ServiceType extends ServiceManagerAppModel {
 			'message' => 'Please enter service type name'
 		) 
 	),
+
+   'youtube_url' =>
+	array(
+		'rule1' =>
+		array(
+			'rule' => array('maxLength', 255),
+			'message' => 'Youtube Url should be less than 255 character(s)'
+		)
+	),
 	
 	'image' =>
 		array(

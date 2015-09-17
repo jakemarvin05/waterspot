@@ -75,7 +75,10 @@ class ServiceTypesController extends ServiceManagerAppController {
 					$image_name = $slide_image['ServiceType']['image'];
 				}
 			}
-			$this->request->data['ServiceType']['image'] = $image_name;			
+			if (strlen(trim($this->request->data['ServiceType']['youtube_url'])) == 0) {
+				$this->request->data['ServiceType']['youtube_url'] = '#';
+			}
+			$this->request->data['ServiceType']['image'] = $image_name;		
 			$this->ServiceType->create();
 			$this->ServiceType->save($this->request->data,array('validate' => false));
 		 	if ($this->request->data['ServiceType']['id']) {
