@@ -254,14 +254,10 @@
                                     <div id='slots_form' style="display:none"></div>
                                     <div class="check-terms">
                                         <label>
-                                            <input name="terms_and_condition" type="checkbox"/>
-
                                             <p>
-                                                I have read and I agree with the <a href="http://waterspot.dev.lan/terms"
-                                                                                  target="_blank"> Terms &
-                                                    Conditions</a>
-
-                                            </p></label>
+                                                <input name="terms_and_condition" type="checkbox"/> I have read agree with the <a href="http://waterspot.dev.lan/terms" target="_blank"> Terms & Conditions</a>
+                                            </p>
+                                        </label>
                                     </div>
                                     <div class="cart-btn">
                                         <input type="submit" value="Book A Spot"
