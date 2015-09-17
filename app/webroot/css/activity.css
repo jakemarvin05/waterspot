@@ -503,12 +503,12 @@ section#activityPanorama img {
     display: block;
     width: 100%;
 }
-.check-terms input[type=checkbox] {
+/*.check-terms input[type=checkbox] {
     float: left;
     display: block;
     width: 8%;
     margin-right: 2%;
-}
+}*/
 .check-terms p {
     float: left;
     display: block;
