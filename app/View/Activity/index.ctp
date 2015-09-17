@@ -24,7 +24,7 @@
                 'position': 'relative'
             });
 
-            this.outerWrapper = this.imageToBeCropped.wrap('<div></div>').parent();
+            this.outerWrapper = this.imageToBeCropped.wrap('<div style="width: 100%;"></div>').parent();
             this.outerWrapper.css({
                 'position': 'relative',
                 'width': '100%',
@@ -47,24 +47,24 @@
         },
 
         _cropper: function () {
+            var heightOfContainer = this.outerWrapper.width() / this._getAspectRatio().decimal();
+            this.outerWrapper.css('height', heightOfContainer);
 
-            if (this._isImageTallerThanAspect) {
+            if (this._isImageTallerThanAspect()) {
                 // taller image, set width to 100% and crop height
-                var heightOfContainer = this.imageToBeCropped.width() / this._getAspectRatio().decimal();
                 var heightToCrop = this.imageToBeCropped.height() - heightOfContainer;
 
                 // height to move up is half the amount
                 this.imageToBeCropped.css({
                     'top': '-' + heightToCrop / 2 + 'px',
-                    'right': null
+                    'right': ''
                 });
-                this.outerWrapper.css('height', heightOfContainer);
+                
 
             } else {
-                // width image, set height to 100% and crop width
-                console.log(this)
+                // wide image, set height to 100% and crop width
                 this.imageToBeCropped.css({
-                    'width': null,
+                    'width': '',
                     'height': '100%'
                 });
 
@@ -72,10 +72,10 @@
 
                 // width to move left is half the amount
                 this.imageToBeCropped.css({
-                    'top': null,
-                    'right': '-' + widthToCrop / 2 + 'px',
+                    'top': '',
+                    'left': '-' + widthToCrop / 2 + 'px',
                 });
-                this.outerWrapper.css('height', null)
+                this.outerWrapper.css('height', '')
             }
 
         },

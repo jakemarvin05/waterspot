@@ -487,12 +487,10 @@ button.rate {
 section#activityPanorama {
     min-height: 140px;
     background-color: #E4E4E4;
-    max-height: 400px;
 }
 section#activityPanorama img {
     margin-top: 0%;
     position: relative;
-    width: 100%;
 }
 .check-terms {
     font-size: 11px;
