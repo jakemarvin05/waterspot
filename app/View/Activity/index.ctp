@@ -1,6 +1,11 @@
 <section id="activityPanorama" class="topResponsivePadding">
-    <img
-        src="/img/service_images/<?php echo(isset($service_detail['Service']['panorama_image']) && $service_detail['Service']['panorama_image'] != ''  ? $service_detail['Service']['panorama_image'] : 'default-panorama.jpg'); ?>">
+    <?php 
+        $isPanoramaImageExist = isset($service_detail['Service']['panorama_image']) && $service_detail['Service']['panorama_image'] != '';
+
+        if ($panoramaImage = $isPanoramaImageExist ? $service_detail['Service']['panorama_image'] : 'default-panorama.jpg');
+    ?>
+    <img src="/img/service_images/<?php echo $panoramaImage; ?>">
+       
 </section>
 
 <script>
