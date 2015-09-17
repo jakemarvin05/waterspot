@@ -26,51 +26,9 @@
 /* For Medium sized desktop */
 
 @media (max-width: 1219px) {
-
-    .tile-info .vendor-rating-wrapper .rating-label {
-        float: right;
-    }
-    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
-        float: left;
-    }
-
-    .vendor-listing .tile-info h4 {
-        width: 50%;
-    }
-
     .contenthover .view-all-tags {
         font-size: 16px;
     }
-    .tile-info .activity-rating-wrapper .rating-label {
-        float: right;
-    }
-    .search-page .tile-info .activity-rating-wrapper .rating-label {
-        float: left;
-    }
-
-
-}
-
-@media (max-width: 1188px) {
-    .search-page .tile-info .activity-rating-wrapper .rating-label {
-        float: right;
-    }
-
-}
-
-@media (max-width: 1124px) {
-    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
-        float: right;
-    }
-}
-@media (max-width: 1120px) {
-    .vendors-page .tile-info .vendor-rating-wrapper .rating-label {
-        float: right;
-    }
-    .search-page .tile-info .activity-rating-wrapper .rating-label {
-        float: right;
-    }
-
 }
 
 

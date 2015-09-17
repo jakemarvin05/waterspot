@@ -1,21 +1,15 @@
-.tile-info .activity-rating-wrapper, .tile-info .vendor-rating-wrapper {
-    float: right;
-    width: 43%;
-}
-.tile-info .activity-rating-wrapper .rating-label{
+.activity-rating-wrapper .rating-label, .vendor-rating-wrapper .rating-label {
     margin-top: 8px;
-    display: block;
-    float: right;
     font-size: 16px;
     color: #969696;
+    vertical-align: middle;
 }
 .tile-info h4 {
     color: #696B6E;
-    float: left;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Arca Majora' !important;
-    max-width: 53%;
+    width: 100%;
     font-style: normal;
     overflow: hidden;
     white-space: nowrap;
@@ -26,6 +20,14 @@
     font-style: italic;
     font-weight: 400;
     color: #999
+}
+.activity-rating-wrapper .rating, .vendor-rating-wrapper .rating{
+    background-image: url('../img/rating-small.png');
+    width: 100px;
+    height: 13px;
+    background-position: -100px 0px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 
@@ -192,14 +194,6 @@ label.filter-label {
     font-family: "Lato";
     font-size: 16px;
     line-height: 28px;
-}
-
-span.rating-label {
-    float: right !important;
-}
-.activity-rating-wrapper {
-    float: right;
-
 }
 
 .vendors-page .tile-info .rating.top {

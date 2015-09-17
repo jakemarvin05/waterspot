@@ -901,14 +901,6 @@ ul.dropdown-menu{
     background-color: #F9F9F9;
     padding-top: 30px;
 }
-.tile-info .rating {
-    background-image: url('../img/rating-small.png');
-    float: right;
-    width: 100px;
-    height: 13px;
-    background-position: -100px 0px;
-    margin: 8px 0px;
-}
 .tile-info .vendor-rating-wrapper {
     float: right;
     width: 45%;

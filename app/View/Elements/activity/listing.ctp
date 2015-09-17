@@ -23,41 +23,41 @@ $i = $this->paginator->counter('{:start}');
 			</div>
 
 			<div class="tile-info">
-				<h4><a href="/activity/index/<?=$search_service_list['Service']['id']?>"><?php echo $this->Format->Headingsubstring($search_service_list['Service']['service_title'],25);?></a></h4>
-				<div class="activity-rating-wrapper">
-					<? if(!empty($search_service_list['rating'])){ ?>
-						<?php $ratings = range(1,10); ?>
-						<?php foreach($ratings as $rating){ ?>
-							 
-							<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
-							/>
-						<?php }} ?>
-                                        
-                                                        <span class="rating-label">Rating:</span><br>
-					<?php
-					//@todo convert Rating into float
-
-
-					$rating = 0.0; // value is 0.0 to 1.0
-
-					$ratingPerCent = $rating*5;
-					$ratingMark = 0;
-
-					if($ratingPerCent>1) {
-						$ratingMark = round($ratingPerCent);
-						$ratingMark = $ratingMark/5;
-					}
-					else{
-						$ratingMark = 0;
-					}
-
-					?>
-                                                        <br>
-					<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
-
-
-				</div>
+				<h4><a href="/activity/index/<?=$search_service_list['Service']['id']?>"><?php echo $search_service_list['Service']['service_title'];?></a></h4>
 				<div class="clearfix"></div>
+			</div>
+
+			<div class="activity-rating-wrapper">
+				<? if(!empty($search_service_list['rating'])){ ?>
+					<?php $ratings = range(1,10); ?>
+					<?php foreach($ratings as $rating){ ?>
+						 
+						<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
+						/>
+					<?php }} ?>
+    
+                    <span class="rating-label">Rating:</span>
+				<?php
+				//@todo convert Rating into float
+
+
+				$rating = 0.0; // value is 0.0 to 1.0
+
+				$ratingPerCent = $rating*5;
+				$ratingMark = 0;
+
+				if($ratingPerCent>1) {
+					$ratingMark = round($ratingPerCent);
+					$ratingMark = $ratingMark/5;
+				}
+				else{
+					$ratingMark = 0;
+				}
+
+				?>
+
+				<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
+
 			</div>
 		</div>
 

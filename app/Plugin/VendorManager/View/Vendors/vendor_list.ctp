@@ -51,8 +51,7 @@
 					</div>
 				</div>
 
-				<div class="tile-info">
-                                    
+				<div class="tile-info">         
 					<h4 class="h4 fix">
 						<?php
 							$vendorName = !empty($vendor_service['Vendor']['bname']) ? $vendor_service['Vendor']['bname'] : $vendor_service['Vendor']['name'];
@@ -72,43 +71,32 @@
 							<a href="/members/messages/<?php echo $vendor_service['Vendor']['id']; ?>"><i class="fa fa-comments-o"></i></a>
 						<?php endif; ?>
 					</h4>
-                                    
-					<div class="vendor-rating-wrapper">
-					<? if(!empty($vendor_service['Vendor']['rating'])){ ?>
-						
-						<?php $ratings = range(1,10); ?>
-						<?php foreach($ratings as $rating){ ?>
-							<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo (round($vendor_service['Vendor']['rating'])==$rating)?'checked="checked"':'';?> />
-						<?php } ?>
-					<? } else {
-						echo '<em style="display:block;color: #A1A1A1;">Unrated</em>';
-						} ?>
+					<div class="clearfix"></div>
+				</div>
 
-						<span class="rating-label">Rating:</span>
-<br><br>
-						<?php
-						//@todo convert Rating into float
+				<div class="vendor-rating-wrapper">
+
+					<span class="rating-label">Rating:</span>
+					<?php
+					//@todo convert Rating into float
 
 
-						$rating = 0.0; // value is 0.0 to 1.0
+					$rating = 0.0; // value is 0.0 to 1.0
 
-						$ratingPerCent = $rating*5;
+					$ratingPerCent = $rating*5;
+					$ratingMark = 0;
+
+					if($ratingPerCent>1) {
+						$ratingMark = round($ratingPerCent);
+						$ratingMark = $ratingMark/5;
+					}
+					else{
 						$ratingMark = 0;
+					}
 
-						if($ratingPerCent>1) {
-							$ratingMark = round($ratingPerCent);
-							$ratingMark = $ratingMark/5;
-						}
-						else{
-							$ratingMark = 0;
-						}
+					?>
 
-						?>
-
-						<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
-						<div class="clearfix"></div>
-					</div>
-
+					<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
 					<div class="clearfix"></div>
 				</div>
 			</div>
@@ -181,14 +169,6 @@
 							loading_start = 0;
 							$('#loader-image').hide();
 							$('.vendor-listing:last').after(data );
-							/*$('.tile').contenthover({
-								//data_selector: '.contenthover',
-								//effect:'slide',
-								//slide_direction: 'left',
-								//slide_speed:300,
-								overlay_background:'#000',
-								overlay_opacity:1
-							});*/
 							
                             if(page >= pages){
 								$("#loader_pagination").attr("disabled", true);
