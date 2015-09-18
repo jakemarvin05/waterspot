@@ -39,14 +39,14 @@ class ServiceType extends ServiceManagerAppModel {
 		) 
 	),
 
-   'youtube_url' =>
-	array(
-		'rule1' =>
-		array(
-			'rule' => array('maxLength', 255),
-			'message' => 'Youtube Url should be less than 255 character(s)'
-		)
-	),
+ //   'youtube_url' =>
+	// array(
+	// 	'rule1' =>
+	// 	array(
+	// 		'rule' => array('maxLength', 255),
+	// 		'message' => 'Youtube Url should be less than 255 character(s)'
+	// 	)
+	// ),
 	
 	'image' =>
 		array(
