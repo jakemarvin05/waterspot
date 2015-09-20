@@ -294,8 +294,8 @@ div#tabs {
     margin-bottom:0px;
 }
 .suggestion-holder .ui-widget-content .ui-state-default a{
-    padding: 16px 20px;
-    margin-bottom:0px;
+    padding: 10px 15px;
+    margin-bottom: 0px;
     color:#fff;
 }
 .suggestion-holder  .ui-widget-content .ui-state-default.ui-state-active {
@@ -304,12 +304,13 @@ div#tabs {
 }
 .suggestion-holder .ui-widget-content .ui-state-default.ui-state-active a{
     color: #fff;
+    outline-width: 0px;
 }
 
 .suggestion-holder .ui-widget-content .ui-state-default{
     background: rgba(109, 110, 111, 0.87)!important;
 
-    margin: 0px 2px 0px 0px;
+    margin: 0px 1px 0px 0px;
 }
 
 .suggestion-holder .ui-tabs .ui-tabs-panel {
@@ -321,7 +322,6 @@ div#tabs {
     font-weight: normal;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    overflow-y: scroll;
 }
 .suggestion-holder h3 {
     font-family: 'lato';
@@ -379,14 +379,16 @@ h2.suggestion-title {
     padding: 10px;
 }
 .record-holder{
-    overflow-y: scroll;
-    height: 119px;
     font-size: 10pt;
 }
 .container-fluid.suggestion {
     background-color: #EFEFEF;
     border-top: 1px solid #FFF;
     box-shadow: 0px -1px 0px #ddd;
+    max-width: none;
+}
+.container-fluid.suggestion>div {
+    max-width: 1024px;
 }
 @media (max-width: 900px) {
     .ui-datepicker table {
@@ -515,6 +517,68 @@ section#activityPanorama img {
     width: 90%;
     line-height: 18px;
 }
-div#tabs {
-    width: 97%;
+
+/* Suggest calendar mobile tabs */
+
+#mobileTabsContainer {
+    text-align: center;
+}
+.mobileArrows {
+    cursor: pointer;
+    width: 75px;
+}
+.mobileArrows, #mobileTabs {
+    display: inline-block;
+    color: #606060;
+}
+.mobileArrows, #mobileTabs {
+    height: 100px;
+    vertical-align: middle;
+}
+#mobileTabs {
+    width: 100px;
+    overflow: hidden;
+}
+#mobileDateStrip {
+    transition: margin-left 0.2s ease;
+    margin-left: -600px;
+    width: 2000px;
+}
+.mobileArrowsInner, .mobileTabsOuter {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.mobileArrowsInner {
+    height: 100%; width: 100%;
+}
+    .mobileArrows .glyphicon {
+        margin: auto;
+        font-size: 40px;
+    }
+.mobileTabsOuter {
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 100px;
+}
+.mobileTabsInner {
+    width: 100%;
+    text-align: center;
+}
+@media (max-width: 640px) {
+    #mobileRecommendDates > li {
+        display: none;
+    }
+}
+@media (min-width: 640px) {
+    #mobileTabsContainer {
+        display: none;
+    }
 }
