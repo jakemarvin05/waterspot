@@ -58,13 +58,14 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => '128.199.214.85',
-		'login' => 'waterspo',
-		'password' => 'samprism123',
-		'database' => 'waterspo_spot',
+		'host' => 'localhost',
+		'login' => 'waterspo_water',
+		'password' => 'ucNyZWks0;S5',
+		'database' => 'waterspo_db',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
+
 	var $sgtest = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
@@ -90,8 +91,8 @@ class DATABASE_CONFIG {
 		if($_SERVER['HTTP_USER_AGENT']=='Mozilla/5.0 (X11; Linux i686) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11' || $_SERVER['HTTP_USER_AGENT']=='Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:24.0) Gecko/20100101 Firefox/24.0') {
 			//$this->default = $this->sgtest;
 			$this->default = $this->default;
-        } else {
-            $this->default = $this->default;
-        }
-    }
+		} else {
+			$this->default = $this->default;
+		}
+	}
 }
