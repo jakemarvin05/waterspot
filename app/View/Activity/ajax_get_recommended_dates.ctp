@@ -33,7 +33,7 @@
 					foreach($slots as $slot){
 				?>
 				<div class="row">
-					<div class="time col-sm-7"><?php echo date('H:ia', strtotime($slot->start_time)); ?> - <?php echo date('H:ia', strtotime($slot->end_time)); ?></div>
+					<div class="time col-sm-7"><?php echo date('h:ia', strtotime($slot->start_time)); ?> - <?php echo date('H:ia', strtotime($slot->end_time)); ?></div>
 					<div class="price col-sm-5">SGD<?php echo $slot->price; ?></div>
 				<!--	<div class="book col-sm-2"><button class="book-now btn btnDefaults btnFillOrange"> add </button></div> -->
 				</div>

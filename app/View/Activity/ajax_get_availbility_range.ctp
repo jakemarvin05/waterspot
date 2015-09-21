@@ -16,7 +16,7 @@
 						?>
 						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
 						echo $this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time);
-						?></label><?php echo '<br/>Price : $'.$slot_price . '&nbsp;&nbsp;&nbsp; (' . $slot->available_count . "/ $service_details[no_person] slots remaining)" ;?>
+						?></label><?php echo '<br/>Price : $'.$slot_price . '&nbsp;&nbsp;&nbsp; (' . $slot->available_count . " slots remaining)" ;?>
 						<?php if ($service_details['min_participants'] > 0): ?>
 						<div class="progressinfo" style="color:#777;width:100%;">
 							<span class="current" style="color:#FEAB32"><?php echo ($service_details['min_participants'] - $slot->current_booked_count) < 0 ? 0 : ($service_details['min_participants'] - $slot->current_booked_count) ; ?></span> out of <?php echo $service_details['min_participants']; ?> Participants to go
