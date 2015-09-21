@@ -128,7 +128,7 @@
 					foreach($slots as $slot){
 				?>
 				<div class="row">
-					<div class="time col-xs-7"><?php echo date('h:ia', strtotime($slot->start_time)); ?> - <?php echo date('h:ia', strtotime($slot->end_time)); ?></div>
+					<div class="time col-xs-7"><?php echo date('h:ia', strtotime($slot->start_time)); ?> - <?php echo date('h:ia', strtotime($slot->end_time) + 1); ?></div>
 					<div class="price col-xs-5">SGD<?php echo $slot->price; ?></div>
 				<!--	<div class="book col-sm-2"><button class="book-now btn btnDefaults btnFillOrange"> add </button></div> -->
 				</div>

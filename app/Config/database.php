@@ -58,10 +58,10 @@ class DATABASE_CONFIG {
 	var $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'water',
-		'password' => 'asdfasdf',
-		'database' => 'waterspot_local',
+		'host' => '128.199.214.85',
+		'login' => 'waterspo',
+		'password' => 'samprism123',
+		'database' => 'waterspo_spot',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
