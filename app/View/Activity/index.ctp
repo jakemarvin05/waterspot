@@ -146,15 +146,19 @@
                             <div style="height: 100%; width: 100%;">
                                 <span
                                     class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
-                                    </span> <span
-                                    class="unit">PER PAX</span>
+                                    </span>
+                                    <?php if ($service_detail['Service']['is_private'] == 0) { ?>
+                                        <span class="unit">PER PAX</span>
+                                    <?php } ?>
                             </div>
                             <?php else: ?>
                                 <div style="height: 100%; width: 100%;">
                                 <span
                                     class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span> <span
-                                        class="unit">PER PAX</span>
+                                    - <?= Configure::read('currency'); ?><?= number_format($max_price?$max_price:$service_detail['Service']['service_price'], 2); ?></span>
+                                    <?php if ($service_detail['Service']['is_private'] == 0) { ?>
+                                        <span class="unit">PER PAX</span>
+                                    <?php } ?>
                                 </div>
                             <?php endif; ?>
                         </div>
