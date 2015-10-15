@@ -115,10 +115,12 @@ Class ActivityController extends AppController{
 		$this->loadModel('VendorManager.ServiceImage');
 		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.ServiceReview');
+		$this->loadModel('VendorManager.Attribute');
+		$this->loadModel('VendorManager.ServiceAttribute');
 		$this->loadModel('VendorManager.ValueAddedService');
 		$this->loadModel('LocationManager.City');
 		$this->loadModel('Cart');
-		$this->loadModel('ServiceManager.ServiceType'); 
+		$this->loadModel('ServiceManager.ServiceType');
 		// check service 
 		$no_of_booking_days=0;
 		$service_status=$this->Service->CheckServiceId($service_id);
@@ -292,7 +294,15 @@ Class ActivityController extends AppController{
 		$price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice'] ]);
 		$this->set('max_price', $price_range[0]['maxprice']);
 		$this->set('min_price', $price_range[0]['minprice']);
-                
+
+		// attributes
+		$attributes = [];
+		$service_attributes = $this->ServiceAttribute->find('all', ['conditions' => ['ServiceAttribute.service_id' => $service_id]]);
+		foreach ($service_attributes as $attribute) {
+			$attr = $this->Attribute->find('first', ['conditions' => ['Attribute.id' => $attribute['ServiceAttribute']['attribute_id']]]);
+			$attributes[$attr['Attribute']['name']] = $attribute['ServiceAttribute']['value'];
+		}
+        $this->set('attributes', $attributes);
 	}
 	function ajax_get_availbility_range(){
 		$this->layout='';
