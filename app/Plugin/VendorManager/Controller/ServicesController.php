@@ -169,8 +169,6 @@ Class ServicesController extends VendorManagerAppController{
 		$this->loadModel('LocationManager.City');
 		$this->loadModel('VendorManager.ValueAddedService');
 		$this->loadModel('VendorManager.ServiceImage');
-		$this->loadModel('VendorManager.Attribute');
-		$this->loadModel('VendorManager.ServiceAttribute');
 		$vendor_id=$this->VendorAuth->id();
 		// check service_id owner
 
@@ -208,8 +206,6 @@ Class ServicesController extends VendorManagerAppController{
 			self::_vendor_add_service($this->Service->id);
 			// saving services images 
 			self::_add_service_image($this->Service->id);
-			// save the attributes
-			print_r($this->request->data);die;
 
 			$this->Session->setFlash(__('Service has been '.$savemsg. ' successfully.'));
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'services', 'action' => 'my_services'));	
@@ -256,17 +252,6 @@ Class ServicesController extends VendorManagerAppController{
 		}
 		$this->set('participants_num_list',$participantsNumList);
 		$this->set('city_list',$city_list);
-		$this->set('attributes',$this->Attribute->find('all'));
-
-		// attributes
-		$attribute_ids = [];
-		if ($service_id != null) {
-			$service_attributes = $this->ServiceAttribute->find('all', ['conditions' => ['ServiceAttribute.service_id' => $service_id]]);
-			foreach ($service_attributes as $attribute) {
-				$attribute_ids[] = $attribute['ServiceAttribute']['attribute_id'];
-			}
-		}
-        $this->set('selected_attributes', $attribute_ids);
 	}
 
 	private function _vendor_add_service($service_id){
@@ -832,22 +817,6 @@ Class ServicesController extends VendorManagerAppController{
 			$this->Service->create();
 			$this->Service->save($service,array('validate' => false));
 		}
-    }
-
-    public function ajax_get_attribute_list($type_id, $service_id=null){
-    	$this->layout='';
-    	$this->loadModel('VendorManager.Attribute');
-    	$this->loadModel('VendorManager.ServiceAttribute');
-    	$service_attributes = [];
-    	if ($service_id != null) {
-    		foreach ($this->ServiceAttribute->find('all', ['conditions' => ['service_id' => $service_id]]) as $attr) {
-    			$service_attributes[] = $attr['ServiceAttribute']['attribute_id'];
-    		}
-    	}
-    	$this->set('selected_attributes', $service_attributes);
-    	$this->set('amenities_attributes', $this->Attribute->find('all', ['conditions' => ['service_type_id' => $type_id, 'type' => 1]]));
-    	$this->set('include_attributes', $this->Attribute->find('all', ['conditions' => ['service_type_id' => $type_id, 'type' => 2]]));
-    	$this->set('extra_attributes', $this->Attribute->find('all', ['conditions' => ['service_type_id' => $type_id, 'type' => 3]]));
     }
 }
 ?>

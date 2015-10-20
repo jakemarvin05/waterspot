@@ -32,7 +32,6 @@ Router::connect('/vendor/service_availability/index/*', array('controller' => 'v
 // services controller
 
 Router::connect('/services/add_services/*', array('controller' => 'services', 'action' => 'add_services','plugin'=>'vendor_manager'));
-Router::connect('/services/ajax_get_attribute_list/*', array('controller' => 'services', 'action' => 'ajax_get_attribute_list','plugin'=>'vendor_manager'));
 
 Router::connect('/services/my-services', array('controller' => 'services', 'action' => 'my_services','plugin'=>'vendor_manager'));
 

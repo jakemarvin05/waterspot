@@ -24,7 +24,7 @@
                     <label>Select your services:</label>
                 </div>
                 <div class="fieldbox">
-                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false, 'class' => 'service_type selectpicker', 'onchange' => 'service_type_change($(this).val())')); ?>
+                    <?= $this->Form->input('service_type_id', array('type' => 'select', 'options' => $service_types, 'label' => false, 'class' => 'selectpicker')); ?>
                     <?= $this->Form->error('service_type_id', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </div>
             </div>
@@ -305,7 +305,6 @@
 
                 </div>
             </div>
-            <div class="dashboard-form-row servcont" id="attributes_list"></div>
             <div class="dashboard-form-row servcont">
                 <input class="dashboard-buttons" value="Submit" type="submit">
             </div>
@@ -615,16 +614,4 @@
             }
         });
     });
-</script>
-<script type="text/javascript">
-    function service_type_change(type) {
-        var geturl = '<?=$path?>services/ajax_get_attribute_list/' + type;
-        var service_id = <?php echo isset($service_detail['Service']['id']) ? $service_detail['Service']['id'] : 0; ?>;
-        if (service_id) {
-            geturl += '/' + '<?php echo $service_detail['Service']['id'] ?>';
-        }
-        $.get(geturl, function(data) {
-            $('#attributes_list').html(data);
-        });
-    }
 </script>
