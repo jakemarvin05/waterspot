@@ -196,7 +196,8 @@ Search:
                                 </td>
                                 <td width="50%">
                                     <ul class="actions">
-                                     <li><?php echo $this->Html->link('edit', array('controller' => 'service_types', 'action' => 'add', $service['ServiceType']['id']), array('escape' => false, 'class' => 'edit', 'title' => 'Edit Service', 'rel' => 'tooltip')); ?></li>
+                                        <li><?php echo $this->Html->link('edit', array('controller' => 'service_types', 'action' => 'add', $service['ServiceType']['id']), array('escape' => false, 'class' => 'edit', 'title' => 'Edit Service', 'rel' => 'tooltip')); ?></li>
+                                        <li><?php echo $this->Html->link('edit', array('controller' => 'service_types', 'action' => 'add_attribute', $service['ServiceType']['id']), array('escape' => false, 'class' => 'add_template', 'title' => 'Add Service Attibute', 'rel' => 'tooltip')); ?></li>
                                         <li>
                                         <?=$this->Html->link('view', array('controller' => 'service_types', 'action' => 'view', $service['ServiceType']['id']), array('escape' => false,'class'=>'view fancybox','title'=> __('View'),'rel'=>'tooltip'))?>
                                         

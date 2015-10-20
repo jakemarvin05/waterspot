@@ -45,6 +45,30 @@ class ServiceTypesController extends ServiceManagerAppController {
 		}
 	}
 	
+	function admin_add_attribute($id=null){
+		$this->breadcrumbs[] = array(
+		'url'=>Router::url('/admin/home'),
+		'name'=>'Home'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/admin/service_manager/service_types'),
+			'name'=>'Manage ServiceType'
+		);
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/admin/service_manager/mail/add_attribute'),
+			'name'=>'Add Service Attribute'
+		);
+		$this->loadModel('VendorManager.Attribute');
+		$attributes = $this->Attribute->find('all', ['conditions' => ['service_type_id' => $id]]);
+		if($id!=null){
+			$this->request->data = $this->ServiceType->read(null,$id);
+		}else{
+			$this->request->data = array();
+		}
+		$this->set('attributes', $attributes);
+		$this->set('url',Controller::referer());
+	}
+
 	function admin_add($id=null){
 		$this->breadcrumbs[] = array(
 		'url'=>Router::url('/admin/home'),
