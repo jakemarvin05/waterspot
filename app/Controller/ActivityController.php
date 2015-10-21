@@ -296,13 +296,35 @@ Class ActivityController extends AppController{
 		$this->set('min_price', $price_range[0]['minprice']);
 
 		// attributes
+		// this is how we call the attributes
+		$attribute_list = $this->ServiceAttribute->find('all', ['conditions' => ['service_id' => $service_id]]);
 		$attributes = [];
-		$service_attributes = $this->ServiceAttribute->find('all', ['conditions' => ['ServiceAttribute.service_id' => $service_id]]);
-		foreach ($service_attributes as $attribute) {
-			$attr = $this->Attribute->find('first', ['conditions' => ['Attribute.id' => $attribute['ServiceAttribute']['attribute_id']]]);
-			$attributes[$attr['Attribute']['name']] = $attribute['ServiceAttribute']['value'];
+		foreach ($attribute_list as $attr) {
+			$attribute = [];
+			$attribute_detail = $this->Attribute->find('first', ['conditions' => ['id' => $attr['ServiceAttribute']['attribute_id']]]);
+			$attribute['name'] = $attribute_detail['Attribute']['name'];
+			$attribute['type'] = $attribute_detail['Attribute']['type'] == 1 ? 'Amenity' : ($attribute_detail['Attribute']['type'] == 2 ? 'Included' : 'Extra');
+			$attribute['has_input'] = $attribute_detail['Attribute']['has_input'];
+			$attribute['icon_class'] = $attribute_detail['Attribute']['icon_class'] ? $attribute_detail['Attribute']['icon_class'] : 'fa fa-list';
+			$attribute['value'] = $attr['ServiceAttribute']['value'];
+			$attributes[] = $attribute;
 		}
-        $this->set('attributes', $attributes);
+		$amenities = [];
+		$included = [];
+		$extra = [];
+		foreach ($attributes as $attr) {
+			if ($attr['type'] == 'Amenity') {
+				$amenities[] = $attr;
+			} elseif ($attr['type'] == 'Included') {
+				$included[] = $attr;
+			} else {
+				$extra[] = $attr;
+			}
+		}
+		$this->set('amenities', $amenities);
+		$this->set('included', $included);
+		$this->set('extra', $extra);
+		//end of calling the attributes
 	}
 	function ajax_get_availbility_range(){
 		$this->layout='';

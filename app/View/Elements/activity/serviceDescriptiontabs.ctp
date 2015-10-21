@@ -7,6 +7,29 @@
         <h3>Itinerary</h3>
         <?=$service_detail['Service']['itinerary'] ?>
     </section>
+    <section class="activity-section">
+        <h3>Attributes</h3>
+        <?php if (count($amenities) > 0): ?>
+            <h4>Amenities</h4>
+            <?php foreach ($amenities as $attr): ?>
+                <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        
+        <?php if (count($included) > 0): ?>
+            <h4>Included</h4>
+            <?php foreach ($included as $attr): ?>
+                <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (count($extra) > 0): ?>
+            <h4>Extra</h4>
+            <?php foreach ($extra as $attr): ?>
+                <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </section>
 
     <section class="activity-section">
         <h3>How to get There</h3>
