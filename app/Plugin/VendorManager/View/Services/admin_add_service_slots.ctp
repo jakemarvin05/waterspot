@@ -31,6 +31,7 @@ function saveform(){
 			<tr>
 				<td colspan="3"><strong>Start Time</strong></td>
 				<td colspan="2"><strong>End Time</strong></td>
+				<td colspan="2"><strong>Price</strong></td>
 				<td><strong>Cancel</strong></td>
 			</tr>
 			
@@ -38,6 +39,7 @@ function saveform(){
 				<tr> 
 					<td  colspan="3"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
 					<td colspan="2"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
+					<td colspan="2"><?=$service_slot['price']?></td>
 					<td><?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
 				</tr> 
 				<?php }?> 
@@ -60,6 +62,11 @@ function saveform(){
 				<td align="left" style="text-align: left;">
 					<?=$this->Form->input('end_time',array('type' =>'select', 'options' => $end_hours_format,'label'=>false,'div'=>false));?>
 				<?=$this->Form->error('end_time',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				</td>
+				<td align="left" style="text-align: left;">
+				Price: 
+					<?=$this->Form->input('price',array('type' =>'text','label'=>false,'div'=>false, 'value'=>$default_service_price));?>
+				<?=$this->Form->error('price',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 				</td>
 			</tr>
 		</table><br /><br />

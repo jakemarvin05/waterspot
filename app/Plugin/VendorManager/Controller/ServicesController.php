@@ -618,6 +618,9 @@ Class ServicesController extends VendorManagerAppController{
 			'url'=>Router::url('/services/add_slots/'),
 			'name'=>'Add Slots'
 		);
+		$service = $this->Service->find('first',['conditions'=>['id'=>$service_id]]);
+		$default_service_price = $service['Service']['service_price'];
+		$this->set('default_service_price',$default_service_price);
 		$this->set('service_id',$service_id);
 		$this->set('vendor_id',$vendor_id);
 		$this->set('service_title',$service_title);
