@@ -114,7 +114,7 @@
 							
 							 <?=$this->Html->link("<i class=\"fa fa-comments\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Review'));?>
 
-							 <?=$this->Html->link("<i class=\"fa fa-list\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_attributes','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Review'));?>
+							 <?=$this->Html->link("<i class=\"fa fa-list\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_attributes','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Manage Attributes'));?>
 						</td>
 						<td style="text-align: center;">
 							<?php if($service['status']=='1'){ 
