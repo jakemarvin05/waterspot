@@ -7,25 +7,32 @@
         <h3>Itinerary</h3>
         <?=$service_detail['Service']['itinerary'] ?>
     </section>
-    <?php if ( (count($amenities) + count($included) + count($extra)) > 0 ): ?>
+    <?php if ( (count($amenities) + count($included) + count($extra) + count($details)) > 0 ): ?>
         <section class="activity-section">
-            <h3>Attributes</h3>
+            <h3>Details</h3>
+            <?php echo $header ? '<h4>About this ' . $header . '</h4>' : '' ?>
+            <?php if (count($details) > 0): ?>
+                <?php foreach ($details as $attr): ?>
+                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
             <?php if (count($amenities) > 0): ?>
-                <h4>Amenities</h4>
+                <h4>Amenities provided</h4>
                 <?php foreach ($amenities as $attr): ?>
                     <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
             
             <?php if (count($included) > 0): ?>
-                <h4>Included</h4>
+                <h4>What are Included</h4>
                 <?php foreach ($included as $attr): ?>
                     <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
 
             <?php if (count($extra) > 0): ?>
-                <h4>Extra</h4>
+                <h4>Extras</h4>
                 <?php foreach ($extra as $attr): ?>
                     <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
                 <?php endforeach; ?>

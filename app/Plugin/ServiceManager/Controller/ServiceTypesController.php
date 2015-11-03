@@ -322,5 +322,17 @@ class ServiceTypesController extends ServiceManagerAppController {
 		$this->metakeyword = $service_type_details['ServiceType']['description'];
 		$this->metadescription = $service_type_details['ServiceType']['description'];
 	}
+
+	public function admin_set_header($id = null) {
+		if ($id == null) {
+			$this->Session->setFlash(__('No service type id found!'));
+			return $this->redirect(Controller::referer());
+		}
+		$data = $this->request->data;
+		$this->ServiceType->id = $id;
+		$this->ServiceType->save($data,array('validate' => false));
+		$this->Session->setFlash(__('Service type header has been successfully updated'));
+    	return $this->redirect(Controller::referer());
+    }
 }
 ?>

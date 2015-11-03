@@ -303,27 +303,33 @@ Class ActivityController extends AppController{
 			$attribute = [];
 			$attribute_detail = $this->Attribute->find('first', ['conditions' => ['id' => $attr['ServiceAttribute']['attribute_id']]]);
 			$attribute['name'] = $attribute_detail['Attribute']['name'];
-			$attribute['type'] = $attribute_detail['Attribute']['type'] == 1 ? 'Amenity' : ($attribute_detail['Attribute']['type'] == 2 ? 'Included' : 'Extra');
+			$attribute['type'] = $attribute_detail['Attribute']['type'] == 1 ? 'Amenity' : ($attribute_detail['Attribute']['type'] == 2 ? 'Included' : ($attribute_detail['Attribute']['type'] == 3 ? 'Extra' : 'Detail'));
 			$attribute['has_input'] = $attribute_detail['Attribute']['has_input'];
-			$attribute['icon_class'] = $attribute_detail['Attribute']['icon_class'] ? $attribute_detail['Attribute']['icon_class'] : 'fa fa-list';
+			$attribute['icon_class'] = $attribute_detail['Attribute']['icon_class'] ? $attribute_detail['Attribute']['icon_class'] : 'fa fa-check';
 			$attribute['value'] = $attr['ServiceAttribute']['value'];
 			$attributes[] = $attribute;
 		}
 		$amenities = [];
 		$included = [];
 		$extra = [];
+		$details = [];
 		foreach ($attributes as $attr) {
 			if ($attr['type'] == 'Amenity') {
 				$amenities[] = $attr;
 			} elseif ($attr['type'] == 'Included') {
 				$included[] = $attr;
-			} else {
+			} elseif ($attr['type'] == 'Extra') {
 				$extra[] = $attr;
+			} else {
+				$details[] = $attr;
 			}
 		}
+		$header = $this->ServiceType->find('first', ['conditions' => ['id' => $service_detail['Service']['service_type_id']]]);
+		$this->set('header', $header['ServiceType']['header']);
 		$this->set('amenities', $amenities);
 		$this->set('included', $included);
 		$this->set('extra', $extra);
+		$this->set('details', $details);
 		//end of calling the attributes
 	}
 	function ajax_get_availbility_range(){

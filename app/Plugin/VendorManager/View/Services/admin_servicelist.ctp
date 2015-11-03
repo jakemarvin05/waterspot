@@ -196,6 +196,8 @@
 									
 									<li><?php echo $this->Html->link('Service Review', array('controller' => 'service_reviews', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-review', 'title' => 'Edit Service Review', 'rel' => 'tooltip')); ?></li>
 
+                                    <li><?php echo $this->Html->link("Manage Attributes",array('plugin'=>'vendor_manager','controller'=>'service_attributes','action'=>'index',$vendor_service['Service']['id']),array('escape' => false,'class'=>'view-services','title'=>'Manage Attributes'));?></li>
+
 								</ul >
 							</td> 
 
