@@ -25,7 +25,7 @@
             <?php endif; ?>
             
             <?php if (count($included) > 0): ?>
-                <h4>What are Included</h4>
+                <h4>What are included</h4>
                 <?php foreach ($included as $attr): ?>
                     <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
                 <?php endforeach; ?>

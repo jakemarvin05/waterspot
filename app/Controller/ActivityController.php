@@ -302,6 +302,11 @@ Class ActivityController extends AppController{
 		foreach ($attribute_list as $attr) {
 			$attribute = [];
 			$attribute_detail = $this->Attribute->find('first', ['conditions' => ['id' => $attr['ServiceAttribute']['attribute_id']]]);
+			if (!$attribute_detail) {
+				$remove_id = $this->ServiceAttribute->find('first', ['conditions' => ['service_id' => $service_id, 'attribute_id' => $attr['ServiceAttribute']['attribute_id']]]);
+				$this->ServiceAttribute->delete($remove_id['ServiceAttribute']['id']);
+				continue;
+			}
 			$attribute['name'] = $attribute_detail['Attribute']['name'];
 			$attribute['type'] = $attribute_detail['Attribute']['type'] == 1 ? 'Amenity' : ($attribute_detail['Attribute']['type'] == 2 ? 'Included' : ($attribute_detail['Attribute']['type'] == 3 ? 'Extra' : 'Detail'));
 			$attribute['has_input'] = $attribute_detail['Attribute']['has_input'];

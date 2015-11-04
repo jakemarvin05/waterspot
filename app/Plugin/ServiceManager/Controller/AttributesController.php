@@ -17,4 +17,15 @@ class AttributesController extends ServiceManagerAppController {
 		$this->Session->setFlash(__('Service type Attribute has been removed successfully'));
     	return $this->redirect(Controller::referer());
 	}
+
+	function admin_edit_attribute_save($id=null){
+		if ($id == null) {
+			$this->Session->setFlash(__('Attribute ID not found!'));
+	    	return $this->redirect(Controller::referer());
+		}
+		$this->Attribute->id = $id;
+		$this->Attribute->save($this->request->data);
+		$this->Session->setFlash(__('Attribute has been successfully saved'));
+    	return $this->redirect(Controller::referer());
+	}
 }
