@@ -159,13 +159,12 @@ Search:
     <table width="100%">
         <tr>
             <th width="5%"><?= $this->Form->checkbox('check', array('value' => 1, 'onchange' => "CheckAll(this.value)", 'class' => 'check-all')); ?></th>
-            <th width="1%">&nbsp;</th>
-            <th width="6%">SNo.</th>
+            <th width="5%">SNo.</th>
             <th width="35%">Title</th>
             <th width="30%">Image</th>
             
             <th width="10%">Publish</th>
-            <th width="50%">Actions</th>
+            <th width="15%">Actions</th>
         </tr>
         <tr>
             <td colspan="7">
@@ -178,9 +177,9 @@ Search:
                         <table width="100%">
                             <tr>
                                 <td width="5%"><?php echo $this->Form->checkbox('ServiceType.id.'.$i, array('value' => $service['ServiceType']['id'])); ?></td>
-                                <td width="6%"><?php echo $i++; ?></td>
+                                <td width="5%"><?php echo $i++; ?></td>
                                 <td width="35%"><?php echo $service['ServiceType']['name']; ?></td>
-                                <td width="35%"><? 
+                                <td width="30%"><? 
 								$imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$service['ServiceType']['image'],'width'=>110,'height'=>80,'noimg'=>$setting['site']['site_noimage']);
 								$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 								echo $this->Html->image($resizedImg,array('border'=>'0'));
@@ -194,7 +193,7 @@ Search:
                                     echo $this->Html->image('admin/icons/icon_error.png', array());
                                 ?>
                                 </td>
-                                <td width="50%">
+                                <td width="15%">
                                     <ul class="actions">
                                         <li><?php echo $this->Html->link('edit', array('controller' => 'service_types', 'action' => 'add', $service['ServiceType']['id']), array('escape' => false, 'class' => 'edit', 'title' => 'Edit Service', 'rel' => 'tooltip')); ?></li>
                                         <li><?php echo $this->Html->link('edit', array('controller' => 'service_types', 'action' => 'add_attribute', $service['ServiceType']['id']), array('escape' => false, 'class' => 'add_template', 'title' => 'Add Service Attibute', 'rel' => 'tooltip')); ?></li>
