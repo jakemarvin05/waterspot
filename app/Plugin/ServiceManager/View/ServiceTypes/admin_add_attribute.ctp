@@ -59,7 +59,7 @@ function saveform()
         <dd><?php echo $this->Form->text('name', array('required'=>true)); ?></dd>
         
         <dt>Type</dt>
-        <dd><?php echo $this->Form->select('type', array('options' => [0 => 'Detail', 1 => 'Amenity', 2 => 'Inlcuded', 3 => 'Extra'])); ?></dd>
+        <dd><?php echo $this->Form->select('type', array('options' => [0 => 'Detail', 1 => 'Amenity', 2 => 'Included', 3 => 'Extra'])); ?></dd>
         
         <dt>Accepts Value</dt>
         <dd><?php echo $this->Form->checkbox('has_input'); ?></dd>
