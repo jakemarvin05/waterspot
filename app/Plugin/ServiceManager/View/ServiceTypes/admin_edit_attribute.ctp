@@ -16,8 +16,9 @@ function saveform()
     <?php echo $this->element('admin/message');?>
     <?php echo $this->Form->create('Attribute',array('name'=>'servicetype','id'=>'ServiceType','action'=>'edit_attribute_save'))?>
     <?php echo $this->Form->hidden('id'); ?>
+    <?php echo $this->Form->hidden('service_type_id'); ?>
     <fieldset>
-      <h3>Add New</h3>
+      <h3>Edit</h3>
       <dl>
         <dt>Name</dt>
         <dd><?php echo $this->Form->text('name', array('required'=>true)); ?></dd>
@@ -32,7 +33,7 @@ function saveform()
         <dd><?php echo $this->Form->text('icon_class', array('required'=>true)); ?></dd>
       </dl>
     </fieldset>
-    <button type="submit">Add</button>
+    <button type="submit">Done</button>
     <?php echo $this->Form->end();?>
 
 </div>

@@ -62,7 +62,7 @@
 	<div class="right-area col-sm-9 col-xs-12">
 		<?=$this->element('message');?>
 		<div class="dashboard-form-row special">
-			<h3 class="dashboard-heading special" style="float: left;">Service Attribute</h3>
+			<h3 class="dashboard-heading special" style="float: left;">Service Attribute - <?php echo $service['Service']['service_title'] ?></h3>
 		</div>
 		<div class="clearfix"></div>
 		<?php if ( (count($details) + count($amenities) + count($included) + count($extra)) > 0 ): ?>

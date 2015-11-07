@@ -10,7 +10,7 @@ function saveform()
 <div>
     <article>
         <header>
-            <h2>Add Service Attribute</h2>
+            <h2>Add Service Attribute - <?php echo $this->request->data['ServiceType']['title'] ?></h2>
         </header>
     </article>
     <?php echo $this->element('admin/message');?>
