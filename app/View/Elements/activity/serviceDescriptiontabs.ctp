@@ -14,28 +14,28 @@
                 <h4>About this <?php echo $header ? $header : 'activity' ?></h4>
             
                 <?php foreach ($details as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
 
             <?php if (count($amenities) > 0): ?>
                 <h4>Amenities provided</h4>
                 <?php foreach ($amenities as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
             
             <?php if (count($included) > 0): ?>
                 <h4>What are included</h4>
                 <?php foreach ($included as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
 
             <?php if (count($extra) > 0): ?>
                 <h4>Extras</h4>
                 <?php foreach ($extra as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
+                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
                 <?php endforeach; ?>
             <?php endif; ?>
         </section>
