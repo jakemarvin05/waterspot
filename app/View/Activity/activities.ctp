@@ -94,7 +94,7 @@
 		</div>
 	</div>
 
-	<div class="middle-area">
+	<div class="middle-area listing-body">
 		<div id='sort_by_price' class="ajax-loder" style="float:left; width: 100%; text-align: center; padding: 20px 0; display:none">
 			<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
 		</div>
