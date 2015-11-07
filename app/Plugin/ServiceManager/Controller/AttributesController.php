@@ -25,7 +25,7 @@ class AttributesController extends ServiceManagerAppController {
 		}
 		$this->Attribute->id = $id;
 		$this->Attribute->save($this->request->data);
-		$this->Session->setFlash(__('Attribute has been successfully saved'));
+		$this->Session->setFlash(__('Attribute has been successfully updated'));
 		$url = '/admin/service_manager/service_types/add_attribute/' . $this->request->data['Attribute']['service_type_id'];
     	return $this->redirect($url);
 	}
