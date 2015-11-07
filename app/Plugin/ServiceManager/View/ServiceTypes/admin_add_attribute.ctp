@@ -28,8 +28,8 @@ function saveform()
         <td><?php echo $attr['Attribute']['type'] == 1 ? 'Amenity' : ($attr['Attribute']['type'] == 2 ? 'Included' : ($attr['Attribute']['type'] == 3 ? 'Extra' : 'Detail') ) ?></td>
         <td><?php echo $attr['Attribute']['has_input'] == 1 ? 'True' : 'False' ?></td>
         <td><?php echo $attr['Attribute']['icon_class'] ? $attr['Attribute']['icon_class'] : 'N/A' ?></td>
-        <td class="actions">
-          <ul>
+        <td>
+          <ul class="actions">
             <li><a href="/admin/service_manager/attributes/remove_attribute_save/<?php echo $attr['Attribute']['id']; ?>" title="remove" class="delete"></a></li>
             <li><a href="/admin/service_manager/service_types/edit_attribute/<?php echo $attr['Attribute']['id']; ?>" title="edit" class="edit">edit</a></li>
           </ul>          
