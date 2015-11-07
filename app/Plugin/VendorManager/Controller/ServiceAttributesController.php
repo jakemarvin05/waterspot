@@ -6,7 +6,7 @@ Class ServiceAttributesController extends VendorManagerAppController{
 
 	public function index($service_id=null) {
 		$service = $this->Service->find('first', ['conditions' => ['id' => $service_id]]);
-		
+		$this->set('service', $service);
 		$selected_attributes = $this->ServiceAttribute->find('all', ['conditions' => ['service_id' => $service_id]]);
 		$attribute_ids = [];
 		foreach ($selected_attributes as $attr) {
@@ -103,7 +103,7 @@ Class ServiceAttributesController extends VendorManagerAppController{
 
 	public function admin_index($service_id=null) {
 		$service = $this->Service->find('first', ['conditions' => ['id' => $service_id]]);
-		
+		$this->set('service', $service);
 		$selected_attributes = $this->ServiceAttribute->find('all', ['conditions' => ['service_id' => $service_id]]);
 		$attribute_ids = [];
 		foreach ($selected_attributes as $attr) {
