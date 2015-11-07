@@ -11,7 +11,7 @@
         <section class="activity-section">
             <h3>Details</h3>
             <?php if (count($details) > 0): ?>
-                <?php echo $header ? '<h4>About this ' . $header . '</h4>' : '' ?>
+                <h4>About this <?php echo $header ? $header : 'activity' ?></h4>
             
                 <?php foreach ($details as $attr): ?>
                     <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ' : ' . $attr['value'] : ''); ?> <br/>
