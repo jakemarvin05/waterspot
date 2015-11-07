@@ -108,6 +108,12 @@ a:focus, a:hover {
     text-decoration: none;
 }
 
+.middle-area.listing-body {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* selection*/
 ::selection { color: #fff; background: #ff9700; } /* default orange color */
 ::-moz-selection { color: #fff; background: #ff9700; }

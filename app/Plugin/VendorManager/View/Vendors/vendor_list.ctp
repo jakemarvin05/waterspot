@@ -20,7 +20,7 @@
 			<h1 class=" headerAlt">Select Vendors</h1>
 		</header>
 		<div class="clearfix"></div>
-<div class="middle-area">
+<div class="middle-area listing-body">
 	<?php $i = $this->paginator->counter('{:start}'); ?>
 	<? foreach($vendor_services as $key=>$vendor_service) { ?>
 		<div class="vendor-listing col-sm-4 col-xs-6">
