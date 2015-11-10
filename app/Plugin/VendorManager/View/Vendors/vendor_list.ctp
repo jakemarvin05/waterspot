@@ -94,9 +94,21 @@
 						$ratingMark = 0;
 					}
 
+					
+					if($ratingMark > 0):
+
 					?>
 
 					<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
+
+					<?php
+					else:
+					?>
+					<span class="rating-label"> No ratings yet</span> 
+					<?php
+					endif;
+					?>
+					
 					<div class="clearfix"></div>
 				</div>
 			</div>
