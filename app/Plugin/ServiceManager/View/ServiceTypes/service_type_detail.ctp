@@ -51,43 +51,43 @@
 							</div>
 							<div class="tile-info"> 
 								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>" class=""><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></a></h4>
-								<div class="activity-rating-wrapper">
-									<? if(!empty($service_list['rating'])){ ?>
-										<?php $ratings = range(1,10); ?>
-										<?php foreach($ratings as $rating){ ?>
+								<div class="clearfix"></div>
+							</div>
 
-											<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
-												/>
-										<?php }} ?>
-									<span class="rating-label">Rating:</span><br><br>
+							<div class="activity-rating-wrapper">
+								<? if(!empty($service_list['rating'])){ ?>
+									<?php $ratings = range(1,10); ?>
+									<?php foreach($ratings as $rating){ ?>
 
-									<?php
-									//@todo convert Rating into float
+										<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
+											/>
+									<?php }} ?>
+								<span class="rating-label">Rating:</span>
+
+								<?php
+								//@todo convert Rating into float
 
 
-									$rating = 0.0; // value is 0.0 to 1.0
+								$rating = 0.0; // value is 0.0 to 1.0
 
-									$ratingPerCent = $rating*5;
+								$ratingPerCent = $rating*5;
+								$ratingMark = 0;
+
+								if($ratingPerCent>1) {
+									$ratingMark = round($ratingPerCent);
+									$ratingMark = $ratingMark/5;
+								}
+								else{
 									$ratingMark = 0;
+								}
 
-									if($ratingPerCent>1) {
-										$ratingMark = round($ratingPerCent);
-										$ratingMark = $ratingMark/5;
-									}
-									else{
-										$ratingMark = 0;
-									}
+								?>
 
-									?>
-
-									<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
-
-
-								</div>
-
+								<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
 
 
 							</div>
+
 						</div>
 
 					</div>

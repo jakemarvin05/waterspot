@@ -11,20 +11,21 @@ $i = $this->paginator->counter('{:start}');
 				</div>
 				<div class="tile-info">
 					<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
-					 <div class="activity-rating-wrapper">
-						 <? if(!empty($service_list['rating'])){ ?>
-							<?php $ratings = range(1,10); ?>
-							<?php foreach($ratings as $rating){ ?>
-								<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($service_list['rating']==$rating)?'checked="checked"':'';?> />
-							<?php } ?>
-						<? }
-						else{ ?>
-							<div class="no-rating">No feedback yet</div>
-						<? } ?>	
-					</div>	
-					<div class="price-start">
-						<span>from</span> <br/>$<?= number_format($service_list['Service']['service_price'],2)?>
-					</div>
+					<div class="clearfix"></div>
+				</div>
+				 <div class="activity-rating-wrapper">
+					 <? if(!empty($service_list['rating'])){ ?>
+						<?php $ratings = range(1,10); ?>
+						<?php foreach($ratings as $rating){ ?>
+							<input type="radio" value="<?php echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($service_list['rating']==$rating)?'checked="checked"':'';?> />
+						<?php } ?>
+					<? }
+					else{ ?>
+						<div class="no-rating">No feedback yet</div>
+					<? } ?>	
+				</div>	
+				<div class="price-start">
+					<span>from</span> <br/>$<?= number_format($service_list['Service']['service_price'],2)?>
 				</div>
 			</div>
 			<div class="contenthover">
