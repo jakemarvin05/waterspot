@@ -50,7 +50,7 @@
 									</div>
 							</div>
 							<div class="tile-info"> 
-								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>" class=""><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></a></h4>
+								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>" class=""><?php echo $service_list['Service']['service_title']; ?></a></h4>
 								<div class="clearfix"></div>
 							</div>
 

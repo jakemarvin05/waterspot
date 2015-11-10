@@ -10,7 +10,7 @@ $i = $this->paginator->counter('{:start}');
 						echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
 			</div>
 			<div class="tile-info"> 
-				<h4><?=$this->Format->Headingsubstring($service_list['Service']['service_title'],24);?></h4>
+				<h4><?php echo $service_list['Service']['service_title']; ?></h4>
 				<div class="clearfix"></div>
 			</div>
 
