@@ -255,7 +255,7 @@ var Mapper = {
                 self._searchTimeout = null;
 
                 // the info window balloon
-                if($('#ServiceLocationString').val().length !== 0) {
+                if($('#ServiceLocationString').length > 0 && $('#ServiceLocationString').val().length !== 0) {
                     self._infoWindow.setContent( 
                         '<div id="location-balloon-content">' + 
                         $('#ServiceLocationString').val() + 
