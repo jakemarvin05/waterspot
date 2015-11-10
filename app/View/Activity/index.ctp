@@ -106,7 +106,7 @@
         _isImageTallerThanAspect: function () {
             var imageAspectRatio = this.imageToBeCropped.width() / this.imageToBeCropped.height();
 
-            return imageAspectRatio < this._getAspectRatio();
+            return imageAspectRatio < this._getAspectRatio().decimal();
         }
     }
 
