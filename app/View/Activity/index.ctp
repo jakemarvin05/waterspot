@@ -80,7 +80,6 @@
                     'top': '',
                     'left': '-' + widthToCrop / 2 + 'px',
                 });
-                this.outerWrapper.css('height', '')
             }
 
         },
