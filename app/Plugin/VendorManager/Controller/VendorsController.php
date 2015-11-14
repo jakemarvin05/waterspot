@@ -369,7 +369,7 @@ Class VendorsController extends VendorManagerAppController{
 			$service_lists_filter1['service_name']=$service['ServiceType']['name'];
 			$service_lists_filter1['service_title']=$service['Service']['service_title'];
 			$service_lists_filter1['location_id']=$service['Service']['location_id'];
-			$service_lists_filter1['location_details']=(!empty($location_lists[$service['Service']['location_id']]))?$location_lists[$service['Service']['location_id']]:"Location Not availble";
+			$service_lists_filter1['location_details']=(!empty($service['Service']['location_string']))?$service['Service']['location_string']:((!empty($location_lists[$service['Service']['location_id']]))?$location_lists[$service['Service']['location_id']]:"Location Not availble");
 			$service_lists_filter1['service_price']=$service['Service']['service_price'];
 			$service_lists_filter1['description']=$service['Service']['description'];
 			$service_lists_filter1['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($service['Service']['id']);
