@@ -67,21 +67,27 @@
             </div>
         </a>
         <nav>
-          <div class="navGroup">
-                 <div class="navButtonOuter <?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){ echo "navActive";}?>">
-                    <a href="/"> <i class="fa fa-home"></i><span class="navTextLabel">HOME</span></a>
-                 </div>
-            </div>
-          <div class="navGroup">
-               <div class="navButtonOuter <?php if($this->params['controller']=="vendors" ){ echo "navActive"; }?>">
-                    <a href="/vendor/vendor_list/"><i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span></a>
+            <a href="/">
+                <div class="navGroup">
+                    <div class="navButtonOuter <?php if($this->params['controller']=="pages" && $this->params['action']=="home" ){ echo "navActive";}?>">
+                         <i class="fa fa-home"></i><span class="navTextLabel">HOME</span>
+                     </div>
                 </div>
-           </div>
-          <div class="navGroup">
-                 <div class="navButtonOuter <?php if($this->params['controller']=="activity" ){ echo "navActive"; }?>">
-                   <a href="/activities/"><i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span></a>
-                 </div>
-             </div>
+            </a>
+            <a href="/vendor/vendor_list/">
+                <div class="navGroup">
+                    <div class="navButtonOuter <?php if($this->params['controller']=="vendors" ){ echo "navActive"; }?>">
+                        <i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/activities/">
+                <div class="navGroup">
+                    <div class="navButtonOuter <?php if($this->params['controller']=="activity" ){ echo "navActive"; }?>">
+                        <i class="fa fa-ship"></i><span class="navTextLabel">ACTIVITIES</span>
+                    </div>
+                </div>
+            </a>
             <div class="navGroup">
                 <?php if($this->LoginMenu->isLogin()){ ?>
                     <div class="navButtonOuter dropdown" data-placement="bottom">
