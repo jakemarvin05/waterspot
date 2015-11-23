@@ -30,7 +30,7 @@
 					/* Resize Image */
 					
 						if(isset($vendor_service['Vendor']['image'])) {
-							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_service['Vendor']['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
+							$imgArr = array('source_path'=>Configure::read('VendorProfile.SourcePath'),'img_name'=>$vendor_service['Vendor']['image'],'width'=>583,'height'=>446,'noimg'=>$setting['site']['site_noimage']);
 							$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 							echo urldecode($this->Html->image($resizedImg,array('border'=>'0')));
 						}

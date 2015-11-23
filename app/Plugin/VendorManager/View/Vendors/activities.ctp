@@ -32,7 +32,7 @@
 						<div class="contentvisible contentselector">
 							<div class="tile">
 								<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
-										$imgArr = array('source_path'=>$path,'img_name'=>$service_list['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
+										$imgArr = array('source_path'=>$path,'img_name'=>$service_list['image'],'width'=>586,'height'=>446,'noimg'=>$setting['site']['site_noimage']);
 										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
 								<div class="price">From $<?= number_format($service_list['Service']['service_price'],2)?></div>
