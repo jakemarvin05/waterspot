@@ -17,7 +17,7 @@
 					<?  //=$this->Form->input('vendor_list',array('options'=>$vendor_list,'empty'=>'Select any Vendor','label'=>false,'div'=>false,'required'=>false));?>
 					<?=$this->Form->input('service_type_list',array('options'=>$service_type_list,'empty'=>'Select service type','label'=>false,'div'=>false,'required'=>false));?>
 					<?=$this->Form->input('sort_price',array('options'=>Configure::read('price_range'),'empty'=>'Select price range','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
-					<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>
+					<!--<?=$this->Form->input('sort_review',array('options'=>Configure::read('review'),'empty'=>'Sort by review ratings','label'=>false,'class'=>'last','div'=>false,'required'=>false));?>-->
 					<?=$this->Form->end();?>
 
 					<script>
@@ -75,7 +75,7 @@
 			</header>
 
 			<div class="filtered-listing">
-				<!-- <div class="search"><span> Search</span><input type="search"></div>-->
+			
 				<div class="activity-filter">
 
 				</div>

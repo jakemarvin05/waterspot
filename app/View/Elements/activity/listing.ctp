@@ -27,7 +27,7 @@ $i = $this->paginator->counter('{:start}');
 				<div class="clearfix"></div>
 			</div>
 
-			<div class="activity-rating-wrapper">
+			<div class="activity-rating-wrapper" style="display:none!important;">
 				<? if(!empty($search_service_list['rating'])){ ?>
 					<?php $ratings = range(1,10); ?>
 					<?php foreach($ratings as $rating){ ?>

@@ -166,7 +166,7 @@
 
                         <div class="sidebar-inner-after-price">
                             <div id="rating" class="blocks">
-                                <h4>Rating:</h4>
+                                <!--<h4>Rating:</h4>
 
                                 <div class="rating" style="background:none;">
                                     <button class="rate" id="rate-1" data-rate="1" style="background:none"><img
@@ -190,7 +190,7 @@
                                         }
                                     });
                                 </script>
-                                <div class="clearfix"></div>
+                                <div class="clearfix"></div>-->
 
 
                                 <?php

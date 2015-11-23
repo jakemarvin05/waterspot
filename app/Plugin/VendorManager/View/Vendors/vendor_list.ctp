@@ -74,7 +74,7 @@
 					<div class="clearfix"></div>
 				</div>
 
-				<div class="vendor-rating-wrapper">
+				<div class="vendor-rating-wrapper" style="display:none !important;">
 
 					<span class="rating-label">Rating:</span>
 					<?php
