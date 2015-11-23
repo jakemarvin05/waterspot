@@ -27,8 +27,8 @@
 
     <section id="activities">
         <header>
-            <p class="beforeHeader">What are you game for?</p>
-            <h1 class="headerAlt">SELECT A CATEGORY</h1>
+            <h1 class="headerAlt homePageContentHeader">WHAT ARE YOU GAME FOR?</h1>
+            <p class="beforeHeader">Select a category</p>
         </header>
         <!-- NOTE: Use class .activities1x1, .activities2x1 and .activities2x2 to create "blocks" -->
         <div id="activitiesContainer"></div>

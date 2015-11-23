@@ -2,8 +2,11 @@
 .beforeHeader {
     font-family: 'Crete Round', sans-serif !important;
     font-style: italic;
-    color: #ff9700;
+    font-color: #606060;
     font-size: 16px;
+}
+.homePageContentHeader {
+    color: #ff9700;
 }
 
 
@@ -169,6 +172,7 @@
         color: #ccc;
         font-size: 16px;
         margin-top: 13px;
+        min-height: 44px;
     }
     .aboutTitle {
         text-transform: uppercase;
