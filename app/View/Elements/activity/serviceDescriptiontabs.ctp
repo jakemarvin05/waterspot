@@ -4,44 +4,102 @@
         <?=$service_detail['Service']['description'] ?>
     </section>
     <section class="activity-section">
+        <hr>
         <h3>Itinerary</h3>
         <?=$service_detail['Service']['itinerary'] ?>
     </section>
     <?php if ( (count($amenities) + count($included) + count($extra) + count($details)) > 0 ): ?>
         <section class="activity-section">
+            <hr>
             <h3>Details</h3>
+
+            <?php
+
+            function splitContainers($data) {
+
+                $counter = 0;
+                $container1 = '';
+                $container2 = '';
+
+                foreach ($data as $attr): 
+                    
+                    if ($counter % 2 == 0):
+                        $container1 .= createAttributesHTML($attr);
+                    else:
+                        $container2 .= createAttributesHTML($attr);
+                    endif;
+
+                    $counter += 1;
+
+                endforeach;
+
+
+                $container1 = '<div class="activities-attributes-column-inner activities-attributes-column1">'.$container1.'</div>';
+                $container2 = '<div class="activities-attributes-column-inner activities-attributes-column2">'.$container2.'</div>';
+
+                $output = '<div class="activities-attributes-column-wrapper">'.$container1.$container2.'</div>';
+
+                return $output;
+            }
+
+            function createAttributesHTML($attr) {
+                $html .= '<i class="'.$attr['icon_class'].'"></i> ';
+                $html .= $attr['name'];
+                $html .= ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : '');
+                $html .= '<br>';
+
+                return $html;
+            } 
+
+            ?>          
+
             <?php if (count($details) > 0): ?>
-                <h4>About this <?php echo $header ? $header : 'activity' ?></h4>
+
+                <div class="activities-attributes-column activities-attributes-column0">
+                    <p class="activities-attributes-header">About this <?php echo $header ? $header : 'activity' ?></p>
+                </div>
+        
+                <?php echo splitContainers($details); ?>
+
             
-                <?php foreach ($details as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
-                <?php endforeach; ?>
+
             <?php endif; ?>
 
             <?php if (count($amenities) > 0): ?>
-                <h4>Amenities provided</h4>
-                <?php foreach ($amenities as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
-                <?php endforeach; ?>
+                <hr>
+                <div class="activities-attributes-column activities-attributes-column0">
+                    <p class="activities-attributes-header">Amenities provided</p>
+                </div>
+
+                <?php echo splitContainers($amenities); ?>
+
             <?php endif; ?>
-            
+        
             <?php if (count($included) > 0): ?>
-                <h4>What are included</h4>
-                <?php foreach ($included as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
-                <?php endforeach; ?>
+
+                <hr>
+                <div class="activities-attributes-column activities-attributes-column0">
+                    <p class="activities-attributes-header">What are included</p>
+                </div>
+                <?php echo splitContainers($included); ?>
+
             <?php endif; ?>
 
+            
             <?php if (count($extra) > 0): ?>
-                <h4>Extras</h4>
-                <?php foreach ($extra as $attr): ?>
-                    <i class="<?php echo $attr['icon_class'] ?>"></i> <?php echo $attr['name'] . ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : ''); ?> <br/>
-                <?php endforeach; ?>
+                <hr>
+                <div class="activities-attributes-column activities-attributes-column0">
+                    <p class="activities-attributes-header">Extras</p>
+                </div>
+                <?php echo splitContainers($extra); ?>
             <?php endif; ?>
+            
+
         </section>
     <?php endif; ?>
 
     <section class="activity-section">
+        <hr>
         <h3>How to get There</h3>
         <?=$service_detail['Service']['how_get_review'] ?>
         <div id="map-canvas" style="height:400px; width:100%;"></div>
