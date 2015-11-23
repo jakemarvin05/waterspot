@@ -1,10 +1,15 @@
 .DS_Store
 .idea/
 /app/webroot/img/*
+/app/webroot/service_images/*
+/app/webroot/service_type/*
 /app/tmp/*
 /app/Config/core.php
+/app/Config/database.php
 *.log
 /nbproject/private/
 *.git-ftp-tmp
 /app/Config/Custom/database_update.php
 
+
+app/Config/database.php
