@@ -10,6 +10,3 @@
 /nbproject/private/
 *.git-ftp-tmp
 /app/Config/Custom/database_update.php
-
-
-app/Config/database.php
