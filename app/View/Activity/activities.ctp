@@ -1,16 +1,3 @@
-<script type="text/javascript">
-	$(function(){
-		/*$('.tile').contenthover({
-			//data_selector: '.contenthover',
-			//effect:'slide',
-			//slide_direction: 'left',
-			//slide_speed:300,
-			overlay_background:'#000',
-			overlay_opacity:1
-
-		}); */
-	});
-</script>
 <div class="container-fluid activities-page topResponsivePadding">
 
 	<section class="row">
@@ -151,7 +138,7 @@
 		</div>
 
 		<div class="clear"></div>
-		
+
 		<script type="text/javascript">
 		    $(document).ready(function(){
 				$('#SearchSortPrice,#SearchVendorList,#SearchServiceTypeList,#SearchSortReview').bind("change",function(){
@@ -160,23 +147,21 @@
 				 	var SearchServiceTypeList = ($("#SearchServiceTypeList").val()=='')?'service_type':$("#SearchServiceTypeList").val();
 				 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
 				 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+
 					$.ajax({
-					   url : "<?=$this->webroot;?>activity/activities/"+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview,
-					   success: function(res) {
-					   $( ".sun-text" ).remove();
-					   $("div.activities-listing").remove();
-					   $(".activities").html('<div class="row">'+res+'</div>');
-					   $('#sort_by_price').hide();
+					    url : "<?=$this->webroot;?>activity/activities/"+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview,
+					    success: function(res) {
+
+						   $( ".sun-text" ).remove();
+						   $("div.activities-listing").remove();
+						   $(".activities").html('<div class="row">'+res+'</div>');
+						   $('#sort_by_price').hide();
+
 						   $('.tile').contenthover({
-							   //data_selector: '.contenthover',
-							   //effect:'slide',
-							   //slide_direction: 'left',
-							   //slide_speed:300,
 							   overlay_background:'#000',
 							   overlay_opacity:1
-
 						   });
-					      
+					  
 						}           
 					});
 				});
@@ -187,14 +172,15 @@
 			var loading_start = 0;
 			$(document).ready(function(){
 				
-				if(page >= pages){
+				if(page >= pages) {
 				  $("#loader_pagination").attr("disabled", true);
 				  $('#loader_pagination').addClass('no-more-activities').html('No more results');
 				
-				}else{
+				} else {
 					$("#loader_pagination").attr("disabled", false);
 					$('#loader_pagination').removeClass('no-more-activities').html('Load more results');
 				}
+
 				$('#loader_pagination').bind('click',function(){
 					$('#loader-image').show();
 					var SearchVendorList = ($("#SearchVendorList").val()=='')?'vendor_id':$("#SearchVendorList").val();
@@ -214,10 +200,6 @@
 									$('#loader-image').hide();
 									$('.activities-listing:last').after(data );
 									$('.tile').contenthover({
-										//data_selector: '.contenthover',
-										//effect:'slide',
-										//slide_direction: 'left',
-										//slide_speed:300,
 										overlay_background:'#000',
 										overlay_opacity:1
 									});
@@ -229,8 +211,7 @@
 		                            
 		                        },
 		                        error: function(jqXHR, textStatus){
-									if(textStatus == 'timeout')
-									{     
+									if(textStatus == 'timeout') {     
 										 alert('Failed from timeout');         
 										//do something. Try again perhaps?
 									}

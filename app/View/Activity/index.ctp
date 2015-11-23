@@ -196,27 +196,17 @@
                                 <?php
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 0) {
+                                if ($minimumParticipants > 0):
                                     $percent = round($booking_count * 100 / $minimumParticipants);
-                                    ?>
+                                ?>
 
                                     <p class="info">
                                         Event has a minimum-to-go of <?php echo $minimumParticipants; ?> pax.
                                     </p>
-                                    <!-- <div class="completion">
-                                        <div class="progressbar" style="width:<?php echo $percent; ?>%;"></div>
-                                    </div> -->
-                                   <!--  <div class="progressinfo"><span
-                                            class="current"><?php// echo(isset($booking_count) ? $booking_count : "0"); ?></span>
-
-                                        out of <?php// echo $minimumParticipants+1; ?></div> -->
 
                                     <div class="clearfix"></div>
 
-                                    <?php
-                                    /* End minimum to go block */
-                                }
-                                ?>
+                                <?php endif; ?>
                             </div>
                             <!-- /#ratings -->
 
@@ -299,72 +289,71 @@
 <div class="clear"></div>
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
-<? if (!empty($cart_id)) { ?>
-    <?php echo $this->element('activity/cart_booking_invite'); ?>
-<? } ?>
+<?php if(!empty($cart_id)) echo $this->element('activity/cart_booking_invite'); ?>
 <?php $path = $this->Html->webroot; ?>
-<script type="text/javascript">
-    <? if(!empty($cart_id)) {  ?>
-    $(document).ready(function () {
-        //$('#add_services input#loginButton').attr('disabled',true);
 
-        $("#add_invite input[type=checkbox]").click(function (event) {
-            updateTotal();
+<? if(!empty($cart_id)): ?>
+    <script>
+        $(document).ready(function () {
+            $("#add_invite input[type=checkbox]").click(function (event) {
+                updateTotal();
+            });
+            $("#add_invite input[type=radio]").click(function (event) {
+                updateTotal();
+            });
         });
-        $("#add_invite input[type=radio]").click(function (event) {
-            updateTotal();
-        });
-    });
 
 
-    function updateTotal() {
-        var value_added_service = 0;
-        var no_of_booking_msg = '';
-        var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
-        var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
-        // no of booking date or slot
-        var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
-        if (no_of_interval == 1) {
-            // overight no_of_interval
-            var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
-            if (no_of_slots == 1) {
-                no_of_booking_msg = no_of_slots + " Slot";
+        function updateTotal() {
+            var value_added_service = 0;
+            var no_of_booking_msg = '';
+            var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
+            var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
+            // no of booking date or slot
+            var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
+            if (no_of_interval == 1) {
+                // overight no_of_interval
+                var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
+                if (no_of_slots == 1) {
+                    no_of_booking_msg = no_of_slots + " Slot";
+                } else {
+                    no_of_booking_msg = no_of_slots + " Slots";
+                }
+
             } else {
-                no_of_booking_msg = no_of_slots + " Slots";
+                no_of_booking_msg = no_of_interval + " Days";
             }
 
-        } else {
-            no_of_booking_msg = no_of_interval + " Days";
+            var invite_p_status = $(".cart-payment-method input:radio:checked").val();
+            $("#add_invite input:checkbox:checked").each(function () {
+                total += parseFloat(this.value);
+                value_added_service += parseFloat(this.value);
+            });
+
+
+            if (invite_p_status == 1) {
+                var no_of_participant = $('#CartNoParticipants').val();
+                total = total * no_of_participant;
+
+            } else {
+                var no_of_participant = 1;
+            }
+
+            var value_added_total = (value_added_service * no_of_participant).toFixed(2);
+            $('.subtotal').show();
+            $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
+            $('#Vas_total').html("$" + value_added_total);
+            $('#no_of_booking_days').html(no_of_booking_msg);
+            $('#Vas_total').html("$" + value_added_total);
+            $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
+            $('#total_participate').html(no_of_participant);
+            $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
+            $('#sub_total').html("$" + total.toFixed(2));
+
         }
-
-        var invite_p_status = $(".cart-payment-method input:radio:checked").val();
-        $("#add_invite input:checkbox:checked").each(function () {
-            total += parseFloat(this.value);
-            value_added_service += parseFloat(this.value);
-        });
-
-
-        if (invite_p_status == 1) {
-            var no_of_participant = $('#CartNoParticipants').val();
-            total = total * no_of_participant;
-
-        } else {
-            var no_of_participant = 1;
-        }
-
-        var value_added_total = (value_added_service * no_of_participant).toFixed(2);
-        $('.subtotal').show();
-        $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
-        $('#Vas_total').html("$" + value_added_total);
-        $('#no_of_booking_days').html(no_of_booking_msg);
-        $('#Vas_total').html("$" + value_added_total);
-        $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
-        $('#total_participate').html(no_of_participant);
-        $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
-        $('#sub_total').html("$" + total.toFixed(2));
-
-    }
-    <? }?>
+    </script>
+<? endif; ?>
+<script>
     function get_service_availability() {
 
         var service_id = $("#ActivityServiceId").val();
@@ -386,13 +375,11 @@
 
                 $('#slots_form').show();
                 $('#loader_slots').hide();
-                //$('#add_services input#loginButton').attr({'disabled':false});
                 $("#slots_form").html(result);
 
 
             }
         });
-//alert(service_id+startdate+enddate)
     }
 
     function get_recommended_dates() {
@@ -416,12 +403,6 @@
         $('#add_services').submit(function () {
             var startdate = $("#ActivityStartDate").val();
             var enddate = $("#ActivityEndDate").val();
-            /*if(enddate==null || enddate==''){
-             var data = $(this).serializeArray();
-             if($('.check-box').length < 1){
-             return false;
-             }
-             }*/
             var data = new FormData(this);
             var formData = $(this);
             var status = 0;
@@ -577,6 +558,7 @@
 
     $('#ActivityNoParticipants').val('1');
     $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
-    $('[data-id="ActivityNoParticipants"] .filter-option').text('1');
+
+    $('#ActivityNoParticipants .filter-option').text('1');
     get_service_availability();
 </script>
