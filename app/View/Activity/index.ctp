@@ -221,7 +221,7 @@
                                             $no_participants[$r] = $r;
                                         }
                                         ?>
-                                        <?= $this->Form->input('no_participants', array('type' => 'select', 'options' => $no_participants, 'empty' => 'Select', 'div' => false, 'label' => false)); ?>
+                                        <?= $this->Form->input('no_participants', array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
                                     </div>
                                     <?php echo $this->element('message'); ?>
 
@@ -559,6 +559,5 @@
     $('#ActivityNoParticipants').val('1');
     $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
 
-    $('#ActivityNoParticipants .filter-option').text('1');
     get_service_availability();
 </script>
