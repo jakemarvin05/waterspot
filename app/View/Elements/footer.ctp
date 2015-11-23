@@ -3,7 +3,7 @@
         <div class="row">
 
             <!-- contacts block -->
-            <div class="footerCol col-sm-4">
+            <div class="footerCol col-sm-4 col-sm-offset-1">
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">call us</p>
 
@@ -20,21 +20,21 @@
                     <div id="footerSocialRow">
                         <a class="smIcons" href="<?= $setting['social']['facebook'] ?>"><img
                                 src="/img/sm-icons/facebook.png"><img src="/img/sm-icons/facebook.png"></a>
-                        <a class="smIcons" href="<?= $setting['social']['twitter'] ?>"><img
+                        <!--<a class="smIcons" href="<?= $setting['social']['twitter'] ?>"><img
                                 src="/img/sm-icons/instagram.png"><img src="/img/sm-icons/instagram.png"></a>
                         <a class="smIcons" href="<?= $setting['social']['twitter'] ?>"><img
                                 src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>
                         <a class="smIcons" href="<?= $setting['social']['google_plus'] ?>"><img
-                                src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>
+                                src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>-->
                     </div>
                 </div>
             </div>
 
             <!-- subscribe block -->
-            <div class="footerCol col-sm-4">
-                <h4 class="headerAlt">SUBSCRIBE</h4>
+            <div class="footerCol col-sm-4 col-sm-offset-1">
+                <h4 class="headerAlt $$$">SUBSCRIBE</h4>
 
-                <p id="footerBeforeEmailInput">Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:
+                <p id="footerBeforeEmailInput">Get Updated on <strong>Exciting Activities</strong> & <strong>Promotions</strong>:
                 </p>
 
                 <div class="input-group">
@@ -67,7 +67,7 @@
             </script>
 
             <!-- popular block -->
-            <div class="footerCol col-sm-4">
+            <!--<div class="footerCol col-sm-4">
                 <h4 class="headerAlt">POPULAR ACTIVITIES</h4>
                 <ul id="footerPopularList">
                     <li><a href="/service-type-details/39">Stand Up Paddle</a></li>
@@ -76,7 +76,7 @@
                     <li><a href="/service-type-details/41">Kayaking</a></li>
                     <li><a href="/service-type-details/26">Boat Charter</a></li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>
