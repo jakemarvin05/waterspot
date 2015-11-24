@@ -60,6 +60,52 @@ class MembersController extends MemberManagerAppController{
 	}
 
 	public function log_in() {
+		// $data_string = '{
+  //               "key": "RcGToklPpGQ56uCAkEpY5A",
+  //               "template_name": "dev_test_template",
+  //               "template_content": [
+  //                       {
+  //                               "name": "TITLE",
+  //                               "content": "test test test"
+  //                       }
+  //               ],
+  //               "message": {
+  //                       "subject": "test api email",
+  //                       "from_email": "admin@waterspot.com.sg",
+  //                       "from_name": "waterspot developer",
+  //                       "to": [
+  //                               {
+  //                                       "email": "po.cruz17@gmail.com",
+  //                                       "name": "po cruz",
+  //                                       "type": "to"
+  //                               }
+  //                       ],
+  //                       "global_merge_vars": [
+  //                           {
+  //                               "name": "USER_NAME",
+  //                               "content": "Po Cruz"
+  //                           },
+  //                           {
+  //                               "name": "REASON",
+  //                               "content": "Because Pizza"
+  //                           }
+  //                       ]
+  //               }
+  //       }';                                                                                                                  
+		                                                                                                                     
+		// $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+		// curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+		// curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+		// curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+		//     'Content-Type: application/json',                                                                                
+		//     'Content-Length: ' . strlen($data_string))                                                                       
+		// );                                                                                                                   
+		                                                                                                                     
+		// $result = curl_exec($ch);
+
+		// print_r($result);die;
+
         array_push(self::$css_for_layout,'vendor/registration.css');
 		$member_id = $this->MemberAuth->id();
 		if(isset($_POST['facebook_login'])) {

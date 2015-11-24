@@ -93,7 +93,63 @@
 </div>
 
  
+<script type="text/javascript">
+    function run_test(){
+    var params = {
+                "key": "RcGToklPpGQ56uCAkEpY5A",
+                "template_name": "dev_test_template",
+                "template_content": [
+                        {
+                                "name": "TITLE",
+                                "content": "test test test"
+                        }
+                ],
+                "message": {
+                        "subject": "test api email",
+                        "from_email": "admin@waterspot.com.sg",
+                        "from_name": "waterspot developer",
+                        "to": [
+                                {
+                                        "email": "po.cruz17@gmail.com",
+                                        "name": "po cruz",
+                                        "type": "to"
+                                }
+                        ],
+                        "global_merge_vars": [
+                            {
+                                "name": "USER_NAME",
+                                "content": "Po Cruz"
+                            },
+                            {
+                                "name": "REASON",
+                                "content": "Because Pizza"
+                            }
+                        ]
+                }
+        };
 
+    $.ajax({
+        url: "https://mandrillapp.com/api/1.0/messages/send-template.json",
+        type: "POST",
+        crossDomain: true,
+        data: params,
+        dataType: "json",
+        success: function (result) {
+            alert(result);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        }
+    });
+}
+
+// $('body').click(function(){
+// // run_test();
+
+// });
+
+</script>
  
 
 
