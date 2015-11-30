@@ -33,39 +33,37 @@
             <!-- subscribe block -->
             <div class="footerCol col-sm-4">
                 <h4 class="headerAlt">SUBSCRIBE</h4>
-
-                <p id="footerBeforeEmailInput">Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:
-                </p>
-
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-                    <input id="subscribeInput" type="email" class="form-control required email"
-                           placeholder="Enter your Email" aria-required="true">
-                        <span class="input-group-btn">
-                            <button id="subscribeButton" type="button" class="btn btnFillOrange">Subscribe</button>
-                        </span>
+                <!-- Begin MailChimp Signup Form -->
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+                       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                </style>
+                <div id="mc_embed_signup">
+                <form action="//waterspot.us11.list-manage.com/subscribe/post?u=5931912452094114bc63c4074&amp;id=750e43a4a4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <div id="mc_embed_signup_scroll">
+                    <h2>Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:</h2>
+                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                <div class="mc-field-group">
+                    <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+                </label>
+                    <input type="email" value="" name="EMAIL" class="form-control required email" id="mce-EMAIL" style="
+  color: #999;
+  background-color: rgba(0,0,0,.2);
+  border-color: rgba(0,0,0,.25);">
                 </div>
+                    <div id="mce-responses" class="clear">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5931912452094114bc63c4074_750e43a4a4" tabindex="-1" value=""></div>
+                    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btnFillOrange"></div>
+                    </div>
+                </form>
+                </div>
+                <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+                <!--End mc_embed_signup-->
             </div>
-            <script type="text/javascript">
-            $('#subscribeButton').click(function(){
-                var email = $('#subscribeInput').val();
-                var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-                if (re.test(email)) {
-                    $.ajax({
-                         url :'/Subscriber/subscribe',
-                         type:'POST',
-                         data:{'email':email},
-                         success: function (result)
-                         {
-                             $('#footerBeforeEmailInput').html(result);
-                         }
-                    }); 
-                } else {
-                    $('#footerBeforeEmailInput').html('Invalid Email Format');
-                }
-            });
-            </script>
-
             <!-- popular block -->
             <div class="footerCol col-sm-4">
                 <h4 class="headerAlt">POPULAR ACTIVITIES</h4>
