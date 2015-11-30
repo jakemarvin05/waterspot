@@ -520,21 +520,57 @@ Class VendorsController extends VendorManagerAppController{
 	private function __mail_send($mail_id=null,$mail_data,$password=null) {
 		$this->loadModel('MailManager.Mail');
 		$mail=$this->Mail->read(null,$mail_id);
-		$from=$this->Mail->read(null,2);
-		$body=str_replace('{BUSINESS-NAME}',$mail_data['Vendor']['bname'],$mail['Mail']['mail_body']);
-		$body=str_replace('{NAME}',$mail_data['Vendor']['fname'],$mail['Mail']['mail_body']);
-		$body=str_replace('{EMAIL}',$mail_data['Vendor']['email'],$body);
-		$body=str_replace('{PASSWORD}',$password,$body); 
-		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'log_in')),$body);   
-		$email = new CakeEmail();
 
-		$email->to($mail_data['Vendor']['email']);
-		$email->subject($mail['Mail']['mail_subject']);
-		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
-		$email->emailFormat('html');
-		$email->template('default');
-		$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-		$email->send();
+		$key = 'RcGToklPpGQ56uCAkEpY5A';
+		$from = $this->setting['site']['site_contact_email'];
+		$from_name = $mail['Mail']['mail_from'];
+		$subject = 'Thank you for registration with us';
+		$to = $mail_data['Vendor']['email'];
+		$to_name = $mail_data['Vendor']['fname'];
+		$template_name = 'vendor_sign_up';
+
+		$global_merge_vars = '[';
+        $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Vendor']['fname'].'"},';
+        $global_merge_vars .= '{"name": "BNAME", "content": "'.$mail_data['Vendor']['bname'].'"},';
+        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$mail_data['Vendor']['email'].'"},';
+        $global_merge_vars .= '{"name": "PHONE", "content": "'.$mail_data['Vendor']['phone'].'"},';
+        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$password.'"}';
+        $global_merge_vars .= ']';
+
+        $data_string = '{
+                "key": "'.$key.'",
+                "template_name": "'.$template_name.'",
+                "template_content": [
+                        {
+                                "name": "TITLE",
+                                "content": "test test test"
+                        }
+                ],
+                "message": {
+                        "subject": "'.$subject.'",
+                        "from_email": "'.$from.'",
+                        "from_name": "'.$from_name.'",
+                        "to": [
+                                {
+                                        "email": "'.$to.'",
+                                        "type": "to"
+                                }
+                        ],
+                        "global_merge_vars": '.$global_merge_vars.'
+                }
+        }';
+
+        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+		    'Content-Type: application/json',                                                                                
+		    'Content-Length: ' . strlen($data_string))                                                                       
+		);                                                                                                                   
+		                                                                                                                     
+		$result = curl_exec($ch);
+
     }
     
     private function __mail_approve_send($mail_id=null,$mail_data) {

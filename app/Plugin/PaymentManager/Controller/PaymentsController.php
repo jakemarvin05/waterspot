@@ -303,52 +303,55 @@ class PaymentsController extends PaymentManagerAppController{
 							 
 							 
 						}
-						 // send to Admin mail
-						$this->loadModel('MailManager.Mail');
-						$maill=$this->Mail->read(null,13);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
-						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
 						
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
-						
-						$emaill = new CakeEmail();
-						
-						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
-						$emaill->subject($maill['Mail']['mail_subject']);
-						$emaill->from($booking_detail['Booking']['email']);
-						$emaill->emailFormat('html');
-						$emaill->template('default');
-						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$emaill->send();
-
 						// send to user mail
-						$mail=$this->Mail->read(null,14);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
-						
-						$email = new CakeEmail();
 
-						
-						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-						$email->subject($mail['Mail']['mail_subject']);
-						$email->to($booking_detail['Booking']['email']);
-						$email->emailFormat('html');
-						$email->template('default');
-						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$email->send();
-						
+						$key = 'RcGToklPpGQ56uCAkEpY5A';
+						$from = $this->setting['site']['site_contact_email'];
+						$subject = 'Thank you for booking with us';
+						$to = $booking_detail['Booking']['email'];
+						$template_name = 'user_pending_booking_confirmation';
+
+						$global_merge_vars = '[';
+				        $global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
+				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.$service_slot_details.'"}';
+				        $global_merge_vars .= ']';
+
+				        $data_string = '{
+				                "key": "'.$key.'",
+				                "template_name": "'.$template_name.'",
+				                "template_content": [
+				                        {
+				                                "name": "TITLE",
+				                                "content": "test test test"
+				                        }
+				                ],
+				                "message": {
+				                        "subject": "'.$subject.'",
+				                        "from_email": "'.$from.'",
+				                        "to": [
+				                                {
+				                                        "email": "'.$to.'",
+				                                        "type": "to"
+				                                }
+				                        ],
+				                        "global_merge_vars": '.$global_merge_vars.'
+				                }
+				        }';
+
+
+				        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+						    'Content-Type: application/json',                                                                                
+						    'Content-Length: ' . strlen($data_string))                                                                       
+						);                                                                                                                   
+						                                                                                                                     
+						$result = curl_exec($ch);
 						// cart empty 
 						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
 						
@@ -405,30 +408,62 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_content.=self::getBookedServices($order);
 					$total_cart_price+=$order['BookingOrder']['total_amount'];
 				}
-		
+				
 				$this->loadModel('MailManager.Mail');
 				$mail=$this->Mail->read(null,16);
-				$body=str_replace('{ORDERNO}',$customer_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-				$body=str_replace('{VENDOR_NAME}',$vendor_details['Vendor']['fname'],$body);  
-				$body=str_replace('{NAME}',$customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'],$body);  
-				$body=str_replace('{EMAIL}',$customer_detail['Booking']['email'],$body);
-				$body=str_replace('{PHONE}',$customer_detail['Booking']['phone'],$body);
-				//$body=str_replace('{POST_CODE}',$customer_detail['Booking']['post_code'],$body);
-				
-				$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-				$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-				$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
-				$email = new CakeEmail();
 
-				
-				//$email->to('pavans@burgeonsoft.net');
-				$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
-				$email->subject($mail['Mail']['mail_subject']);
-				$email->from($customer_detail['Booking']['email']);
-				$email->emailFormat('html');
-				$email->template('default');
-				$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-				$email->send();
+				$key = 'RcGToklPpGQ56uCAkEpY5A';
+				$from = $customer_detail['Booking']['email'];
+				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
+				$subject = 'Booking has been received';
+				$to = $vendor_details['Vendor']['email'];
+				$to_name = $mail['Mail']['mail_from'];
+				$template_name = 'vendor_request_booking_confirmation';
+
+				$global_merge_vars = '[';
+		        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$customer_detail['Booking']['ref_no'].'"},';
+		        $global_merge_vars .= '{"name": "VENDOR", "content": "'.$vendor_details['Vendor']['fname'].'"},';
+		        $global_merge_vars .= '{"name": "NAME", "content": "'.$customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'].'"},';
+		        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$customer_detail['Booking']['email'].'"},';
+		        $global_merge_vars .= '{"name": "PHONE", "content": "'.$customer_detail['Booking']['phone'].'"},';
+		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.'.'"},';
+		        $global_merge_vars .= '{"name": "TOTAL", "content": "'.number_format($total_cart_price,2).'"},';
+		        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.$booking_content.'"}';
+		        $global_merge_vars .= ']';
+
+		        $data_string = '{
+		                "key": "'.$key.'",
+		                "template_name": "'.$template_name.'",
+		                "template_content": [
+		                        {
+		                                "name": "TITLE",
+		                                "content": "test test test"
+		                        }
+		                ],
+		                "message": {
+		                        "subject": "'.$subject.'",
+		                        "from_email": "'.$from.'",
+		                        "from_name": "'.$from_name.'",
+		                        "to": [
+		                                {
+		                                        "email": "'.$to.'",
+		                                        "type": "to"
+		                                }
+		                        ],
+		                        "global_merge_vars": '.$global_merge_vars.'
+		                }
+		        }';
+
+		        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				    'Content-Type: application/json',                                                                                
+				    'Content-Length: ' . strlen($data_string))                                                                       
+				);                                                                                                                   
+				                                                                                                                     
+				$result = curl_exec($ch);
 			}
 		}
 		return true;
@@ -1266,51 +1301,78 @@ class PaymentsController extends PaymentManagerAppController{
 							 
 						}
 						
-						 // send to Admin mail
-						$this->loadModel('MailManager.Mail');
-						$maill=$this->Mail->read(null,13);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
-						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						//  // send to Admin mail
+						// $this->loadModel('MailManager.Mail');
+						// $maill=$this->Mail->read(null,13);
+						// $body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
+						// $body=str_replace('{ADMIN_NAME}','Admin',$body);  
+						// $body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						// $body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						// $body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						// //$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
 						
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+						// $body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						// $body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						// $body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 						
-						$emaill = new CakeEmail();
+						// $emaill = new CakeEmail();
 						
-						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
-						$emaill->subject($maill['Mail']['mail_subject']);
-						$emaill->from($booking_detail['Booking']['email']);
-						$emaill->emailFormat('html');
-						$emaill->template('default');
-						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$emaill->send();
+						// $emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
+						// $emaill->subject($maill['Mail']['mail_subject']);
+						// $emaill->from($booking_detail['Booking']['email']);
+						// $emaill->emailFormat('html');
+						// $emaill->template('default');
+						// $emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						// $emaill->send();
 
 						// send to user mail
-						$mail=$this->Mail->read(null,14);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
-						
-						$email = new CakeEmail();
 
-						
-						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-						$email->subject($mail['Mail']['mail_subject']);
-						$email->to($booking_detail['Booking']['email']);
-						$email->emailFormat('html');
-						$email->template('default');
-						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$email->send();
+						$key = 'RcGToklPpGQ56uCAkEpY5A';
+						$from = $this->setting['site']['site_contact_email'];
+						$subject = 'Thank you for booking with us';
+						$to = $booking_detail['Booking']['email'];
+						$template_name = 'user_pending_booking_confirmation';
+
+						$global_merge_vars = '[';
+				        $global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
+				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.$service_slot_details.'"}';
+				        $global_merge_vars .= ']';
+
+				        $data_string = '{
+				                "key": "'.$key.'",
+				                "template_name": "'.$template_name.'",
+				                "template_content": [
+				                        {
+				                                "name": "TITLE",
+				                                "content": "test test test"
+				                        }
+				                ],
+				                "message": {
+				                        "subject": "'.$subject.'",
+				                        "from_email": "'.$from.'",
+				                        "to": [
+				                                {
+				                                        "email": "'.$to.'",
+				                                        "type": "to"
+				                                }
+				                        ],
+				                        "global_merge_vars": '.$global_merge_vars.'
+				                }
+				        }';
+
+
+				        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+						    'Content-Type: application/json',                                                                                
+						    'Content-Length: ' . strlen($data_string))                                                                       
+						);                                                                                                                   
+						                                                                                                                     
+						$result = curl_exec($ch);
 						
 
 						// cart empty 
