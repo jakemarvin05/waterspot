@@ -460,6 +460,55 @@ Class VendorsController extends VendorManagerAppController{
 		$this->Vendor->save($this->request->data,array('validate'=>false));
 		if(!empty($this->Vendor->id) && (empty($id))){
 			$this->__mail_send(5,$this->request->data,$realpassword);
+
+			// subscribe the new user
+			$apikey = '08c19e41483c616d5fd3ec14df89e2bc-us11';
+			$list_id = 0;
+			$list_name = 'Waterspot Vendor List';
+			$email = $this->request->data['Vendor']['email'];
+
+			$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
+			);
+
+			$results = json_decode(curl_exec($ch));
+			
+			foreach ($results->data as $result) {
+				if ($list_name == $result->name) {
+					$list_id = $result->id;
+					break;
+				}
+			}
+			if ($list_id) {
+				$data = '{
+				    "apikey": "'.$apikey.'",
+				    "id": "'.$list_id.'",
+				    "batch": [
+				        {
+				            "email": {
+				                "email": "'.$email.'"
+				            }
+				        }
+				    ]
+				}';
+				$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/batch-subscribe.json');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($data))
+				);
+
+				$results = json_decode(curl_exec($ch));
+				
+			}
+
 		}
 		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'thankyou'));
 	}
