@@ -588,8 +588,12 @@ section#activityPanorama img {
 .activities-attributes-column, .activities-attributes-column-wrapper, .activities-attributes-column-inner {
     vertical-align: top;
 }
+.activities-attributes-column-wrapper i {
+    font-size: 13px;
+}
 .activities-attributes-header {
     color: #ccc;
+    font-size: 15px;
 }
 @media (min-width: 960px) {
     .activities-attributes-column {
