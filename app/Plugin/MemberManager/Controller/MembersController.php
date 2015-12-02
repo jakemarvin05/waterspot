@@ -64,15 +64,12 @@ class MembersController extends MemberManagerAppController{
 						$data = '{
 						    "apikey": "'.$apikey.'",
 						    "id": "'.$list_id.'",
-						    "batch": [
-						        {
-						            "email": {
-						                "email": "'.$email.'"
-						            }
-						        }
-						    ]
+						    "email": {
+						    	"email": "'.$email.'"
+						    },
+						    "double_optin": false
 						}';
-						$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/batch-subscribe.json');
+						$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
 						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 						curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
