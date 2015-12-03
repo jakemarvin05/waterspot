@@ -1338,7 +1338,7 @@ class PaymentsController extends PaymentManagerAppController{
 						$template_name = 'user_pending_booking_confirmation';
 
 						$global_merge_vars = '[';
-						if (strlent(trim($booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'])) > 0) {
+						if (strlen(trim($booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'])) > 0) {
 				        	$global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
 				    	} else {
 				    		$global_merge_vars .= '{"name": "NAME", "content": "Member"},';
