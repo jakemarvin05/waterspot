@@ -1,4 +1,4 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../js/editor/ckeditor.js"></script>
 <script src="../js/editor/adapters/jquery.js"></script>
 <link href="../js/editor/samples/sample.css" rel="stylesheet">

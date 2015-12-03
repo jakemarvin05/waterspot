@@ -244,7 +244,7 @@ Class ServicesController extends VendorManagerAppController{
 		// list of services 
 		$service_types=$this->ServiceType->servicelist();
 		$city_list=$this->City->getLocationList();
-		array_push(self::$script_for_layout,'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js','frontEditor/ckeditor.js','VendorManager.ajax_upload.js');
+		array_push(self::$script_for_layout,'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js','frontEditor/ckeditor.js','VendorManager.ajax_upload.js');
 		$this->set('service_types',$service_types);
 		$participantsNumList= [];
 		for($x=1; $x<=100; $x++){

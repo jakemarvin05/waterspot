@@ -23,7 +23,7 @@
 	<script src="/js/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href= 
-	"http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base
+	"https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base
 	/jquery-ui.css" />
 
 	<?php echo $this->Html->script('fancybox/jquery.fancybox-2.1.5.pack.js'); ?>
