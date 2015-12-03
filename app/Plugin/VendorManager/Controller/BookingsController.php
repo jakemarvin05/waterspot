@@ -228,8 +228,10 @@ Class BookingsController extends VendorManagerAppController{
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
 
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+
 	        $global_merge_vars = '[';
-	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'].'"},';
+	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
@@ -257,7 +259,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "to": [
 	                                {
 	                                        "email": "'.$memberinfo['Member']['email_id'].'",
-	                                        "name": "'.$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'].'",
+	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
 	                        ],

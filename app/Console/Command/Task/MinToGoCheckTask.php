@@ -33,7 +33,7 @@ class MinToGoCheckTask extends Shell {
 			        	$mail_to = $booking['Booking']['email'];
 			        	$email = new CakeEmail();
 				        $email->from(array('admin@waterspot.com.sg' => 'Waterspot'));
-				        $email->to($vendor_email);
+				        $email->to($mail_to);
 				        $email->subject('Mimimum to go not reached');
 				        $message = "Unfortunately the minimum to go has not been reached, \nFor the cancellation of booking, please contact the vendor \n\n Service Details: \n" . $service['Service']['service_title'] . " $booking_slot[start_time] to $booking_slot[end_time]";
 				        $email->send($message);
