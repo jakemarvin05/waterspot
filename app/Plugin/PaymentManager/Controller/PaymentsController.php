@@ -432,7 +432,7 @@ class PaymentsController extends PaymentManagerAppController{
 		        $global_merge_vars .= '{"name": "PHONE", "content": "'.$customer_detail['Booking']['phone'].'"},';
 		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.'.'"},';
 		        $global_merge_vars .= '{"name": "TOTAL", "content": "'.number_format($total_cart_price,2).'"},';
-		        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($booking_content).'"}';
+		        // $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($booking_content).'"}';
 		        $global_merge_vars .= ']';
 
 		        $data_string = '{
@@ -1344,8 +1344,8 @@ class PaymentsController extends PaymentManagerAppController{
 				    		$global_merge_vars .= '{"name": "NAME", "content": "Member"},';
 				    	}
 				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
-				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
-				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($service_slot_details).'"}';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"}';
+				        // $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($service_slot_details).'"}';
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
