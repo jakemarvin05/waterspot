@@ -60,8 +60,8 @@ Class BookingsController extends MemberManagerAppController{
 		);
 		$booking_details=$this->paginate("Booking",$conditions);
 		// javascript set
-		array_push(self::$script_for_layout,'http://code.jquery.com/jquery-1.9.1.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-		array_push(self::$css_for_layout,'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		array_push(self::$script_for_layout,'https://code.jquery.com/jquery-1.9.1.js','https://code.jquery.com/ui/1.10.3/jquery-ui.js');
+		array_push(self::$css_for_layout,'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		self::$scriptBlocks[]='$(function() {
 		$( "#BookingSearchbydate" ).datepicker({
 		  dateFormat: "'.Configure::read('Calender_format').'",

@@ -624,8 +624,8 @@ class MembersController extends MemberManagerAppController{
 		$this->loadModel('MemberManager.Member');
 		array_push(self::$css_for_layout,'member/member-panel.css');
 		// javascript set
-		array_push(self::$script_for_layout,'http://code.jquery.com/jquery-1.9.1.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js');
-		array_push(self::$css_for_layout,'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
+		array_push(self::$script_for_layout,'https://code.jquery.com/jquery-1.9.1.js','https://code.jquery.com/ui/1.10.3/jquery-ui.js');
+		array_push(self::$css_for_layout,'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css');
 		$member_id = $this->MemberAuth->id();
 		$this->set('member_id', $member_id);
 		if ($vendor_id == null) {

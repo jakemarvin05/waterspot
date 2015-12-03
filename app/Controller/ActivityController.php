@@ -139,8 +139,8 @@ Class ActivityController extends AppController{
 		$this->sessionKey = MemberAuthComponent::$sessionKey;		
 		$this->member_data = $this->Session->read($this->sessionKey);
 		// Load java script and css
-		array_push(self::$script_for_layout,'login.js','jquery.tools.min.js','jquery.mousewheel.js','jquery.jscrollpane.min.js','fotorama.js','http://code.jquery.com/ui/1.10.3/jquery-ui.js','jquery.fancybox.js','responsive-tabs.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js','http://w.sharethis.com/button/buttons.js');
-		array_push(self::$css_for_layout,'activity.css','jquery.jscrollpane.css','fotorama.css','http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css','responsive-tabs.css',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
+		array_push(self::$script_for_layout,'login.js','jquery.tools.min.js','jquery.mousewheel.js','jquery.jscrollpane.min.js','fotorama.js','https://code.jquery.com/ui/1.10.3/jquery-ui.js','jquery.fancybox.js','responsive-tabs.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js','http://w.sharethis.com/button/buttons.js');
+		array_push(self::$css_for_layout,'activity.css','jquery.jscrollpane.css','fotorama.css','https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css','responsive-tabs.css',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
 		array_push(self::$css_for_layout,'pages.css');
 		self::$scriptBlocks[]='
 		$( document ).ready(function() {
