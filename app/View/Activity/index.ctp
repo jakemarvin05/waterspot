@@ -194,10 +194,11 @@
 
 
                                 <?php
+
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 0):
-                                    $percent = round($booking_count * 100 / $minimumParticipants);
+                                if ($minimumParticipants > 1):
+
                                 ?>
 
                                     <p class="info">
@@ -207,6 +208,8 @@
                                     <div class="clearfix"></div>
 
                                 <?php endif; ?>
+
+                                
                             </div>
                             <!-- /#ratings -->
 
