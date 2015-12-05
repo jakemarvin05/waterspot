@@ -316,7 +316,7 @@ class PaymentsController extends PaymentManagerAppController{
 				        $global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
 				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
 				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
-				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.$service_slot_details.'"}';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
@@ -412,13 +412,7 @@ class PaymentsController extends PaymentManagerAppController{
 				$this->loadModel('MailManager.Mail');
 				$mail=$this->Mail->read(null,16);
 
-				$key = 'RcGToklPpGQ56uCAkEpY5A';
-				$from = $customer_detail['Booking']['email'];
-				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
-				$subject = 'Booking has been received';
-				$to = $vendor_details['Vendor']['email'];
-				$to_name = $mail['Mail']['mail_from'];
-				$template_name = 'vendor_request_booking_confirmation';
+				
 
 				$global_merge_vars = '[';
 		        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$customer_detail['Booking']['ref_no'].'"},';
@@ -430,10 +424,20 @@ class PaymentsController extends PaymentManagerAppController{
 		    	}
 		        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$customer_detail['Booking']['email'].'"},';
 		        $global_merge_vars .= '{"name": "PHONE", "content": "'.$customer_detail['Booking']['phone'].'"},';
-		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.'.'"},';
+		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($customer_detail['Booking']['order_message']))?$customer_detail['Booking']['order_message']:'There are no comments.'.'"},';
 		        $global_merge_vars .= '{"name": "TOTAL", "content": "'.number_format($total_cart_price,2).'"},';
-		        // $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($booking_content).'"}';
+		        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$booking_content).'"}';
 		        $global_merge_vars .= ']';
+
+
+		        $key = 'RcGToklPpGQ56uCAkEpY5A';
+				$from = $customer_detail['Booking']['email'];
+				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
+				$subject = 'Booking has been received';
+				$to = $vendor_details['Vendor']['email'];
+				$to_name = $mail['Mail']['mail_from'];
+				$template_name = 'vendor_request_booking_confirmation';
+
 
 		        $data_string = '{
 		                "key": "'.$key.'",
@@ -507,17 +511,14 @@ class PaymentsController extends PaymentManagerAppController{
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
 		$booking_content='<tr>	
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$booked_slot_details.'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$participant_emails.'</td>
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$booked_vas_details.'</td>
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.
-				number_format(($orderBooked['BookingOrder']['total_amount']),2).'
-			</td>
-			  
+			<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
+			<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
+			<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td> 
+			<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td> 
+			<td>'.$booked_slot_details.'</td> 
+			<td>'.$participant_emails.'</td>
+			<td>'.$booked_vas_details.'</td>
+			<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>
 		</tr>';
 		 
 		return $booking_content;
@@ -1345,7 +1346,7 @@ class PaymentsController extends PaymentManagerAppController{
 				    	}
 				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
 				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"}';
-				        // $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.json_encode($service_slot_details).'"}';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
