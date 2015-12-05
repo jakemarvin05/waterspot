@@ -300,37 +300,60 @@ Class BookingsController extends VendorManagerAppController{
 			
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
+			$this->loadModel('VendorManager.Vendor');
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
-			$mail = $this->Mail->read(null,30);
-			//create eamil for Member
-			$body=str_replace('{USER-NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$mail['Mail']['mail_body']);
-			$body=str_replace('{EMAIL}',$memberinfo['Member']['email_id'],$body);		
-			$body=str_replace('{PHONE}',$memberinfo['Member']['phone'],$body);
-			$body=str_replace('{RESPONSE}','DECLINED',$body);
-			$body=str_replace('{NAME}',$memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'],$body);
-			$body=str_replace('{VENDOR}',$booking_order['BookingOrder']['vendor_name'],$body);
-			$body=str_replace('{SERVICE}',$booking_order['BookingOrder']['service_title'],$body);
-			//$body=str_replace('{ACTIVITY}',$booking_order['BookingOrder']['service_title'],$body);
-			$body=str_replace('{DATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])),$body);
-			$body=str_replace('{STARTDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])),$body);
-			$body=str_replace('{ENDDATE}',date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])),$body);
-			$body=str_replace('{PARTICIPANT}',$booking_order['BookingOrder']['no_participants'],$body);
-			$body=str_replace('{VAS}',$booking_order['BookingOrder']['service_title'],$body);
-			$body=str_replace('{PRICE}',$booking_order['BookingOrder']['total_amount'],$body);
 
-			$email = new CakeEmail();
-			
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
 
-			$email->to($memberinfo['Member']['email_id']);
-			$email->bcc($this->setting['site']['site_contact_email']);
-			$email->subject($mail['Mail']['mail_subject']);
-			$email->from($booking_order['BookingOrder']['vendor_email']);
-	
-			$email->emailFormat('html');
-			$email->template('default');
-			$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-			$email->send();
+	        $global_merge_vars = '[';
+	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])).' - '.date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])).'"},';
+	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
+	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+	        $global_merge_vars .= ']';
+
+	        $data_string = '{
+	                "key": "RcGToklPpGQ56uCAkEpY5A",
+	                "template_name": "booking_request_declined",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "test test test"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "Booking Declined",
+	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
+	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "to": [
+	                                {
+	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "name": "'.$full_name.'",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
+
+
+	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+			    'Content-Type: application/json',                                                                                
+			    'Content-Length: ' . strlen($data_string))                                                                       
+			);                                                                                                                   
+			                                                                                                                     
+			$result = curl_exec($ch);
 			
 			$this->Session->setFlash('Booking has been decline successfully.','','message');
 		}else{

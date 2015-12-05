@@ -622,20 +622,55 @@ Class VendorsController extends VendorManagerAppController{
     private function __mail_approve_send($mail_id=null,$mail_data) {
 		$this->loadModel('MailManager.Mail');
 		$vendordetail=$this->Vendor->read(null,$mail_data['Vendor']['id']);
-		$mail=$this->Mail->read(null,$mail_id);
-		$from=$this->Mail->read(null,2);
-		$heading=$mail['Mail']['heading'];
-		$body=str_replace('{NAME}',$vendordetail['Vendor']['fname'],$mail['Mail']['mail_body']);
-		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')),$body);
-		$email = new CakeEmail();
 
-		$email->to($vendordetail['Vendor']['email']);
-		$email->subject($mail['Mail']['mail_subject']);
-		$email->from($this->setting['site']['site_contact_email'],$from['Mail']['mail_from']);
-		$email->emailFormat('html');
-		$email->template('default');
-		$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-		$email->send();
+		$global_merge_vars = '[';
+        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
+        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')).'"}';
+        $global_merge_vars .= ']';
+
+
+        $key = 'RcGToklPpGQ56uCAkEpY5A';
+		$from = $this->setting['site']['site_contact_email'];
+		$from_name = "Waterspot Admin";
+		$subject = 'Your vendor registration with WaterSpot has been approved';
+		$to = $vendordetail['Vendor']['email'];
+		$to_name = $vendordetail['Vendor']['fname'];
+		$template_name = 'vendor_registration_approved';
+
+
+        $data_string = '{
+                "key": "'.$key.'",
+                "template_name": "'.$template_name.'",
+                "template_content": [
+                        {
+                                "name": "TITLE",
+                                "content": "test test test"
+                        }
+                ],
+                "message": {
+                        "subject": "'.$subject.'",
+                        "from_email": "'.$from.'",
+                        "from_name": "'.$from_name.'",
+                        "to": [
+                                {
+                                        "email": "'.$to.'",
+                                        "type": "to"
+                                }
+                        ],
+                        "global_merge_vars": '.$global_merge_vars.'
+                }
+        }';
+
+        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+		    'Content-Type: application/json',                                                                                
+		    'Content-Length: ' . strlen($data_string))                                                                       
+		);                                                                                                                   
+		                                                                                                                     
+		$result = curl_exec($ch);
     }
     
 	function RandomString() {
