@@ -1345,7 +1345,7 @@ class PaymentsController extends PaymentManagerAppController{
 				    		$global_merge_vars .= '{"name": "NAME", "content": "Member"},';
 				    	}
 				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
-				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"}';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
 				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
 				        $global_merge_vars .= ']';
 
