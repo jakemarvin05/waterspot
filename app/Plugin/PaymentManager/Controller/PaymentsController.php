@@ -552,23 +552,23 @@ class PaymentsController extends PaymentManagerAppController{
 				 $booked_participant_emails.=$email.'<br/>';
 			}
 		}
-		return $booked_participant_emails;
+		return $booked_participant_emails == '' ? 'None' : $booked_participant_emails;
 		
 	}
 	// Get booking VAS
 	private function getBookedVas($vas_services){
-		$booked_vas_details='&nbsp;';
+		$booked_vas_details='';
 		if(!empty($vas_services)){
 			$vas_details=json_decode($vas_services,true);
 			if(!empty($vas_details)){
 				$booked_vas_details='';
 				foreach($vas_details as $key=>$vas){
 					$booked_vas_details.=
-					'<div>'.$vas['value_added_name'].'&nbsp;&nbsp;&nbsp;($'.$vas['value_added_price'].')'.'</div><br/>';
+					'<div>'.$vas['value_added_name'].' ($'.$vas['value_added_price'].')'.'</div><br/>';
 				}
 			}
 		}
-		return $booked_vas_details;
+		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
 		$this->loadModel('BookingParticipate');
@@ -1332,18 +1332,26 @@ class PaymentsController extends PaymentManagerAppController{
 
 						// send to user mail
 
+						$this->loadModel('MemberManager.Member');
+						$this->loadModel('VendorManager.Vendor');
+
 						$key = 'RcGToklPpGQ56uCAkEpY5A';
 						$from = $this->setting['site']['site_contact_email'];
 						$subject = 'Thank you for booking with us';
 						$to = $booking_detail['Booking']['email'];
 						$template_name = 'user_pending_booking_confirmation';
+						$memberinfo = $this->Member->read(null,$booking_detail['Booking']['member_id']);
+						if (!empty($memberinfo)) {
+							$member_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+						} else if(strlen(trim($booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'])) > 0) {
+							$member_name = $booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'];
+						} else {
+							$member_name = 'Member';
+						}
+
 
 						$global_merge_vars = '[';
-						if (strlen(trim($booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'])) > 0) {
-				        	$global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
-				    	} else {
-				    		$global_merge_vars .= '{"name": "NAME", "content": "Member"},';
-				    	}
+				    	$global_merge_vars .= '{"name": "NAME", "content": "'.$member_name.'"},';
 				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
 				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
 				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
@@ -1411,19 +1419,16 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = array_pop($booking_order);
 					$vendor_email = $booking_order['vendor_email'];
 
+					$slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
 
 					$global_merge_vars = '[';
-			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['vendor_name'].'"},';
-			        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['id'].'"},';
-			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['service_title'].'"},';
-			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['no_participants'].'"},';
-			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['booking_date'])).'"},';
-			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.date('Y-m-d',strtotime($booking_order['start_date'])).' - '.date('Y-m-d',strtotime($booking_order['end_date'])).'"},';
-			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
-			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"},';
-			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['total_amount'].'"},';
-			        $global_merge_vars .= '{"name": "MESSAGE", "content": "For the cancellation of booking, please contact the members that booked the service."},';
-			        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['vendor_email'].'"}';
+			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"},';
+			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"}';
 			        $global_merge_vars .= ']';
 
 			        $data_string = '{

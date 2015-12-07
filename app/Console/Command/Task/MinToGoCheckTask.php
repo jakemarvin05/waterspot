@@ -1,7 +1,7 @@
 <?php
 
 class MinToGoCheckTask extends Shell {
-	public $uses = array('Scheduler', 'VendorManager.BookingSlot', 'VendorManager.BookingOrder', 'Booking', 'Service');
+	public $uses = array('Scheduler', 'VendorManager.BookingSlot', 'VendorManager.BookingOrder', 'Booking', 'Service', 'MemberManager.Member');
     public function execute() {
     	
 		$time = date('Y-m-d H:i:s', time() + 60*60*1);
@@ -22,19 +22,18 @@ class MinToGoCheckTask extends Shell {
 
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_slot['ref_no']] ]);
 					$vendor_email = $booking_order['BookingOrder']['vendor_email'];
+					
+					$slot_time = date('H:ia', strtotime($booking_slot['start_time'])) . ' - ' . date('H:ia', strtotime($booking_slot['end_time']));
 
 					$global_merge_vars = '[';
 			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-			        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
 			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
-			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])).' - '.date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])).'"},';
-			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"},';
 			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
-			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
-			        $global_merge_vars .= '{"name": "MESSAGE", "content": "For the cancellation of booking, please contact the members that booked the service."},';
-			        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+			        $global_merge_vars .= '{"name": "MESSAGE", "content": "For the cancellation of booking, please contact the members that booked the service."}';
 			        $global_merge_vars .= ']';
 
 			        $data_string = '{
@@ -74,20 +73,25 @@ class MinToGoCheckTask extends Shell {
 			        foreach ($bookings as $booking) {
 			        	$mail_to = $booking['Booking']['email'];
 
+			        	$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
+						if (!empty($memberinfo)) {
+							$member_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+						} else if(strlen(trim($booking['Booking']['fname']." ".$booking['Booking']['lname'])) > 0) {
+							$member_name = $booking['Booking']['fname']." ".$booking['Booking']['lname'];
+						} else {
+							$member_name = 'Member';
+						}
 
 			        	// send email to booked & paid users
 						$global_merge_vars = '[';
-				        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-				        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+				        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$member_name.'"},';
 				        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 				        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 				        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
-				        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])).' - '.date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])).'"},';
-				        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+				        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
+				        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"},';
 				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
-				        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
-			        	$global_merge_vars .= '{"name": "MESSAGE", "content": "For the cancellation of booking, please contact the vendor."},';
-				        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+			        	$global_merge_vars .= '{"name": "MESSAGE", "content": "For the cancellation of booking, please contact the vendor."}';
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
