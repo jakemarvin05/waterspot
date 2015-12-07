@@ -8,7 +8,8 @@ class MinToGoCheckTask extends Shell {
 		$now = date('Y-m-d H:i:s', time());
 
 		$near_slots = $this->BookingSlot->find('all', ['conditions' => ["start_time BETWEEN '$now' AND '$time'"], 'group' => 'ref_no' ]);
-		echo count($near_slots) . " activity found!";
+		echo "Checking slots between $now - $time\n";
+		echo "\n\n" . count($near_slots) . " activity found!\n\n";
 		App::uses('CakeEmail', 'Network/Email');
 		foreach ($near_slots as $bs) {
 			$booking_slot  = $bs['BookingSlot'];
