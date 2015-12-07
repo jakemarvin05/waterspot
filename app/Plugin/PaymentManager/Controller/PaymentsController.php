@@ -1427,7 +1427,7 @@ class PaymentsController extends PaymentManagerAppController{
 			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
-			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"},';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"}';
 			        $global_merge_vars .= ']';
 
