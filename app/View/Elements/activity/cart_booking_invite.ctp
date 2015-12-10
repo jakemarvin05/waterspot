@@ -124,8 +124,8 @@
 					</div>
 				</div>
 				<div class="cart-button-box">
-					<input type="submit" value="Proceed" id="" class="btn btnDefaults btnFillOrange" />
-					<?=$this->Html->link('Cancel', array('plugin'=>false,'controller'=>'carts','action'=>'cancel_cart',$service_detail['Service']['id'],$cart_details['Cart']['id']), array('class'=>'cancel-button btn btnDefaults btnFillGrey','escape' => false));?>
+					<input type="submit" value="Proceed" id="" class="btn-block btnDefaults btnFillOrange" style="margin-top:5px;" />
+					<?=$this->Html->link('Cancel', array('plugin'=>false,'controller'=>'carts','action'=>'cancel_cart',$service_detail['Service']['id'],$cart_details['Cart']['id']), array('class'=>'cancel-button btn-block text-center btnDefaults btnFillGrey','escape' => false));?>
 				</div>
 			<?=$this->Form->end(); ?>
 		</div>
