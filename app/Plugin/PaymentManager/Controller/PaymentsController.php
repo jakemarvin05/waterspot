@@ -506,7 +506,8 @@ class PaymentsController extends PaymentManagerAppController{
 	private function getBookedServices($orderBooked=array()){
 		$slot_details=self::getBookingSlot($orderBooked['BookingOrder']['slots']);
 		$booked_slot_details=(!empty($slot_details))? implode('<br>',$slot_details):'Full day';
-		$participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']);
+		// $participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']); // will not be used
+		$participant_emails = $orderBooked['BookingOrder']['no_participants'];
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
