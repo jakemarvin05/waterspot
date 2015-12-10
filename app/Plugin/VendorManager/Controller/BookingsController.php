@@ -230,13 +230,28 @@ Class BookingsController extends VendorManagerAppController{
 
 			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
 
+			$slots = json_decode($booking_order['BookingOrder']['slots']);
+			$slot_string = '';
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= ', ';
+					$slot_string .= date('Y-m-d', $slot->slot_date)
+								 . ' (' . date('h:ia', strtotime($slot->start_time))
+								 . ' - ' . date('h:ia', strtotime($slot->end_time))
+								 . ')';
+				}
+			}
+			if ($slot_string === '') {
+				$slot_string = 'None';
+			}
+
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
-	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['start_date'])).' - '.date('Y-m-d',strtotime($booking_order['BookingOrder']['end_date'])).'"},';
+	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
 	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
@@ -308,12 +323,14 @@ Class BookingsController extends VendorManagerAppController{
 
 			$slots = json_decode($booking_order['BookingOrder']['slots']);
 			$slot_string = '';
-			foreach ($slots as $slot) {
-				if ($slot_string !== '') $slot_string .= ', ';
-				$slot_string .= date('Y-m-d', $slot->slot_date)
-							 . ' (' . date('H:ia', strtotime($slot->start_time))
-							 . ' - ' . date('H:ia', strtotime($slot->end_time))
-							 . ')';
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= ', ';
+					$slot_string .= date('Y-m-d', $slot->slot_date)
+								 . ' (' . date('h:ia', strtotime($slot->start_time))
+								 . ' - ' . date('h:ia', strtotime($slot->end_time))
+								 . ')';
+				}
 			}
 			if ($slot_string === '') {
 				$slot_string = 'None';
