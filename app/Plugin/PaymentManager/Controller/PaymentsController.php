@@ -518,7 +518,7 @@ class PaymentsController extends PaymentManagerAppController{
 					if ($slot_string !== '') $slot_string .= '<br>';
 					$date = date('Y-m-d', (int) $slot->slot_date);
 					$start_time = $date . ' ' . $slot->start_time;
-					$end_time = $date . ' ' . $slot->end_time;
+					$end_time = $date . ' ' . date('H:i:s', strtotime($slot->end_time) + 1);
 					$paid_count = $this->BookingSlot->paidSlotCount($orderBooked['BookingOrder']['service_id'], $start_time, $end_time);
 					$slot_string .= $paid_count . " out of " . $service['min_participants'] . " booked";
 				}
