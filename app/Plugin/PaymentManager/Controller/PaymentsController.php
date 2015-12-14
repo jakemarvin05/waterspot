@@ -504,6 +504,29 @@ class PaymentsController extends PaymentManagerAppController{
 	}
 	// get function is used for get booking detail which is used
 	private function getBookedServices($orderBooked=array()){
+		
+		$this->loadModel('Service');
+		$this->loadModel('VendorManager.BookingSlot');
+
+		$service = $this->Service->find('first', ['conditions' => ['id' => $orderBooked['BookingOrder']['service_id']] ]);
+		$service = array_pop($service);
+		$slot_string = '';
+		if ($service['min_participants'] != 0) {
+			$slots = json_decode($orderBooked['BookingOrder']['slots']);
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= '<br>';
+					$start_time = $slot->start_time;
+					$end_time = $slot->end_time;
+					$paid_count = $this->BookingSlot->paidSlotCount($orderBooked['BookingOrder']['service_id'], $start_time, $end_time);
+					$slot_string .= $paid_count . " out of " . $service['min_participants'] . " booked";
+				}
+			}
+		}
+		if ($slot_string === '') {
+			$slot_string = 'N/A';
+		}
+
 		$slot_details=self::getBookingSlot($orderBooked['BookingOrder']['slots']);
 		$booked_slot_details=(!empty($slot_details))? implode('<br>',$slot_details):'Full day';
 		// $participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']); // will not be used
@@ -520,6 +543,7 @@ class PaymentsController extends PaymentManagerAppController{
 			<td>'.$participant_emails.'</td>
 			<td>'.$booked_vas_details.'</td>
 			<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>
+			<td>'.$slot_string.'</td>
 		</tr>';
 		 
 		return $booking_content;
@@ -1335,6 +1359,7 @@ class PaymentsController extends PaymentManagerAppController{
 
 						$this->loadModel('MemberManager.Member');
 						$this->loadModel('VendorManager.Vendor');
+						$this->loadModel('Service');
 
 						$key = 'RcGToklPpGQ56uCAkEpY5A';
 						$from = $this->setting['site']['site_contact_email'];
