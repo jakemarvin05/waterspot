@@ -118,6 +118,7 @@ Class BookingSlot extends AppModel {
 				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
 	 			'fields' => ['status']
 	 		]);
+	 		$participants = array_pop($participants);
 	 		$bo = new BookingOrder();
 	 		$bo = $bo->find('first', [
 				'conditions' => ['ref_no' => $booking_slot['BookingSlot']['ref_no']],
@@ -133,7 +134,7 @@ Class BookingSlot extends AppModel {
 			
 			if (count($participants) > 0) {
 				foreach ($participants as $p) {
-					if ($p['booking_participates']['status'] == 1) {
+					if ($p['status'] == 1) {
 						$count++;
 					}
 				}
