@@ -1448,13 +1448,13 @@ class PaymentsController extends PaymentManagerAppController{
 					$slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
 
 					$global_merge_vars = '[';
-			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
-			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
-			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['service_title'].'"},';
+			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['no_participants'].'"},';
+			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['booking_date'])).'"},';
 			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
-			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"}';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"}';
 			        $global_merge_vars .= ']';
 
 			        $data_string = '{
