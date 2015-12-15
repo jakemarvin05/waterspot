@@ -542,7 +542,6 @@ class PaymentsController extends PaymentManagerAppController{
 			<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td> 
 			<td>'.$booked_slot_details.'</td> 
 			<td>'.$participant_emails.'</td>
-			<td>'.$booked_vas_details.'</td>
 			<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>
 			<td>'.$slot_string.'</td>
 		</tr>';
