@@ -59,30 +59,54 @@ foreach($scriptBlocks as $scriptBlock) {
 }
 foreach($cssBlocks as $cssBlock) {
     echo $this->Html->cssBlock($cssBlock);
-} 
+}
 ?>
 
-<!--[if IE]>
-	<link rel="stylesheet" type="text/css" href="css/ie.css" />
-<![endif]-->
-<script type="text/javascript">
-	function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-	}
-	function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-    }
-    return "";
-	}
-</script>
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+    <![endif]-->
+    <script type="text/javascript">
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+    </script>
+
+    <!--Start of Zopim Live Chat Script-->
+    <script type="text/javascript">
+        window.$zopim || (function (d, s) {
+            var z = $zopim = function (c) {
+                z._.push(c)
+            }, $ = z.s =
+                d.createElement(s), e = d.getElementsByTagName(s)[0];
+            z.set = function (o) {
+                z.set.
+                    _.push(o)
+            };
+            z._ = [];
+            z.set._ = [];
+            $.async = !0;
+            $.setAttribute("charset", "utf-8");
+            $.src = "//v2.zopim.com/?3XpbaUCdbliNatQpLfqedXCdaaXM1Hfl";
+            z.t = +new Date;
+            $.
+                type = "text/javascript";
+            e.parentNode.insertBefore($, e)
+        })(document, "script");
+    </script>
+    <!--End of Zopim Live Chat Script-->
 </head>
 
 
