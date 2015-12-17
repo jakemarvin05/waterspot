@@ -491,6 +491,11 @@ Class VendorsController extends VendorManagerAppController{
 				    "email": {
 				    	"email": "'.$email.'"
 				    },
+				    "merge_vars": {
+				    	"NAME" : '.$name.',
+				    	"PHONE" : '.$this->request->data['Vendor']['phone'].',
+				    	"PASSWORD" : '.$realpassword.'
+				    },
 				    "double_optin": true
 				}';
 				$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
