@@ -426,6 +426,7 @@ class PaymentsController extends PaymentManagerAppController{
 		        $global_merge_vars .= '{"name": "PHONE", "content": "'.$customer_detail['Booking']['phone'].'"},';
 		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($customer_detail['Booking']['order_message']))?$customer_detail['Booking']['order_message']:'There are no comments.'.'"},';
 		        $global_merge_vars .= '{"name": "TOTAL", "content": "'.number_format($total_cart_price,2).'"},';
+		        $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.Router::url('/vendor/booking_list').'"},';
 		        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$booking_content).'"}';
 		        $global_merge_vars .= ']';
 
@@ -1455,6 +1456,7 @@ class PaymentsController extends PaymentManagerAppController{
 			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
 			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
 			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['total_amount'].'"},';
+		        	$global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.Router::url('/vendor/booking_list').'"},';
 			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"}';
 			        $global_merge_vars .= ']';
 
