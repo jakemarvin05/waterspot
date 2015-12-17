@@ -67,7 +67,7 @@ class MembersController extends MemberManagerAppController{
 						    "email": {
 						    	"email": "'.$email.'"
 						    },
-						    "double_optin": false
+						    "double_optin": true
 						}';
 						$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
 						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
