@@ -492,9 +492,9 @@ Class VendorsController extends VendorManagerAppController{
 				    	"email": "'.$email.'"
 				    },
 				    "merge_vars": {
-				    	"NAME" : '.$name.',
-				    	"PHONE" : '.$this->request->data['Vendor']['phone'].',
-				    	"PASSWORD" : '.$realpassword.'
+				    	"NAME" : "'.$name.'",
+				    	"PHONE" : "'.$this->request->data['Vendor']['phone'].'",
+				    	"PASSWORD" : "'.$realpassword.'"
 				    },
 				    "double_optin": true
 				}';

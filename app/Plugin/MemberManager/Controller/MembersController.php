@@ -68,9 +68,9 @@ class MembersController extends MemberManagerAppController{
 						    	"email": "'.$email.'"
 						    },
 						    "merge_vars": {
-						    	"NAME" : '.$this->request->data['Member']['first_name'].',
-						    	"PHONE" : '.$this->request->data['Member']['phone'].',
-						    	"PASSWORD" : '.$realpassword.'
+						    	"NAME" : "'.$this->request->data['Member']['first_name'].'",
+						    	"PHONE" : "'.$this->request->data['Member']['phone'].'",
+						    	"PASSWORD" : "'.$realpassword.'"
 						    },
 						    "double_optin": true
 						}';
