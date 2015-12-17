@@ -455,7 +455,7 @@ Class VendorsController extends VendorManagerAppController{
 		$this->request->data['Vendor']['active'] =1;
 		$this->request->data['Vendor']['approval'] =0;
 		$this->request->data['Vendor']['payment_status'] =0;
-		$name=$this->request->data['Vendor']['fname'].' '.$this->request->data['Vendor']['lname'];
+		$name=$this->request->data['Vendor']['fname'];
 		$this->Vendor->create();
 		$this->Vendor->save($this->request->data,array('validate'=>false));
 		if(!empty($this->Vendor->id) && (empty($id))){
@@ -508,6 +508,7 @@ Class VendorsController extends VendorManagerAppController{
 				);
 
 				$results = json_decode(curl_exec($ch));
+
 				
 			}
 

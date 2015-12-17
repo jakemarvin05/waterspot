@@ -1456,7 +1456,7 @@ class PaymentsController extends PaymentManagerAppController{
 			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
 			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
 			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['total_amount'].'"},';
-		        	$global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.Router::url('/vendor/booking_list').'"},';
+		        	$global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$this->setting['site']['site_url'] . '/vendor/booking_list'.'"},';
 			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"}';
 			        $global_merge_vars .= ']';
 
