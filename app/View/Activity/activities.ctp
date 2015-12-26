@@ -146,10 +146,11 @@
 					var SearchVendorList = ($("#SearchVendorList").val()=='')?'vendor_id':$("#SearchVendorList").val();
 				 	var SearchServiceTypeList = ($("#SearchServiceTypeList").val()=='')?'service_type':$("#SearchServiceTypeList").val();
 				 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
-				 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+				 	// var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+					var SearchSortReview = 'sortbyreview';
 
 					$.ajax({
-					    url : "<?=$this->webroot;?>activity/activities/"+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview,
+					    url : "<?=$this->webroot;?>activity/activities/"+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview+"/page:1",
 					    success: function(res) {
 
 						   $( ".sun-text" ).remove();
@@ -186,13 +187,13 @@
 					var SearchVendorList = ($("#SearchVendorList").val()=='')?'vendor_id':$("#SearchVendorList").val();
 				 	var SearchServiceTypeList = ($("#SearchServiceTypeList").val()=='')?'service_type':$("#SearchServiceTypeList").val();
 				 	var SearchSortPrice = ($("#SearchSortPrice").val()=='')?'sortbyprice':$("#SearchSortPrice").val();
-				 	var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
-					
+				 	// var SearchSortReview = ($("#SearchSortReview").val()=='')?'sortbyreview':$("#SearchSortReview").val();
+					var SearchSortReview = 'sortbyreview';
 					if(pages >= (page+1)){
 						 if(loading_start===0){
 		                    loading_start = 1;
 		                    page++;
-		                    $.ajax({url:'<?=$this->webroot;?>activity/activities/'+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview+'/page:'+page,
+		                    $.ajax({url:'<?=$this->webroot;?>activities/'+SearchVendorList+"/"+SearchServiceTypeList+"/"+SearchSortPrice+"/"+SearchSortReview+'/page:'+page,
 		                        async:false,
 		                        timeout:5,
 		                        success:function(data){
