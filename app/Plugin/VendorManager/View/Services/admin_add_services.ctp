@@ -73,7 +73,7 @@ function saveform()
                 <label>Max Capacity per Timeslot:<span style="color:red;">*</span></label>
             </dt>
             <dd>
-		<?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service')); ?>
+		<?= $this->Form->input('no_person', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service', 'default' => '1')); ?>
         <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
             </dd>
                 </div>
