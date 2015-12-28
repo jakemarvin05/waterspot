@@ -584,14 +584,14 @@ class PaymentsController extends PaymentManagerAppController{
 
 		if (strlen($booking_content) > 0) {
 			$frag = explode('</tr>', $booking_content);
-			$frag[0] = '<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td>';
-			$frag[1] = '<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td>';
-			$frag[2] = '<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td>';
-			$frag[3] = '<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td>';
-			$frag[4] = '<td>'.$booked_slot_details.'</td>';
-			$frag[5] = '<td>'.$participant_emails.'</td>';
-			$frag[6] = '<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>';
-			$frag[7] = '<td>'.$slot_string.'</td>';
+			$frag[0] .= '<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td>';
+			$frag[1] .= '<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td>';
+			$frag[2] .= '<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td>';
+			$frag[3] .= '<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td>';
+			$frag[4] .= '<td>'.$booked_slot_details.'</td>';
+			$frag[5] .= '<td>'.$participant_emails.'</td>';
+			$frag[6] .= '<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>';
+			$frag[7] .= '<td>'.$slot_string.'</td>';
 			$booking_content = implode('</tr>', $frag) . '</tr>';
 		}
 		 
