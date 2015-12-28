@@ -645,7 +645,6 @@ class PaymentsController extends PaymentManagerAppController{
 		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
-		return;
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('MailManager.Mail');
 		$booking_participates=array();
