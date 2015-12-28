@@ -596,7 +596,6 @@ class PaymentsController extends PaymentManagerAppController{
 		}
 		 
 		return $booking_content;
-		}
 	}
 	// Get booking slots
 	private function getBookingSlot($slotDetails){
