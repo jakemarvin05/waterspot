@@ -1378,7 +1378,7 @@ class PaymentsController extends PaymentManagerAppController{
 							$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
 							// get serviceType name 
 							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
-							$service_slot_details.=self::getBookedServicesVertical($newData,$service_slot_details); 	
+							$service_slot_details=self::getBookedServicesVertical($newData,$service_slot_details); 	
 							$total_cart_price+=$cart_detail['Cart']['total_amount'];
 							//echo $service_slot_details;die;
 							self::sent_invite_mail($cart_detail,number_format($total_cart_price,2),$booking_detail);
