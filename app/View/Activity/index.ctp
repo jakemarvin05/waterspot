@@ -197,7 +197,7 @@
 
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 1):
+                                if ($minimumParticipants > 0):
 
                                 ?>
 

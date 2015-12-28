@@ -1559,6 +1559,10 @@ class PaymentsController extends PaymentManagerAppController{
 		// $f = fopen('ipn.txt', 'w');
 		// fwrite($f, $v);
 		// fclose($f);
+
+		$this->autoRender=false;
+		echo 'success';
+
 	}
 
 	public function paypal_ipn_invite($b_p_id=null,$booking_order_id=null,$payment_ref=null){
