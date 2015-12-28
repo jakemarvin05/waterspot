@@ -584,14 +584,14 @@ class PaymentsController extends PaymentManagerAppController{
 
 		if (strlen($booking_content) > 0) {
 			$frag = explode('</tr>', $booking_content);
-			$frag[0] .= '<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td>';
-			$frag[1] .= '<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td>';
-			$frag[2] .= '<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td>';
-			$frag[3] .= '<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td>';
-			$frag[4] .= '<td>'.$booked_slot_details.'</td>';
-			$frag[5] .= '<td>'.$participant_emails.'</td>';
-			$frag[6] .= '<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>';
-			$frag[7] .= '<td>'.$slot_string.'</td>';
+			$frag[0] .= '<td style="min-width:250px"><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</span></td>';
+			$frag[1] .= '<td><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</span></td>';
+			$frag[2] .= '<td style="min-width:250px"><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['service_title']).'</span></td>';
+			$frag[3] .= '<td style="min-width:250px"><span style="font-size:14px">'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</span></td>';
+			$frag[4] .= '<td><span style="font-size:14px">'.$booked_slot_details.'</span></td>';
+			$frag[5] .= '<td><span style="font-size:14px">'.$participant_emails.'</span></td>';
+			$frag[6] .= '<td style="min-width:250px"><span style="font-size:14px">'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</span></td>';
+			$frag[7] .= '<td><span style="font-size:14px">'.$slot_string.'</span></td>';
 			$booking_content = implode('</tr>', $frag) . '</tr>';
 		}
 		 
@@ -645,6 +645,7 @@ class PaymentsController extends PaymentManagerAppController{
 		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
+		return;
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('MailManager.Mail');
 		$booking_participates=array();
@@ -1358,14 +1359,15 @@ class PaymentsController extends PaymentManagerAppController{
 					array('BookingSlot.ref_no =' => $booking_ref_no)
 				); 
 
-				$service_slot_details='<tr><td>Vendor</td></tr>
-				<tr><td>Service</td></tr>
-				<tr><td>Activity</td></tr>
-				<tr><td>Date</td></tr>
-				<tr><td>Booking Time</td></tr>
-				<tr><td>Participant(s)</td></tr>
-				<tr><td>Price ($)</td></tr>
-				<tr><td>Min. to go status</td></tr>';
+				$service_slot_details='
+				<tr><th style="min-width:200px"><span style="font-size:14px">Vendor</span></th></tr>
+				<tr><th><span style="font-size:14px">Service</span></th></tr>
+				<tr><th style="min-width:200px"><span style="font-size:14px">Activity</span></th></tr>
+				<tr><th><span style="font-size:14px">Date</span></th></tr>
+				<tr><th style="min-width:200px"><span style="font-size:14px">Booking Time</span></th></tr>
+				<tr><th><span style="font-size:14px">Participant(s)</span></th></tr>
+				<tr><th style="min-width:200px"><span style="font-size:14px">Price ($)</span></th></tr>
+				<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
 				$total_cart_price=0;
 				// check payment status
 				if(!empty($cart_details)){
