@@ -645,7 +645,6 @@ class PaymentsController extends PaymentManagerAppController{
 		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
-		return;
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('MailManager.Mail');
 		$booking_participates=array();
@@ -658,8 +657,8 @@ class PaymentsController extends PaymentManagerAppController{
 				$booking_participates['BookingParticipate']['booking_order_id']=$this->booking_order_id;;	
 				$booking_participates['BookingParticipate']['member_id']=$booking_detail['Booking']['member_id'];	
 				$booking_participates['BookingParticipate']['ref_no']=$booking_detail['Booking']['ref_no'];	
-				 $booking_participates['BookingParticipate']['email']=$email;	
-				 $booking_participates['BookingParticipate']['amount']=$total_cart_price;
+				$booking_participates['BookingParticipate']['email']=$email;	
+				$booking_participates['BookingParticipate']['amount']=$total_cart_price;
 				 
 				 // save invite friends	
 				/* if(!empty($booking_participates)){
@@ -667,11 +666,11 @@ class PaymentsController extends PaymentManagerAppController{
 					$this->BookingParticipate->save($booking_participates,array('validate' => false));
 				}*/
 				  
-				 $booking_participates['BookingParticipate']['id']=$this->BookingParticipate->id;
-				 $booking_participates['BookingParticipate']['service_title']=$cart_detail['Cart']['service_title'];
-				 $booking_participates['BookingParticipate']['invite_payment_status']=$cart_detail['Cart']['invite_payment_status'];
-				 $booking_participates['BookingParticipate']['start_end_date']=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date']));
-				 $booking_participates_mails[]=$booking_participates;
+				$booking_participates['BookingParticipate']['id']=$this->BookingParticipate->id;
+				$booking_participates['BookingParticipate']['service_title']=$cart_detail['Cart']['service_title'];
+				$booking_participates['BookingParticipate']['invite_payment_status']=$cart_detail['Cart']['invite_payment_status'];
+				$booking_participates['BookingParticipate']['start_end_date']=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date']));
+				$booking_participates_mails[]=$booking_participates;
 				 
 			}
 					
@@ -684,25 +683,6 @@ class PaymentsController extends PaymentManagerAppController{
 				// send mail different content if paymet pay by invitor
 				$mail_id=($booking_participates_mail['BookingParticipate']['invite_payment_status']==1)?25:15;
 				$mail=$this->Mail->read(null,$mail_id);
-				$body=str_replace('{FRIEND_NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$mail['Mail']['mail_body']);  
-				$body=str_replace('{ACTIVITY_NAME}',$booking_participates_mail['BookingParticipate']['service_title'],$body);  
-				$body=str_replace('{ACTIVITY_NAME}',$booking_participates_mail['BookingParticipate']['service_title'],$body);  
-				$body=str_replace('{ACTIVITY_DATE}',$booking_participates_mail['BookingParticipate']['start_end_date'],$body);  
-				$body=str_replace('{ACTIVITY_AMOUNT}',$booking_participates_mail['BookingParticipate']['amount'],$body);  
-				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['BookingParticipate.email' => $booking_participates_mail['BookingParticipate']['email'], 'BookingParticipate.ref_no' => $booking_participates_mail['BookingParticipate']['ref_no']]]);
-				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
-				$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_paypal/',$booking_participates_id)),$body);  
-				
-				$email = new CakeEmail();
-
-				
-				$email->from($booking_detail['Booking']['email'],$mail['Mail']['mail_from']);
-				$email->subject(trim($mail['Mail']['mail_subject'])." ".$booking_detail['Booking']['fname']);
-				$email->to($booking_participates_mail['BookingParticipate']['email']);
-				$email->emailFormat('html');
-				$email->template('default');
-				$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url'])); 
-				$email->send();
 			}	
 		}
 	}
