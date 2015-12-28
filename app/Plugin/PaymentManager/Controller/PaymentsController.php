@@ -685,6 +685,9 @@ class PaymentsController extends PaymentManagerAppController{
 				$mail_id=($booking_participates_mail['BookingParticipate']['invite_payment_status']==1)?25:15;
 				$mail=$this->Mail->read(null,$mail_id);
 
+				$booking_participates_id = $this->BookingParticipate->find('first', ['conditions' => ['BookingParticipate.email' => $booking_participates_mail['BookingParticipate']['email'], 'BookingParticipate.ref_no' => $booking_participates_mail['BookingParticipate']['ref_no']]]);
+				$booking_participates_id = $booking_participates_id['BookingParticipate']['id'];
+
 				$global_merge_vars = '[';
 		        $global_merge_vars .= '{"name": "FRIEND_NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
 		        $global_merge_vars .= '{"name": "ACTIVITY_NAME", "content": "'.$booking_participates_mail['BookingParticipate']['service_title'].'"},';
@@ -695,11 +698,6 @@ class PaymentsController extends PaymentManagerAppController{
 
 
 		        $key = 'RcGToklPpGQ56uCAkEpY5A';
-				$from = $customer_detail['Booking']['email'];
-				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
-				$subject = 'Booking has been received';
-				$to = $vendor_details['Vendor']['email'];
-				$to_name = $mail['Mail']['mail_from'];
 				$template_name = 'user_invite_friend';
 
 
@@ -713,7 +711,7 @@ class PaymentsController extends PaymentManagerAppController{
 		                        }
 		                ],
 		                "message": {
-		                        "subject": "'.$subject.'",
+		                        "subject": "'.trim($mail['Mail']['mail_subject'])." ".$booking_detail['Booking']['fname'].'",
 		                        "from_email": "'.$booking_detail['Booking']['email'].'",
 		                        "from_name": "'.$mail['Mail']['mail_from'].'",
 		                        "to": [
@@ -736,6 +734,7 @@ class PaymentsController extends PaymentManagerAppController{
 				);                                                                                                                   
 				                                                                                                                     
 				$result = curl_exec($ch);
+				curl_close($ch);
 			}	
 		}
 	}
