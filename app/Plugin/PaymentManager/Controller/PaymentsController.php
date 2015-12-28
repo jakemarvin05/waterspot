@@ -549,6 +549,55 @@ class PaymentsController extends PaymentManagerAppController{
 		 
 		return $booking_content;
 	}
+
+	private function getBookedServicesVertical($orderBooked=array(), $booking_content = '') {
+		
+		$this->loadModel('Service');
+		$this->loadModel('VendorManager.BookingSlot');
+
+		$service = $this->Service->find('first', ['conditions' => ['id' => $orderBooked['BookingOrder']['service_id']] ]);
+		$service = array_pop($service);
+		$slot_string = '';
+		if ($service['min_participants'] != 0) {
+			$slots = json_decode($orderBooked['BookingOrder']['slots']);
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= '<br>';
+					$date = date('Y-m-d', (int) $slot->slot_date);
+					$start_time = $date . ' ' . $slot->start_time;
+					$end_time = $date . ' ' . date('H:i:s', strtotime($slot->end_time) + 1);
+					$paid_count = $this->BookingSlot->paidSlotCount($orderBooked['BookingOrder']['service_id'], $start_time, $end_time);
+					$slot_string .= $paid_count . " out of " . $service['min_participants'] . " booked";
+				}
+			}
+		}
+		if ($slot_string === '') {
+			$slot_string = 'N/A';
+		}
+
+		$slot_details=self::getBookingSlot($orderBooked['BookingOrder']['slots']);
+		$booked_slot_details=(!empty($slot_details))? implode('<br>',$slot_details):'Full day';
+		// $participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']); // will not be used
+		$participant_emails = $orderBooked['BookingOrder']['no_participants'];
+		// get booked vas service;
+		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
+
+		if (strlen($booking_content) > 0) {
+			$frag = explode('</tr>', $booking_content);
+			$frag[0] = '<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td>';
+			$frag[1] = '<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td>';
+			$frag[2] = '<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td>';
+			$frag[3] = '<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td>';
+			$frag[4] = '<td>'.$booked_slot_details.'</td>';
+			$frag[5] = '<td>'.$participant_emails.'</td>';
+			$frag[6] = '<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>';
+			$frag[7] = '<td>'.$slot_string.'</td>';
+			$booking_content = implode('</tr>', $frag) . '</tr>';
+		}
+		 
+		return $booking_content;
+		}
+	}
 	// Get booking slots
 	private function getBookingSlot($slotDetails){
 		$slot_details=array();
@@ -1310,7 +1359,14 @@ class PaymentsController extends PaymentManagerAppController{
 					array('BookingSlot.ref_no =' => $booking_ref_no)
 				); 
 
-				$service_slot_details='';
+				$service_slot_details='<tr><td>Vendor</td></tr>
+				<tr><td>Service</td></tr>
+				<tr><td>Activity</td></tr>
+				<tr><td>Date</td></tr>
+				<tr><td>Booking Time</td></tr>
+				<tr><td>Participant(s)</td></tr>
+				<tr><td>Price ($)</td></tr>
+				<tr><td>Min. to go status</td></tr>';
 				$total_cart_price=0;
 				// check payment status
 				if(!empty($cart_details)){
@@ -1323,7 +1379,7 @@ class PaymentsController extends PaymentManagerAppController{
 							$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
 							// get serviceType name 
 							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
-							$service_slot_details.=self::getBookedServices($newData); 	
+							$service_slot_details.=self::getBookedServicesVertical($newData,$service_slot_details); 	
 							$total_cart_price+=$cart_detail['Cart']['total_amount'];
 							//echo $service_slot_details;die;
 							self::sent_invite_mail($cart_detail,number_format($total_cart_price,2),$booking_detail);
