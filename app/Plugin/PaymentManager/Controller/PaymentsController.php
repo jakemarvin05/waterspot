@@ -645,6 +645,7 @@ class PaymentsController extends PaymentManagerAppController{
 		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
+		return;
 		$this->loadModel('BookingParticipate');
 		$this->loadModel('MailManager.Mail');
 		$booking_participates=array();
@@ -683,6 +684,58 @@ class PaymentsController extends PaymentManagerAppController{
 				// send mail different content if paymet pay by invitor
 				$mail_id=($booking_participates_mail['BookingParticipate']['invite_payment_status']==1)?25:15;
 				$mail=$this->Mail->read(null,$mail_id);
+
+				$global_merge_vars = '[';
+		        $global_merge_vars .= '{"name": "FRIEND_NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
+		        $global_merge_vars .= '{"name": "ACTIVITY_NAME", "content": "'.$booking_participates_mail['BookingParticipate']['service_title'].'"},';
+		        $global_merge_vars .= '{"name": "ACTIVITY_DATE", "content": "'.$booking_participates_mail['BookingParticipate']['start_end_date'].'"},';
+		        $global_merge_vars .= '{"name": "ACTIVITY_AMOUNT", "content": "'.$booking_participates_mail['BookingParticipate']['amount'].'"},';
+		        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'invite_payment_paypal/',$booking_participates_id)).'"}';
+		        $global_merge_vars .= ']';
+
+
+		        $key = 'RcGToklPpGQ56uCAkEpY5A';
+				$from = $customer_detail['Booking']['email'];
+				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
+				$subject = 'Booking has been received';
+				$to = $vendor_details['Vendor']['email'];
+				$to_name = $mail['Mail']['mail_from'];
+				$template_name = 'user_invite_friend';
+
+
+		        $data_string = '{
+		                "key": "'.$key.'",
+		                "template_name": "'.$template_name.'",
+		                "template_content": [
+		                        {
+		                                "name": "TITLE",
+		                                "content": "test test test"
+		                        }
+		                ],
+		                "message": {
+		                        "subject": "'.$subject.'",
+		                        "from_email": "'.$booking_detail['Booking']['email'].'",
+		                        "from_name": "'.$mail['Mail']['mail_from'].'",
+		                        "to": [
+		                                {
+		                                        "email": "'.$booking_participates_mail['BookingParticipate']['email'].'",
+		                                        "type": "to"
+		                                }
+		                        ],
+		                        "global_merge_vars": '.$global_merge_vars.'
+		                }
+		        }';
+
+		        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				    'Content-Type: application/json',                                                                                
+				    'Content-Length: ' . strlen($data_string))                                                                       
+				);                                                                                                                   
+				                                                                                                                     
+				$result = curl_exec($ch);
 			}	
 		}
 	}
