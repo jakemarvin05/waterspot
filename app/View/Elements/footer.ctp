@@ -43,8 +43,7 @@
                 <form action="//waterspot.us11.list-manage.com/subscribe/post?u=5931912452094114bc63c4074&amp;id=750e43a4a4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                     <div id="mc_embed_signup_scroll">
                     <h2>Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:</h2>
-                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-                <div class="mc-field-group">
+                <div class="mc-field-group" style="width:100%;">
                     <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
                 </label>
                     <input type="email" value="" name="EMAIL" class="form-control required email" id="mce-EMAIL" style="
@@ -57,7 +56,7 @@
                         <div class="response" id="mce-success-response" style="display:none"></div>
                     </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                     <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_5931912452094114bc63c4074_750e43a4a4" tabindex="-1" value=""></div>
-                    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btnFillOrange"></div>
+                    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btnFillOrange" style="width:100%; margin:0;"></div>
                     </div>
                 </form>
                 </div>
