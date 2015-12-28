@@ -36,6 +36,56 @@ class MembersController extends MemberManagerAppController{
 				$this->Member->create();
 				if($this->Member->save($this->request->data,array('validate'=>false))){
 					$this->__mail_send(11,$this->request->data,$realpassword);
+
+					// subscribe the new user
+					$apikey = '08c19e41483c616d5fd3ec14df89e2bc-us11';
+					$list_id = 0;
+					$list_name = 'Waterspot Users List';
+					$email = $this->request->data['Member']['email_id'];
+
+					$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
+					);
+
+					$results = json_decode(curl_exec($ch));
+					
+					foreach ($results->data as $result) {
+						if ($list_name == $result->name) {
+							$list_id = $result->id;
+							break;
+						}
+					}
+					if ($list_id) {
+						$data = '{
+						    "apikey": "'.$apikey.'",
+						    "id": "'.$list_id.'",
+						    "email": {
+						    	"email": "'.$email.'"
+						    },
+						    "merge_vars": {
+						    	"NAME" : "'.$this->request->data['Member']['first_name'].'",
+						    	"PHONE" : "'.$this->request->data['Member']['phone'].'",
+						    	"PASSWORD" : "'.$realpassword.'"
+						    },
+						    "double_optin": true
+						}';
+						$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+							'Content-Type: application/json',
+							'Content-Length: ' . strlen($data))
+						);
+
+						$results = json_decode(curl_exec($ch));
+					}
+
 					$this->request->data['Member']['password'] = $realpassword;//To Login member with Un-encrypted password
 					$this->MemberAuth->login();
 				}else {
@@ -452,20 +502,55 @@ class MembersController extends MemberManagerAppController{
 	private function __mail_send($mail_id=null,$mail_data,$password=null){
 		$this->loadModel('MailManager.Mail');
 		$mail=$this->Mail->read(null,$mail_id);
-		$heading=$mail['Mail']['heading'];
-		$body=str_replace('{NAME}',$mail_data['Member']['first_name'],$mail['Mail']['mail_body']);
-		$body=str_replace('{EMAIL}',$mail_data['Member']['email_id'],$body);
-		$body=str_replace('{PASSWORD}',$password,$body);   
-		$body=str_replace('{URL}',$this->setting['site']['site_url'].Router::url(array('plugin'=>'member_manager','admin'=>false,'controller'=>'members','action'=>'log_in')),$body); 
-		$email = new CakeEmail();
 
-		$email->to($mail_data['Member']['email_id']);
-		$email->subject($mail['Mail']['mail_subject']);
-		$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-		$email->emailFormat('html');
-		$email->template('default');
-		$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-		$email->send();
+		$key = 'RcGToklPpGQ56uCAkEpY5A';
+		$from = $this->setting['site']['site_contact_email'];
+		$from_name = $mail['Mail']['mail_from'];
+		$subject = 'Thank you for registration with us';
+		$to = $mail_data['Member']['email_id'];
+		$to_name = $mail_data['Member']['first_name'];
+		$template_name = 'user_sign_up';
+
+		$global_merge_vars = '[';
+        $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Member']['first_name'].'"},';
+        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$mail_data['Member']['email_id'].'"},';
+        $global_merge_vars .= '{"name": "PHONE", "content": "'.$mail_data['Member']['phone'].'"},';
+        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$password.'"}';
+        $global_merge_vars .= ']';
+
+        $data_string = '{
+                "key": "'.$key.'",
+                "template_name": "'.$template_name.'",
+                "template_content": [
+                        {
+                                "name": "TITLE",
+                                "content": "test test test"
+                        }
+                ],
+                "message": {
+                        "subject": "'.$subject.'",
+                        "from_email": "'.$from.'",
+                        "from_name": "'.$from_name.'",
+                        "to": [
+                                {
+                                        "email": "'.$to.'",
+                                        "type": "to"
+                                }
+                        ],
+                        "global_merge_vars": '.$global_merge_vars.'
+                }
+        }';
+
+        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+		    'Content-Type: application/json',                                                                                
+		    'Content-Length: ' . strlen($data_string))                                                                       
+		);                                                                                                                   
+		                                                                                                                     
+		$result = curl_exec($ch);
 	}
 	
 	function dashboard() { 

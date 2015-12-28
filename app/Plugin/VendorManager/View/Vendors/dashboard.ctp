@@ -38,10 +38,12 @@
 					<td class="align-right">$<?=$service['service_price']; ?></td>
 					<td class="align-center" style="text-align: center;" valign="middle">
 						<?=$this->Html->link("<i class=\"fa fa-pencil-square-o\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_services',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Edit Service'));?>
+						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'activity','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Service'));?>
 						<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_slots',$service['id']),array('escape' => false,'class'=>'tooltip','actions'=>'View Service'));?>
 						<?=$this->Html->link("<i class=\"fa fa-calendar\"></i>",array('plugin'=>false,'controller'=>'services','action'=>'add_service_slots',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Add/Update Slots'));?>
 						<?=$this->Html->link("<i class=\"fa fa-sitemap\"></i>",array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Manage Slot Availability'));?>
 						<?=$this->Html->link("<i class=\"fa fa-comments\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_reviews','action'=>'reviews',$service['id']),array('escape' => false,'class'=>'actions','title'=>'View Review'));?>
+						<?=$this->Html->link("<i class=\"fa fa-list\"></i>",array('plugin'=>'vendor_manager','controller'=>'service_attributes','action'=>'index',$service['id']),array('escape' => false,'class'=>'actions','title'=>'Manage Attributes'));?>
 					</td>
 				</tr>
 			<?php }
@@ -67,11 +69,11 @@
 		<tr>
 			<th width="5%">S.No.</th>
 			<th width="12%">Order No.</th>
-			<th width="27%">Name</th>
+			<th width="23%">Name</th>
 			<th width="15%">Email</th>
 			<th width="15%">Phone</th>
 			<th width="15%">Status</th>
-			<th width="6%">View</th>
+			<th width="10%">Action</th>
 			 
 		</tr>
 		<? if(!empty($booking_details)){ ?>
@@ -83,7 +85,21 @@
 					<td><?=$booking_detail['Booking']['email']?></td>
 					<td><?=$booking_detail['Booking']['phone']?></td>
 					<td><?=($payment_status[$booking_detail['Booking']['status']]); ?></td>
-					<td class="align-center" style="text-align: center;"><?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?></td>
+					<td class="align-center" style="text-align: center;">
+					<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 3): ?>
+						<?=$this->Html->link("<i class=\"fa fa-check\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px 5px;'));?>
+						<?=$this->Html->link("<i class=\"fa fa-remove\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false,"class"=>"actions", 'style'=>'float:left;margin:2px 5px;'));?>
+					<?php endif; ?>
+					<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
+						<a href="#" class="actions" style="float:left;margin:2px;color:#D20000;"><i class="fa fa-remove"></i></a>
+					<?php endif; ?>	
+					<?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
+						<a href="#" class="actions" style="float:left;margin:2px;color:#00D21B;"><i class="fa fa-check"></i></a>
+					<?php endif; ?>
+
+					<?=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false,"class"=>"actions"));?>
+
+					</td>
 					 
 				</tr>
 			<? } ?>

@@ -303,52 +303,55 @@ class PaymentsController extends PaymentManagerAppController{
 							 
 							 
 						}
-						 // send to Admin mail
-						$this->loadModel('MailManager.Mail');
-						$maill=$this->Mail->read(null,13);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
-						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
 						
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
-						
-						$emaill = new CakeEmail();
-						
-						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
-						$emaill->subject($maill['Mail']['mail_subject']);
-						$emaill->from($booking_detail['Booking']['email']);
-						$emaill->emailFormat('html');
-						$emaill->template('default');
-						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$emaill->send();
-
 						// send to user mail
-						$mail=$this->Mail->read(null,14);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
-						
-						$email = new CakeEmail();
 
-						
-						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-						$email->subject($mail['Mail']['mail_subject']);
-						$email->to($booking_detail['Booking']['email']);
-						$email->emailFormat('html');
-						$email->template('default');
-						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$email->send();
-						
+						$key = 'RcGToklPpGQ56uCAkEpY5A';
+						$from = $this->setting['site']['site_contact_email'];
+						$subject = 'Thank you for booking with us';
+						$to = $booking_detail['Booking']['email'];
+						$template_name = 'user_pending_booking_confirmation';
+
+						$global_merge_vars = '[';
+				        $global_merge_vars .= '{"name": "NAME", "content": "'.$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'].'"},';
+				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
+				        $global_merge_vars .= ']';
+
+				        $data_string = '{
+				                "key": "'.$key.'",
+				                "template_name": "'.$template_name.'",
+				                "template_content": [
+				                        {
+				                                "name": "TITLE",
+				                                "content": "test test test"
+				                        }
+				                ],
+				                "message": {
+				                        "subject": "'.$subject.'",
+				                        "from_email": "'.$from.'",
+				                        "to": [
+				                                {
+				                                        "email": "'.$to.'",
+				                                        "type": "to"
+				                                }
+				                        ],
+				                        "global_merge_vars": '.$global_merge_vars.'
+				                }
+				        }';
+
+
+				        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+						    'Content-Type: application/json',                                                                                
+						    'Content-Length: ' . strlen($data_string))                                                                       
+						);                                                                                                                   
+						                                                                                                                     
+						$result = curl_exec($ch);
 						// cart empty 
 						$this->Cart->deleteAll(array('Cart.session_id'=>$sessionId));
 						
@@ -405,30 +408,71 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_content.=self::getBookedServices($order);
 					$total_cart_price+=$order['BookingOrder']['total_amount'];
 				}
-		
+				
 				$this->loadModel('MailManager.Mail');
 				$mail=$this->Mail->read(null,16);
-				$body=str_replace('{ORDERNO}',$customer_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-				$body=str_replace('{VENDOR_NAME}',$vendor_details['Vendor']['fname'],$body);  
-				$body=str_replace('{NAME}',$customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'],$body);  
-				$body=str_replace('{EMAIL}',$customer_detail['Booking']['email'],$body);
-				$body=str_replace('{PHONE}',$customer_detail['Booking']['phone'],$body);
-				//$body=str_replace('{POST_CODE}',$customer_detail['Booking']['post_code'],$body);
-				
-				$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-				$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-				$body=str_replace('{BOOKING_DETAIL}',$booking_content,$body);  
-				$email = new CakeEmail();
 
 				
-				//$email->to('pavans@burgeonsoft.net');
-				$email->to($vendor_details['Vendor']['email'],$mail['Mail']['mail_from']);
-				$email->subject($mail['Mail']['mail_subject']);
-				$email->from($customer_detail['Booking']['email']);
-				$email->emailFormat('html');
-				$email->template('default');
-				$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-				$email->send();
+
+				$global_merge_vars = '[';
+		        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$customer_detail['Booking']['ref_no'].'"},';
+		        $global_merge_vars .= '{"name": "VENDOR", "content": "'.$vendor_details['Vendor']['fname'].'"},';
+		        if (strlen(trim($customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'])) > 0) {
+		        	$global_merge_vars .= '{"name": "NAME", "content": "'.$customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'].'"},';
+		    	} else {
+		    		$global_merge_vars .= '{"name": "NAME", "content": "N/A"},';
+		    	}
+		        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$customer_detail['Booking']['email'].'"},';
+		        $global_merge_vars .= '{"name": "PHONE", "content": "'.$customer_detail['Booking']['phone'].'"},';
+		        $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "'.(!empty($customer_detail['Booking']['order_message']))?$customer_detail['Booking']['order_message']:'There are no comments.'.'"},';
+		        $global_merge_vars .= '{"name": "TOTAL", "content": "'.number_format($total_cart_price,2).'"},';
+		        $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.Router::url('/vendor/booking_list').'"},';
+		        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$booking_content).'"}';
+		        $global_merge_vars .= ']';
+
+
+		        $key = 'RcGToklPpGQ56uCAkEpY5A';
+				$from = $customer_detail['Booking']['email'];
+				$from_name = $customer_detail['Booking']['fname']." ".$customer_detail['Booking']['lname'];
+				$subject = 'Booking has been received';
+				$to = $vendor_details['Vendor']['email'];
+				$to_name = $mail['Mail']['mail_from'];
+				$template_name = 'vendor_request_booking_confirmation';
+
+
+		        $data_string = '{
+		                "key": "'.$key.'",
+		                "template_name": "'.$template_name.'",
+		                "template_content": [
+		                        {
+		                                "name": "TITLE",
+		                                "content": "test test test"
+		                        }
+		                ],
+		                "message": {
+		                        "subject": "'.$subject.'",
+		                        "from_email": "'.$from.'",
+		                        "from_name": "'.$from_name.'",
+		                        "to": [
+		                                {
+		                                        "email": "'.$to.'",
+		                                        "type": "to"
+		                                }
+		                        ],
+		                        "global_merge_vars": '.$global_merge_vars.'
+		                }
+		        }';
+
+		        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				    'Content-Type: application/json',                                                                                
+				    'Content-Length: ' . strlen($data_string))                                                                       
+				);                                                                                                                   
+				                                                                                                                     
+				$result = curl_exec($ch);
 			}
 		}
 		return true;
@@ -461,24 +505,46 @@ class PaymentsController extends PaymentManagerAppController{
 	}
 	// get function is used for get booking detail which is used
 	private function getBookedServices($orderBooked=array()){
+		
+		$this->loadModel('Service');
+		$this->loadModel('VendorManager.BookingSlot');
+
+		$service = $this->Service->find('first', ['conditions' => ['id' => $orderBooked['BookingOrder']['service_id']] ]);
+		$service = array_pop($service);
+		$slot_string = '';
+		if ($service['min_participants'] != 0) {
+			$slots = json_decode($orderBooked['BookingOrder']['slots']);
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= '<br>';
+					$date = date('Y-m-d', (int) $slot->slot_date);
+					$start_time = $date . ' ' . $slot->start_time;
+					$end_time = $date . ' ' . date('H:i:s', strtotime($slot->end_time) + 1);
+					$paid_count = $this->BookingSlot->paidSlotCount($orderBooked['BookingOrder']['service_id'], $start_time, $end_time);
+					$slot_string .= $paid_count . " out of " . $service['min_participants'] . " booked";
+				}
+			}
+		}
+		if ($slot_string === '') {
+			$slot_string = 'N/A';
+		}
+
 		$slot_details=self::getBookingSlot($orderBooked['BookingOrder']['slots']);
 		$booked_slot_details=(!empty($slot_details))? implode('<br>',$slot_details):'Full day';
-		$participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']);
+		// $participant_emails=self::getBookedParticipantEmail($orderBooked['BookingOrder']['invite_friend_email']); // will not be used
+		$participant_emails = $orderBooked['BookingOrder']['no_participants'];
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
 		$booking_content='<tr>	
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$booked_slot_details.'</td> 
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$participant_emails.'</td>
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.$booked_vas_details.'</td>
-			<td style="border:solid 1px #E2E2E2;padding:2px 5px;">'.
-				number_format(($orderBooked['BookingOrder']['total_amount']),2).'
-			</td>
-			  
+			<td>'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</td> 
+			<td>'.ucfirst($orderBooked['BookingOrder']['serviceTypeName']).'</td> 
+			<td>'.ucfirst($orderBooked['BookingOrder']['service_title']).'</td> 
+			<td>'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</td> 
+			<td>'.$booked_slot_details.'</td> 
+			<td>'.$participant_emails.'</td>
+			<td>'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</td>
+			<td>'.$slot_string.'</td>
 		</tr>';
 		 
 		return $booking_content;
@@ -512,23 +578,23 @@ class PaymentsController extends PaymentManagerAppController{
 				 $booked_participant_emails.=$email.'<br/>';
 			}
 		}
-		return $booked_participant_emails;
+		return $booked_participant_emails == '' ? 'None' : $booked_participant_emails;
 		
 	}
 	// Get booking VAS
 	private function getBookedVas($vas_services){
-		$booked_vas_details='&nbsp;';
+		$booked_vas_details='';
 		if(!empty($vas_services)){
 			$vas_details=json_decode($vas_services,true);
 			if(!empty($vas_details)){
 				$booked_vas_details='';
 				foreach($vas_details as $key=>$vas){
 					$booked_vas_details.=
-					'<div>'.$vas['value_added_name'].'&nbsp;&nbsp;&nbsp;($'.$vas['value_added_price'].')'.'</div><br/>';
+					'<div>'.$vas['value_added_name'].' ($'.$vas['value_added_price'].')'.'</div><br/>';
 				}
 			}
 		}
-		return $booked_vas_details;
+		return $booked_vas_details == '' ? 'N/A' : $booked_vas_details;
 	}
 	private function sent_invite_mail($cart_detail=null,$total_cart_price=null,$booking_detail=null){
 		$this->loadModel('BookingParticipate');
@@ -1266,51 +1332,91 @@ class PaymentsController extends PaymentManagerAppController{
 							 
 						}
 						
-						 // send to Admin mail
-						$this->loadModel('MailManager.Mail');
-						$maill=$this->Mail->read(null,13);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
-						$body=str_replace('{ADMIN_NAME}','Admin',$body);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
+						//  // send to Admin mail
+						// $this->loadModel('MailManager.Mail');
+						// $maill=$this->Mail->read(null,13);
+						// $body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$maill['Mail']['mail_body']);  
+						// $body=str_replace('{ADMIN_NAME}','Admin',$body);  
+						// $body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
+						// $body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
+						// $body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
+						// //$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
 						
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
+						// $body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
+						// $body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
+						// $body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body);  
 						
-						$emaill = new CakeEmail();
+						// $emaill = new CakeEmail();
 						
-						$emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
-						$emaill->subject($maill['Mail']['mail_subject']);
-						$emaill->from($booking_detail['Booking']['email']);
-						$emaill->emailFormat('html');
-						$emaill->template('default');
-						$emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$emaill->send();
+						// $emaill->to($this->setting['site']['site_contact_email'],$maill['Mail']['mail_from']);
+						// $emaill->subject($maill['Mail']['mail_subject']);
+						// $emaill->from($booking_detail['Booking']['email']);
+						// $emaill->emailFormat('html');
+						// $emaill->template('default');
+						// $emaill->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
+						// $emaill->send();
 
 						// send to user mail
-						$mail=$this->Mail->read(null,14);
-						$body=str_replace('{ORDERNO}',$booking_detail['Booking']['ref_no'],$mail['Mail']['mail_body']);  
-						$body=str_replace('{NAME}',$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'],$body);  
-						$body=str_replace('{EMAIL}',$booking_detail['Booking']['email'],$body);
-						$body=str_replace('{PHONE}',$booking_detail['Booking']['phone'],$body);
-						//$body=str_replace('{POST_CODE}',$booking_detail['Booking']['post_code'],$body);
-						$body=str_replace('{ORDER_COMMENT}',(!empty($booking_detail['Booking']['order_message']))?$booking_detail['Booking']['order_message']:'There are no comments.',$body);
-						$body=str_replace('{TOTAL}',number_format($total_cart_price,2),$body);
-						$body=str_replace('{BOOKING_DETAIL}',$service_slot_details,$body); 
-						
-						$email = new CakeEmail();
 
-						
-						$email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-						$email->subject($mail['Mail']['mail_subject']);
-						$email->to($booking_detail['Booking']['email']);
-						$email->emailFormat('html');
-						$email->template('default');
-						$email->viewVars(array('data'=>$body,'logo'=>$this->setting['site']['logo'],'url'=>$this->setting['site']['site_url']));
-						$email->send();
+						$this->loadModel('MemberManager.Member');
+						$this->loadModel('VendorManager.Vendor');
+						$this->loadModel('Service');
+
+						$key = 'RcGToklPpGQ56uCAkEpY5A';
+						$from = $this->setting['site']['site_contact_email'];
+						$subject = 'Thank you for booking with us';
+						$to = $booking_detail['Booking']['email'];
+						$template_name = 'user_pending_booking_confirmation';
+						$memberinfo = $this->Member->read(null,$booking_detail['Booking']['member_id']);
+						if (!empty($memberinfo)) {
+							$member_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+						} else if(strlen(trim($booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'])) > 0) {
+							$member_name = $booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname'];
+						} else {
+							$member_name = 'Member';
+						}
+
+
+						$global_merge_vars = '[';
+				    	$global_merge_vars .= '{"name": "NAME", "content": "'.$member_name.'"},';
+				        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$booking_detail['Booking']['email'].'"},';
+				        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_detail['Booking']['phone'].'"},';
+				        $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$service_slot_details).'"}';
+				        $global_merge_vars .= ']';
+
+				        $data_string = '{
+				                "key": "'.$key.'",
+				                "template_name": "'.$template_name.'",
+				                "template_content": [
+				                        {
+				                                "name": "TITLE",
+				                                "content": "test test test"
+				                        }
+				                ],
+				                "message": {
+				                        "subject": "'.$subject.'",
+				                        "from_email": "'.$from.'",
+				                        "to": [
+				                                {
+				                                        "email": "'.$to.'",
+				                                        "type": "to"
+				                                }
+				                        ],
+				                        "global_merge_vars": '.$global_merge_vars.'
+				                }
+				        }';
+
+
+				        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+						    'Content-Type: application/json',                                                                                
+						    'Content-Length: ' . strlen($data_string))                                                                       
+						);                                                                                                                   
+						                                                                                                                     
+						$result = curl_exec($ch);
 						
 
 						// cart empty 
@@ -1339,12 +1445,54 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $bs['ref_no']] ]);
 					$booking_order = array_pop($booking_order);
 					$vendor_email = $booking_order['vendor_email'];
-					$email = new CakeEmail();
-			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-			        $email->to($vendor_email);
-			        $email->subject('Mimimum to go reached');
-			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['service_title'] . " $bs[start_time] to $bs[end_time]";
-			        $email->send($message);
+
+					$slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
+
+					$global_merge_vars = '[';
+			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['service_title'].'"},';
+			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['no_participants'].'"},';
+			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['booking_date'])).'"},';
+			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['total_amount'].'"},';
+		        	$global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$this->setting['site']['site_url'] . '/vendor/booking_list'.'"},';
+			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"}';
+			        $global_merge_vars .= ']';
+
+			        $data_string = '{
+			                "key": "RcGToklPpGQ56uCAkEpY5A",
+			                "template_name": "minimum_to_go_reached",
+			                "template_content": [
+			                        {
+			                                "name": "TITLE",
+			                                "content": "test test test"
+			                        }
+			                ],
+			                "message": {
+			                        "subject": "Mimimum to go reached",
+			                        "from_email": "admin@waterspot.com.sg",
+			                        "from_name": "Waterspot Admin",
+			                        "to": [
+			                                {
+			                                        "email": "'.$vendor_email.'",
+			                                        "type": "to"
+			                                }
+			                        ],
+			                        "global_merge_vars": '.$global_merge_vars.'
+			                }
+			        }';
+
+			        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+					    'Content-Type: application/json',                                                                                
+					    'Content-Length: ' . strlen($data_string))                                                                       
+					);                                                                                                                   
+					                                                                                                                     
+					$result = curl_exec($ch);
 				}
 
 			}
