@@ -592,7 +592,7 @@ class PaymentsController extends PaymentManagerAppController{
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
 		$paid_by_user = $orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email']);
-		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (() * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
+		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($paid_by_user) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if (strlen($booking_content) > 0) {
 			$frag = explode('</tr>', $booking_content);
 			$frag[0] .= '<td style="min-width:250px"><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</span></td>';
