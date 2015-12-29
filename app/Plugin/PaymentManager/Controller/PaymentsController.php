@@ -591,7 +591,8 @@ class PaymentsController extends PaymentManagerAppController{
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
-		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email'])) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
+		$paid_by_user = $orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email']);
+		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (() * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if (strlen($booking_content) > 0) {
 			$frag = explode('</tr>', $booking_content);
 			$frag[0] .= '<td style="min-width:250px"><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</span></td>';
@@ -600,7 +601,7 @@ class PaymentsController extends PaymentManagerAppController{
 			$frag[3] .= '<td style="min-width:250px"><span style="font-size:14px">'.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['start_date'])).' To '.date(Configure::read('Calender_format_php'),strtotime($orderBooked['BookingOrder']['end_date'])).'</span></td>';
 			$frag[4] .= '<td><span style="font-size:14px">'.$booked_slot_details.'</span></td>';
 			$frag[5] .= '<td><span style="font-size:14px">'.$participant_emails.'</span></td>';
-			$frag[6] .= '<td style="min-width:250px"><span style="font-size:14px">'.number_format(($orderBooked['BookingOrder']['total_amount']),2).'</span></td>';
+			$frag[6] .= '<td style="min-width:250px"><span style="font-size:14px">'.$orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2) . '</span></td>';
 			$frag[7] .= '<td><span style="font-size:14px">'.$slot_string.'</span></td>';
 			$booking_content = implode('</tr>', $frag) . '</tr>';
 		}

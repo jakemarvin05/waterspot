@@ -321,8 +321,7 @@ Class CartsController extends AppController
         //for Want your friends to pay their individual share
         if ($this->request->data['Cart']['invite_payment_status'] == 0) {
             if ($this->request->data['Cart']['no_participants'] > 0) {
-                $total_amount = ($service_price['Cart']['total_amount'] + ($total_value_added_amount)) * ($service_price['Cart']['no_participants'] - count($this->request->data['Cart']['email']));
-                
+                $total_amount = ($service_price['Cart']['total_amount'] * $service_price['Cart']['no_participants']) + ($total_value_added_amount * $service_price['Cart']['no_participants']);
             }
         } else {
             $total_amount = ($service_price['Cart']['total_amount'] + $total_value_added_amount);
