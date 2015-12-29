@@ -386,7 +386,15 @@ class PaymentsController extends PaymentManagerAppController{
 	$criteria['order']=array('BookingOrder.id ASC');
 	$order_details=$this->BookingOrder->find('all',$criteria);	
 	foreach($order_details as $key=>$order_detail) {
-		$booking_content='';
+		$booking_content = '
+			<tr><th style="min-width:200px"><span style="font-size:14px">Vendor</span></th></tr>
+			<tr><th><span style="font-size:14px">Service</span></th></tr>
+			<tr><th style="min-width:200px"><span style="font-size:14px">Activity</span></th></tr>
+			<tr><th><span style="font-size:14px">Date</span></th></tr>
+			<tr><th style="min-width:200px"><span style="font-size:14px">Booking Time</span></th></tr>
+			<tr><th><span style="font-size:14px">Participant(s)</span></th></tr>
+			<tr><th style="min-width:200px"><span style="font-size:14px">Price ($)</span></th></tr>
+			<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
 		$total_cart_price=0;
 		$criteria['conditions']=array('BookingOrder.ref_no'=>$booking_ref_no,'BookingOrder.vendor_id'=>$order_detail['BookingOrder']['vendor_id']);
 		$criteria['fields']=array('BookingOrder.*');
@@ -404,8 +412,8 @@ class PaymentsController extends PaymentManagerAppController{
 					
 					//get service image
 					$order['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($order['BookingOrder']['service_id']);
-					 
-					$booking_content.=self::getBookedServices($order);
+					
+					$booking_content = self::getBookedServicesVertical($order, $booking_content);
 					$total_cart_price+=$order['BookingOrder']['total_amount'];
 				}
 				
@@ -583,6 +591,7 @@ class PaymentsController extends PaymentManagerAppController{
 		// get booked vas service;
 		$booked_vas_details=self::getBookedVas($orderBooked['BookingOrder']['value_added_services']);
 
+		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email'])) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if (strlen($booking_content) > 0) {
 			$frag = explode('</tr>', $booking_content);
 			$frag[0] .= '<td style="min-width:250px"><span style="font-size:14px">'.ucfirst($orderBooked['BookingOrder']['vendor_name']).'</span></td>';
@@ -595,7 +604,7 @@ class PaymentsController extends PaymentManagerAppController{
 			$frag[7] .= '<td><span style="font-size:14px">'.$slot_string.'</span></td>';
 			$booking_content = implode('</tr>', $frag) . '</tr>';
 		}
-		 
+		
 		return $booking_content;
 	}
 	// Get booking slots
