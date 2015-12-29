@@ -1084,7 +1084,7 @@ class PaymentsController extends PaymentManagerAppController{
 			<tr><th><span style="font-size:14px">Participant(s)</span></th></tr>
 			<tr><th style="min-width:200px"><span style="font-size:14px">Price ($)</span></th></tr>
 			<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
-		$booking_content = self::getBookedServicesVertical($booking_order_detail);
+		$booking_content = self::getBookedServicesVertical($booking_order_detail, $booking_content);
 		$total_cart_price += $booking_order_detail['BookingOrder']['total_amount'];
 		
 		$mail=$this->Mail->read(null,20);
