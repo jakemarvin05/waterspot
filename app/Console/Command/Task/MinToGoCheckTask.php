@@ -5,7 +5,7 @@ class MinToGoCheckTask extends Shell {
     public function execute() {
     	
 		$time = date('Y-m-d H:i:s', time() + 60*60*24*2);
-		$now = date('Y-m-d H:i:s', time() + 60*60*24*2 - 60);
+		$now = date('Y-m-d H:i:s', time() + 60*60*24*2 - 60*60);
 
 		$near_slots = $this->BookingSlot->find('all', ['conditions' => ["start_time BETWEEN '$now' AND '$time'"], 'group' => 'ref_no' ]);
 		echo "Checking slots between $now - $time\n";
