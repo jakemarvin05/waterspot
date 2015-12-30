@@ -198,7 +198,7 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['min_participants'] = 0;
 				$this->request->data['Service']['no_person'] = 1;
 			}
-			if ($this->request->data['Service']['is_minimum_to_go'] == 1) {
+			if ($this->request->data['Service']['is_minimum_to_go'] != 1) {
 				$this->request->data['Service']['min_participants'] = 0;
 			}
 
