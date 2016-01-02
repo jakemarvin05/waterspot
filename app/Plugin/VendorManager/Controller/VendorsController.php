@@ -465,7 +465,6 @@ Class VendorsController extends VendorManagerAppController{
 			$confirm_url = $this->setting['site']['site_url'] . '/vendor_manager/vendors/confirm_registration/' . $this->Vendor->id . '/' . $hash . '/' . $time;
 
 			// send confirm email
-
 			$this->loadModel('MailManager.Mail');
 			$mail=$this->Mail->read(null,$mail_id);
 
@@ -519,7 +518,7 @@ Class VendorsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
-
+			curl_close($ch);
 		}
 		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'confirm_message'));
 	}
@@ -570,7 +569,7 @@ Class VendorsController extends VendorManagerAppController{
 		$this->__mail_send(5,['Vendor' => $vendor],$realpassword);
 
 		// subscribe the new user
-		$apikey    = '08c19e41483c616d5fd3ec14df89e2bc-us11';
+		$apikey    = '936941d0e1f08d1694a77607b3dfad8f-us11';
 		$list_id   = 0;
 		$list_name = 'Waterspot Vendor List';
 		$email     = $vendor['email'];
