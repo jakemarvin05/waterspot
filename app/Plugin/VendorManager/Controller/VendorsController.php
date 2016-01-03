@@ -566,7 +566,7 @@ Class VendorsController extends VendorManagerAppController{
 		$this->Vendor->saveField('active', 1);
 
 		// send welcome email
-		$this->__mail_send(5,['Vendor' => $vendor],$realpassword);
+		// $this->__mail_send(5,['Vendor' => $vendor],$realpassword);
 
 		// subscribe the new user
 		$apikey    = '936941d0e1f08d1694a77607b3dfad8f-us11';
@@ -757,7 +757,7 @@ Class VendorsController extends VendorManagerAppController{
 		$subject = 'Your vendor registration with WaterSpot has been approved';
 		$to = $vendordetail['Vendor']['email'];
 		$to_name = $vendordetail['Vendor']['fname'];
-		$template_name = 'vendor_registration_approved';
+		$template_name = 'vendor_sign_up';
 
 
         $data_string = '{
