@@ -465,13 +465,10 @@ class PaymentsController extends PaymentManagerAppController{
 		                                {
 		                                        "email": "'.$to.'",
 		                                        "type": "to"
-		                                },
-		                                {
-		                                	"email" : "'.$this->site_setting['site_contact_email'].'",
-		                                	"type" : "cc"
 		                                }
 		                        ],
-		                        "global_merge_vars": '.$global_merge_vars.'
+		                        "global_merge_vars": '.$global_merge_vars.',
+		                        "bcc_address": "'.$this->site_setting['site_contact_email'].'"
 		                }
 		        }';
 
