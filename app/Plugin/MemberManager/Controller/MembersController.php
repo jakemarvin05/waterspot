@@ -215,12 +215,7 @@ class MembersController extends MemberManagerAppController{
 			    "email": {
 			    	"email": "'.$email.'"
 			    },
-			    "merge_vars": {
-			    	"NAME" : "'.$this->request->data['Member']['first_name'].'",
-			    	"PHONE" : "'.$this->request->data['Member']['phone'].'",
-			    	"PASSWORD" : "'.$realpassword.'"
-			    },
-			    "double_optin": true
+			    "double_optin": false
 			}';
 			$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
