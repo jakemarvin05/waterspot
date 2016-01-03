@@ -189,7 +189,7 @@ class MembersController extends MemberManagerAppController{
 		$apikey = '936941d0e1f08d1694a77607b3dfad8f-us11';
 		$list_id = 0;
 		$list_name = 'Waterspot Users List';
-		$email = $this->request->data['Member']['email_id'];
+		$email = $member['email_id'];
 
 		$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
