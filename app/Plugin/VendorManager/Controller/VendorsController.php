@@ -746,8 +746,10 @@ Class VendorsController extends VendorManagerAppController{
 		$vendordetail=$this->Vendor->read(null,$mail_data['Vendor']['id']);
 
 		$global_merge_vars = '[';
-        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
-        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')).'"}';
+        $global_merge_vars .= '{"name": "NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
+        $global_merge_vars .= '{"name": "BNAME", "content": "'.$vendordetail['Vendor']['bname'].'"},';
+        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$vendordetail['Vendor']['email'].'"},';
+        $global_merge_vars .= '{"name": "PHONE", "content": "'.$vendordetail['Vendor']['phone'].'"}';
         $global_merge_vars .= ']';
 
 
