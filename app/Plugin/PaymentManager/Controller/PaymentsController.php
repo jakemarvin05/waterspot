@@ -465,6 +465,10 @@ class PaymentsController extends PaymentManagerAppController{
 		                                {
 		                                        "email": "'.$to.'",
 		                                        "type": "to"
+		                                },
+		                                {
+		                                	"email" : "'.$this->site_setting['site_contact_email'].'",
+		                                	"type" : "cc"
 		                                }
 		                        ],
 		                        "global_merge_vars": '.$global_merge_vars.'
@@ -1733,7 +1737,7 @@ class PaymentsController extends PaymentManagerAppController{
 				// check min-to-go
 				$this->loadModel('Service');
 				$this->loadModel('VendorManager.BookingSlot');
-				
+
 				$booking_slots = $this->BookingSlot->find('all', ['conditions' => ['ref_no' => $booking_ref_no]]);
 				foreach ($booking_slots as $booking_slot) {
 					$bs = array_pop($booking_slot);
@@ -1745,12 +1749,54 @@ class PaymentsController extends PaymentManagerAppController{
 					$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $bs['ref_no']] ]);
 					$booking_order = array_pop($booking_order);
 					$vendor_email = $booking_order['vendor_email'];
-					$email = new CakeEmail();
-			        $email->from($this->setting['site']['site_contact_email'],$mail['Mail']['mail_from']);
-			        $email->to($vendor_email);
-			        $email->subject('Mimimum to go reached');
-			        $message = "We are glad to inform you that your minimum participants has been met. \nWe commend that you now confirm the bookings made by the members. \n\n Service Details:\n" . $service['service_title'] . " $bs[start_time] to $bs[end_time]";
-			        $email->send($message);
+
+					$slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
+
+					$global_merge_vars = '[';
+			        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['service_title'].'"},';
+			        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['no_participants'].'"},';
+			        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['booking_date'])).'"},';
+			        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_time.'"},';
+			        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['vendor_name'].'"},';
+			        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['total_amount'].'"},';
+		        	$global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$this->setting['site']['site_url'] . '/vendor/booking_list'.'"},';
+			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['vendor_phone'].'"}';
+			        $global_merge_vars .= ']';
+
+			        $data_string = '{
+			                "key": "RcGToklPpGQ56uCAkEpY5A",
+			                "template_name": "minimum_to_go_reached",
+			                "template_content": [
+			                        {
+			                                "name": "TITLE",
+			                                "content": "test test test"
+			                        }
+			                ],
+			                "message": {
+			                        "subject": "Mimimum to go reached",
+			                        "from_email": "admin@waterspot.com.sg",
+			                        "from_name": "Waterspot Admin",
+			                        "to": [
+			                                {
+			                                        "email": "'.$vendor_email.'",
+			                                        "type": "to"
+			                                }
+			                        ],
+			                        "global_merge_vars": '.$global_merge_vars.'
+			                }
+			        }';
+
+			        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+					    'Content-Type: application/json',                                                                                
+					    'Content-Length: ' . strlen($data_string))                                                                       
+					);                                                                                                                   
+					                                                                                                                     
+					$result = curl_exec($ch);
 				}
 			}
 			else{
