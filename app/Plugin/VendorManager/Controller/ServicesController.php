@@ -743,6 +743,14 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['youtube_url']=serialize(array_filter($this->request->data['Service']['youtube_url']));
 				$savemsg="updated";
 			}
+			if ($this->request->data['Service']['is_private'] == 1) {
+				$this->request->data['Service']['min_participants'] = 0;
+				$this->request->data['Service']['no_person'] = 1;
+			}
+			if ($this->request->data['Service']['is_minimum_to_go'] != 1) {
+				$this->request->data['Service']['min_participants'] = 0;
+			}
+
 			$this->Service->create();
 			$this->Service->save($this->request->data);
 			self::_vendor_add_service($this->Service->id);
