@@ -133,10 +133,10 @@ $(function() {
 			<th width="10%">Order No.</th>
 			<th width="15%">Name</th>
 			<th width="15%">Email</th>
-			<th width="15%">Phone</th>
-			<th width="15%"> Transaction Id</th>
-			<th width="10%"> Status</th>
-			<th width="5%"> View</th>
+			<th width="10%">Phone</th>
+			<th width="15%">Transaction Id</th>
+			<th width="10%">Status</th>
+			<th width="10%">Action</th>
         </tr>
          
         <tr>
@@ -157,7 +157,7 @@ $(function() {
 							<td width="10%"><?=$booking_detail['Booking']['ref_no']?></td>
 							<td width="15%"><?=$booking_detail['Booking']['fname']." ".$booking_detail['Booking']['lname']?></td>
 							<td width="15%"><?=$booking_detail['Booking']['email']?></td>
-							<td width="15%"><?=$booking_detail['Booking']['phone']?></td>
+							<td width="10%"><?=$booking_detail['Booking']['phone']?></td>
 							<td width="15%"><?=$booking_detail['Booking']['transaction_id']?></td>
 							<td width="10%">
 							<?php if($booking_detail['Booking']['status']=='1') {
@@ -165,10 +165,22 @@ $(function() {
 							}else {
 								echo $this->Html->image('admin/icons/icon_error.png', array('alt'=>"Not completed",'title'=>"Not completed"));
 							}?>
-									 
-							
 							</td>
-							<td width="5%">
+							<td width="10%">
+                                <?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 3): ?>
+                                    <?=$this->Html->link('<img src="/img/admin/icons/icon_success.png" alt="Confirm Booking" title="Confirm Booking">',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_paid',$booking_detail['Booking']['id']),array('escape' => false));?>
+                                    <?=$this->Html->link('<img src="/img/admin/icons/icon_error.png" alt="Reject Booking" title="Reject Booking">',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false));?>
+                                <?php endif; ?>
+
+                                <?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
+                                    <img src="/img/admin/icons/icon_success.png" alt="Confirmed Booking" title="Confirmed Booking">
+                                <?php endif; ?>
+
+                                <?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
+                                    <img src="/img/admin/icons/icon_error.png" alt="Rejected Booking" title="Rejected Booking">
+                                <?php endif; ?>
+
+
 								<?=$this->Html->link($this->Html->image('cemera-icon.png',array('alt'=>'View Detail','title'=>'View Detail')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_details',$booking_detail['Booking']['ref_no']),array('escape' => false));?>
 							</td> 
 						</tr>
@@ -187,25 +199,23 @@ $(function() {
                     <?php if (!$booking_details) { ?>
                     <div style='color:#FF0000'>No Record Found</div>
                      <?php } else { ?>
-							 <noscript>
                             <ul class="pagination">
                              <?php if($this->Paginator->first()){?>
-							<li><?php echo $this->Paginator->first('« First',array('class'=>'button gray')); ?></li>
-							<?php } ?>
-							
-							<?php if($this->Paginator->hasPrev()){?>
-							<li><?php echo $this->Paginator->prev('< Previous',array('class'=>'button gray'), null, array('class'=>'disabled'));?>&nbsp;... &nbsp;</li>
-							<?php } ?>
-							
-							<?=$this->Paginator->numbers(array('modulus'=>6,'tag'=>'li','class'=>'','separator'=>'')); ?>
+                            <li><?php echo $this->Paginator->first('« First'); ?></li>
+                            <?php } ?>
+                            
+                            <?php if($this->Paginator->hasPrev()){?>
+                            <li><?php echo $this->Paginator->prev('< Previous',null, null, array('class'=>'disabled'));?>&nbsp;... &nbsp;</li>
+                            <?php } ?>
+                            
+                            <?=$this->Paginator->numbers(array('modulus'=>6,'tag'=>'li','class'=>'','separator'=>'')); ?>
                             <?php if($this->Paginator->hasNext()){?>
-                            <li>&nbsp;... &nbsp;<?php echo $this->Paginator->next('Next >',array('class'=>'button gray'));?></li>
-							<?php } ?>
-							<?php if($this->Paginator->last()){?>
-							<li><?php echo $this->Paginator->last('Last »',array('class'=>'button gray')); ?></li>
-							<?php } ?>
+                            <li><?php echo $this->Paginator->next('Next >');?></li>
+                            <?php } ?>
+                            <?php if($this->Paginator->last()){?>
+                            <li><?php echo $this->Paginator->last('Last »'); ?></li>
+                            <?php } ?>
                              </ul>
-                             </noscript> 
 					<?php } ?>
 
                 </td>

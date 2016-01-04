@@ -392,6 +392,199 @@ Class BookingsController extends VendorManagerAppController{
 		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_list'));
 		
 	}
+
+	function admin_accept_paid($booking_id)
+	{
+		$this->loadModel('VendorManager.Booking');
+		$this->loadModel('VendorManager.BookingOrder');
+		$this->loadModel('MailManager.Mail');
+		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' =>$booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
+
+		if(!empty($booking)){
+			$update_booking['Booking']['id'] = $booking['Booking']['id'];
+			$update_booking['Booking']['vendor_confirm'] = 1;
+			$this->Booking->save($update_booking);
+			
+			//send mail to the member
+			$this->loadModel('MemberManager.Member');
+			$this->loadModel('VendorManager.Vendor');
+			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
+			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
+
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+
+			$slots = json_decode($booking_order['BookingOrder']['slots']);
+			$slot_string = '';
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= ', ';
+					$slot_string .= date('Y-m-d', $slot->slot_date)
+								 . ' (' . date('h:ia', strtotime($slot->start_time))
+								 . ' - ' . date('h:ia', strtotime($slot->end_time))
+								 . ')';
+				}
+			}
+			if ($slot_string === '') {
+				$slot_string = 'None';
+			}
+
+	        $global_merge_vars = '[';
+	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
+	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+	        $global_merge_vars .= ']';
+
+	        $data_string = '{
+	                "key": "RcGToklPpGQ56uCAkEpY5A",
+	                "template_name": "user_booking_confirmation",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "test test test"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "Booking Confirmation",
+	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
+	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "to": [
+	                                {
+	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "name": "'.$full_name.'",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
+
+
+	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+			    'Content-Type: application/json',                                                                                
+			    'Content-Length: ' . strlen($data_string))                                                                       
+			);                                                                                                                   
+			                                                                                                                     
+			$result = curl_exec($ch);
+
+			$this->Session->setFlash('Booking has been accepeted successfully.','','message');
+		}else{
+			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
+		}
+		$ref = Controller::referer();
+		if ($ref != '/') {
+			$this->redirect($ref);
+		} else {
+			$this->redirect(array('plugin'=>null,'controller'=>'bookings','action'=>'index'));
+		}
+	}
+
+	function admin_cancel_paid($booking_id)
+	{
+		$this->loadModel('VendorManager.Booking');
+		$this->loadModel('VendorManager.BookingOrder');
+		$this->loadModel('MailManager.Mail');
+		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
+		
+		if(!empty($booking)){
+			$update_booking['Booking']['id'] = $booking['Booking']['id'];
+			$update_booking['Booking']['vendor_confirm'] = 2;
+			$this->Booking->save($update_booking);
+			
+			//send mail to the member
+			$this->loadModel('MemberManager.Member');
+			$this->loadModel('VendorManager.Vendor');
+			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
+			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
+
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+
+			$slots = json_decode($booking_order['BookingOrder']['slots']);
+			$slot_string = '';
+			foreach ($slots as $slot_data) {
+				foreach ($slot_data as $slot) {
+					if ($slot_string !== '') $slot_string .= ', ';
+					$slot_string .= date('Y-m-d', $slot->slot_date)
+								 . ' (' . date('h:ia', strtotime($slot->start_time))
+								 . ' - ' . date('h:ia', strtotime($slot->end_time))
+								 . ')';
+				}
+			}
+			if ($slot_string === '') {
+				$slot_string = 'None';
+			}
+
+	        $global_merge_vars = '[';
+	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
+	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+	        $global_merge_vars .= ']';
+
+	        $data_string = '{
+	                "key": "RcGToklPpGQ56uCAkEpY5A",
+	                "template_name": "booking_request_declined",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "test test test"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "Booking Declined",
+	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
+	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "to": [
+	                                {
+	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "name": "'.$full_name.'",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
+
+
+	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+			    'Content-Type: application/json',                                                                                
+			    'Content-Length: ' . strlen($data_string))                                                                       
+			);                                                                                                                   
+			                                                                                                                     
+			$result = curl_exec($ch);
+			
+			$this->Session->setFlash('Booking has been decline successfully.','','message');
+		}else{
+			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
+		}
+		$ref = Controller::referer();
+		if ($ref != '/') {
+			$this->redirect($ref);
+		} else {
+			$this->redirect(array('plugin'=>null,'controller'=>'bookings','action'=>'index'));
+		}
+		
+	}
 	
 	function cancel_request($cart_id=null){
 		$this->loadModel('Cart');

@@ -362,8 +362,26 @@ function saveform()
                     }else{
                         status = 1;
                     }
-                   
-                 }
+                },
+                error: function(data) {
+                    if(data.error==1){
+                        $.each(data.errors,function(i,v){
+                            if(i=="ServiceServicePrice"){
+                                i="service_price";
+                            }
+                            if(i=="ServiceFullDayAmount"){
+                                i="full_day_amount";
+                            }
+                            $('#'+i).addClass("invalid form-error").after('<div class="error-message" style="width:100%;">'+v+'</div>');
+                            $('#'+i).bind('click',function(){
+                                $(this).removeClass('invalid form-error');
+                                $(this).next().remove();
+                                });
+                        });
+                    }else{
+                        status = 1;
+                    }  
+                }
             });
             if(status==0){
                $("html, body").animate({ scrollTop: 0 }, "slow");
