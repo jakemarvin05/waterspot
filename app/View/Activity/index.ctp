@@ -146,18 +146,22 @@
                                 <span
                                     class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
                                     </span>
-                                    <?php if ($service_detail['Service']['is_private'] == 0) { ?>
-                                        <span class="unit">PER PAX</span>
-                                    <?php } ?>
+                                    <?php
+                                        if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
+                                            echo '<span class="unit">PER PAX</span>';
+                                        }
+                                    ?>
                             </div>
                             <?php else: ?>
                                 <div style="height: 100%; width: 100%;">
                                 <span
                                     class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format(isset($min_price)?$min_price:$service_detail['Service']['service_price'], 2); ?>
                                     - <?= Configure::read('currency'); ?><?= number_format(isset($max_price)?$max_price:$service_detail['Service']['service_price'], 2); ?></span>
-                                    <?php if ($service_detail['Service']['is_private'] == 0) { ?>
-                                        <span class="unit">PER PAX</span>
-                                    <?php } ?>
+                                    <?php
+                                        if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
+                                            echo '<span class="unit">PER PAX</span>';
+                                        }
+                                    ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -197,7 +201,7 @@
 
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 1):
+                                if ($minimumParticipants > 0):
 
                                 ?>
 
@@ -215,9 +219,11 @@
 
                             <div class="blocks">
                                 <div class="slot-booking-form">
+                                    <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
+                                    <?php if (!preg_match('/yacht/i', $service_detail['service_type']) || !($service_detail['Service']['is_private'] == 1)): ?>
                                     <div class="select-participant">
-                                        <h4 class="select-participant-txt">1. Select No. of Pax</h4>
+                                        <h4 class="select-participant-txt"><?php echo $step; $step++; ?>. Select No. of Pax</h4>
                                         <?
                                         $no_participants = array();
                                         foreach (range(1, $service_detail['Service']['no_person']) as $r) {
@@ -227,14 +233,14 @@
                                         <?= $this->Form->input('no_participants', array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
                                     </div>
                                     <?php echo $this->element('message'); ?>
-
+                                    <?php endif; ?>
 
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
                                     <br>
 
                                     <div class="startDate">
                                         <div class="start-date">
-                                            <h4>2. Start Date</h4>
+                                            <h4><?php echo $step; $step++; ?>. Start Date</h4>
                                             <br/>
                                             <?= $this->Form->text('start_date', array('type' => 'hidden', 'class' => 'date-icon', 'autocomplete' => 'off')); ?>
                                         </div>

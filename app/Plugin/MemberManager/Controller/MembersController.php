@@ -32,63 +32,71 @@ class MembersController extends MemberManagerAppController{
 				$realpassword = $this->request->data['Member']['password'];
 				$this->request->data['Member']['password'] = Security::hash(Configure::read('Security.salt').$this->request->data['Member']['password']);
 				$this->request->data['Member']['created_at']=date('Y-m-d H:i:s');
-				$this->request->data['Member']['active']='1';
+				$this->request->data['Member']['active']='0';
 				$this->Member->create();
 				if($this->Member->save($this->request->data,array('validate'=>false))){
-					$this->__mail_send(11,$this->request->data,$realpassword);
 
-					// subscribe the new user
-					$apikey = '08c19e41483c616d5fd3ec14df89e2bc-us11';
-					$list_id = 0;
-					$list_name = 'Waterspot Users List';
-					$email = $this->request->data['Member']['email_id'];
+					$time = time();
+					$hash = md5($this->request->data['Member']['email_id'] . $time);
+					$confirm_url = $this->setting['site']['site_url'] . '/member_manager/members/confirm_registration/' . $this->Member->id . '/' . $hash . '/' . $time;
 
-					$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-					curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-						'Content-Type: application/json',
-						'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
-					);
+					// send confirm email
+					$this->loadModel('MailManager.Mail');
+					$mail=$this->Mail->read(null,$mail_id);
 
-					$results = json_decode(curl_exec($ch));
+					$key = 'RcGToklPpGQ56uCAkEpY5A';
+					$from = $this->setting['site']['site_contact_email'];
+					$from_name = $mail['Mail']['mail_from'];
+					$subject = 'Thank you for registering with us';
+					$to = $this->request->data['Member']['email_id'];
+					$to_name = $this->request->data['Member']['first_name'];
+					$template_name = 'user_confirm_sign_up';
+
+					$global_merge_vars = '[';
+			        $global_merge_vars .= '{"name": "NAME", "content": "'.$this->request->data['Member']['first_name'].'"},';
+			        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$this->request->data['Member']['email_id'].'"},';
+			        $global_merge_vars .= '{"name": "PHONE", "content": "'.$this->request->data['Member']['phone'].'"},';
+			        $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$confirm_url.'"},';
+			        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$realpassword.'"}';
+			        $global_merge_vars .= ']';
+
+			        $data_string = '{
+			                "key": "'.$key.'",
+			                "template_name": "'.$template_name.'",
+			                "template_content": [
+			                        {
+			                                "name": "TITLE",
+			                                "content": "test test test"
+			                        }
+			                ],
+			                "message": {
+			                        "subject": "'.$subject.'",
+			                        "from_email": "'.$from.'",
+			                        "from_name": "'.$from_name.'",
+			                        "to": [
+			                                {
+			                                        "email": "'.$to.'",
+			                                        "type": "to"
+			                                }
+			                        ],
+			                        "global_merge_vars": '.$global_merge_vars.'
+			                }
+			        }';
+
+			        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+					    'Content-Type: application/json',                                                                                
+					    'Content-Length: ' . strlen($data_string))                                                                       
+					);                                                                                                                   
+					                                                                                                                     
+					$result = curl_exec($ch);
+					curl_close($ch);
 					
-					foreach ($results->data as $result) {
-						if ($list_name == $result->name) {
-							$list_id = $result->id;
-							break;
-						}
-					}
-					if ($list_id) {
-						$data = '{
-						    "apikey": "'.$apikey.'",
-						    "id": "'.$list_id.'",
-						    "email": {
-						    	"email": "'.$email.'"
-						    },
-						    "merge_vars": {
-						    	"NAME" : "'.$this->request->data['Member']['first_name'].'",
-						    	"PHONE" : "'.$this->request->data['Member']['phone'].'",
-						    	"PASSWORD" : "'.$realpassword.'"
-						    },
-						    "double_optin": true
-						}';
-						$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
-						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-						curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-						curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-							'Content-Type: application/json',
-							'Content-Length: ' . strlen($data))
-						);
-
-						$results = json_decode(curl_exec($ch));
-					}
-
-					$this->request->data['Member']['password'] = $realpassword;//To Login member with Un-encrypted password
-					$this->MemberAuth->login();
-				}else {
+					$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'confirm_message'));
+				} else {
 					$this->request->data['Member']['password'] = $realpassword;
 				}
 			}
@@ -107,6 +115,122 @@ class MembersController extends MemberManagerAppController{
 			$this->Cookie->write('Member.email_id', urldecode($email),false, 60);
 			$this->request->data['Member']['email_id']=urldecode($email);
 		}
+	}
+
+	public function confirm_message(){
+        array_push(self::$css_for_layout,'pages.css');
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+                    'url'=>Router::url('/member_manager/members/confirm_message'),
+                    'name'=>'Confirm Registration'
+		    );
+	}
+
+	public function thankyou(){
+        array_push(self::$css_for_layout,'pages.css');
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+                    'url'=>Router::url('/member_manager/members/thankyou'),
+                    'name'=>'Thankyou'
+		    );
+	}
+
+	public function confirm_registration($member_id = NULL, $hash = NULL, $time = NULL)
+	{
+		if ($member_id == NULL || $hash == NULL || $time == NULL) {
+			$this->Session->setFlash(__('You seems to be accessing pages that you\'re not allowed, please register.'),'default',array(),'error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));	
+		}
+
+		$member = $this->Member->read(NULL, $member_id);
+		
+		// check if a member is found
+		if (count($member) == 0) {
+			$this->Session->setFlash(__('Sorry! Your link seems to be broken, we cannot find your record.'),'default',array(),'error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));	
+		}
+
+		$member = array_pop($member);
+
+		// check if the account is already active
+		if ($member['active'] == 1) {
+			$this->Session->setFlash(__('Your account has already been activated, please continue to login.'),'default',array(),'error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));
+		}
+
+		// checks validity of the link, checks for attackers
+		$hash_check = ($hash == md5($member['email_id'] . $time));
+		if (!$hash_check) {
+			$this->Session->setFlash(__('Sorry! Your link seems to be broken, or your link is invalid.'),'default',array(),'error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));
+		}
+
+		// check time, uses 60 days only
+		$current_time = time();
+		$lifetime = 60*60*24*60;
+		if (($current_time - $time) > $lifetime) {
+			$this->Session->setFlash(__('Sorry! Your link has already expired, the link lifetime is only for 60 days.'),'default',array(),'error');
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));
+		}
+
+		// confirm the member
+		$this->Member->id = $member_id;
+		$this->Member->saveField('active', 1);
+
+		$this->__mail_send(11,['Member' => $member],$realpassword);
+
+		// subscribe the new user
+		$apikey = '936941d0e1f08d1694a77607b3dfad8f-us11';
+		$list_id = 0;
+		$list_name = 'Waterspot Users List';
+		$email = $member['email_id'];
+
+		$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+			'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
+		);
+
+		$results = json_decode(curl_exec($ch));
+		
+		foreach ($results->data as $result) {
+			if ($list_name == $result->name) {
+				$list_id = $result->id;
+				break;
+			}
+		}
+		if ($list_id) {
+			$data = '{
+			    "apikey": "'.$apikey.'",
+			    "id": "'.$list_id.'",
+			    "email": {
+			    	"email": "'.$email.'"
+			    },
+			    "double_optin": false
+			}';
+			$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($data))
+			);
+
+			$results = json_decode(curl_exec($ch));
+			curl_close($ch);
+		}
+
+		$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'thankyou'));
 	}
 
 	public function log_in() {
