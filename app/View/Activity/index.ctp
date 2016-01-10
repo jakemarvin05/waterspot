@@ -201,12 +201,12 @@
 
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 0):
+                                if ($minimumParticipants > 1):
 
                                 ?>
 
                                     <p class="info">
-                                        Event has a minimum-to-go of <?php echo $minimumParticipants; ?> pax.
+                                        We need <?php echo $minimumParticipants; ?> participants for this event to start.
                                     </p>
 
                                     <div class="clearfix"></div>
