@@ -7,12 +7,12 @@
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">call us</p>
 
-                    <p class="footerContactAfterHeader">+65 9450 3790</p>
+                    <p class="footerContactAfterHeader">+65 8299 2678</p>
                 </div>
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">send an enquiry</p>
 
-                    <p class="footerContactAfterHeader">admin@waterspot.com.sg</p>
+                    <p class="footerContactAfterHeader">enquiry@waterspot.com.sg</p>
                 </div>
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">FOLLOW US</p>
