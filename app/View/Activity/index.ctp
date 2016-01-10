@@ -201,12 +201,12 @@
 
                                 /* Minimum to go block */
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
-                                if ($minimumParticipants > 0):
+                                if ($minimumParticipants > 1):
 
                                 ?>
 
                                     <p class="info">
-                                        Event has a minimum-to-go of <?php echo $minimumParticipants; ?> pax.
+                                        We need <?php echo $minimumParticipants; ?> participants for this event to start.
                                     </p>
 
                                     <div class="clearfix"></div>
@@ -240,7 +240,10 @@
 
                                     <div class="startDate">
                                         <div class="start-date">
-                                            <h4><?php echo $step; $step++; ?>. Start Date</h4>
+                                            <h4><?php 
+                                                    if ($step > 1) echo $step.'.';
+                                                    $step++; 
+                                                ?> Select Date</h4>
                                             <br/>
                                             <?= $this->Form->text('start_date', array('type' => 'hidden', 'class' => 'date-icon', 'autocomplete' => 'off')); ?>
                                         </div>
