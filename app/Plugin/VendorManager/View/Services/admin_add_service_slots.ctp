@@ -14,9 +14,9 @@ function saveform(){
             <h2>
                 <?php
                     if (isset($this->request->data['ServiceSlot']['id']) && $this->request->data['ServiceSlot']['id']):
-                          echo  __('Update Service');
+                          echo  __('Update time slots');
                     else:
-                          echo  __('Add Service ');
+                          echo  __('Add time slots');
                            $this->request->data['ServiceSlot']['status']=1;
                     endif;
                 ?>
@@ -26,27 +26,79 @@ function saveform(){
         </header>
     </article> 
     <?php echo $this->element('admin/message');?>
-    <?php if(!empty($service_slots)) { ?>
+	    <?php if(!empty($service_slots)) {
+	    	$weekdays = '';
+			$weekends = '';
+			$special  = '';
+	    ?>
+
+    	<?php foreach($service_slots as $service_slot) {
+    		$table_str = '<tr>';
+    		$table_str .= '<td colspan="3">'.$this->Time->meridian_format($service_slot['start_time']).'</td>';
+    		$table_str .= '<td colspan="2">'.$this->Time->end_meridian_format($service_slot['end_time']).'</td>';
+    		$table_str .= '<td colspan="2">'.$service_slot['price'].'</td>';
+    		$table_str .= '<td>'.$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")).'</td>';
+    		$table_str .= '</tr>';
+
+			if ($service_slot['slot_type'] == 1) {
+				$weekdays .= $table_str;
+			} else if ($service_slot['slot_type'] == 2) {
+				$weekends .= $table_str;
+			} else {
+				$special .= $table_str;
+			}
+		}
+		?>
+
+    	<h4>Weekday</h4>
 		<table width="100%" style="margin-bottom:10px;">
 			<tr>
 				<td colspan="3"><strong>Start Time</strong></td>
 				<td colspan="2"><strong>End Time</strong></td>
 				<td colspan="2"><strong>Price</strong></td>
-				<td><strong>Type</strong></td>
 				<td><strong>Cancel</strong></td>
 			</tr>
-			
-				<?php foreach($service_slots as $service_slot){?>
-				<tr> 
-					<td  colspan="3"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
-					<td colspan="2"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
-					<td colspan="2"><?=$service_slot['price']?></td>
-					<td>
-						<?php echo $service_slot_types[$service_slot['slot_type']]; ?>
-					</td>
-					<td><?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
-				</tr> 
-				<?php }?> 
+			<?php
+				if (strlen($weekdays)) {
+					echo $weekdays;
+				} else {
+					echo '<tr><td colspan="8">No slots defined</td></tr>';
+				}
+			?>
+		</table>
+
+		<h4>Weekend</h4>
+		<table width="100%" style="margin-bottom:10px;">
+			<tr>
+				<td colspan="3"><strong>Start Time</strong></td>
+				<td colspan="2"><strong>End Time</strong></td>
+				<td colspan="2"><strong>Price</strong></td>
+				<td><strong>Cancel</strong></td>
+			</tr>
+			<?php
+				if (strlen($weekends)) {
+					echo $weekends;
+				} else {
+					echo '<tr><td colspan="8">No slots defined</td></tr>';
+				}
+			?>
+		</table>
+
+		<h4>Special</h4>
+		<table width="100%" style="margin-bottom:10px;">
+			<tr>
+				<td colspan="3"><strong>Start Time</strong></td>
+				<td colspan="2"><strong>End Time</strong></td>
+				<td colspan="2"><strong>Price</strong></td>
+				<td><strong>Cancel</strong></td>
+			</tr>
+			<?php
+				if (strlen($special)) {
+					echo $special;
+				} else {
+					echo '<tr><td colspan="8">No slots defined</td></tr>';
+				}
+			?>
 		</table>
 	<?php }else{ ?>
 		<div class="no-record">No slot is available here</div>
