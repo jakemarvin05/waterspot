@@ -452,67 +452,170 @@ Class VendorsController extends VendorManagerAppController{
 		if(empty($this->request->data['Vendor']['commission'])){
 			$this->request->data['Vendor']['commission']=0;
 		}
-		$this->request->data['Vendor']['active'] =1;
-		$this->request->data['Vendor']['approval'] =0;
-		$this->request->data['Vendor']['payment_status'] =0;
+		$this->request->data['Vendor']['active'] = 0;
+		$this->request->data['Vendor']['approval'] = 0;
+		$this->request->data['Vendor']['payment_status'] = 0;
 		$name=$this->request->data['Vendor']['fname'];
 		$this->Vendor->create();
 		$this->Vendor->save($this->request->data,array('validate'=>false));
 		if(!empty($this->Vendor->id) && (empty($id))){
-			$this->__mail_send(5,$this->request->data,$realpassword);
 
-			// subscribe the new user
-			$apikey = '08c19e41483c616d5fd3ec14df89e2bc-us11';
-			$list_id = 0;
-			$list_name = 'Waterspot Vendor List';
-			$email = $this->request->data['Vendor']['email'];
+			$time = time();
+			$hash = md5($this->request->data['Vendor']['email'] . $time);
+			$confirm_url = $this->setting['site']['site_url'] . '/vendor_manager/vendors/confirm_registration/' . $this->Vendor->id . '/' . $hash . '/' . $time;
 
-			$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
+			// send confirm email
+			$this->loadModel('MailManager.Mail');
+			$mail=$this->Mail->read(null,$mail_id);
+
+			$key = 'RcGToklPpGQ56uCAkEpY5A';
+			$from = $this->setting['site']['site_contact_email'];
+			$from_name = $mail['Mail']['mail_from'];
+			$subject = 'Thank you for registering with us';
+			$to = $this->request->data['Vendor']['email'];
+			$to_name = $this->request->data['Vendor']['fname'];
+			$template_name = 'vendor_confirm_sign_up';
+
+			$global_merge_vars = '[';
+	        $global_merge_vars .= '{"name": "NAME", "content": "'.$this->request->data['Vendor']['fname'].'"},';
+	        $global_merge_vars .= '{"name": "BNAME", "content": "'.$this->request->data['Vendor']['bname'].'"},';
+	        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$this->request->data['Vendor']['email'].'"},';
+	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$this->request->data['Vendor']['phone'].'"},';
+	        $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$confirm_url.'"},';
+	        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$realpassword.'"}';
+	        $global_merge_vars .= ']';
+
+	        $data_string = '{
+	                "key": "'.$key.'",
+	                "template_name": "'.$template_name.'",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "test test test"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "'.$subject.'",
+	                        "from_email": "'.$from.'",
+	                        "from_name": "'.$from_name.'",
+	                        "to": [
+	                                {
+	                                        "email": "'.$to.'",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
+
+	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+			    'Content-Type: application/json',                                                                                
+			    'Content-Length: ' . strlen($data_string))                                                                       
+			);                                                                                                                   
+			                                                                                                                     
+			$result = curl_exec($ch);
+			curl_close($ch);
+		}
+		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'confirm_message'));
+	}
+
+	public function confirm_registration($vendor_id = NULL, $hash = NULL, $time = NULL)
+	{
+		if ($vendor_id == NULL || $hash == NULL || $time == NULL) {
+			$this->Session->setFlash(__('You seems to be accessing pages that you\'re not allowed, please register.'),'default',array(),'login_error');
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'registration'));	
+		}
+
+		$vendor = $this->Vendor->read(NULL, $vendor_id);
+		
+		// check if a vendor is found
+		if (count($vendor) == 0) {
+			$this->Session->setFlash(__('Sorry! Your link seems to be broken, we cannot find your record.'),'default',array(),'login_error');
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'registration'));	
+		}
+
+		$vendor = array_pop($vendor);
+
+		// check if the account is already active
+		if ($vendor['active'] == 1) {
+			$this->Session->setFlash(__('Your account has already been activated, please continue to login.'),'default',array(),'login_error');
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'registration'));
+		}
+
+		// checks validity of the link, checks for attackers
+		$hash_check = ($hash == md5($vendor['email'] . $time));
+		if (!$hash_check) {
+			$this->Session->setFlash(__('Sorry! Your link seems to be broken, or your link is invalid.'),'default',array(),'login_error');
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'registration'));
+		}
+
+		// check time, uses 60 days only
+		$current_time = time();
+		$lifetime = 60*60*24*60;
+		if (($current_time - $time) > $lifetime) {
+			$this->Session->setFlash(__('Sorry! Your link has already expired, the link lifetime is only for 60 days.'),'default',array(),'login_error');
+			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'registration'));
+		}
+
+		// confirm the vendor
+		$this->Vendor->id = $vendor_id;
+		$this->Vendor->saveField('active', 1);
+
+		// send welcome email
+		// $this->__mail_send(5,['Vendor' => $vendor],$realpassword);
+
+		// subscribe the new user
+		$apikey    = '936941d0e1f08d1694a77607b3dfad8f-us11';
+		$list_id   = 0;
+		$list_name = 'Waterspot Vendor List';
+		$email     = $vendor['email'];
+		$name      = $vendor['fname'];
+
+		$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/list.json');
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+			'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
+		);
+
+		$results = json_decode(curl_exec($ch));
+		
+		foreach ($results->data as $result) {
+			if ($list_name == $result->name) {
+				$list_id = $result->id;
+				break;
+			}
+		}
+		if ($list_id) {
+			$data = '{
+			    "apikey": "'.$apikey.'",
+			    "id": "'.$list_id.'",
+			    "email": {
+			    	"email": "'.$email.'"
+			    },
+			    "double_optin": false
+			}';
+			$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch, CURLOPT_POSTFIELDS, '{"apikey": "'.$apikey.'"}');
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 				'Content-Type: application/json',
-				'Content-Length: ' . strlen('{"apikey": "'.$apikey.'"}'))
+				'Content-Length: ' . strlen($data))
 			);
 
 			$results = json_decode(curl_exec($ch));
+
 			
-			foreach ($results->data as $result) {
-				if ($list_name == $result->name) {
-					$list_id = $result->id;
-					break;
-				}
-			}
-			if ($list_id) {
-				$data = '{
-				    "apikey": "'.$apikey.'",
-				    "id": "'.$list_id.'",
-				    "email": {
-				    	"email": "'.$email.'"
-				    },
-				    "merge_vars": {
-				    	"NAME" : "'.$name.'",
-				    	"PHONE" : "'.$this->request->data['Vendor']['phone'].'",
-				    	"PASSWORD" : "'.$realpassword.'"
-				    },
-				    "double_optin": true
-				}';
-				$ch = curl_init('https://us11.api.mailchimp.com/2.0/lists/subscribe.json');
-				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-					'Content-Type: application/json',
-					'Content-Length: ' . strlen($data))
-				);
-
-				$results = json_decode(curl_exec($ch));
-
-				
-			}
-
 		}
+
+		// redirect to thank you
 		$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'thankyou'));
 	}
 	
@@ -526,6 +629,18 @@ Class VendorsController extends VendorManagerAppController{
 		$this->breadcrumbs[] = array(
                     'url'=>Router::url('/vendor_manager/vendors/thankyou'),
                     'name'=>'Thankyou'
+		    );
+	}
+
+	public function confirm_message(){
+        array_push(self::$css_for_layout,'pages.css');
+		$this->breadcrumbs[] = array(
+			'url'=>Router::url('/'),
+			'name'=>'Home'
+		    );
+		$this->breadcrumbs[] = array(
+                    'url'=>Router::url('/vendor_manager/vendors/confirm_message'),
+                    'name'=>'Confirm Registration'
 		    );
 	}
 	
@@ -622,6 +737,7 @@ Class VendorsController extends VendorManagerAppController{
 		);                                                                                                                   
 		                                                                                                                     
 		$result = curl_exec($ch);
+		curl_close($ch);
 
     }
     
@@ -630,8 +746,10 @@ Class VendorsController extends VendorManagerAppController{
 		$vendordetail=$this->Vendor->read(null,$mail_data['Vendor']['id']);
 
 		$global_merge_vars = '[';
-        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
-        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].Router::url(array('plugin'=>'vendor_manager','admin'=>false,'controller'=>'vendors','action'=>'registration')).'"}';
+        $global_merge_vars .= '{"name": "NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
+        $global_merge_vars .= '{"name": "BNAME", "content": "'.$vendordetail['Vendor']['bname'].'"},';
+        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$vendordetail['Vendor']['email'].'"},';
+        $global_merge_vars .= '{"name": "PHONE", "content": "'.$vendordetail['Vendor']['phone'].'"}';
         $global_merge_vars .= ']';
 
 
@@ -641,7 +759,7 @@ Class VendorsController extends VendorManagerAppController{
 		$subject = 'Your vendor registration with WaterSpot has been approved';
 		$to = $vendordetail['Vendor']['email'];
 		$to_name = $vendordetail['Vendor']['fname'];
-		$template_name = 'vendor_registration_approved';
+		$template_name = 'vendor_sign_up';
 
 
         $data_string = '{
