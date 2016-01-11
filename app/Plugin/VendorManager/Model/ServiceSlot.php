@@ -62,6 +62,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 		$criteria=array();
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id,
 		'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
+		'ServiceSlot.slot_type'=>$this->data['ServiceSlot']['slot_type'],
 		'Or'=>array(
 				array('ServiceSlot.start_time BETWEEN ? AND ?'=>array($start_time,$end_time)),
 				array('ServiceSlot.end_time BETWEEN ? AND ? '=>array($start_time,$end_time)),
@@ -82,7 +83,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 	function getService_slotByservice_id($service_id=null, $sort_by = 'start_time', $order = 'ASC') {
 		$critria = array();
 		$sort_by = 'ServiceSlot.'.$sort_by;
-		$critria['fields'] = array('ServiceSlot.id','ServiceSlot.end_time','ServiceSlot.start_time','ServiceSlot.price');
+		// $critria['fields'] = array('ServiceSlot.id','ServiceSlot.end_time','ServiceSlot.start_time','ServiceSlot.price');
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id);
 		$critria['order'] = array("{$sort_by} $order");
 		$slots = $this->find('all', $critria);
@@ -108,9 +109,11 @@ Class ServiceSlot extends VendorManagerAppModel {
         {
 			//$service_slots[$slot['ServiceSlot']['id']]=DATE("g:i A", STRTOTIME($slot['ServiceSlot']['start_time'].":"."00"))." To ".DATE("g:i A", STRTOTIME($slot['ServiceSlot']['end_time'].":"."00"));
 			$service_slots_index[$slot['ServiceSlot']['id']]=$slot['ServiceSlot']['start_time']."_".$slot['ServiceSlot']['end_time']."_".$slot['ServiceSlot']['price'];
+			$slot_types[$slot['ServiceSlot']['id']] = $slot['ServiceSlot']['slot_type'];
         }
         $slot_data['service_slots']=$service_slots;
         $slot_data['service_slots_index']=$service_slots_index;
+        $slot_data['slot_types']=$slot_types;
        
         return $slot_data;
 	}

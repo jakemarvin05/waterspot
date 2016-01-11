@@ -553,6 +553,12 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('hours_format',$hours_format);
 		$this->set('end_hours_format',$end_hours_format);
 		$this->set('service_slots',$service_slots);
+
+		$this->set('service_slot_types', [
+			1 => 'Weekday',
+			2 => 'Weekend',
+			3 => 'Special',
+		]);
 	}
 
 	// admin
@@ -630,6 +636,12 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('hours_format',$hours_format);
 		$this->set('end_hours_format',$end_hours_format);
 		$this->set('service_slots',$service_slots);
+
+		$this->set('service_slot_types', [
+			1 => 'Weekday',
+			2 => 'Weekend',
+			3 => 'Special',
+		]);
 	}
 
 	function slot_delete($service_id=null,$slot_id=null) {

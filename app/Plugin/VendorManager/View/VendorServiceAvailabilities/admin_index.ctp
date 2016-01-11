@@ -7,7 +7,6 @@ function saveform(){
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
  
- 
  <div>
     <article>
         <header>
@@ -44,19 +43,8 @@ function saveform(){
 					}?>
 				</td>
 				<td align="left" width="40%"><?php
-
-//					$slots=json_decode($service_availabity_detail['VendorServiceAvailability']['slots']);
-//				foreach($slots as $slot) {
-//					$slot_time=explode('_',$slot);
-//					echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1])."</br>";
-//				 }
-
 					$slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
-					if ($slotsJSONString[0] == "[") {
-						$newString = substr($slotsJSONString, 1, strlen($slotsJSONString)-2);
-						$json = '{'.$newString.'}';
-					}
-					$slots = json_decode($json);
+					$slots = json_decode($slotsJSONString);
 
 					foreach($slots as $slot) {
 						echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
@@ -65,6 +53,9 @@ function saveform(){
 					?></td>
 				<td align="right" width="15%">
 					<?=$this->Html->link($this->Html->image('editprofile-icon.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
+				</td>
+				<td>
+					<?php echo $service_slot_types[$service_availabity_detail['VendorServiceAvailability']['slot_type']]; ?>
 				</td>
 				<td align="right" width="15%">	
 					<?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you sure you want to delete availability slots?')"));?>
@@ -95,10 +86,24 @@ function saveform(){
 				<?=$this->Form->error('end_date',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
 
 			</div>
-			
+			<?php
+			if(!empty($this->request->data['VendorServiceAvailability']['slots'])) {
+				$slotsx = $this->request->data['VendorServiceAvailability']['slots'];
+				$checked_slots = [];
+				foreach($slotsx as $slotx) {
+					$checked_slots[] = $slotx->start_time . '_' . $slotx->end_time . '_' . $slotx->price;
+				}
+			}
+			?>
 			<div class="add-slots">
-				
+				Type: 
+					<?=$this->Form->input('slot_type',array('type' =>'select','label'=>false,'div'=>false, 'options'=>$service_slot_types));?>
+				<?=$this->Form->error('slot_type',null,array('wrap' => 'div', 'class' => 'error-message')); ?>
+				<br><br>
+				<button type="button" onclick="$('.check-slot').prop('checked', !$('.check-slot').prop('checked'));">Select all</button><br><br>
+				<div id="slots_content"></div>
 				<? if(!empty($service_slots['service_slots_index'])){
+					$checkbox_slots = [];
 					$i=0;$flag="grey-box";
 					$count=count($service_slots['service_slots_index']);
 					 
@@ -117,13 +122,17 @@ function saveform(){
 						<span>
 							<? // check filter on edit case
 								$checkstaus='';
-								if(!empty($this->request->data['VendorServiceAvailability']['slots'])) {
-									$checkstaus=in_array($slot,$this->request->data['VendorServiceAvailability']['slots'])?'checked':'';
+								if(!empty($this->request->data['VendorServiceAvailability'])) {
+									$checkstaus=in_array($slot,$checked_slots)?'checked':'';
 								}
 							 
 							 ?>
-							<?=$this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box','label'=>false,'div'=>false,$checkstaus));?><label for="<?=$key?>" class="checkbox-label"><? $slot_time=explode('_',$slot);
-							echo $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]).", Price:".$slot_time[2];;?></label></span>
+
+							<?php
+								$slot_time=explode('_',$slot);
+								$checkbox_slots[$service_slots['slot_types'][$key]][] = $this->Form->checkbox('slots.',array('value'=>$slot,'id'=>$key,'class'=>'check-box check-slot','label'=>false,'div'=>false,$checkstaus)) . '<label for="'.$key.'" class="checkbox-label">' . $this->Time->meridian_format($slot_time[0]). " To ".$this->Time->end_meridian_format($slot_time[1]).", Price:".$slot_time[2] . '</label><br>';
+							?>
+							</span>
 						
 						<? $i++;
 					}
@@ -168,7 +177,76 @@ function saveform(){
 	 
 			 
 </div>
+<?php
+	$current_slot_type = $this->request->data['VendorServiceAvailability']['slot_type'] ? $this->request->data['VendorServiceAvailability']['slot_type'] : 1;
+?>
+<script type="text/javascript">
+	var weekdays = '';
+	var weekends = '';
+	var special  = '';
+	<?php
+		foreach ($checkbox_slots[1] as $slot) {
+			?>
+				weekdays += '<?php echo $slot; ?>';
+			<?php
+		}
+		foreach ($checkbox_slots[2] as $slot) {
+			?>
+				weekends += '<?php echo $slot; ?>';
+			<?php
+		}
+		foreach ($checkbox_slots[3] as $slot) {
+			?>
+				special += '<?php echo $slot; ?>';
+			<?php
+		}
+		?>
+			var def = <?php echo $current_slot_type; ?>;
+		<?php
+	?>
+	if (def == 1) {
+		if (weekdays != '') {
+			$('#slots_content').html(weekdays);
+		} else {
+			$('#slots_content').html('no slots to show');
+		}
+	} else if (def == 2) {
+		if (weekends != '') {
+			$('#slots_content').html(weekends);
+		} else {
+			$('#slots_content').html('no slots to show');
+		}
+	} else {
+		if (special != '') {
+			$('#slots_content').html(special);
+		} else {
+			$('#slots_content').html('no slots to show');
+		}
+	}
+	$('#VendorServiceAvailabilitySlotType').on('change', function(){
+		var val = parseInt($(this).val());
+		if (val == 1) {
+			if (weekdays != '') {
+				$('#slots_content').html(weekdays);
+			} else {
+				$('#slots_content').html('no slots to show');
+			}
+		} else if (val == 2) {
+			if (weekends != '') {
+				$('#slots_content').html(weekends);
+			} else {
+				$('#slots_content').html('no slots to show');
+			}
+		} else {
+			if (special != '') {
+				$('#slots_content').html(special);
+			} else {
+				$('#slots_content').html('no slots to show');
+			}
+		}
+	});
 
+</script>
 <script type="text/javascript">
 $(function() {
    $( "#VendorServiceAvailabilityStartDate" ).datepicker({

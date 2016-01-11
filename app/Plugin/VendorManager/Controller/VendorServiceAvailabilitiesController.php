@@ -180,6 +180,7 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 			$data=$this->VendorServiceAvailability->read(null,$availability_id);
 			$this->request->data['VendorServiceAvailability']['id']=$data['VendorServiceAvailability']['id'];
 			$this->request->data['VendorServiceAvailability']['slots']= json_decode($data['VendorServiceAvailability']['slots']);
+			$this->request->data['VendorServiceAvailability']['slot_type']= $data['VendorServiceAvailability']['slot_type'];
 			if(empty($data['VendorServiceAvailability']['p_date'])){
 				$this->request->data['VendorServiceAvailability']['start_date']=date(Configure::read('Calender_format_php'),strtotime($data['VendorServiceAvailability']['start_date']));
 				$this->request->data['VendorServiceAvailability']['end_date']=date(Configure::read('Calender_format_php'),strtotime($data['VendorServiceAvailability']['end_date']));
@@ -211,6 +212,12 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 		$this->set('service_slots',$service_slots);
 		$this->set('service_id',$service_id);
 		$this->set('vendor_id',$vendor_id);
+
+		$this->set('service_slot_types', [
+			1 => 'Weekday',
+			2 => 'Weekend',
+			3 => 'Special',
+		]);
 	}
 		
 	function validation($action=null){
