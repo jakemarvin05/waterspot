@@ -23,101 +23,35 @@
 
 
 <div class="search-listing">
-	<!-- <div class="search"><span> Search</span><input type="search"></div>-->
-	<div class="vendor-left-area">
 
-		<div id='sort_by_price' class="ajax-loder" style="display:none">
-			<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
-		</div>
-
-		<div class="listing-boxes">
-			<? if(!empty($activity_service_list)) { ?>
-				<?php $i = $this->paginator->counter('{:start}'); ?>
-				<? foreach($activity_service_list as $service_list) { ?>
-					<div class="vendorwise-listing col-sm-4 col-xs-6">
-						<div class="contentvisible contentselector">
-							<div class="tile">
-								<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
-										$imgArr = array('source_path'=>$path,'img_name'=>$service_list['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
-										$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-										echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_list['Service']['service_title'])); ?>
-								<div class="price">From $<?= number_format($service_list['Service']['service_price'],2)?></div>
-								<div class="contenthover">
-									<div class="box-center">
-									<div class="short-desc"> <?=$this->Format->Headingsubstring(strip_tags($service_list['Service']['description']),200);?></div>
-									<a href="/activity/index/<?=$service_list['Service']['id']?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
-								</div>
-									</div>
-							</div>
-							<div class="tile-info"> 
-								<h4><a href="/activity/index/<?=$service_list['Service']['id']?>" class=""><?php echo $service_list['Service']['service_title']; ?></a></h4>
-								<div class="clearfix"></div>
-							</div>
-
-							<div class="activity-rating-wrapper">
-								<? if(!empty($service_list['rating'])){ ?>
-									<?php $ratings = range(1,10); ?>
-									<?php foreach($ratings as $rating){ ?>
-
-										<input type="radio" value="<?php //echo $rating; ?>" name="test-4-rating-<?php echo $i; ?>" class="star {split:2}" disabled="disabled" <?php echo ($search_service_list['rating']==$rating)?'checked="checked"':'';?>
-											/>
-									<?php }} ?>
-								<span class="rating-label">Rating:</span>
-
-								<?php
-								//@todo convert Rating into float
-
-
-								$rating = 0.0; // value is 0.0 to 1.0
-
-								$ratingPerCent = $rating*5;
-								$ratingMark = 0;
-
-								if($ratingPerCent>1) {
-									$ratingMark = round($ratingPerCent);
-									$ratingMark = $ratingMark/5;
-								}
-								else{
-									$ratingMark = 0;
-								}
-
-								if($ratingMark > 0):
-
-								?>
-
-								<div class="rating" style="background-position: <?php echo -100+($ratingMark*100); ?>px 0px"></div>
-
-								<?php
-								else:
-								?>
-								<span class="rating-label"> No ratings yet</span> 
-								<?php
-								endif;
-								?>
-
-
-							</div>
-
-						</div>
-
-					</div>
-				<?php $i++; ?>
-				<? } ?>
-			<? } else { ?>
-				<div class="sun-text no-record"> There are no record found.</div>
-			<? } ?>
-		</div>
-		
-		<div class="load-more-listings">
-			<div class="load-more-row">
-				<button class="load-more" id="loader_pagination">Load More Results</button>
+	<div class="middle-area listing-body">
+	<div id='sort_by_price' class="ajax-loder" style="float:left; width: 100%; text-align: center; padding: 20px 0; display:none">
+		<?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..'));?>
+	</div>
+	<div class="activities">
+		<div class="row">
+		<? if(!empty($activity_service_list)) { ?>
+			<?php echo $this->element('activity/listing',array('search_service_lists'=>$activity_service_list)); ?>
+		<? } else { ?>
+			<script type="text/javascript">
+				var page = <?=$this->paginator->counter('{:page}')?>;
+				var pages = <?=$this->paginator->counter('{:pages}')?>;
+			</script>
+			<div class="sun-text no-record"> There are no record found.</div>
+		<? } ?>
+			<div class="clearfix"></div>
 			</div>
-			<div class="load-more-row">
-				<?=$this->Html->image('loader-2.gif',array('style'=>'display:none;','alt'=>'Activity Loader','id'=>'loader-image'));?>
-			</div>
-		</div>
 
 	</div>
+	<div class="load-more-listings">
+		<div class="load-more-row">
+			<button class="btn btnDefaults btnFillOrange" id="loader_pagination">Load more results</button>
+		</div>
+		<div>
+			<?=$this->Html->image('loader-2.gif',array('style'=>'display:none;','alt'=>'Activity Loader','id'=>'loader-image'));?>
+		</div>
+	</div>
+
 	<div class="vendor-area row">
 		<div class="row">
 			<br>
