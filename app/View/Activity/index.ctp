@@ -221,9 +221,9 @@
                                 <div class="slot-booking-form">
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
-                                    <?php if (!preg_match('/yacht/i', $service_detail['service_type']) || !($service_detail['Service']['is_private'] == 1)): ?>
+                                    <?php if (!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1): ?>
                                     <div class="select-participant">
-                                        <h4 class="select-participant-txt"><?php echo $step; $step++; ?>. Select No. of Pax</h4>
+                                        <h4 class="select-participant-txt">Select No. of Pax</h4>
                                         <?
                                         $no_participants = array();
                                         foreach (range(1, $service_detail['Service']['no_person']) as $r) {
@@ -233,6 +233,8 @@
                                         <?= $this->Form->input('no_participants', array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
                                     </div>
                                     <?php echo $this->element('message'); ?>
+                                    <?php else: ?>
+                                        <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
                                     <?php endif; ?>
 
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
@@ -240,10 +242,7 @@
 
                                     <div class="startDate">
                                         <div class="start-date">
-                                            <h4><?php 
-                                                    if ($step > 1) echo $step.'.';
-                                                    $step++; 
-                                                ?> Select Date</h4>
+                                            <h4>Select Date</h4>
                                             <br/>
                                             <?= $this->Form->text('start_date', array('type' => 'hidden', 'class' => 'date-icon', 'autocomplete' => 'off')); ?>
                                         </div>
