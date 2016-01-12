@@ -25,23 +25,13 @@ function saveform(){
         </header>
     </article>
     <?php echo $this->element('admin/message');?>
-		<?php
-		$weekday_count = 0;
-		$weekend_count = 0;
-		$special_count = 0;
-		?>
+		
 		<div class="recent-service-slot-availability">
 		<? if(!empty($service_availabity_details)){ ?>
 			<h2> Recent Service Slot Availability</h2>
-
-			<!-- for weekdays -->
-			<h4>Weekday</h4>
-			<table border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse; margin-bottom:20px;" class="range-table">
+		<table border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse;" class="range-table">
 		
-			<?  foreach($service_availabity_details as $service_availabity_detail) {
-				if ($service_availabity_detail['VendorServiceAvailability']['slot_type'] != 1) continue;
-				$weekday_count++;
-				?>
+			<?  foreach($service_availabity_details as $service_availabity_detail) { ?>
 				<tr align="center" style="border-bottom:1px solid #9b9b9b;">
 				<td width="30%">
 					<? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
@@ -64,104 +54,18 @@ function saveform(){
 				<td align="right" width="15%">
 					<?=$this->Html->link($this->Html->image('editprofile-icon.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
 				</td>
+				<td>
+					<?php echo $service_slot_types[$service_availabity_detail['VendorServiceAvailability']['slot_type']]; ?>
+				</td>
 				<td align="right" width="15%">	
 					<?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you sure you want to delete availability slots?')"));?>
 				</td>
 			</tr>
 			<? } ?>
-			<?php 
-				if ($weekday_count == 0) {
-					echo '<tr><td colspan="4">No slots defined</td></tr>';
-				}
-			?>
-			</table>
-
-			<!-- for weekends -->
-			<h4>Weekend</h4>
-			<table border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse; margin-bottom:20px;" class="range-table">
 		
-			<?  foreach($service_availabity_details as $service_availabity_detail) {
-				if ($service_availabity_detail['VendorServiceAvailability']['slot_type'] != 2) continue;
-				$weekend_count++;
-				?>
-				<tr align="center" style="border-bottom:1px solid #9b9b9b;">
-				<td width="30%">
-					<? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
-								echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
-					 }else {
-						 echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
-
-
-					}?>
-				</td>
-				<td align="left" width="40%"><?php
-					$slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
-					$slots = json_decode($slotsJSONString);
-
-					foreach($slots as $slot) {
-						echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
-					}
-
-					?></td>
-				<td align="right" width="15%">
-					<?=$this->Html->link($this->Html->image('editprofile-icon.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
-				</td>
-				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you sure you want to delete availability slots?')"));?>
-				</td>
-			</tr>
-			<? } ?>
-			<?php 
-				if ($weekend_count == 0) {
-					echo '<tr><td colspan="4">No slots defined</td></tr>';
-				}
-			?>
-			</table>
-
-
-			<!-- for special -->
-			<h4>Special</h4>
-			<table border="0" cellpadding="10" cellspacing="0" style="border-collapse:collapse; margin-bottom:20px;" class="range-table">
-		
-			<?  foreach($service_availabity_details as $service_availabity_detail) {
-				if ($service_availabity_detail['VendorServiceAvailability']['slot_type'] != 3) continue;
-				$special_count++;
-				?>
-				<tr align="center" style="border-bottom:1px solid #9b9b9b;">
-				<td width="30%">
-					<? if(!empty($service_availabity_detail['VendorServiceAvailability']['p_date'])) {
-								echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['p_date'])); 
-					 }else {
-						 echo date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($service_availabity_detail['VendorServiceAvailability']['end_date']));
-
-
-					}?>
-				</td>
-				<td align="left" width="40%"><?php
-					$slotsJSONString = $service_availabity_detail['VendorServiceAvailability']['slots'];
-					$slots = json_decode($slotsJSONString);
-
-					foreach($slots as $slot) {
-						echo $this->Time->meridian_format($slot->start_time). " to ".$this->Time->end_meridian_format($slot->end_time)."</br>";
-					}
-
-					?></td>
-				<td align="right" width="15%">
-					<?=$this->Html->link($this->Html->image('editprofile-icon.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'admin_index',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false));?>
-				</td>
-				<td align="right" width="15%">	
-					<?=$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'vendor_service_availabilities','action'=>'availability_del',$vendor_id,$service_availabity_detail['VendorServiceAvailability']['service_id'],$service_availabity_detail['VendorServiceAvailability']['id']),array('escape' => false,"onclick"=>"return confirm('Are you sure you want to delete availability slots?')"));?>
-				</td>
-			</tr>
-			<? } ?>
-			<?php 
-				if ($special_count == 0) {
-					echo '<tr><td colspan="4">No slots defined</td></tr>';
-				}
-			?>
-			</table>
-
-
+			
+			
+		</table>
 		<? }?>	
 		</div>	
 		
