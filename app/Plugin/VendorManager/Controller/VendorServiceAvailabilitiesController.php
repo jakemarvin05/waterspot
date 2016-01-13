@@ -52,7 +52,7 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 				$this->request->data['VendorServiceAvailability']['end_date']=date('Y-m-d',strtotime($this->request->data['VendorServiceAvailability']['end_date']));
 			}
 			$this->request->data['VendorServiceAvailability']['vendor_id']=$vendor_id;
-			$this->request->data['VendorServiceAvailability']['slots']='['.substr(json_encode($filter_slots), 1, -1).']';
+			$this->request->data['VendorServiceAvailability']['slots']=json_encode($filter_slots);
 			// data clear of on date range to particular field 
 			if(!empty($this->request->data['VendorServiceAvailability']['p_date'])) {
 				$this->request->data['VendorServiceAvailability']['start_date']=NULL;
@@ -112,6 +112,13 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 			    }
 			    $this->set('serviceAvailabilitySlots', $serviceAvailabilitySlots);
 			}
+
+
+		$this->set('service_slot_types', [
+			1 => 'Weekday',
+			2 => 'Weekend',
+			3 => 'Special',
+		]);
 	}
 	function admin_index($vendor_id=null,$service_id=null,$availability_id=null) {
 		// load model

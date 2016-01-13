@@ -9,31 +9,101 @@
 	<?=$this->element('message');?>
 	<h3 class="dashboard-heading">Our Available Slots</h3>
 	<?php if(!empty($service_slots)) { ?>
+        <?php
+            $wd = 0;
+            $we = 0;
+            $s = 0;
+        ?>
+        <!-- for weekdays -->
+        <h4 class="dashboard-heading">Weekday</h4>
 		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
-			<tr>
-				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
-				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
-				<th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
-				<!--<th>Fire Sales Price</th>
-				<th>Fire Sales Margin</th>-->
-				<th>Action</th>
+            <tr>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
+                <th>Action</th>
 
-			</tr>
-			<?php foreach($service_slots as $service_slot){?>
-				<tr> 
-					<td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
-					<td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
-					<td class="align-center"><?=$service_slot['price']?></td>
+            </tr>
+            <?php
+                foreach ($service_slots as $service_slot) {
+                    if ($service_slot['slot_type'] != 1) continue;
+                    $wd++;
+            ?>
+                <tr> 
+                    <td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
+                    <td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
+                    <td class="align-center"><?=$service_slot['price']?></td>
+                    <td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
+                </tr> 
+            <?php
+                }
 
-					<!--
-                    <td class="align-center"><?php echo $service_slot['fire_sales_price'] ? $service_slot['fire_sales_price'] : '<em>No fire sales</em>'; ?></td>
-					<td class="align-center"><?php echo $service_slot['fire_sales_day_margin'] ? $service_slot['fire_sales_day_margin'] : '<em>No fire sales</em>'; ?></td>
-                    -->
+                if ($wd == 0) {
+                    echo '<tr><td colspan="4">No slots defined</td></tr>';
+                }
+            ?> 
+        </table>
 
-					<td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
-				</tr> 
-			<?php }?> 
-		</table>
+        <!-- for weekends -->
+        <h4 class="dashboard-heading">Weekend</h4>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+            <tr>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
+                <th>Action</th>
+
+            </tr>
+            <?php
+                foreach ($service_slots as $service_slot) {
+                    if ($service_slot['slot_type'] != 2) continue;
+                    $we++;
+            ?>
+                <tr> 
+                    <td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
+                    <td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
+                    <td class="align-center"><?=$service_slot['price']?></td>
+                    <td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
+                </tr> 
+            <?php
+                }
+
+                if ($we == 0) {
+                    echo '<tr><td colspan="4">No slots defined</td></tr>';
+                }
+            ?>
+
+
+        </table>
+
+        <!-- for specials -->
+        <h4 class="dashboard-heading">Special</h4>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="dashboard-content">
+            <tr>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=start_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Start Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=end_time&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">End Time</a></th>
+                <th><a href="/services/add_service_slots/<?php echo $service_id; ?>?sort_by=price&order=<?php echo isset($_GET['order']) ? ($_GET['order'] == 'ASC' ? 'DESC' : 'ASC') : 'ASC'; ?>">Price</a></th>
+                <th>Action</th>
+
+            </tr>
+            <?php
+                foreach ($service_slots as $service_slot) {
+                    if ($service_slot['slot_type'] != 3) continue;
+                    $s++;
+            ?>
+                <tr> 
+                    <td class="align-center"><?=$this->Time->meridian_format($service_slot['start_time'])?></td>
+                    <td class="align-center"><?=$this->Time->end_meridian_format($service_slot['end_time'])?></td>
+                    <td class="align-center"><?=$service_slot['price']?></td>
+                    <td class="align-center action"><?=$this->Html->link("<i class=\"fa fa-times actions\"></i>",array('plugin'=>'vendor_manager','controller'=>'services','action'=>'slot_delete',$service_id,$service_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")); ?>  </td>
+                </tr> 
+            <?php 
+                }
+                if ($s == 0) {
+                    echo '<tr><td colspan="4">No slots defined</td></tr>';
+                }
+            ?> 
+        </table>
 	<?php } else { ?>
 		<div class="no-details">No slot is available here</div>
 	<?php } ?>
@@ -51,15 +121,13 @@
 
         <div class="dashboard-form-row with-padding edit">
             <h4>Price</h4>
-    		<?=$this->Form->text('price',array('default'=>$default_service_price,'label'=> false,'div'=>false, 'placeholder'=>'price'));?>
+            <?=$this->Form->text('price',array('default'=>$default_service_price,'label'=> false,'div'=>false, 'placeholder'=>'price'));?>
         </div>
 
-        <!--
         <div class="dashboard-form-row with-padding edit">
-    		<?=$this->Form->text('fire_sales_price',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Price'));?>
-    		<?=$this->Form->text('fire_sales_day_margin',array('default'=>'','label'=>false,'div'=>false, 'placeholder'=>'Fire Sales Margin'));?>
+            <h4>Tyoe</h4>
+            <?=$this->Form->input('slot_type',array('class'=>'selectpicker','type' =>'select','label'=>false,'div'=>false, 'options'=>$service_slot_types));?>
         </div>
-        -->
 
         <div class="dashboard-form-row with-padding edit">
     		<input class="dashboard-buttons dashboard-buttons btn orange" type="submit" value="Add Slot" />
