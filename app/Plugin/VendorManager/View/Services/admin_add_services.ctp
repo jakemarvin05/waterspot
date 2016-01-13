@@ -118,7 +118,7 @@ function saveform()
 
 
             <dt>
-                <label>Images(Dimensions should be 600 X 400):<span style="color:red;">*</span></label>
+                <label>Images(Dimensions should be 800 X 533):<span style="color:red;">*</span></label>
             </dt>
             <dd>
 		<div class="files-images">

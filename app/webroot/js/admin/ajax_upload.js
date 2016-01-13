@@ -63,6 +63,11 @@
 								$('.'+settings.div_image_class).append('<div class="dashboard-service-images new col-sm-2 col-xs-4 service-image"><input class="radio_button" type="radio" value="'+v.image+'" name="data[ServiceImage][default_image]"><span class="radio_button_status"></span><img src="'+v.temp_name+'" /><input type="hidden" name="'+settings.file_input_name+'" value="'+v.image+'"/><button class="close-image" data-id="'+v.image+'"><i class="fa fa-times"></i></button></div>');
 
 							});
+							$('.service-image > img').bind('click',function(){
+								$(this).parent().find('input[type=radio]').click();
+								$('.radio_button_status').removeClass('selected');
+								$(this).parent().find('.radio_button_status').addClass('selected');
+							});
 							$('.service-image').delegate(".close-image","click",function(){
 								$(this).parent().remove();
 								

@@ -62,6 +62,12 @@
 								$('.img-box').remove();
 								load_link();
 							});
+							$('.service-image > img').bind('click',function(){
+								$(this).parent().find('input[type=radio]').click();
+								$(this).parent().find('.radio_button_status').addClass('selected');
+								$(this).parent().siblings().find('.radio_button_status').removeClass('selected');
+							});
+
 							$('.service-image').delegate(".close-image","click",function(){
 								$(this).parent().remove();
 								$.ajax({
