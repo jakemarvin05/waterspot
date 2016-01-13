@@ -88,6 +88,8 @@
 			</div>
                         <br>
                         <br>
+            <div><button type="button" class="dashboard-buttons btn" onclick="$('.check-slot').prop('checked', !$('.check-slot').prop('checked'));">Select all</button></div>
+            <br>
 			<div class="dashboard-slot-time">
                             <div class="labelbox">
                                 <label>
