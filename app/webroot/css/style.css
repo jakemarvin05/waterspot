@@ -849,10 +849,12 @@ ul.dropdown-menu{
     background-color: #FFF;
     border: solid 1px #EEE;
     position: relative;
+    max-height: 264px;
 }
 .activities-listing .tile img {
     width: 100%;
-
+    top: -20px;
+    position: relative;
 }
 
 .activities-listing .tile .price, .vendorwise-listing .tile .price {
