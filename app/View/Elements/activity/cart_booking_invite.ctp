@@ -22,8 +22,8 @@
 					$cart_css="";
 				?>
 				<div class="leftContentBox">
-					<div class="cart-payment-method">
-						<h4>Cost Sharing</h4>
+					<div class="cart-payment-method" style="display:none">
+						<!-- <h4>Cost Sharing</h4> -->
 						<? $options = array('1'=> '<span>Single Payment</span>','0' => '<span>Go Dutch</span><br />');
 						$attributes = array(
 							'legend' => false,
