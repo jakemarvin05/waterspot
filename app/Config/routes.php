@@ -39,7 +39,9 @@
 		Router::connect('/searches/search/*', array('controller' => 'searches', 'action' => 'search'));
 		Router::connect('/admin/passwordurl/*',array('controller'=>'admin', 'action'=>'passwordurl'));
 		Router::connect('/service-type-details/*', array('plugin'=>'service_manager','controller' => 'service_types', 'action' => 'service_type_detail')); 
- 
+        Router::connect('/admin/coupon', array('controller' => 'admin', 'action' => 'coupon'));
+        Router::connect('/admin/coupon_add', array('controller' => 'admin', 'action' => 'coupon_add'));
+        Router::connect('/admin/coupon_close/*', array('controller' => 'admin', 'action' => 'coupon_close'));
 		
 	//$cmsPages = Cache::read('pages_routes');
                 

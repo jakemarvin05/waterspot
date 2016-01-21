@@ -178,6 +178,73 @@ class AdminController extends AppController {
 			$this->Session->setFlash('Invalid link, try again','default','msg','error');
 		}
 	}
+
+	public function coupon($id=null)
+	{
+		$this->loadModel('Coupon');
+		$coupons = $this->Coupon->find('all', ['order_by' => 'created_date DESC']);
+		$this->set('coupons', $coupons);
+	}
+
+	public function coupon_add()
+	{
+		// check empty data
+		if (empty($this->request->data)) {
+			$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+		}
+
+		// filter checks
+		$errors = [];
+		if ($this->request->data['Coupon']['title'] == '') {
+			$errors[] = 'Title field is required';
+		}
+		if ($this->request->data['Coupon']['description'] == '') {
+			$errors[] = 'Description field is required';
+		}
+		if ($this->request->data['Coupon']['discount'] == '') {
+			$errors[] = 'Discount field is required';
+		} else if ($this->request->data['Coupon']['discount'] > 100 || $this->request->data['Coupon']['discount'] < 1) {
+			$errors[] = 'Discount must be from 1 to 100 only';
+		}
+		if ($this->request->data['Coupon']['max_usage'] == '') {
+			$errors[] = 'Max usage field is required';
+		}
+
+		if (count($errors)) {
+			$this->Session->setFlash(implode('<br />', $errors),'default','msg','error');
+			$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+		}
+
+		// add coupon
+		$this->loadModel('Coupon');
+		$this->Coupon->create();
+		$this->request->data['Coupon']['is_active'] = 1;
+		$this->request->data['Coupon']['created_date'] = date('Y-m-d H:i:s');
+		$this->request->data['Coupon']['discount'] = $this->request->data['Coupon']['discount'] / 100;
+		$this->request->data['Coupon']['code'] = $this->Coupon->generate_code();
+		$this->Coupon->save($this->request->data);
+		$this->request->data['Coupon']['code'] = $this->request->data['Coupon']['code'] . $this->Coupon->id;
+		$this->Coupon->save($this->request->data);
+
+		$this->Session->setFlash('Coupon added succesfully.');
+		$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+	}
+
+	public function coupon_close($id = NULL)
+	{
+		if ($id == NULL) {
+			$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+		}
+
+		$this->loadModel('Coupon');
+		$coupon['Coupon']['id'] = $id;
+		$coupon['Coupon']['is_active'] = 0;
+		$coupon['Coupon']['close_date'] = date('Y-m-d H:i:s');
+		$this->Coupon->save($coupon);
+
+		$this->Session->setFlash('Coupon closed succesfully.');
+		$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+	}
 }
  
 ?>
