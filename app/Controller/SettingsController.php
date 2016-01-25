@@ -358,14 +358,14 @@ class SettingsController extends AppController {
 		}
 	}
 	private function _validate_social_media($id = null){
-		if(trim($this->request->data['Setting']['facebook'])==""){
-			$this->Session->setFlash(__('Please Enter Facebook Url'), 'default', array(), 'error');
-			return false;
-		}
-		if(trim($this->request->data['Setting']['google_plus'])==""){
-			$this->Session->setFlash(__('Please Enter Google Plus Url'), 'default', array(), 'error');
-			return false;
-		}
+		// if(trim($this->request->data['Setting']['facebook'])==""){
+		// 	$this->Session->setFlash(__('Please Enter Facebook Url'), 'default', array(), 'error');
+		// 	return false;
+		// }
+		// if(trim($this->request->data['Setting']['google_plus'])==""){
+		// 	$this->Session->setFlash(__('Please Enter Google Plus Url'), 'default', array(), 'error');
+		// 	return false;
+		// }
 		return true;
 	}
 	private function _validate_image_setting($id = null) {

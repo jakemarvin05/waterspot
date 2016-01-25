@@ -56,15 +56,15 @@ function saveform()
                 <?=$this->Form->text('linkedin',array('class'=> 'small','size'=>'70','required'=>false)); ?>
                   
             </dd>
-<!--
+
             <dt>
-                <label>Pinterest <span style="color:red;">*</span></label>
+                <label>Instagram <span style="color:red;">*</span></label>
             </dt>
             <dd>
-                <?//=$this->Form->text('pinterest',array('class'=> 'small','size'=>'70','required'=>false)); ?>
+                <?=$this->Form->text('instagram',array('class'=> 'small','size'=>'70','required'=>false)); ?>
                   
             </dd>
--->
+
                     
             
         </dl>
