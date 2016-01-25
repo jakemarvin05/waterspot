@@ -193,10 +193,12 @@ class AdminController extends AppController {
 			$this->redirect(array('controller'=>'admin','action'=>'coupon'));
 		}
 
+		$this->loadModel('Coupon');
+
 		// filter checks
 		$errors = [];
-		if ($this->request->data['Coupon']['title'] == '') {
-			$errors[] = 'Title field is required';
+		if ($this->request->data['Coupon']['code'] == '') {
+			$errors[] = 'Code is required';
 		}
 		if ($this->request->data['Coupon']['description'] == '') {
 			$errors[] = 'Description field is required';
@@ -209,6 +211,9 @@ class AdminController extends AppController {
 		if ($this->request->data['Coupon']['max_usage'] == '') {
 			$errors[] = 'Max usage field is required';
 		}
+		if ($this->Coupon->is_code_used($this->request->data['Coupon']['code'])) {
+			$errors[] = 'Coupon code is already in use';
+		}
 
 		if (count($errors)) {
 			$this->Session->setFlash(implode('<br />', $errors),'default','msg','error');
@@ -216,14 +221,10 @@ class AdminController extends AppController {
 		}
 
 		// add coupon
-		$this->loadModel('Coupon');
 		$this->Coupon->create();
 		$this->request->data['Coupon']['is_active'] = 1;
 		$this->request->data['Coupon']['created_date'] = date('Y-m-d H:i:s');
 		$this->request->data['Coupon']['discount'] = $this->request->data['Coupon']['discount'] / 100;
-		$this->request->data['Coupon']['code'] = $this->Coupon->generate_code();
-		$this->Coupon->save($this->request->data);
-		$this->request->data['Coupon']['code'] = $this->request->data['Coupon']['code'] . $this->Coupon->id;
 		$this->Coupon->save($this->request->data);
 
 		$this->Session->setFlash('Coupon added succesfully.');
@@ -244,6 +245,23 @@ class AdminController extends AppController {
 
 		$this->Session->setFlash('Coupon closed succesfully.');
 		$this->redirect(array('controller'=>'admin','action'=>'coupon'));
+	}
+
+	public function ajax_check_code()
+	{
+		$this->autoRender = false;
+		$this->loadModel('Coupon');
+		if ($this->request->data['code'] == '') {
+			return 'empty';
+		}
+		return $this->Coupon->is_code_used($this->request->data['code']) ? 'true' : 'false';
+	}
+
+	public function ajax_generate_code()
+	{
+		$this->autoRender = false;
+		$this->loadModel('Coupon');
+		return $this->Coupon->generate_code(8);
 	}
 }
  

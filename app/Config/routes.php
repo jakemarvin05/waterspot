@@ -42,6 +42,8 @@
         Router::connect('/admin/coupon', array('controller' => 'admin', 'action' => 'coupon'));
         Router::connect('/admin/coupon_add', array('controller' => 'admin', 'action' => 'coupon_add'));
         Router::connect('/admin/coupon_close/*', array('controller' => 'admin', 'action' => 'coupon_close'));
+        Router::connect('/admin/ajax_check_code/*', array('controller' => 'admin', 'action' => 'ajax_check_code'));
+        Router::connect('/admin/ajax_generate_code/*', array('controller' => 'admin', 'action' => 'ajax_generate_code'));
 		
 	//$cmsPages = Cache::read('pages_routes');
                 
