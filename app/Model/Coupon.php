@@ -31,6 +31,27 @@ Class Coupon extends AppModel
         }
         return true;
     }
+
+    public function count_used_code($id)
+    {
+        App::import('model','BookingCoupon');
+        $booking_coupon = new BookingCoupon();
+        $count = $booking_coupon->find('count', ['conditions' => ['coupon_id' => $id]]);
+        return $count;
+    }
+
+    public function is_code_valid($code)
+    {
+        $searches = $this->find('first', ['conditions' => ['code' => $code, 'is_active' => 1]]);
+        if (count($searches) == 0) {
+            return 0;
+        }
+        $count = $this->count_used_code($searches['Coupon']['id']);
+        if ($searches['Coupon']['max_usage'] <= $count) {
+            return 1;
+        }
+        return true;
+    }
 }
 
 ?>

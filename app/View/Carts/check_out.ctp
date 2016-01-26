@@ -62,6 +62,21 @@
                                 </div>
                                 <?php echo $this->Form->end(); ?>
                             </div>
+                            <div class="registration-form-box">
+                                <div class="registration-form-row">
+                                    <div class="labelbox">
+                                        <label>Coupon code: </label>
+                                    </div>
+                                    <div class="fieldbox">
+                                        <?= $this->Form->input('coupon', array('id' => 'code', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                        <div id="validate_message" style="visibility:hidden;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="registration-form-row" style="text-align: right;">
+                                    <button id="validate_code" class="btn btnDefaults btnFillOrange" type="button">Validate Code</button>
+                                </div>
+                            </div>
                         <? } else { ?>
                             <div style="padding: 10px;">
                                 <?= $this->element('message'); ?>
@@ -237,7 +252,28 @@
 
     </div>
 </div>
-
+<script type="text/javascript">
+    $('#validate_code').on('click', function(){
+        $.ajax({
+            url: '/carts/ajax_validate_code',
+            data: {'code':$('#code').val()},
+            method: 'post',
+            success: function(data) {
+                if (data == 'true') {
+                    $('#validate_message').css('visibility', 'visible').css('color', '#0F0').html('Code is valid.');
+                } else if (data == 'invalid') {
+                    $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Code is invalid.');
+                } else if (data == 'max_reached') {
+                    $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Code has already reached max usage.');
+                } else if (data == 'empty') {
+                    $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Code is empty.');
+                } else {
+                    $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Error has occurred.');
+                }
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     <?php $path = $this->Html->webroot; ?>
     $(document).ready(function () {

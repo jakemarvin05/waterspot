@@ -588,6 +588,22 @@ Class CartsController extends AppController
         }
         return true;
     }
+
+    public function ajax_validate_code()
+    {
+        $this->autoRender = false;
+        if ($this->request->data['code'] == '') {
+            return 'empty';
+        }
+        $this->loadModel('Coupon');
+        $check = $this->Coupon->is_code_valid($this->request->data['code']);
+        if ($check === 1) {
+            return 'max_reached';
+        } else if ($check === 0) {
+            return 'invalid';
+        }
+        return 'true';
+    }
 }
 
 ?>
