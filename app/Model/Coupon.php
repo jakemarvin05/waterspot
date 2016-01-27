@@ -4,6 +4,12 @@ Class Coupon extends AppModel
 {
     public $name = "Coupon";
 
+    public function getIdByCode($code)
+    {
+        $searches = $this->find('first', ['conditions' => ['code' => $code]]);
+        return $searches['Coupon']['id'];
+    }
+
     public function generate_code($length = 8)
     {
         $c = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

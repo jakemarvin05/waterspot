@@ -567,6 +567,18 @@ Class CartsController extends AppController
             $this->Booking->save($booking_data, array('validate' => false));
             // check payment status
             if (!empty($cart_details)) {
+                // check for coupon uses
+                if ($this->Session->check('coupon_id')) {
+                    $this->loadModel('BookingCoupon');
+                    $coupon_data = [
+                        'booking_id' => $custom_variable['booking_id'],
+                        'coupon_id'  => $this->Session->read('coupon_id'),
+                        'created_date' => date('Y-m-d H:i:s')
+                    ];
+                    $this->BookingCoupon->create();
+                    $this->BookingCoupon->save($coupon_data);
+                }
+                //
                 foreach ($cart_details as $cart_detail) {
                     $total_cart_price = 0;
                     unset($cart_detail['Cart']['id']);
@@ -574,6 +586,11 @@ Class CartsController extends AppController
                     $newData['BookingOrder']['ref_no'] = $booking_detail['Booking']['ref_no'];
                     $newData['BookingOrder']['service_title'] = $cart_detail['Service']['service_title'];
                     $newData['BookingOrder']['status'] = 4;
+                    // check for coupon uses
+                    if ($this->Session->check('coupon_id')) {
+                        $newData['BookingOrder']['coupon_id'] = $this->Session->read('coupon_id');
+                    }
+                    //
                     $this->BookingOrder->create();
                     $this->BookingOrder->save($newData, array('validate' => false));
                     $slots = json_decode($newData['BookingOrder']['slots'], true);
@@ -583,6 +600,9 @@ Class CartsController extends AppController
                     // save invite save data
                     $total_cart_price = $cart_detail['Cart']['total_amount'];
                     self::before_sent_invite_save($cart_detail, $total_cart_price, $booking_detail);
+                }
+                if ($this->Session->check('coupon_id')) {
+                    $this->Session->delete('coupon_id');
                 }
             }
         }
@@ -602,6 +622,11 @@ Class CartsController extends AppController
         } else if ($check === 0) {
             return 'invalid';
         }
+        if ($this->Session->check('coupon_id')) {
+            $this->Session->delete('coupon_id');
+        }
+        $coupon_id = $this->Coupon->getIdByCode($this->request->data['code']);
+        $this->Session->write('coupon_id', $coupon_id);
         return 'true';
     }
 }
