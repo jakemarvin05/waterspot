@@ -1658,7 +1658,7 @@ class PaymentsController extends PaymentManagerAppController{
 
 			}
 			else{
-				self::payment_failed_mail($booking_detail);
+				// self::payment_failed_mail($booking_detail);
 			}
 		}
 
@@ -1797,9 +1797,11 @@ class PaymentsController extends PaymentManagerAppController{
 				}
 			}
 			else{
-				self::payment_failed_mail($booking_detail);
+				// self::payment_failed_mail($booking_detail);
 			}
 		}
+		$this->autoRender=false;
+		echo 'success';
 	}
 
 	function invite_payment_paypal($booking_participate_id = null)
