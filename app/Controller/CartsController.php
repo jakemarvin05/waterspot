@@ -96,6 +96,12 @@ Class CartsController extends AppController
         $this->set('cart_details', $cart_details);
         $this->set('redirect_login', $redirect_login);
         $this->set('guest_email', $this->Session->read('Guest_email'));
+
+        // for coupon data
+        if ($this->Session->check('coupon_id')) {
+            $this->loadModel('Coupon');
+            $this->set('coupon', $this->Coupon->find('first', ['conditions' => ['id' => $this->Session->read('coupon_id')]]));
+        }
     }
 
     function booking_success($booking_id = null)

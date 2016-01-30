@@ -62,21 +62,27 @@
                                 </div>
                                 <?php echo $this->Form->end(); ?>
                             </div>
-                            <div class="registration-form-box">
-                                <div class="registration-form-row">
-                                    <div class="labelbox">
-                                        <label>Coupon code: </label>
+                            <?php if (!isset($coupon)) { ?>
+                                <div class="registration-form-box">
+                                    <div class="registration-form-row">
+                                        <div class="labelbox">
+                                            <label>Coupon code: </label>
+                                        </div>
+                                        <div class="fieldbox">
+                                            <?= $this->Form->input('coupon', array('id' => 'code', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                            <div id="validate_message" style="visibility:hidden;"></div>
+                                        </div>
                                     </div>
-                                    <div class="fieldbox">
-                                        <?= $this->Form->input('coupon', array('id' => 'code', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-                                        <div id="validate_message" style="visibility:hidden;"></div>
-                                    </div>
-                                </div>
 
-                                <div class="registration-form-row" style="text-align: right;">
-                                    <button id="validate_code" class="btn btnDefaults btnFillOrange" type="button">Validate Code</button>
+                                    <div class="registration-form-row" style="text-align: right;">
+                                        <button id="validate_code" class="btn btnDefaults btnFillOrange" type="button">Validate Code</button>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } else {
+                                    echo "<h4>Coupon Used:</h4>";
+                                    echo $coupon['Coupon']['discount'] * 100 . "% discount to your total price.";
+                                    echo "<br/><br/>Description:<br/>".$coupon['Coupon']['description'];
+                                } ?>
                         <? } else { ?>
                             <div style="padding: 10px;">
                                 <?= $this->element('message'); ?>
@@ -218,6 +224,12 @@
                         <div class="box-center">
                             <div class="checkout-activity-left">Total</div>
                             <div class="checkout-activity-right">$<?= number_format($sub_total, 2); ?></div>
+                            <?php if (isset($coupon)) { ?>
+                            <div class="checkout-activity-left">Discounted</div>
+                            <div class="checkout-activity-right">$<?= number_format($sub_total * (1 - $coupon['Coupon']['discount']), 2); ?></div>
+
+                            <?php } ?>
+                            
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -261,6 +273,8 @@
             success: function(data) {
                 if (data == 'true') {
                     $('#validate_message').css('visibility', 'visible').css('color', '#0F0').html('Code is valid.');
+                    // reload the checkout page
+                    location.reload();
                 } else if (data == 'invalid') {
                     $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Code is invalid.');
                 } else if (data == 'max_reached') {
