@@ -195,10 +195,10 @@
                                                 <div class="checkout-activity-left">Service Price(
                                                     $<?= number_format($total_price, 2); ?>
                                                     x <?= ($cart_detail['Cart']['invite_payment_status'] == 1) ? $cart_detail['Cart']['no_participants'] : 1 ?>
-                                                    &nbsp;x&nbsp;<?= $no_interval; ?>&nbsp;<?= $interval_msg; ?>)
+                                                    <?= $interval_msg; ?>)
                                                 </div>
                                                 <div class="checkout-activity-right">
-                                                    $<?= number_format(($total_price * (($cart_detail['Cart']['invite_payment_status'] == 1) ? $cart_detail['Cart']['no_participants'] : 1) * $no_interval), 2); ?></div>
+                                                    $<?= number_format(($total_price * (($cart_detail['Cart']['invite_payment_status'] == 1) ? $cart_detail['Cart']['no_participants'] : 1)), 2); ?></div>
                                             </div>
                                         <? } ?>
                                         <div class="checkout-activity-row checkout-activity-row-subtotal">
@@ -220,16 +220,16 @@
                             } //end of foreach ?>
                         <? } ?>
                     </div>
+                    <?php if (isset($coupon)) { ?>
+                        <div style="width:30%; margin:auto;">
+                            <h4>Sub Total: <span style="float:right; clear:both"><?php echo '$'.number_format($sub_total, 2); ?></span></h4>
+                            <h4>Disctount: <span style="color:#F00; float:right; clear:both;"><?php echo '-$'.number_format($sub_total * ($coupon['Coupon']['discount']), 2); ?></span></h4>                        
+                        </div>
+                    <?php } ?>
                     <div class="checkout-activity-totals checkout-activity-row-total">
                         <div class="box-center">
-                            <div class="checkout-activity-left">Total</div>
-                            <div class="checkout-activity-right">$<?= number_format($sub_total, 2); ?></div>
-                            <?php if (isset($coupon)) { ?>
-                            <div class="checkout-activity-left">Discounted</div>
-                            <div class="checkout-activity-right">$<?= number_format($sub_total * (1 - $coupon['Coupon']['discount']), 2); ?></div>
-
-                            <?php } ?>
-                            
+                            <div class="checkout-activity-left">Grand Total</div>
+                            <div class="checkout-activity-right">$<?php echo isset($coupon) ? number_format($sub_total * (1 - $coupon['Coupon']['discount']), 2) : number_format($sub_total, 2); ?></div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
