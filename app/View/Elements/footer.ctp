@@ -18,14 +18,23 @@
                     <p class="footerContactSmallHeader">FOLLOW US</p>
 
                     <div id="footerSocialRow">
-                        <a class="smIcons" href="<?= $setting['social']['facebook'] ?>"><img
-                                src="/img/sm-icons/facebook.png"><img src="/img/sm-icons/facebook.png"></a>
-                        <!--<a class="smIcons" href="<?= $setting['social']['twitter'] ?>"><img
-                                src="/img/sm-icons/instagram.png"><img src="/img/sm-icons/instagram.png"></a>
-                        <a class="smIcons" href="<?= $setting['social']['twitter'] ?>"><img
-                                src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>
-                        <a class="smIcons" href="<?= $setting['social']['google_plus'] ?>"><img
-                                src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>-->
+                        <?php
+                            if ($setting['social']['facebook'] != '') {
+                                echo '<a class="smIcons" href="' . $setting['social']['facebook'] . '"><img src="/img/sm-icons/facebook.png"><img src="/img/sm-icons/facebook.png"></a>';
+                            }
+                            if ($setting['social']['instagram'] != '') {
+                                echo '<a class="smIcons" href="' . $setting['social']['instagram'] . '"><img src="/img/sm-icons/instagram.png"><img src="/img/sm-icons/instagram.png"></a>';
+                            }
+                            if ($setting['social']['twitter'] != '') {
+                                echo '<a class="smIcons" href="' . $setting['social']['twitter'] . '"><img src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>';
+                            }
+                            if ($setting['social']['google_plus'] != '') {
+                                echo '<a class="smIcons" href="' . $setting['social']['google_plus'] . '"><img src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>';
+                            }
+                            if ($setting['social']['linkedin'] != '') {
+                                echo '<a class="smIcons" href="' . $setting['social']['linkedin'] . '"><img src="/img/sm-icons/linkedin.png"><img src="/img/sm-icons/linkedin.png"></a>';
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
