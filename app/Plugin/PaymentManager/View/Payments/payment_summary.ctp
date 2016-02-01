@@ -53,9 +53,9 @@
 			<th class="align-left" width="10%">Vendor</th>
 			<th width="10%">Service Name</th>
 			<th width="15%">Activity</th>
-			<th width="10%">Cost Sharing</th>
-			<th width="11%">Date</th>
-			<th width="11%">Time</th>
+			<!-- <th width="10%">Cost Sharing</th> -->
+			<th width="16%">Date</th>
+			<th width="16%">Time</th>
 			<th width="9%">Participant(s)</th>
 			<th width="8%">Price ($)</th>
 		</tr>
@@ -96,7 +96,7 @@
 					<td><?=$order['BookingOrder']['vendor_name']; ?></td>
 					<td><?=$order['BookingOrder']['servicetype']; ?></td>
 					<td><?=$order['BookingOrder']['service_title']; ?></td>
-					<td><?=($order['BookingOrder']['invite_payment_status']==1)?'I have paid for my friends':'Friends will pay their share'; ?></td>
+					<!-- <td><?=($order['BookingOrder']['invite_payment_status']==1)?'I have paid for my friends':'Friends will pay their share'; ?></td> -->
 					<td class="align-center">
 						<?=date(Configure::read('Calender_format_php'),strtotime($order['BookingOrder']['start_date'])) ?> To <?=date(Configure::read('Calender_format_php'),strtotime($order['BookingOrder']['end_date'])) ?>
 					</td>
@@ -114,7 +114,7 @@
 				</tr>
 			 <? }?>
 			 <tr class="subtotal">
-				<td class="align-right" colspan="7">Total</td>
+				<td class="align-right" colspan="6">Total</td>
 				<td class="align-right">$<?=number_format($total_amount,2);?></td>
 			</tr>
 		<? } // end of if ?>
