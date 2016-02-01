@@ -62,7 +62,7 @@ class PaymentsController extends PaymentManagerAppController{
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
 		$formData = self::_paypal_form($payment_data,$cart_details);
-		
+
 		$this->breadcrumbs[] = array(
 			'url'=>Router::url('/'),
 			'name'=>'Home'
@@ -73,6 +73,11 @@ class PaymentsController extends PaymentManagerAppController{
 		);
 		
 		$this->set('formData',$formData);
+
+		// new secured checkout
+		$this->autoRender = false;
+		$urldata = self::_paypal_url_data($payment_data,$cart_details);
+		$this->redirect($urldata);
 	}
 	
 	
@@ -1389,7 +1394,15 @@ class PaymentsController extends PaymentManagerAppController{
 						$i++;
 					}
 				}
-			} 
+			}
+
+			if ($this->Session->check('coupon_id')) {
+				$this->loadModel('Coupon');
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $this->Session->read('coupon_id')]]);
+				$discount_amount = $total_amount * $coupon['Coupon']['discount'];
+				$html .= "<input type='hidden' name='discount_amount_cart' value='$discount_amount' />";
+				$this->Session->delete('coupon_id');
+			}
 			
 			
 			$html .= "<input type='hidden' name='cancel_return' value='$payment_data[cancelUrl]'/>";
@@ -1398,6 +1411,87 @@ class PaymentsController extends PaymentManagerAppController{
 			$html .="</form>";
 		}
 		return $html;
+	}
+
+	function _paypal_url_data($payment_data=null, $cartData=array(), $is_participant = false)
+	{
+		if(Configure::read('Payment.sandbox_mode')==1){
+			$url = Configure::read('Payment.test_url');
+		}
+		else{
+			$url = Configure::read('Payment.live_url');
+		}
+		$secret_key = Configure::read('Payment.secret_key');
+		$merchant =Configure::read('Payment.merchant');
+		$action = 'pay';
+		$total_amount = $payment_data['amount'];
+		$currency ="SGD"; 
+		$ref_id = $payment_data['orderRef'];
+		$dataToBeHashed = $secret_key. $merchant. $action. $ref_id. $total_amount. $currency;
+		$get_signature = $this->SmoovPay->encryption($dataToBeHashed);
+		$paypal_email = Configure::read('Paypal.email');
+		$paypal_url = Configure::read('Paypal.url');
+		if (Configure::read('Paypal.sandbox_mode')) {
+			$paypal_email = Configure::read('Paypal.test_email');
+			$paypal_url = Configure::read('Paypal.test_url');
+		}
+		
+		$html = '';
+		$i = 1;
+		$ud = [];
+		if(!empty($payment_data['amount'])){
+			$ud['cmd'] = '_cart';
+			$ud['upload'] = 1;
+			$ud['business'] = $paypal_email;
+			$ud['currency_code'] = 'SGD';
+			$html .= 'cmd=_cart&upload=1&business=' . $paypal_email . '&currency_code=SGD';
+			if(!empty($cartData)){
+				foreach($cartData as $cart_detail){
+					$diff = abs(strtotime($cart_detail['Cart']['end_date']) - strtotime($cart_detail['Cart']['start_date']));
+					$years = floor($diff / (365*60*60*24));
+					$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+					$no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
+					$itemname = $cart_detail['Service']['service_title'];
+					// $desc = empty($cart_detail['Service']['description'])? 'NA':strip_tags($cart_detail['Service']['description']);
+					$participants = ($cart_detail['Cart']['no_participants']+$no_of_booking_days);
+					//$participants = $no_of_booking_days;
+					$itemprice = $cart_detail['Cart']['price'];
+
+					$slots = json_decode($cart_detail['Cart']['slots'],true);
+					foreach ($slots['Slot'] as $slot_key=>$slot_time) {
+						$desc = date('M d',strtotime($cart_detail['Cart']['start_date'])) . ',' . date('H:ia', strtotime($slot_time['start_time'])) . '-' . date('H:ia', strtotime($slot_time['end_time']));
+						$participants = $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email']));
+						$itemprice = $slot_time['price'];
+						if ($is_participant) {
+							$participants = 1;
+						}
+						$ud["item_name_$i"] = $itemname . ' (' . $desc . ')';
+						$ud["quantity_$i"] = $participants;
+						$ud["amount_$i"] = $itemprice;
+						$html .= "&item_name_{$i}={$itemname}%20($desc)&quantity_{$i}=$participants&amount_{$i}=$itemprice";
+						$i++;
+					}
+				}
+			}
+
+			if ($this->Session->check('coupon_id')) {
+				$this->loadModel('Coupon');
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $this->Session->read('coupon_id')]]);
+				$discount_amount = $total_amount * $coupon['Coupon']['discount'];
+				$ud['discount_amount_cart'] = $discount_amount;
+				$this->Session->delete('coupon_id');
+			}
+			
+			$ud['cancel_url'] = $payment_data['cancelUrl'];
+			$ud['return'] = $payment_data['successUrl'];
+			$ud['notify_url'] = $payment_data['strUrl'];
+		}
+		$udx = '';
+		foreach($ud as $k => $v) {
+			$udx .= !empty($udx) ? '&' : '';
+			$udx .= $k . '=' . urlencode($v);
+		}
+		return $paypal_url . "?" . $udx;
 	}
 
 	function paypal_ipn_simple($payment_ref = null)

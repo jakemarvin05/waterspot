@@ -607,9 +607,6 @@ Class CartsController extends AppController
                     $total_cart_price = $cart_detail['Cart']['total_amount'];
                     self::before_sent_invite_save($cart_detail, $total_cart_price, $booking_detail);
                 }
-                if ($this->Session->check('coupon_id')) {
-                    $this->Session->delete('coupon_id');
-                }
             }
         }
         return true;

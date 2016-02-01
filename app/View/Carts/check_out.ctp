@@ -79,9 +79,8 @@
                                     </div>
                                 </div>
                             <?php } else {
-                                    echo "<h4>Coupon Used:</h4>";
-                                    echo $coupon['Coupon']['discount'] * 100 . "% discount to your total price.";
-                                    echo "<br/><br/>Description:<br/>".$coupon['Coupon']['description'];
+                                    echo "<h3>Coupon Used:</h3>";
+                                    echo "<h4>" . $coupon['Coupon']['discount'] * 100 . "% discount to your total price.</h4>";
                                 } ?>
                         <? } else { ?>
                             <div style="padding: 10px;">
@@ -223,7 +222,7 @@
                     <?php if (isset($coupon)) { ?>
                         <div style="width:30%; margin:auto;">
                             <h4>Sub Total: <span style="float:right; clear:both"><?php echo '$'.number_format($sub_total, 2); ?></span></h4>
-                            <h4>Disctount: <span style="color:#F00; float:right; clear:both;"><?php echo '-$'.number_format($sub_total * ($coupon['Coupon']['discount']), 2); ?></span></h4>                        
+                            <h4>Discount: <span style="color:#F00; float:right; clear:both;"><?php echo '-$'.number_format($sub_total * ($coupon['Coupon']['discount']), 2); ?></span></h4>                        
                         </div>
                     <?php } ?>
                     <div class="checkout-activity-totals checkout-activity-row-total">
