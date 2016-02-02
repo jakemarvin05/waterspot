@@ -61,18 +61,18 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
-		$formData = self::_paypal_form($payment_data,$cart_details);
+		// $formData = self::_paypal_form($payment_data,$cart_details);
 
-		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/'),
-			'name'=>'Home'
-		);
-		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/'),
-			'name'=>'Payment'
-		);
+		// $this->breadcrumbs[] = array(
+		// 	'url'=>Router::url('/'),
+		// 	'name'=>'Home'
+		// );
+		// $this->breadcrumbs[] = array(
+		// 	'url'=>Router::url('/'),
+		// 	'name'=>'Payment'
+		// );
 		
-		$this->set('formData',$formData);
+		// $this->set('formData',$formData);
 
 		// new secured checkout
 		$this->autoRender = false;
@@ -1981,18 +1981,23 @@ class PaymentsController extends PaymentManagerAppController{
 		$payment_data['strUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'paypal_ipn_invite/'.$booking_participate_id.'/'.$booking_order_id.'/'.$payment_ref));
 		$payment_data['cancelUrl']=$siteurl.Router::url(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'cancelled_url'));
 		self::_save_payment_ref($booking_id,$payment_ref,$memberid);
-		$formData = self::_paypal_form($payment_data, $bookingData, true);
+		// $formData = self::_paypal_form($payment_data, $bookingData, true);
 		
-		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/'),
-			'name'=>'Home'
-		);
-		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/'),
-			'name'=>'Invite Payment'
-		);
-		$this->set('formData',$formData);
-		$this->render('index');
+		// $this->breadcrumbs[] = array(
+		// 	'url'=>Router::url('/'),
+		// 	'name'=>'Home'
+		// );
+		// $this->breadcrumbs[] = array(
+		// 	'url'=>Router::url('/'),
+		// 	'name'=>'Invite Payment'
+		// );
+		// $this->set('formData',$formData);
+		// $this->render('index');
+
+		// new secured checkout
+		$this->autoRender = false;
+		$urldata = self::_paypal_url_data($payment_data, $bookingData, true);
+		$this->redirect($urldata);
 	}
 }
 ?>
