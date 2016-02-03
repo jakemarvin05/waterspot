@@ -9,7 +9,7 @@
 					<?php foreach($service_detail['VendorService'] as $related_service){ ?>
 						<li>
 							<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
-							 $imgArr = array('source_path'=>$path,'img_name'=>$related_service['Service']['image'],'width'=>600,'height'=>400,'noimg'=>$setting['site']['site_noimage']);
+							 $imgArr = array('source_path'=>$path,'img_name'=>$related_service['Service']['image'],'width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
 							 $resizedImg = $this->ImageResize->ResizeImage($imgArr);
 							 echo $this->Html->link($this->Html->image($resizedImg,array('border'=>'0','alt'=>$related_service['Service']['service_title'],'title'=>$related_service['Service']['service_title'],'class'=>'listing-img')),array('plugin'=>false,'controller'=>'activity','action'=>'index',$related_service['Service']['id']),array('escape'=>false)) ; ?>
 							 
