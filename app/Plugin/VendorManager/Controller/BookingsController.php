@@ -228,7 +228,7 @@ Class BookingsController extends VendorManagerAppController{
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
 
-			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : $booking['Booking']['fname'];
 
 			$slots = json_decode($booking_order['BookingOrder']['slots']);
 			$slot_string = '';
@@ -282,7 +282,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -328,7 +328,7 @@ Class BookingsController extends VendorManagerAppController{
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
 
-			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : $booking['Booking']['fname'];
 
 			$slots = json_decode($booking_order['BookingOrder']['slots']);
 			$slot_string = '';
@@ -382,7 +382,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -429,7 +429,7 @@ Class BookingsController extends VendorManagerAppController{
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
 
-			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : $booking['Booking']['fname'];
 
 			$slots = json_decode($booking_order['BookingOrder']['slots']);
 			$slot_string = '';
@@ -474,7 +474,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -525,7 +525,7 @@ Class BookingsController extends VendorManagerAppController{
 			$memberinfo = $this->Member->read(null,$booking['Booking']['member_id']);
 			$booking_order = $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking['Booking']['ref_no']]]);
 
-			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : 'Member';
+			$full_name = (strlen(trim($memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'])) > 0 ) ? $memberinfo['Member']['first_name'].' '.$memberinfo['Member']['last_name'] : $booking['Booking']['fname'];
 
 			$slots = json_decode($booking_order['BookingOrder']['slots']);
 			$slot_string = '';
@@ -570,7 +570,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$memberinfo['Member']['email_id'].'",
+	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }

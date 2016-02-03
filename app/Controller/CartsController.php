@@ -220,11 +220,13 @@ Class CartsController extends AppController
 
         if(!empty($this->member_data)){
             $email = $this->member_data['MemberAuth']['email_id'];
+            $fname = $this->member_data['MemberAuth']['first_name'];
             $phone = $this->member_data['MemberAuth']['phone'];
         }
         else{
             $email = $cart_data['Cart']['guest_email'];
             $phone = $this->request->data['Cart']['phone'];
+            $fname = $this->request->data['Cart']['fname'];
         }
         if (!empty($cart_data)) {
 
@@ -241,7 +243,7 @@ Class CartsController extends AppController
             $data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
             $data['Booking']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 
-            $data['Booking']['fname'] = $this->member_data['MemberAuth']['first_name'];
+            $data['Booking']['fname'] = $fname;
           //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $data['Booking']['email'] = $email;
             $data['Booking']['phone'] = $phone;
