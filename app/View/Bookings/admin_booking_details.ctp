@@ -32,10 +32,10 @@
 	    <th width="10%">From</th>
 	    <th width="10%">To</th>
 	    <th width="10%">Vendor Details</th>
-	    <th width="10%">Invited Members</th>
+	    <th width="15%">Invited Members</th>
 	    <th width="5%">Price ($)</th>
 	    <th width="5%">Slots</th>
-	    <th width="5%">VAS</th>
+	    <!-- <th width="5%">VAS</th> -->
 	</tr>
 	<? if(!empty($order_details )){?>
 	    <? foreach($order_details as $key=>$order_detail) { ?>
@@ -56,13 +56,24 @@
 			    echo "No Invited.";
 			}?>
 		    </td>
-		    <td><?=number_format(($order_detail['BookingOrder']['total_amount']),2); ?></td>
+		    <td>
+		    	<?php
+                    if ($order_detail['BookingOrder']['discount'] == 0) {
+                        echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                    } else {
+                        echo '<span style="text-decoration:line-through; color:#F00; display:block;">';
+                        echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                        echo '</span>';
+                        echo '$' . number_format(($order_detail['BookingOrder']['total_amount'] - $order_detail['BookingOrder']['discount']), 2);
+                    }
+                ?>
+            </td>
 		    <td>
 			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Slots Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
 		    </td>
-		    <td>
+		    <!-- <td>
 			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Slots Details','title'=>'View Slots Details')), array('plugin'=>false,'controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']), array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'))?>
-		    </td>
+		    </td> -->
 		</tr>
 	    <? } ?>
 	<? } else { ?>

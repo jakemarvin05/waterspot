@@ -245,6 +245,15 @@ Class BookingsController extends VendorManagerAppController{
 				$slot_string = 'None';
 			}
 
+			$this->loadModel('Coupon');
+			$discount = 0;
+			$price_str = number_format($booking_order['BookingOrder']['total_amount']);
+			if ($booking_order['BookingOrder']['coupon_id']) {
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
+				$discount = $coupon['Coupon']['discount'];
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
+			}
+
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
@@ -254,7 +263,7 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
-	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$price_str.'"},';
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
@@ -336,6 +345,15 @@ Class BookingsController extends VendorManagerAppController{
 				$slot_string = 'None';
 			}
 
+			$this->loadModel('Coupon');
+			$discount = 0;
+			$price_str = number_format($booking_order['BookingOrder']['total_amount']);
+			if ($booking_order['BookingOrder']['coupon_id']) {
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
+				$discount = $coupon['Coupon']['discount'];
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
+			}
+
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
@@ -345,7 +363,7 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
-	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.$price_str.'"},';
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
@@ -769,6 +787,14 @@ Class BookingsController extends VendorManagerAppController{
 		);
 		foreach($order_details as $key=>$order_detail){
 			$order_details[$key]['BookingOrder']['location_name']=(!empty($order_detail['BookingOrder']['location_id']))?$this->City->getLocationListCityID($order_detail['BookingOrder']['location_id']): "Location not available";
+			
+			if (is_null($order_detail['BookingOrder']['coupon_id'])) {
+				$order_details[$key]['BookingOrder']['discount'] = 0;
+			} else {
+				$this->loadModel('Coupon');
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $order_detail['BookingOrder']['coupon_id']]]);
+				$order_details[$key]['BookingOrder']['discount'] = $coupon['Coupon']['discount'] * $order_detail['BookingOrder']['total_amount'];
+			}
 		}
 		$this->set('customer_detail',$customer_detail);
 		$this->set('order_details',$order_details);

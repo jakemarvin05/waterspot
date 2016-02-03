@@ -70,7 +70,7 @@
 						$slot_details[]=$this->Time->meridian_format($slot['start_time']). " To ".$this->Time->end_meridian_format($slot['end_time']);
 					}
 				}
-				$total_amount+=$order['BookingOrder']['total_amount'];
+				$total_amount+=$order['BookingOrder']['total_amount'] - $order['BookingOrder']['discount'];
 				$vas_details=json_decode($order['BookingOrder']['value_added_services'],true);
 				$booked_vas_details='';
 				if(!empty($vas_details)){
@@ -109,7 +109,16 @@
 					</td>
 					<td class="align-center"><?=$participant_emails?></td>
 					<td class="align-right">
-						$<?=number_format(($order['BookingOrder']['total_amount']),2);?>
+                        <?php
+                            if ($order['BookingOrder']['discount'] == 0) {
+                                echo '$' . number_format(($order['BookingOrder']['total_amount']), 2);
+                            } else {
+                                echo '<span style="text-decoration:line-through; color:#F00; display:block;">';
+                                echo '$' . number_format(($order['BookingOrder']['total_amount']), 2);
+                                echo '</span>';
+                                echo '$' . number_format(($order['BookingOrder']['total_amount'] - $order['BookingOrder']['discount']), 2);
+                            }
+                        ?>
 					</td>
 				</tr>
 			 <? }?>

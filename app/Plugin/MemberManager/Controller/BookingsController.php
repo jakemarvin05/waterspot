@@ -286,6 +286,14 @@ Class BookingsController extends MemberManagerAppController{
 		);
 		foreach($order_details as $key=>$order_detail){
 			$order_details[$key]['BookingOrder']['location_name']=(!empty($order_detail['BookingOrder']['location_id']))?$this->City->getLocationListCityID($order_detail['BookingOrder']['location_id']): "Location not available";
+			
+			if (is_null($order_detail['BookingOrder']['coupon_id'])) {
+				$order_details[$key]['BookingOrder']['discount'] = 0;
+			} else {
+				$this->loadModel('Coupon');
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $order_detail['BookingOrder']['coupon_id']]]);
+				$order_details[$key]['BookingOrder']['discount'] = $coupon['Coupon']['discount'] * $order_detail['BookingOrder']['total_amount'];
+			}
 		}
 		$this->set('customer_detail',$customer_detail);
 		$this->set('order_details',$order_details);

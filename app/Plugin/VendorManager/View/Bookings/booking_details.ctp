@@ -65,7 +65,17 @@
                             } ?>
                         </td>
                         <td class="align-right">
-                            $<?= number_format(($order_detail['BookingOrder']['total_amount']), 2); ?></td>
+                            <?php
+                                if ($order_detail['BookingOrder']['discount'] == 0) {
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                                } else {
+                                    echo '<span style="text-decoration:line-through; color:#F00; display:block;">';
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                                    echo '</span>';
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount'] - $order_detail['BookingOrder']['discount']), 2);
+                                }
+                            ?>
+                        </td>
                         <td class="align-center"><?= $this->Html->link("<i class=\"fa fa-search\"></i>", array('plugin' => 'vendor_manager', 'controller' => 'bookings', 'action' => 'booking_slot_details', $order_detail['BookingOrder']['id']), array('escape' => false, 'class' => 'fancybox fancybox.iframe')); ?></td>
                         <!--						<td class="align-center">-->
                         <? //=$this->Html->link("<i class=\"fa fa-search\"></i>",array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'fancybox fancybox.iframe'));?><!--</td>-->

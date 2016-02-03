@@ -35,13 +35,13 @@
             <tr>
                 <th width="5%">S.No.</th>
                 <th width="16%">Service Name</th>
-                <th width="14%">Location</th>
+                <th width="19%">Location</th>
                 <th width="10%">From</th>
                 <th width="10%">To</th>
                 <th width="20%">Invited Members</th>
                 <th width="10%">Price ($)</th>
                 <th width="5%">Slots</th>
-                <th width="5%">VAS</th>
+                <!-- <th width="5%">VAS</th> -->
                 <th width="5%">Feedback</th>
             </tr>
             <? if (!empty($order_details)) { ?>
@@ -62,9 +62,19 @@
                             } ?>
                         </td>
                         <td class="align-right">
-                            $<?= number_format(($order_detail['BookingOrder']['total_amount']), 2); ?></td>
+                            <?php
+                                if ($order_detail['BookingOrder']['discount'] == 0) {
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                                } else {
+                                    echo '<span style="text-decoration:line-through; color:#F00; display:block;">';
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount']), 2);
+                                    echo '</span>';
+                                    echo '$' . number_format(($order_detail['BookingOrder']['total_amount'] - $order_detail['BookingOrder']['discount']), 2);
+                                }
+                            ?>
+                        </td>
                         <td class="align-center"><?= $this->Html->link("<i class=\"fa fa-search\"></i>", array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'booking_slot_details', $order_detail['BookingOrder']['id']), array('escape' => false, 'class' => 'fancybox fancybox.iframe')); ?></td>
-                        <td class="align-center"><?= $this->Html->link("<i class=\"fa fa-search\"></i>", array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'booking_vas_details', $order_detail['BookingOrder']['id']), array('escape' => false, 'class' => 'fancybox fancybox.iframe')); ?></td>
+                        <!-- <td class="align-center"><?= $this->Html->link("<i class=\"fa fa-search\"></i>", array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'booking_vas_details', $order_detail['BookingOrder']['id']), array('escape' => false, 'class' => 'fancybox fancybox.iframe')); ?></td> -->
                         <td class="align-center">
                             <?php if ($order_detail['BookingOrder']['status'] == 1 && $customer_detail['Booking']['status'] == 1) {
                                 echo $this->Html->link('<i class="fa fa-comment-o"></i>', array('plugin' => 'member_manager', 'controller' => 'bookings', 'action' => 'send_feedback', $order_detail['BookingOrder']['id']), array('escape' => false));

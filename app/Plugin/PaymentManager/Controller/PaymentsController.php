@@ -384,6 +384,7 @@ class PaymentsController extends PaymentManagerAppController{
 	$this->loadModel('VendorManager.ServiceImage');
 	$this->loadModel('MailManager.Mail');
 	$this->loadModel('ServiceManager.ServiceType');
+	$this->loadModel('Coupon');
 	$customer_detail=$this->Booking->find('first',array('conditions'=>array('Booking.ref_no'=>$booking_ref_no)));
 	$criteria['conditions']=array('BookingOrder.ref_no'=>$booking_ref_no);
 	$criteria['fields']=array('BookingOrder.vendor_id');
@@ -417,7 +418,13 @@ class PaymentsController extends PaymentManagerAppController{
 					
 					//get service image
 					$order['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($order['BookingOrder']['service_id']);
-					
+
+					if (!is_null($order['BookingOrder']['coupon_id'])) {
+						$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $order['BookingOrder']['coupon_id']]]);
+						$order['BookingOrder']['discount'] = $discount['Coupon']['discount'];
+					} else {
+						$order['BookingOrder']['discount'] = 0;
+					}
 					$booking_content = self::getBookedServicesVertical($order, $booking_content);
 					$total_cart_price+=$order['BookingOrder']['total_amount'];
 				}
@@ -600,9 +607,19 @@ class PaymentsController extends PaymentManagerAppController{
 		$paid_by_user = $orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email']);
 		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($paid_by_user) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if ($orderBooked['BookingOrder']['no_participants'] > 1 && count($orderBooked['BookingOrder']['invite_friend_email']) > 0) {
-			$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
+			if ($orderBooked['BookingOrder']['discount'] != 0) {
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.$orderBooked['BookingOrder']['total_amount'].'</span>';
+				$price_str .= $orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']) . 'x' . $paid_by_user . ' = ' . number_format($price * (1 - $orderBooked['BookingOrder']['discount']),2);
+			} else {
+				$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
+			}
 		} else {
-			$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
+			if ($orderBooked['BookingOrder']['discount'] != 0) {
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.number_format($orderBooked['BookingOrder']['total_amount'], 2).'</span>';
+				$price_str .= '$' . number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']));
+			} else {
+				$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
+			}
 		}
 		// :/var/www/waterspot/app/Plugin/PaymentManager/Controller
 		if (strlen($booking_content) > 0) {
@@ -799,6 +816,14 @@ class PaymentsController extends PaymentManagerAppController{
 		}
 		foreach($order_details as $key=>$order_detail) {
 			$order_details[$key]['BookingOrder']['servicetype']=$this->ServiceType->getServiceTypeNameByServiceId($order_detail['BookingOrder']['service_id']);
+			
+			if (is_null($order_detail['BookingOrder']['coupon_id'])) {
+				$order_details[$key]['BookingOrder']['discount'] = 0;
+			} else {
+				$this->loadModel('Coupon');
+				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $order_detail['BookingOrder']['coupon_id']]]);
+				$order_details[$key]['BookingOrder']['discount'] = $coupon['Coupon']['discount'] * $order_detail['BookingOrder']['total_amount'];
+			}
 		}	 
 		// delete email id of guest
 		$this->Session->delete('Guest_email');
@@ -1106,6 +1131,13 @@ class PaymentsController extends PaymentManagerAppController{
 			<tr><th><span style="font-size:14px">Participant(s)</span></th></tr>
 			<tr><th style="min-width:200px"><span style="font-size:14px">Price ($)</span></th></tr>
 			<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
+		$this->loadModel('Coupon');
+		if (!is_null($booking_order_detail['BookingOrder']['coupon_id'])) {
+			$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $booking_order_detail['BookingOrder']['coupon_id']]]);
+			$booking_order_detail['BookingOrder']['discount'] = $discount['Coupon']['discount'];
+		} else {
+			$booking_order_detail['BookingOrder']['discount'] = 0;
+		}
 		$booking_content = self::getBookedServicesVertical($booking_order_detail, $booking_content);
 		$total_cart_price += $booking_order_detail['BookingOrder']['total_amount'];
 		
@@ -1506,6 +1538,8 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('Cart');
 		$this->loadModel('BookingSlot');
 		$this->loadModel('ServiceManager.ServiceType');
+		$this->loadModel('BookingCoupon');
+		$this->loadModel('Coupon');
 		if ($_SERVER["REQUEST_METHOD"]=="POST") {
 			$status_num = 5;
 			// $v .= "YES IT IS POST\n";
@@ -1578,6 +1612,13 @@ class PaymentsController extends PaymentManagerAppController{
 							$newData['BookingOrder']['ref_no']=$booking_detail['Booking']['ref_no'];
 							// get serviceType name 
 							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
+							$coupon = $this->BookingCoupon->find('first', ['conditions' => ['booking_id' => $booking_detail['Booking']['id']]]);
+							if (!empty($coupon)) {
+								$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $coupon['BookingCoupon']['coupon_id']]]);
+								$newData['BookingOrder']['discount'] = $discount['Coupon']['discount'];
+							} else {
+								$newData['BookingOrder']['discount'] = 0;
+							}
 							$service_slot_details=self::getBookedServicesVertical($newData,$service_slot_details); 	
 							$total_cart_price+=$cart_detail['Cart']['total_amount'];
 							//echo $service_slot_details;die;
