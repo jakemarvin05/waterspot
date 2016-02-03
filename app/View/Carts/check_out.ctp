@@ -109,7 +109,7 @@
                 <h3 class="text-center booking-section-title">Your Booking</h3>
                     <?php
                         if (isset($coupon)) {
-                            echo '<h4 style="padding: 23px 20px 0;background: #F9F9F9;margin: 0;font-size: 1.5em;text-decoration: underline;color: #F89F35;text-align: center;">Coupon Used: '.$coupon['Coupon']['discount'] * 100.'% discount to your total price.</h4>';
+                            echo '<h4 style="padding: 23px 20px 0;background: #F9F9F9;margin: 0;font-size: 1.5em;text-decoration: underline;color: #F89F35;text-align: center;">Coupon Used: '.$coupon['Coupon']['discount'] * 100 .'% discount to your total price.</h4>';
                         }
                     ?>
                 <div class="your-booking">

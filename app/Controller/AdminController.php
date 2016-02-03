@@ -182,8 +182,34 @@ class AdminController extends AppController {
 	public function coupon($id=null)
 	{
 		$this->loadModel('Coupon');
-		$coupons = $this->Coupon->find('all', ['order_by' => 'created_date DESC']);
-		$this->set('coupons', $coupons);
+		
+		if ($id == null) {
+			$coupons = $this->Coupon->find('all', ['order_by' => 'created_date DESC']);
+			$this->set('coupons', $coupons);
+		} else {
+			$this->loadModel('Booking');
+			$this->loadModel('BookingCoupon');
+			$this->loadModel('BookingOrder');
+			$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $id]]);
+			$bookings = $this->BookingOrder->find('all', [
+				'fields' => ['guest_email', 'service_title', 'booking_date', 'SUM(total_amount) as total_price'],
+				'conditions' => ['coupon_id' => $id],
+				'group' => 'ref_no',
+				'order' => 'booking_date DESC'
+				]
+			);
+			// foreach($bookings as $b) {
+			// 	print_r($b[0]);
+			// 	echo "<br><br><br><br>";
+			// }
+			// die;
+
+			$this->set('bookings', $bookings);
+			$this->set('coupon', $coupon);
+			$this->set('discount', $coupon['Coupon']['discount']);
+
+			$this->render('coupon_details');
+		}
 	}
 
 	public function coupon_add()
