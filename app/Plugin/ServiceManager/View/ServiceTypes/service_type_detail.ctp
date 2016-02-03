@@ -51,62 +51,6 @@
 			<?=$this->Html->image('loader-2.gif',array('style'=>'display:none;','alt'=>'Activity Loader','id'=>'loader-image'));?>
 		</div>
 	</div>
-
-	<div class="vendor-area row">
-		<div class="row">
-			<br>
-			<div class="col-sm-12 col-xs-12"> <h4>All activities of:</h4>
-				<br>
-
-				<div class="col-sm-3 col-xs-12 img-holder">
-					<!-- <a <?php echo $service_type_details['ServiceType']['youtube_url'] == null || $service_type_details['ServiceType']['youtube_url'] == '#' ? 'href="#"' : 'target="_blank" href="' . $service_type_details['ServiceType']['youtube_url'] . '"'; ?>> -->
-					<?php
-					/* Resize Image */
-					if(isset($service_type_details['ServiceType']['image'])) {
-						$imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$service_type_details['ServiceType']['image'],'width'=>290,'height'=>220,'noimg'=>$setting['site']['site_noimage']);
-						$resizedImg = $this->ImageResize->ResizeImage($imgArr);
-						echo $this->Html->image($resizedImg,array('border'=>'0',  'alt'=>$service_type_details['ServiceType']['name']));
-					}
-					?>
-					<!-- </a> -->
-
-					</div>
-
-				<div class="col-sm-9 col-xs-12">
-
-					<h5 class="vendor-name"><?=ucfirst($service_type_details['ServiceType']['name']); ?></h5>
-
-
-					<div class="vendorlisting-vendordesc"><?=$service_type_details['ServiceType']['description']?></div>
-					</div>
-
-	</div>
-		</div>
-
-        <noscript>
-			<div class='pag-box'>
-				<ul class="pagination">
-				<?php if($this->Paginator->first()){?>
-					<li><?php echo $this->Paginator->first('<< First',array('class'=>'button gray')); ?></li>
-					<?php } ?>
-					
-					<?php if($this->Paginator->hasPrev()){?>
-					<li><?php echo $this->Paginator->prev('< Previous',array('class'=>'button gray'), null, array('class'=>'disabled'));?></li>
-					<?php } ?>
-					
-					<?=$this->Paginator->numbers(array('modulus'=>7,'tag'=>'li','class'=>'','separator'=>'')); ?>
-					<?php if($this->Paginator->hasNext()){?>
-						<li><?php echo $this->Paginator->next('Next >',array('class'=>'button gray'));?></li>
-					<?php } ?>
-					<?php if($this->Paginator->last()){?>
-						<li><?php echo $this->Paginator->last('Last >>',array('class'=>'button gray')); ?></li>
-					<?php } ?>			  
-				</ul>
-		    </div>
-		</noscript>	
-         
-	</div>
-
 	<div class="clear"></div>
 </div>
 
