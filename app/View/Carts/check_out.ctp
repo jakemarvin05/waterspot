@@ -269,6 +269,15 @@
     </div>
 </div>
 <script type="text/javascript">
+    <?php
+        if($this->params['url']['CartPhone']) {
+            echo "$('#CartPhone').val('".$this->params['url']['CartPhone']."');";
+        }
+
+        if($this->params['url']['CartFname']) {
+            echo "$('#CartFname').val('".$this->params['url']['CartFname']."');";
+        }
+    ?>
     $('#validate_code').on('click', function(){
         $.ajax({
             url: '/carts/ajax_validate_code',
@@ -278,7 +287,18 @@
                 if (data == 'true') {
                     $('#validate_message').css('visibility', 'visible').css('color', '#0F0').html('Code is valid.');
                     // reload the checkout page
-                    location.reload();
+                    // location.reload();
+                    var ref = '/carts/check_out';
+                    var param = '';
+                    if ($('#CartPhone').val() != '') {
+                        param += (param == '') ? '?' : '&';
+                        param += 'CartPhone=' + $('#CartPhone').val();
+                    }
+                    if ($('#CartFname').val() != '') {
+                        param += (param == '') ? '?' : '&';
+                        param += 'CartFname=' + $('#CartFname').val();
+                    }
+                    window.location.href = ref + param;
                 } else if (data == 'invalid') {
                     $('#validate_message').css('visibility', 'visible').css('color', '#F00').html('Code is invalid.');
                 } else if (data == 'max_reached') {

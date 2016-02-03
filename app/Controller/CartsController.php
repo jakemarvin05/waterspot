@@ -630,6 +630,16 @@ Class CartsController extends AppController
         }
         $coupon_id = $this->Coupon->getIdByCode($this->request->data['code']);
         $this->Session->write('coupon_id', $coupon_id);
+
+        // store name and phone
+        if (!empty($this->request->data['fname'])) {
+            
+        }
+        if (!empty($this->request->data['fname'])) {
+            
+        }
+
+        
         return 'true';
     }
 }

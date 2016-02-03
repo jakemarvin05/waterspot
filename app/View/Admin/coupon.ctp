@@ -43,6 +43,7 @@
             <th>Max Usage</th>
             <th>Status</th>
             <th>Action</th>
+            <th>Claimer History</th>
         </tr>
 
         <?php if(count($coupons)): ?>
@@ -61,7 +62,7 @@
                             echo '<td>' . date('Y-m-d h:ia', strtotime($coupon['Coupon']['close_date'])) . '</td>';
                         }
                     ?>
-                    
+                    <td><a href="/admin/coupon/<?php echo $coupon['Coupon']['id']; ?>">View</a></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>

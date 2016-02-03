@@ -212,7 +212,11 @@
 						<li class="<?php if($this->params['action']=="allcachedelete") echo "current"; ?>"><?php echo $this->Html->link('Clear All Cache Memory', '/admin/settings/allcachedelete' );?></li>
 						<li class="<?php if($this->params['action']=="allcachedelete") echo "current"; ?>"><?php echo $this->Html->link('Clear All Service Image', '/admin/settings/allserviceimagedelete' );?></li>
 					</ul>
-				</li> 
+				</li>
+
+				<li>
+					<a href="/admin/coupon" class="articles">Coupons</a>
+				</li>
 				
 			</ul>
 		</nav>

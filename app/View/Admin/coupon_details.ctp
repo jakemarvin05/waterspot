@@ -17,7 +17,7 @@
 </div>
 
 <div>
-    <h3>Coupons</h3>
+    <h3>Redemption History</h3>
     <table>
         <tr>
             <th>Date</th>
