@@ -256,7 +256,7 @@ Class BookingsController extends VendorManagerAppController{
 
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
-	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
@@ -347,7 +347,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			$this->loadModel('Coupon');
 			$discount = 0;
-			$price_str = number_format($booking_order['BookingOrder']['total_amount']);
+			$price_str = '$'.number_format($booking_order['BookingOrder']['total_amount'], 2);
 			if ($booking_order['BookingOrder']['coupon_id']) {
 				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
 				$discount = $coupon['Coupon']['discount'];
@@ -356,7 +356,7 @@ Class BookingsController extends VendorManagerAppController{
 
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
-	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
@@ -448,7 +448,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			$this->loadModel('Coupon');
 			$discount = 0;
-			$price_str = number_format($booking_order['BookingOrder']['total_amount']);
+			$price_str = '$'.number_format($booking_order['BookingOrder']['total_amount'], 2);
 			if ($booking_order['BookingOrder']['coupon_id']) {
 				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
 				$discount = $coupon['Coupon']['discount'];
@@ -457,7 +457,7 @@ Class BookingsController extends VendorManagerAppController{
 
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
-	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
@@ -553,7 +553,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			$this->loadModel('Coupon');
 			$discount = 0;
-			$price_str = number_format($booking_order['BookingOrder']['total_amount']);
+			$price_str = '$'.number_format($booking_order['BookingOrder']['total_amount'], 2);
 			if ($booking_order['BookingOrder']['coupon_id']) {
 				$coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
 				$discount = $coupon['Coupon']['discount'];
@@ -562,7 +562,7 @@ Class BookingsController extends VendorManagerAppController{
 
 	        $global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
-	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['id'].'"},';
+	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
