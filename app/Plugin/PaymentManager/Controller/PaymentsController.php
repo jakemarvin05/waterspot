@@ -420,7 +420,7 @@ class PaymentsController extends PaymentManagerAppController{
 					$order['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($order['BookingOrder']['service_id']);
 
 					if (!is_null($order['BookingOrder']['coupon_id'])) {
-						$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $order['BookingOrder']['coupon_id']]]);
+						$discount = $this->Coupon->find('first', ['conditions' => ['id' => $order['BookingOrder']['coupon_id']]]);
 						$order['BookingOrder']['discount'] = $discount['Coupon']['discount'];
 					} else {
 						$order['BookingOrder']['discount'] = 0;
@@ -607,9 +607,19 @@ class PaymentsController extends PaymentManagerAppController{
 		$paid_by_user = $orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email']);
 		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($paid_by_user) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if ($orderBooked['BookingOrder']['no_participants'] > 1 && count($orderBooked['BookingOrder']['invite_friend_email']) > 0) {
-			$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
+			if ($orderBooked['BookingOrder']['discount'] != 0) {
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.$orderBooked['BookingOrder']['total_amount'].'</span>';
+				$price_str .= $orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']) . 'x' . $paid_by_user . ' = ' . number_format($price * (1 - $orderBooked['BookingOrder']['discount']),2);
+			} else {
+				$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
+			}
 		} else {
-			$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
+			if ($orderBooked['BookingOrder']['discount'] != 0) {
+				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.number_format($orderBooked['BookingOrder']['total_amount'], 2).'</span>';
+				$price_str .= '$' . number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']));
+			} else {
+				$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
+			}
 		}
 		// :/var/www/waterspot/app/Plugin/PaymentManager/Controller
 		if (strlen($booking_content) > 0) {
@@ -1123,7 +1133,7 @@ class PaymentsController extends PaymentManagerAppController{
 			<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
 		$this->loadModel('Coupon');
 		if (!is_null($booking_order_detail['BookingOrder']['coupon_id'])) {
-			$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $booking_order_detail['BookingOrder']['coupon_id']]]);
+			$discount = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order_detail['BookingOrder']['coupon_id']]]);
 			$booking_order_detail['BookingOrder']['discount'] = $discount['Coupon']['discount'];
 		} else {
 			$booking_order_detail['BookingOrder']['discount'] = 0;
@@ -1530,13 +1540,13 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('BookingCoupon');
 		$this->loadModel('Coupon');
-		if ($_SERVER["REQUEST_METHOD"]=="POST") {
+		if ($_SERVER["REQUEST_METHOD"]=="POST" || TRUE) {
 			$status_num = 5;
 			// $v .= "YES IT IS POST\n";
-			if ($_POST['payment_status'] == 'Completed') {
+			if ($_GET['payment_status'] == 'Completed') {
 				$status_num = 1;
 				// $v .= "status_num = 1\n";
-			} else if ( $_POST['payment_status'] == 'Pending') {
+			} else if ( $_GET['payment_status'] == 'Pending') {
 				$status_num = 4;
 				// $v .= "status_num = 4\n";
 			}
@@ -1556,19 +1566,19 @@ class PaymentsController extends PaymentManagerAppController{
 				
 				//update booking table
 				$booking_data['Booking']['id']= $booking_id;
-				$booking_data['Booking']['transaction_amount']=$_POST['mc_gross'];
+				$booking_data['Booking']['transaction_amount']=$_GET['mc_gross'];
 				$booking_data['Booking']['status']=$status_num;
-				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
+				$booking_data['Booking']['transaction_id'] = $_GET['txn_id'];
 				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
 				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
-				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
+				$booking_data['Booking']['secureHash'] = $_GET['verify_sign'];
 				$booking_data['Booking']['payment_ref'] = $payment_ref;
-				$booking_data['Booking']['payment_log'] = json_encode($_POST);
-				$booking_data['Booking']['currency_code'] = $_POST['mc_currency'];
+				$booking_data['Booking']['payment_log'] = json_encode($_GET);
+				$booking_data['Booking']['currency_code'] = $_GET['mc_currency'];
 				//$booking_data['Booking']['card_holder']=$post_data['Holder'];
 				//$booking_data['Booking']['authid']=$post_data['AuthId'];
-				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
-				$booking_data['Booking']['price'] = $_POST['mc_gross'];
+				$booking_data['Booking']['merchantId'] = $_GET['receiver_id'];
+				$booking_data['Booking']['price'] = $_GET['mc_gross'];
 				$this->Booking->create();
 				$this->Booking->save($booking_data,array('validate' => false));
 				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
@@ -1604,7 +1614,7 @@ class PaymentsController extends PaymentManagerAppController{
 							$newData['BookingOrder']['serviceTypeName']=$this->ServiceType->getServiceTypeNameByServiceId($newData['BookingOrder']['service_id']);
 							$coupon = $this->BookingCoupon->find('first', ['conditions' => ['booking_id' => $booking_detail['Booking']['id']]]);
 							if (!empty($coupon)) {
-								$discount = $this->Coupon->find('first', ['conditions' => ['coupon_id' => $coupon['BookingCoupon']['coupon_id']]]);
+								$discount = $this->Coupon->find('first', ['conditions' => ['id' => $coupon['BookingCoupon']['coupon_id']]]);
 								$newData['BookingOrder']['discount'] = $discount['Coupon']['discount'];
 							} else {
 								$newData['BookingOrder']['discount'] = 0;
