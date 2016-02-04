@@ -220,7 +220,7 @@ Class BookingsController extends VendorManagerAppController{
 		if(!empty($booking)){
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 1;
-			// $this->Booking->save($update_booking);
+			$this->Booking->save($update_booking);
 			
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
@@ -302,8 +302,6 @@ Class BookingsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
-			echo $data_string;
-			print_r($result);die;
 
 			$this->Session->setFlash('Booking has been accepeted successfully.','','message');
 		}else{
