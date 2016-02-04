@@ -270,11 +270,11 @@
 </div>
 <script type="text/javascript">
     <?php
-        if($this->params['url']['CartPhone']) {
+        if(isset($this->params['url']['CartPhone'])) {
             echo "$('#CartPhone').val('".$this->params['url']['CartPhone']."');";
         }
 
-        if($this->params['url']['CartFname']) {
+        if(isset($this->params['url']['CartFname'])) {
             echo "$('#CartFname').val('".$this->params['url']['CartFname']."');";
         }
     ?>
