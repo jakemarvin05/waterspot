@@ -607,19 +607,9 @@ class PaymentsController extends PaymentManagerAppController{
 		$paid_by_user = $orderBooked['BookingOrder']['no_participants'] - count($orderBooked['BookingOrder']['invite_friend_email']);
 		$price = $orderBooked['BookingOrder']['no_participants'] > 1 ? (($paid_by_user) * $orderBooked['BookingOrder']['total_amount'] )  : $orderBooked['BookingOrder']['total_amount'];
 		if ($orderBooked['BookingOrder']['no_participants'] > 1 && count($orderBooked['BookingOrder']['invite_friend_email']) > 0) {
-			if ($orderBooked['BookingOrder']['discount'] != 0) {
-				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.$orderBooked['BookingOrder']['total_amount'].'</span>';
-				$price_str .= $orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']) . 'x' . $paid_by_user . ' = ' . number_format($price * (1 - $orderBooked['BookingOrder']['discount']),2);
-			} else {
-				$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
-			}
+			$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
 		} else {
-			if ($orderBooked['BookingOrder']['discount'] != 0) {
-				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.number_format($orderBooked['BookingOrder']['total_amount'], 2).'</span>';
-				$price_str .= '$' . number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']));
-			} else {
-				$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
-			}
+			$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
 		}
 		// :/var/www/waterspot/app/Plugin/PaymentManager/Controller
 		if (strlen($booking_content) > 0) {
