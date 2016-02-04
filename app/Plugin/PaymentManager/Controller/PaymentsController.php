@@ -609,14 +609,14 @@ class PaymentsController extends PaymentManagerAppController{
 		if ($orderBooked['BookingOrder']['no_participants'] > 1 && count($orderBooked['BookingOrder']['invite_friend_email']) > 0) {
 			if ($orderBooked['BookingOrder']['discount'] != 0) {
 				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.$orderBooked['BookingOrder']['total_amount'].'</span>';
-				$price_str .= $orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']) . 'x' . $paid_by_user . ' = ' . number_format($price * (1 - $orderBooked['BookingOrder']['discount']),2);
+				$price_str .= number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']), 2) . 'x' . $paid_by_user . ' = ' . number_format($price * (1 - $orderBooked['BookingOrder']['discount']),2);
 			} else {
 				$price_str = $orderBooked['BookingOrder']['total_amount'] . 'x' . $paid_by_user . ' = ' . number_format($price,2);
 			}
 		} else {
 			if ($orderBooked['BookingOrder']['discount'] != 0) {
 				$price_str = '<span style="text-decoration:line-through; color:#F00;">$'.number_format($orderBooked['BookingOrder']['total_amount'], 2).'</span>';
-				$price_str .= '$' . number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']));
+				$price_str .= '$' . number_format($orderBooked['BookingOrder']['total_amount'] * (1 - $orderBooked['BookingOrder']['discount']), 2);
 			} else {
 				$price_str = number_format($orderBooked['BookingOrder']['total_amount'], 2);
 			}
