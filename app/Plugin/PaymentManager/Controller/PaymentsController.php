@@ -1540,13 +1540,13 @@ class PaymentsController extends PaymentManagerAppController{
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('BookingCoupon');
 		$this->loadModel('Coupon');
-		if ($_SERVER["REQUEST_METHOD"]=="POST" || TRUE) {
+		if ($_SERVER["REQUEST_METHOD"]=="POST") {
 			$status_num = 5;
 			// $v .= "YES IT IS POST\n";
-			if ($_GET['payment_status'] == 'Completed') {
+			if ($_POST['payment_status'] == 'Completed') {
 				$status_num = 1;
 				// $v .= "status_num = 1\n";
-			} else if ( $_GET['payment_status'] == 'Pending') {
+			} else if ( $_POST['payment_status'] == 'Pending') {
 				$status_num = 4;
 				// $v .= "status_num = 4\n";
 			}
@@ -1566,19 +1566,19 @@ class PaymentsController extends PaymentManagerAppController{
 				
 				//update booking table
 				$booking_data['Booking']['id']= $booking_id;
-				$booking_data['Booking']['transaction_amount']=$_GET['mc_gross'];
+				$booking_data['Booking']['transaction_amount']=$_POST['mc_gross'];
 				$booking_data['Booking']['status']=$status_num;
-				$booking_data['Booking']['transaction_id'] = $_GET['txn_id'];
+				$booking_data['Booking']['transaction_id'] = $_POST['txn_id'];
 				$booking_data['Booking']['booking_date'] = date('Y-m-d H:i:s');
 				$booking_data['Booking']['time_stamp'] = date('Y-m-d H:i:s');
-				$booking_data['Booking']['secureHash'] = $_GET['verify_sign'];
+				$booking_data['Booking']['secureHash'] = $_POST['verify_sign'];
 				$booking_data['Booking']['payment_ref'] = $payment_ref;
-				$booking_data['Booking']['payment_log'] = json_encode($_GET);
-				$booking_data['Booking']['currency_code'] = $_GET['mc_currency'];
+				$booking_data['Booking']['payment_log'] = json_encode($_POST);
+				$booking_data['Booking']['currency_code'] = $_POST['mc_currency'];
 				//$booking_data['Booking']['card_holder']=$post_data['Holder'];
 				//$booking_data['Booking']['authid']=$post_data['AuthId'];
-				$booking_data['Booking']['merchantId'] = $_GET['receiver_id'];
-				$booking_data['Booking']['price'] = $_GET['mc_gross'];
+				$booking_data['Booking']['merchantId'] = $_POST['receiver_id'];
+				$booking_data['Booking']['price'] = $_POST['mc_gross'];
 				$this->Booking->create();
 				$this->Booking->save($booking_data,array('validate' => false));
 				$booking_detail=$this->Booking->getBookingDetailsByBooking_id($booking_id);
