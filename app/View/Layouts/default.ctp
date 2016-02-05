@@ -10,7 +10,7 @@ class="ie ie8" lang="en-US"> <![endif]--> <!--[if (gte IE 9)|!(IE)]><!-->
 <meta property="og:title" content="<?php echo  (isset($web_title) ? $web_title : 'Waterspot'); ?>">
 <meta property="og:type" content="<?php echo (isset($web_type) ? $web_type : 'website'); ?>">
 <meta property="og:url" content="<?php echo (isset($web_url) ? $web_url : 'http://www.waterspot.com.sg'); ?>">
-<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>(isset($web_image['image'])?$web_image['image']:''),'width'=>600,'height'=>400,'noimg'=>$setting['site']['site_noimage']);
+<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>(isset($web_image['image'])?$web_image['image']:''),'width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
 $resizedImg = 'http://www.waterspot.com.sg/img/'.$this->ImageResize->ResizeImage($imgArr);
 ?>
 <meta property="og:image" content="<?php echo isset($web_image) ? $resizedImg : 'http://www.waterspot.com.sg/img/logo-colored.png'; ?>">

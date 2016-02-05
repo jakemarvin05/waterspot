@@ -11,7 +11,7 @@
 				<?php endforeach; ?>
 			<?php endif; ?>
 			<? foreach($service_detail['image'] as $key=>$image){ ?>
-				<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$image['image'],'width'=>600,'height'=>456,'noimg'=>$setting['site']['site_noimage']);
+				<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$image['image'],'width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
 				$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 				echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_detail['Service']['service_title'])) ; ?>
 				
@@ -25,7 +25,7 @@
 	</div>
 <?php } else {?> 
 	<div>
-		<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>'','width'=>600,'height'=>456,'noimg'=>$setting['site']['site_noimage']);
+		<? $imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>'','width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
 		$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 		echo $this->Html->image($resizedImg,array('border'=>'0','alt'=>$service_detail['Service']['service_title'])) ; ?>
 	</div>
