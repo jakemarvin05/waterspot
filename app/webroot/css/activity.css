@@ -556,10 +556,10 @@ section#activityPanorama img {
 .mobileArrowsInner {
     height: 100%; width: 100%;
 }
-    .mobileArrows .glyphicon {
-        margin: auto;
-        font-size: 40px;
-    }
+.mobileArrows .glyphicon {
+    margin: auto;
+    font-size: 40px;
+}
 .mobileTabsOuter {
     font-family: 'Lato', sans-serif;
     font-size: 30px;
@@ -592,7 +592,7 @@ section#activityPanorama img {
     font-size: 13px;
 }
 .activities-attributes-header {
-    color: #ccc;
+    color: #C4C4C4;
     font-size: 15px;
 }
 @media (min-width: 960px) {
