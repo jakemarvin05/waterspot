@@ -7,106 +7,11 @@
 
             <h1 class=" headerAlt">Book Now</h1>
         </header>
-        <div class="container">
-            <div class="col-sm-6 col-sm-offset-3 col-xs-12">
-                <?php echo $this->element('message'); ?>
 
-                <div class="<?= (!empty($cart_details)) ? 'ch-out' : 'middle-area' ?>">
-
-                    <? $sub_total = 0;
-                    if (!empty($cart_details)) { ?>
-                        <? if (empty($redirect_login)) { ?>
-
-                            <div class="mark">We just need a few details from you to complete this transaction. Required
-                                fields marked (<span style="color:#F00;">*</span>)
-                            </div>
-                            <?php echo $this->element('message'); ?>
-                            <div class="registration-form-box">
-                                <?php echo $this->Form->create('Cart', array('name' => 'check_out', 'action' => 'booking_request', 'class' => 'registration-form', 'id' => 'CartId')) ?>
-                                <?php echo $this->Form->input('id', array('value' => $cart_details[0]["Cart"]["id"])); ?>
-
-                                <div class="registration-form-row">
-                                    <div class="labelbox">
-                                        <label>Name : <span style="color:#ff4142;">*</span></label>
-                                    </div>
-
-                                    <div class="fieldbox">
-                                        <?= $this->Form->input('fname', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-                                        <?= $this->Form->error('fname', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                                    </div>
-                                </div>
-                                <div class="registration-form-row">
-                                    <div class="labelbox">
-                                        <label>Email address : <span style="color:#ff4142;">*</span></label>
-                                    </div>
-                                    <div class="fieldbox">
-                                        <?= $this->Form->input('email', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-                                        <?= $this->Form->error('email', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                                    </div>
-                                </div>
-                                <div class="registration-form-row">
-                                    <div class="labelbox">
-                                        <label>Phone : <span style="color:#ff4142;"> *</span></label>
-                                    </div>
-                                    <div class="fieldbox">
-                                        <?= $this->Form->input('phone', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-                                        <?= $this->Form->error('phone', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-                                    </div>
-                                </div>
-                                <div class="registration-form-row" style="text-align: right;">
-                                    <!--<input class="submit-button addtocart-button" value="Pay Now" type="submit">-->
-                                    <input class="btn btnDefaults btnFillOrange" value="Book Now" type="submit">
-                                </div>
-                                <div class="registration-form-row" style="margin: 15px 0 0 175px; text-align: left;">
-                                    <?= $this->Html->image('asia-payment-logos.jpg', array('alt' => 'asiapay')); ?>
-                                </div>
-                                <?php echo $this->Form->end(); ?>
-                            </div>
-                            <?php if (!isset($coupon)) { ?>
-                                <div class="registration-form-box">
-                                    <div class="registration-form-row">
-                                        <div class="labelbox">
-                                            <label>Coupon code: </label>
-                                        </div>
-                                        <div class="fieldbox">
-                                            <?= $this->Form->input('coupon', array('id' => 'code', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-                                            <div id="validate_message" style="visibility:hidden;"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="registration-form-row" style="text-align: right;">
-                                        <button id="validate_code" class="btn btnDefaults btnFillOrange" type="button">Validate Code</button>
-                                    </div>
-                                </div>
-                            <?php } else {
-                                    // echo "<h3>Coupon Used:</h3>";
-                                    // echo "<h4>" . $coupon['Coupon']['discount'] * 100 . "% discount to your total price.</h4>";
-                                } ?>
-                        <? } else { ?>
-                            <div style="padding: 10px;">
-                                <?= $this->element('message'); ?>
-                                <p style=margin:0;>
-                                    Please <?= $this->Html->link('Login', array('plugin' => 'member_manager', 'controller' => 'members', 'action' => 'login?redirect_url=' . $redirect_login)) ?>
-                                    or <?= $this->Html->link('Register', array('plugin' => 'member_manager', 'controller' => 'members', 'action' => 'registration?redirect_url=' . $redirect_login)) ?>
-                                    to continue...</p>
-                            </div>
-                        <? } //end if else condition ?>
-                    <? } else { ?>
-                        <div>
-                            <div class="service-hd">Your cart is empty</div>
-                            <?php echo $cart_page['Page']['page_longdescription']; ?>
-                            <p class="empty">
-                                <?= $this->Html->link("Click here to add new activities.", array('controller' => 'activity', 'action' => 'activities'), array('class' => 'btn btnDefaults btnFillOrange')); ?>
-                            </p>
-                        </div>
-                    <? } ?>
-                </div>
-            </div>
-        </div>
 
         <div class="col-sm-8 col-sm-offset-2 col-xs-12">
             <? if (!empty($cart_details)) { ?>
-                <h3 class="text-center booking-section-title">Your Booking</h3>
+                <h3 class="text-center booking-section-title" style="border-top:none;">Your Booking</h3>
                     <?php
                         if (isset($coupon)) {
                             echo '<h4 style="padding: 23px 20px 0;background: #F9F9F9;margin: 0;font-size: 1.5em;text-decoration: underline;color: #F89F35;text-align: center;">Coupon Used: '.$coupon['Coupon']['discount'] * 100 .'% discount to your total price.</h4>';
@@ -244,6 +149,104 @@
                 <?php echo $this->element('activity/cart_guest'); ?>
             <? } ?>
         </div>
+
+        <div class="container">
+            <div class="col-sm-6 col-sm-offset-3 col-xs-12" style="border-top:dashed 1px #ddd">
+                <?php echo $this->element('message'); ?>
+
+                <div class="<?= (!empty($cart_details)) ? 'ch-out' : 'middle-area' ?>">
+
+                    <? $sub_total = 0;
+                    if (!empty($cart_details)) { ?>
+                        <? if (empty($redirect_login)) { ?>
+
+                            <div class="mark">We just need a few details from you to complete this transaction. Required
+                                fields marked (<span style="color:#F00;">*</span>)
+                            </div>
+                            <?php echo $this->element('message'); ?>
+                            <div class="registration-form-box">
+                                <?php echo $this->Form->create('Cart', array('name' => 'check_out', 'action' => 'booking_request', 'class' => 'registration-form', 'id' => 'CartId')) ?>
+                                <?php echo $this->Form->input('id', array('value' => $cart_details[0]["Cart"]["id"])); ?>
+
+                                <div class="registration-form-row">
+                                    <div class="labelbox">
+                                        <label>Name : <span style="color:#ff4142;">*</span></label>
+                                    </div>
+
+                                    <div class="fieldbox">
+                                        <?= $this->Form->input('fname', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                        <?= $this->Form->error('fname', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                                    </div>
+                                </div>
+                                <div class="registration-form-row">
+                                    <div class="labelbox">
+                                        <label>Email address : <span style="color:#ff4142;">*</span></label>
+                                    </div>
+                                    <div class="fieldbox">
+                                        <?= $this->Form->input('email', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                        <?= $this->Form->error('email', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                                    </div>
+                                </div>
+                                <div class="registration-form-row">
+                                    <div class="labelbox">
+                                        <label>Phone : <span style="color:#ff4142;"> *</span></label>
+                                    </div>
+                                    <div class="fieldbox">
+                                        <?= $this->Form->input('phone', array('type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                        <?= $this->Form->error('phone', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                                    </div>
+                                </div>
+                                <div class="registration-form-row" style="text-align: right;">
+                                    <!--<input class="submit-button addtocart-button" value="Pay Now" type="submit">-->
+                                    <input class="btn btnDefaults btnFillOrange" value="Book Now" type="submit">
+                                </div>
+                                <div class="registration-form-row" style="margin: 15px 0 0 175px; text-align: left;">
+                                    <?= $this->Html->image('asia-payment-logos.jpg', array('alt' => 'asiapay')); ?>
+                                </div>
+                                <?php echo $this->Form->end(); ?>
+                            </div>
+                            <?php if (!isset($coupon)) { ?>
+                                <div class="registration-form-box">
+                                    <div class="registration-form-row">
+                                        <div class="labelbox">
+                                            <label>Coupon code: </label>
+                                        </div>
+                                        <div class="fieldbox">
+                                            <?= $this->Form->input('coupon', array('id' => 'code', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+                                            <div id="validate_message" style="visibility:hidden;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="registration-form-row" style="text-align: right;">
+                                        <button id="validate_code" class="btn btnDefaults btnFillOrange" type="button">Validate Code</button>
+                                    </div>
+                                </div>
+                            <?php } else {
+                                    // echo "<h3>Coupon Used:</h3>";
+                                    // echo "<h4>" . $coupon['Coupon']['discount'] * 100 . "% discount to your total price.</h4>";
+                                } ?>
+                        <? } else { ?>
+                            <div style="padding: 10px;">
+                                <?= $this->element('message'); ?>
+                                <p style=margin:0;>
+                                    Please <?= $this->Html->link('Login', array('plugin' => 'member_manager', 'controller' => 'members', 'action' => 'login?redirect_url=' . $redirect_login)) ?>
+                                    or <?= $this->Html->link('Register', array('plugin' => 'member_manager', 'controller' => 'members', 'action' => 'registration?redirect_url=' . $redirect_login)) ?>
+                                    to continue...</p>
+                            </div>
+                        <? } //end if else condition ?>
+                    <? } else { ?>
+                        <div>
+                            <div class="service-hd">Your cart is empty</div>
+                            <?php echo $cart_page['Page']['page_longdescription']; ?>
+                            <p class="empty">
+                                <?= $this->Html->link("Click here to add new activities.", array('controller' => 'activity', 'action' => 'activities'), array('class' => 'btn btnDefaults btnFillOrange')); ?>
+                            </p>
+                        </div>
+                    <? } ?>
+                </div>
+            </div>
+        </div>
+
     </section>
 </div>
 <!-- Modal -->
