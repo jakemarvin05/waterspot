@@ -41,7 +41,7 @@
 
             <!-- subscribe block -->
             <div class="footerCol col-sm-4">
-                <h4 class="headerAlt">SUBSCRIBE</h4>
+                <p class="footerContactSmallHeader">SUBSCRIBE</p>
                 <!-- Begin MailChimp Signup Form -->
                 <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
                 <style type="text/css">

@@ -551,6 +551,7 @@ ul.dropdown-menu ul li a:before {
     font-size: 15px;
     letter-spacing: 2px;
     text-transform: uppercase;
+    padding-left: 10px;
 }
 #footer h4, .footerContactSmallHeader, .footerContactAfterHeader {
     color: #ccc;
@@ -607,7 +608,8 @@ a.smIcons:hover img:first-child {
     text-transform: uppercase;
     color: #888;
     letter-spacing: 2px;
-    font-size: 11px;
+    font-size: 15px;
+    font-weight: 200;
 }
 .footerContactAfterHeader {
     font-size: 24px;
@@ -1122,4 +1124,9 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid #ddd;
+}
+
+/* Style for the padding of the newsletter form on the bottom of the page */
+#mc_embed_signup form {
+    padding: 0!important;
 }
