@@ -49,10 +49,11 @@
                        We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
                 </style>
                 <div id="mc_embed_signup">
-                <form action="//waterspot.us11.list-manage.com/subscribe/post?u=5931912452094114bc63c4074&amp;id=750e43a4a4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate style="padding:0;">
+                <form action="//waterspot.us11.list-manage.com/subscribe/post?u=5931912452094114bc63c4074&amp;id=750e43a4a4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                     <div id="mc_embed_signup_scroll">
+                    <h2>Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:</h2>
                 <div class="mc-field-group" style="width:100%;">
-                    <label for="mce-EMAIL" class="footerContactSmallHeader" style="margin-bottom:9px">Email Address  <span class="asterisk">*</span>
+                    <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
                 </label>
                     <input type="email" value="" name="EMAIL" class="form-control required email" id="mce-EMAIL" style="
   color: #999;
