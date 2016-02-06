@@ -20,7 +20,7 @@ $resizedImg = 'http://www.waterspot.com.sg/img/'.$this->ImageResize->ResizeImage
 <meta name="description" content="<?=$metadescription;?>" />
 <meta name="viewport" content="initial-scale=1">
 <meta name="keywords" content="<?=$metakeyword;?>" />
-<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
 
