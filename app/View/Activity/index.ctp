@@ -118,7 +118,7 @@
 
     <div id="activityWhiteBg"></div>
 
-    <div class="container-fluid">
+    <div class="container-fluid content-wrapper">
 
         <section class="left-section col-sm-8">
             <div class="theiaStickySidebar">
@@ -513,10 +513,9 @@
 
 
     $(document).ready(function () {
-        $('#sidebar').theiaStickySidebar({
+        $('.right-section, .left-section').theiaStickySidebar({
             minWidth: 768,
             additionalMarginBottom: 20,
-            container: '.container-fluid',
             additionalMarginTop: 180,
             scrollThrough: ['.left-section']
         });
