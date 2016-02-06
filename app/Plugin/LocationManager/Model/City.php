@@ -57,7 +57,7 @@ Class City extends AppModel {
 		 
 		$city_name= $this->find('first',$criteria);
 		
-		return $city_name[0]['cityname'];
+		return $city_name?$city_name[0]['cityname']:null;
 	}
 }
 ?>

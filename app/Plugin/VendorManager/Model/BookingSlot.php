@@ -47,7 +47,7 @@ Class BookingSlot extends VendorManagerAppModel {
 			'group' => 'BookingSlot.ref_no'
 			)
 		);
-		$count = $booking_slots[0][0]['count'];
+		$count = $booking_slots?$booking_slots[0][0]['count']:0;
 		if ($count == 0) return 0;
 		$count = 0;
 		$booking_participate = new BookingParticipate();

@@ -513,10 +513,11 @@
 
 
     $(document).ready(function () {
-        $('.left-section, .right-section').theiaStickySidebar({
+        $('#sidebar').theiaStickySidebar({
             minWidth: 768,
             additionalMarginBottom: 20,
-            additionalMarginTop: 120,
+            container: '.container-fluid',
+            additionalMarginTop: 180,
             scrollThrough: ['.left-section']
         });
 

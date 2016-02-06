@@ -56,7 +56,7 @@ Class ServiceReview extends VendorManagerAppModel {
 			$critria['conditions'] = array('ServiceReview.service_id' => $service_id,'ServiceReview.status' => 1);
 			$critria['group'] = array('ServiceReview.service_id');
 			$service_reviews = $this->find('all', $critria);
-			return $service_reviews[0][0]['rating'];
+			return $service_reviews?$service_reviews[0][0]['rating']:null;
 		}
 		
 		function getVendorRatings($vendor_id = null){

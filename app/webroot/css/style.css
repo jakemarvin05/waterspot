@@ -666,7 +666,7 @@ a.smIcons:hover img:first-child {
 #copyright {
     background-color: #1d1d1d;
     color: #595959;
-    padding: 20px 40px 10px;
+    padding: 20px 40px 40px;
 }
 @media (max-width: 767px) {
     #copyright {
@@ -696,7 +696,7 @@ a.smIcons:hover img:first-child {
     width: 250px;
     height: auto;
     display: inline-block;
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 /* Make sure the select tag is hidden */

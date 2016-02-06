@@ -382,8 +382,8 @@ Class ActivityController extends AppController{
 						$new->start_time = $slot['ServiceSlot']['start_time'];
 						$new->end_time = $slot['ServiceSlot']['end_time'];
 						$new->price = $slot['ServiceSlot']['price'];
-						$new->fire_sales_price = $slot['ServiceSlot']['fire_sales_price'];
-						$new->fire_sales_day_margin = $slot['ServiceSlot']['fire_sales_day_margin'];
+						$new->fire_sales_price = isset($slot['ServiceSlot']['fire_sales_price'])?$slot['ServiceSlot']['fire_sales_price']:null;
+						$new->fire_sales_day_margin = isset($slot['ServiceSlot']['fire_sales_day_margin'])?$slot['ServiceSlot']['fire_sales_day_margin']:null;
 						$current_booked_count = $this->BookingSlot->usedSlotCount($service_id, $selected_date, $new->start_time, $new->end_time);
 						$new->available_count = $service_details['no_person'] - $current_booked_count;
 						$new->current_booked_count = $current_booked_count;
