@@ -74,13 +74,6 @@
                      </div>
                 </div>
             </a>
-            <a href="/vendor/vendor_list/">
-                <div class="navGroup">
-                    <div class="navButtonOuter <?php if($this->params['controller']=="vendors" ){ echo "navActive"; }?>">
-                        <i class="fa fa-list-alt"></i><span class="navTextLabel">VENDORS</span>
-                    </div>
-                </div>
-            </a>
             <a href="/activities/">
                 <div class="navGroup">
                     <div class="navButtonOuter <?php if($this->params['controller']=="activity" ){ echo "navActive"; }?>">
