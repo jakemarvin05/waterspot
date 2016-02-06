@@ -259,7 +259,7 @@
                                     <div class="check-terms">
                                         <label>
                                             <p>
-                                                <input name="terms_and_condition" type="checkbox"/> I agree with the <a href="http://waterspot.dev.lan/terms" target="_blank"> Terms & Conditions</a>
+                                                <input name="terms_and_condition" type="checkbox"/> I agree with the <a href="/terms" target="_blank"> Terms & Conditions</a>
                                             </p>
                                         </label>
                                     </div>
