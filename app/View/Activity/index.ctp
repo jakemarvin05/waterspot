@@ -520,8 +520,8 @@
             additionalMarginTop: 180,
             scrollThrough: ['.left-section']
         });
-
-        $('#loginButton').attr('disabled','disabled');
+        $('[name=terms_and_condition]').attr('checked', false);
+        $('#loginButton').prop('disabled',true);
 
         $('[name=terms_and_condition]').change(function(){
             if($(this).is(":checked")){
@@ -572,4 +572,5 @@
     $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
 
     get_service_availability();
+
 </script>
