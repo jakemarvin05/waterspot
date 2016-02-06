@@ -373,6 +373,9 @@ form#MemberRegistration {
     font-size: 14px;
     text-transform: uppercase;
 }
+form#booking_form input.dashboard-buttons[type=submit] {
+    margin: 10px;
+}
 input.dashboard-buttons {
     color: #fff;
     background-color: #fda424;
