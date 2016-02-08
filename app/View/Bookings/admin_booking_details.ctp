@@ -1,3 +1,43 @@
+<style type="text/css">
+     .fancybox-wrap {
+        width: 100%!important;
+        height: 100%!important;
+        background: rgba(0, 0, 0, 0.5);
+        display: block;
+        left: 0!important;
+        top: 0!important;
+    }
+
+    .fancybox-skin {
+        margin: 11% auto;
+        width: 870px!important;
+    }
+    .fancybox-outer {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        min-height: 140px;
+    }
+
+     .fancybox-outer h3 {
+         font-family: Arial;
+         font-size: 22px;
+         line-height: normal;
+         font-weight: bold;
+         color: #606060;
+         margin: 0 0 10px 0;
+         padding: 0;
+         text-transform: capitalize;
+         border: 0;
+         width: 100%;
+         font-weight: bold;
+     }
+
+    .fancybox-outer .fancybox-inner {
+        width: 100%!important;
+        height: 100%!important;
+    }
+</style>
 <? $payment_status=Configure::read('payment_status'); ?>
 <article>
     <header>
@@ -46,11 +86,11 @@
 		    <td><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['start_date'])); ?></td>
 		    <td><?=date(Configure::read('Calender_format_php'),strtotime($order_detail['BookingOrder']['end_date'])); ?></td>
 		    <td>
-			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Vendor Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_vendor_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
+			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Vendor Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_vendor_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox fancybox.ajax admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
 		    </td>
 		    <td>
 			<? if($order_detail['BookingOrder']['no_participants']!=1){ ?>
-			    <?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Member Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_member_invite_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
+			    <?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Member Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_member_invite_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox fancybox.ajax admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
 			    <span class="number">(<?=($order_detail['BookingOrder']['no_participants']-1) ?>)</span>
 			<?} else {
 			    echo "No Invited.";
@@ -69,10 +109,10 @@
                 ?>
             </td>
 		    <td>
-			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Slots Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
+			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'','title'=>'View Slots Details')),array('plugin'=>false,'controller'=>'bookings','action'=>'booking_slot_details',$order_detail['BookingOrder']['id']),array('escape' => false,'class'=>'view fancybox fancybox.ajax admin-view-pop','title'=> __('View'),'rel'=>'tooltip'));?>
 		    </td>
 		    <!-- <td>
-			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Slots Details','title'=>'View Slots Details')), array('plugin'=>false,'controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']), array('escape' => false,'class'=>'view fancybox admin-view-pop','title'=> __('View'),'rel'=>'tooltip'))?>
+			<?=$this->Html->link($this->Html->image('view.png',array('alt'=>'View Slots Details','title'=>'View Slots Details')), array('plugin'=>false,'controller'=>'bookings','action'=>'booking_vas_details',$order_detail['BookingOrder']['id']), array('escape' => false,'class'=>'view fancybox fancybox.ajax admin-view-pop','title'=> __('View'),'rel'=>'tooltip'))?>
 		    </td> -->
 		</tr>
 	    <? } ?>
@@ -102,3 +142,16 @@
 	<div><? echo (!empty($customer_detail['Booking']['order_message']))? $customer_detail['Booking']['order_message']:'There are no order message';?></div>
     <? }?>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.fancybox').fancybox({
+            closeBtn: true
+        });
+
+    $('body').on('click','.fancybox-wrap',function(){
+        $(this).fadeOut();
+    });
+
+    });
+
+</script>
