@@ -1,6 +1,6 @@
 <?=$this->Html->css('fancybox-inner.css');?>
 
-<h3>Slots Details</h3>
+<h3>Slots Details2</h3>
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tr>
 		<th width="15%">S. No.</th>
@@ -12,7 +12,7 @@
 			<tr>
 				<td><?=($key+1); ?>.</td>
 				<td><?=date(Configure::read('Calender_format_php'),strtotime($booking_slot['BookingSlot']['start_time'])); ?></td>
-				<td>$<? echo $this->Time->meridian_format($booking_slot['BookingSlot']['start_time']);?> To <?=$this->Time->end_meridian_format($booking_slot['BookingSlot']['end_time']);?></td>
+				<td><? echo $this->Time->meridian_format($booking_slot['BookingSlot']['start_time']);?> To <?=$this->Time->end_meridian_format($booking_slot['BookingSlot']['end_time']);?></td>
 			</tr>
 		<? } // end of foreach ?>	
 	<? } else {?>
