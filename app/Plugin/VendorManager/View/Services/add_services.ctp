@@ -190,7 +190,7 @@
             <div class="dashboard-form-row row servcont">
                 <div class="labelbox">
                     <!-- city_id as location_id -->
-                    <label>Images(Dimensions should be 600 X 400): </label>
+                    <label>Images(Dimensions should be 600 X 450): </label>
                 </div>
                 <div class="fieldbox image-group">
                     <? if (!empty($this->request->data['ServiceImage'])) {
