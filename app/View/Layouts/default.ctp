@@ -21,7 +21,7 @@ $resizedImg = 'http://www.waterspot.com.sg/img/'.$this->ImageResize->ResizeImage
 <meta name="viewport" content="initial-scale=1">
 <meta name="keywords" content="<?=$metakeyword;?>" />
 <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
 
 
 <!-- Bootstrap: JS is at the bottom -->
