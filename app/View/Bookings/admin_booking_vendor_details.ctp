@@ -1,4 +1,4 @@
-<h3 class="small">Invited Member Details</h3>
+<h3 class="small">Vendor Details</h3>
 <table width="100%" cellpadding="0" cellspacing="0" border="0" class="admin-content">
 	<tr>
 		<th width="30%">Name</th>
