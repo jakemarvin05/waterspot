@@ -267,6 +267,8 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
+	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+
 	        $data_string = '{
 	                "key": "RcGToklPpGQ56uCAkEpY5A",
 	                "template_name": "user_booking_confirmation",
@@ -282,7 +284,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
+	                                        "email": "'.$to.'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -367,6 +369,8 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
+	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+
 	        $data_string = '{
 	                "key": "RcGToklPpGQ56uCAkEpY5A",
 	                "template_name": "booking_request_declined",
@@ -382,7 +386,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
+	                                        "email": "'.$to.'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -468,6 +472,8 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
+	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+
 	        $data_string = '{
 	                "key": "RcGToklPpGQ56uCAkEpY5A",
 	                "template_name": "user_booking_confirmation",
@@ -483,7 +489,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
+	                                        "email": "'.$to.'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
@@ -573,6 +579,8 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
+	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+
 	        $data_string = '{
 	                "key": "RcGToklPpGQ56uCAkEpY5A",
 	                "template_name": "booking_request_declined",
@@ -588,7 +596,7 @@ Class BookingsController extends VendorManagerAppController{
 	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
 	                        "to": [
 	                                {
-	                                        "email": "'.$booking_order['BookingOrder']['guest_email'].'",
+	                                        "email": "'.$to.'",
 	                                        "name": "'.$full_name.'",
 	                                        "type": "to"
 	                                }
