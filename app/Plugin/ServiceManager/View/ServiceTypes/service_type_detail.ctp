@@ -84,13 +84,10 @@
                         success:function(data){
 							loading_start = 0;
 							$('#loader-image').hide();
-							$('.vendorwise-listing:last').after(data );
-							$('.contentselector').contenthover({
-								data_selector: '.contenthover',
-								effect:'slide',
-								slide_direction: 'left',
-								slide_speed:300,
-								overlay_opacity: 1
+							$('.activities-listing:last').after(data );
+							$('.tile').contenthover({
+								overlay_background:'#000',
+								overlay_opacity:1
 							});
 							
                             if(page >= pages){
