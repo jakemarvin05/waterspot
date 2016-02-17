@@ -53,9 +53,9 @@
                     <div id="mc_embed_signup_scroll">
                     <h2>Get Latest <strong>Offers</strong> & <strong>Coupons</strong> by Email:</h2>
                 <div class="mc-field-group" style="width:100%;">
-                    <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+                    <!-- <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span> -->
                 </label>
-                    <input type="email" value="" name="EMAIL" class="form-control required email" id="mce-EMAIL" style="
+                    <input type="email" placeholder="* Email Address" value="" name="EMAIL" class="form-control required email" id="mce-EMAIL" style="
   color: #999;
   background-color: rgba(0,0,0,.2);
   border-color: rgba(0,0,0,.25);">
