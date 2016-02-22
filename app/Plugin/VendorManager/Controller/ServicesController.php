@@ -209,7 +209,9 @@ Class ServicesController extends VendorManagerAppController{
 			self::_vendor_add_service($this->Service->id);
 			// saving services images 
 			self::_add_service_image($this->Service->id);
-
+			if ($this->Session->read('panorama_image')) {
+				$this->Session->delete('panorama_image');
+			}
 			$this->Session->setFlash(__('Service has been '.$savemsg. ' successfully.'));
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'services', 'action' => 'my_services'));	
 		}
@@ -768,6 +770,9 @@ Class ServicesController extends VendorManagerAppController{
 			self::_vendor_add_service($this->Service->id);
 			self::_add_service_image($this->Service->id);
 			$this->Session->setFlash(__('Service has been '.$savemsg. ' successfully.'));
+			if ($this->Session->read('panorama_image')) {
+				$this->Session->delete('panorama_image');
+			}
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'services', 'action' => 'admin_servicelist',$vendor_id));	
 		}
 		else{
