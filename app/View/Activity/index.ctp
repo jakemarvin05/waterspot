@@ -512,7 +512,7 @@
     });
 
 
-    $(document).ready(function () {
+    $(window).load(function () {
         $('.right-section, .left-section').theiaStickySidebar({
             minWidth: 768,
             additionalMarginBottom: 20,
