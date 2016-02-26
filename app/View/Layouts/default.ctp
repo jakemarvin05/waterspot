@@ -148,7 +148,7 @@ foreach($cssBlocks as $cssBlock) {
 	 <section id="splashVideoCont">
             <div id="splashVideoCropper">
                 <video autoplay loop muted poster="img/splash-statics/slide1.jpg">
-                  <source src="media/watersports.mp4" type="video/mp4">
+                  <source src="media/HomePage.webmsd.webm" type="video/mp4">
                   <img src="img/splash-statics/slide1.jpg">
                 </video>
                 <img src="img/splash-statics/slide1.jpg">
