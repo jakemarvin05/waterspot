@@ -366,6 +366,11 @@ Class ActivityController extends AppController{
 				foreach ($new_service_slots as $key => $service_slot) {
 					$slot_index_new = [];
 					foreach($service_slot['slotindex'] as $slotkey=>$slot_index) {
+						// filter already passed time
+						$current_time = time() + 60*60; // with 1hr margin
+						$check_time = strtotime($service_slot['start_date'] . ' ' . $slot_index->start_time);
+						if ($current_time > $check_time) continue;
+
 						$criteria = [
 							'conditions' => [
 								'ServiceSlot.service_id' => $service_id,
