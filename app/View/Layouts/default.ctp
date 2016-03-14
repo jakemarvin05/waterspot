@@ -85,6 +85,7 @@ foreach($cssBlocks as $cssBlock) {
 
     <!--Start of Zopim Live Chat Script-->
     <script type="text/javascript">
+      /*
         window.$zopim || (function (d, s) {
             var z = $zopim = function (c) {
                 z._.push(c)
@@ -104,6 +105,7 @@ foreach($cssBlocks as $cssBlock) {
                 type = "text/javascript";
             e.parentNode.insertBefore($, e)
         })(document, "script");
+        */
     </script>
     <!--End of Zopim Live Chat Script-->
 </head>
@@ -382,13 +384,28 @@ foreach($cssBlocks as $cssBlock) {
         
         <!--Start of Zopim Live Chat Script-->
         <script type="text/javascript">
+            /*
         window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
         d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
         _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
         $.src='//v2.zopim.com/?22xiIuDbFx71G2grZvKsPLWDNEWrYeB6';z.t=+new Date;$.
         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+            */
+
         </script>
         <!--End of Zopim Live Chat Script-->
+
+  <!-- Start of LiveChat (www.livechatinc.com) code -->
+  <script type="text/javascript">
+      window.__lc = window.__lc || {};
+      window.__lc.license = 7227401;
+      (function() {
+          var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+          lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+      })();
+  </script>
+  <!-- End of LiveChat code -->
 
 </body>
 </html>
