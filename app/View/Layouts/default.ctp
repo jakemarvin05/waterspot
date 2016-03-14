@@ -395,6 +395,22 @@ foreach($cssBlocks as $cssBlock) {
         </script>
         <!--End of Zopim Live Chat Script-->
 
+  <style type="text/css">
+      /* Styling the button */
+      div#livechat-compact-container {
+          bottom: -100px!important;
+      }
+
+      .chat-button-holder {
+          position: fixed;
+          z-index: 99;
+          right: 10px;
+          bottom: 10px;
+      }
+      div#livechat-full {
+          right: 0px!important;
+      }
+  </style>
   <!-- Start of LiveChat (www.livechatinc.com) code -->
   <script type="text/javascript">
       window.__lc = window.__lc || {};
@@ -405,7 +421,8 @@ foreach($cssBlocks as $cssBlock) {
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
       })();
   </script>
-  <!-- End of LiveChat code -->
-
+  <div class="chat-button-holder">
+  <div data-id="VV3wwCCN_B" class="livechat_button"><a href="https://www.livechatinc.com/customer-service-software/?partner=lc_7227401&amp;utm_source=chat_button">customer service software</a></div>
+  </div>
 </body>
 </html>
