@@ -1,4 +1,7 @@
 User-agent: *
-Disallow: /
 Disallow: sgwatersport.checkyourprojects.com
-
+Disallow: /css/
+Disallow: /js/
+Disallow: /jQuery.Plugins/
+Disallow: /fonts/
+Disallow: /debug_kit/
