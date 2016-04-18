@@ -170,6 +170,32 @@ Class Service extends VendorManagerAppModel{
 		$check_service_status=$this->find('count',$criteria);
 		return $check_service_status;
 	}
+	function getServiceIdBySlug($slug=null){
+		$service_detail=$this->find('first',array('conditions'=>array('Service.slug'=>$slug)));
+		if(empty($service_detail)){
+			return false;
+		}
+		$service_id = $service_detail['Service']['id'];
+		return $service_id;
+	}
+
+	function CheckServiceSlug($slug=null) {
+		$criteria=array();
+		$criteria['joins']=array(
+			array(
+				'table'=>'vendors',
+				'alias' => 'Vendor',
+				'type' => 'left',
+				//'foreignKey' => false,
+				'conditions'=> array('Vendor.id=Service.vendor_id'),
+			),
+		);
+		$criteria['conditions'] =array('AND'=>array('Service.status'=>1,'Service.slug'=>$slug,'Vendor.active'=>1),'OR'=>array('Vendor.payment_status'=>1 ,'Vendor.account_type'=>0));
+		$criteria['group'] =array('Service.id');
+		$criteria['order'] =array('Service.id'=>'ASC');
+		$check_service_status=$this->find('count',$criteria);
+		return $check_service_status;
+	}
 	
 	function serviceListVendorById($vendor_id=null) {		
 		$criteria=array();
@@ -207,6 +233,10 @@ Class Service extends VendorManagerAppModel{
 	function servieDetailByService_id($service_id=null){
 		$service_detail=$this->find('first',array('conditions'=>array('Service.id'=>$service_id)));
 		return $service_detail; 
+	}
+	function serviceDetailBySlug($slug=null){
+		$service_detail=$this->find('first',array('conditions'=>array('Service.slug'=>$slug)));
+		return $service_detail;
 	}
 	function getNoParticipantByserviceId($service_id=null){
 		$service_detail=$this->find('first',array('fields'=>array('Service.no_person'),'conditions'=>array('Service.id'=>$service_id)));

@@ -31,6 +31,13 @@
         Router::connect('/admin/index', array('controller' => 'admin', 'action' => 'index'));
         Router::connect('/admin/logout', array('controller' => 'admin', 'action' => 'logout'));
         Router::connect('/activities/*', array('controller' => 'activity', 'action' => 'activities'));
+
+        Router::connect('/activity/:slug/*',
+            array('controller' => 'activity', 'action' => 'index'),
+            array('pass'=>array('slug'))
+        );
+
+
         Router::connect('/admin/home', array('controller' => 'admin', 'action' => 'home'));
         Router::connect('/admin/settings/adminprofile/*', array('controller' => 'settings', 'action' => 'adminprofile'));
         Router::connect('/admin/resetpassword',array('controller'=>'admin', 'action'=>'resetpassword'));

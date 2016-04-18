@@ -43,6 +43,7 @@
             }
 
             function createAttributesHTML($attr) {
+                $html = '';
                 $html .= '<i class="'.$attr['icon_class'].'"></i> ';
                 $html .= $attr['name'];
                 $html .= ($attr['has_input'] ? ': <strong>' . $attr['value'] . '</strong>' : '');
