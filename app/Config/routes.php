@@ -25,7 +25,7 @@
  * Here, we are connecting '/' (base path) to controller called 'Pages',
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
- */		
+ */
 		Router::connect('/', array('controller'=>'pages','action'=>'home'));
 		Router::connect('/admin', array('controller' => 'users', 'action' => 'login','prefix'=>'admin'));
         Router::connect('/admin/index', array('controller' => 'admin', 'action' => 'index'));
@@ -36,6 +36,15 @@
             array('controller' => 'activity', 'action' => 'index'),
             array('pass'=>array('slug'))
         );
+        Router::connect('/activity-details/ajax_get_availbility_range',
+            array('controller' => 'activity', 'action' => 'ajax_get_availbility_range')
+        );
+
+        Router::connect('/activity-details/ajax_get_recommended_dates',
+            array('controller' => 'activity', 'action' => 'ajax_get_recommended_dates')
+        );
+
+
 
 
         Router::connect('/admin/home', array('controller' => 'admin', 'action' => 'home'));
@@ -45,15 +54,15 @@
 		Router::connect('/admin/settings/admin_paypalsetting/*', array('controller' => 'settings', 'action' => 'admin_paypalsetting'));
 		Router::connect('/searches/search/*', array('controller' => 'searches', 'action' => 'search'));
 		Router::connect('/admin/passwordurl/*',array('controller'=>'admin', 'action'=>'passwordurl'));
-		Router::connect('/service-type-details/*', array('plugin'=>'service_manager','controller' => 'service_types', 'action' => 'service_type_detail')); 
+		Router::connect('/service-type-details/*', array('plugin'=>'service_manager','controller' => 'service_types', 'action' => 'service_type_detail'));
         Router::connect('/admin/coupon/*', array('controller' => 'admin', 'action' => 'coupon'));
         Router::connect('/admin/coupon_add', array('controller' => 'admin', 'action' => 'coupon_add'));
         Router::connect('/admin/coupon_close/*', array('controller' => 'admin', 'action' => 'coupon_close'));
         Router::connect('/admin/ajax_check_code/*', array('controller' => 'admin', 'action' => 'ajax_check_code'));
         Router::connect('/admin/ajax_generate_code/*', array('controller' => 'admin', 'action' => 'ajax_generate_code'));
-		
+
 	//$cmsPages = Cache::read('pages_routes');
-                
+
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
