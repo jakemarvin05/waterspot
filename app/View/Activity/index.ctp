@@ -379,7 +379,7 @@
         $('#loader_slots').show();
 
         $.ajax({
-            url: '<?=$path?>activity-details/ajax_get_availbility_range',
+            url: '<?=$path?>activity/ajax_get_availbility_range',
             type: 'POST',
             data: {'service_id': service_id, 'start_date': startdate, 'no_participants': no_participants},
             success: function (result) {
@@ -397,7 +397,7 @@
         var service_id = $("#ActivityServiceId").val();
         var startdate = $("#ActivityStartDate").val();
         $.ajax({
-            url: '<?=$path?>activity-details/ajax_get_recommended_dates',
+            url: '<?=$path?>activity/ajax_get_recommended_dates',
             type: 'POST',
             data: {'service_id': service_id, 'start_date': startdate},
             success: function (result) {

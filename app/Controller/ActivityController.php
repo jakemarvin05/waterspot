@@ -558,6 +558,7 @@ Class ActivityController extends AppController
             $data['Cart']['total_amount'] = $total_slot_price;
             $data['Cart']['full_day_status'] = $full_day_status;
             $data['Cart']['vendor_id'] = $service_detail['Service']['vendor_id'];
+            $data['Cart']['slug'] = $service_detail['Service']['slug'];
             $data['Cart']['service_title'] = $service_detail['Service']['service_title'];
             $data['Cart']['start_date'] = date('Y-m-d', strtotime($data['Cart']['start_date']));
             $data['Cart']['end_date'] = date('Y-m-d', strtotime($data['Cart']['end_date']));
@@ -580,7 +581,7 @@ Class ActivityController extends AppController
             $this->Cart->save($data);
             $cart_id = $this->Cart->id;
             //$this->Session->setFlash(__('Activity has been added successfully'));
-            $this->redirect(array('plugin' => false, 'controller' => 'activity', 'action' => 'index', $data['Cart']['service_id'], $cart_id));
+            $this->redirect(array('plugin' => false, 'controller' => 'activity', 'action' => 'book', $data['Cart']['slug'], $cart_id));
         } else {
             $this->Session->setFlash('Please select correct date.', 'default', '', 'error');
             $this->redirect(Controller::referer());

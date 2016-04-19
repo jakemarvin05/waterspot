@@ -32,20 +32,14 @@
         Router::connect('/admin/logout', array('controller' => 'admin', 'action' => 'logout'));
         Router::connect('/activities/*', array('controller' => 'activity', 'action' => 'activities'));
 
-        Router::connect('/activity/:slug/*',
+        Router::connect('/activity/details/:slug/*',
             array('controller' => 'activity', 'action' => 'index'),
             array('pass'=>array('slug'))
         );
-        Router::connect('/activity-details/ajax_get_availbility_range',
-            array('controller' => 'activity', 'action' => 'ajax_get_availbility_range')
+        Router::connect('/activity/book/:slug/:cart_id',
+            array('controller' => 'activity', 'action' => 'index'),
+            array('pass' => array('slug','cart_id'))
         );
-
-        Router::connect('/activity-details/ajax_get_recommended_dates',
-            array('controller' => 'activity', 'action' => 'ajax_get_recommended_dates')
-        );
-
-
-
 
         Router::connect('/admin/home', array('controller' => 'admin', 'action' => 'home'));
         Router::connect('/admin/settings/adminprofile/*', array('controller' => 'settings', 'action' => 'adminprofile'));
