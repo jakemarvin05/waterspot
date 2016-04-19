@@ -16,8 +16,9 @@ $i = $this->paginator->counter('{:start}');
 
 				<div class="contenthover">
 					<div class="box-center">
+						<?php var_dump($search_service_list['Service']['slug']); ?>
 					<div class="short-desc"><?php echo $this->Format->Headingsubstring(strip_tags($search_service_list['Service']['description']),250);?></div>
-					<a href="/activity/index/<?=$search_service_list['Service']['id']?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
+					<a href="/activity/details/<?php echo ($search_service_list['slug']?$search_service_list['slug']:$search_service_list['Service']['id']);?>" class="btn btnDefaults btnFillOrange">Book A Spot</a>
 				</div>
 					</div>
 			</div>

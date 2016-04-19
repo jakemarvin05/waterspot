@@ -647,7 +647,7 @@ Class ActivityController extends AppController
         $conditions[] = array('AND' => array('Vendor.active' => 1, 'Service.status' => 1), 'OR' => array('Vendor.payment_status' => 1, 'Vendor.account_type' => 0));
         $this->paginate = array();
         $subQuery = "(SELECT AVG(ifnull((`ServiceReview`.`rating`), 0)) FROM service_reviews AS `ServiceReview` WHERE `ServiceReview`.`service_id` = `Service`.`id` and `ServiceReview`.`status` = 1 GROUP BY `ServiceReview`.`service_id`) AS \"rating\" ";
-        $this->paginate['fields'] = array('Service.id', 'Service.service_title', 'Service.service_price', 'Service.description', $subQuery);
+        $this->paginate['fields'] = array('Service.id','Service.slug', 'Service.service_title', 'Service.service_price', 'Service.description', $subQuery);
         $this->paginate['joins'] = array(
             array(
                 'table' => 'vendors',
@@ -686,6 +686,7 @@ Class ActivityController extends AppController
         foreach ($activity_service_list as $key => $service_list) {
             $service_list['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($service_list['Service']['id']);
             $service_list['rating'] = (round($service_list[0]['rating']));
+            $service_list['slug'] = $service_list['Service']['slug'];
             $new_activity_service_list[$key] = $service_list;
         }
         //pr($new_activity_service_list);

@@ -123,6 +123,7 @@ Class SearchController extends AppController{
 		foreach($search_service_lists as $key=>$search_service_list) {
 			$search_service_list['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($search_service_list['Service']['id']);
 			$search_service_list['rating']= (round($search_service_list[0]['rating']));
+			$search_service_list['slug'] = $search_service_list['Service']['slug'];
 			$search_service_list['tag']=(in_array($search_service_list['Service']['id'], $booked_services))?1:0;
 			$new_search_service_lists[$key]=$search_service_list;
 		}

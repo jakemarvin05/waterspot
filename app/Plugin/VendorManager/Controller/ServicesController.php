@@ -164,15 +164,13 @@ Class ServicesController extends VendorManagerAppController{
 	}
 	
 	function add_services($service_id=null){
-            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
+		array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		$this->loadModel('ServiceManager.ServiceType');
 		$this->loadModel('LocationManager.City');
 		$this->loadModel('VendorManager.ValueAddedService');
 		$this->loadModel('VendorManager.ServiceImage');
 		$vendor_id=$this->VendorAuth->id();
 		// check service_id owner
-
-
 
 		if(!empty($service_id)){
 			if($this->Service->checkServiceById($vendor_id,$service_id)<=0) {
@@ -188,10 +186,12 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['created_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['status']=1;
 				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
+				$this->request->data['Service']['slug'] =  str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
 				$savemsg="added";
 			}else{
 				$this->request->data['Service']['youtube_url']=serialize(array_filter($this->request->data['Service']['youtube_url']));
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
+				$this->request->data['Service']['slug'] = str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
 				$savemsg="updated";
 			}
 			if ($this->request->data['Service']['is_private'] == 1) {
@@ -731,6 +731,64 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('service_types',$service_types);	
 		$this->set('city_list',$city_list);	
 	}
+
+	function increment_slug($slug,$service_id){
+
+		// check if slug exist on the table
+		$slug_service_id = $this->Service->getServiceIdBySlug($slug);
+		// check if the id is the same with the current service
+
+		if($slug_service_id==$service_id || $slug_service_id==null){
+			return $slug;
+		}
+		else{
+			// explode the slug
+			$slugified = explode('-',$slug);
+			// get the last slug
+			$lastSlug = $slugified[count($slugified)-1];
+			// check if the last slug is a number
+			if(is_numeric($lastSlug)){
+				// if it is a number increment it
+				$increment = $lastSlug+1;
+				$slug = str_replace($lastSlug,'', $slug);
+				$slug.='-'.$increment;
+				// check if there are duplicates
+				$another_slug_service_id = $this->Service->getServiceIdBySlug($slug);
+				if (!is_numeric($another_slug_service_id)) {
+					// if none return the slug
+					return $slug;
+				}
+			}
+			else {
+				// if not a number it might be the same title with another 1 so add an increment -2
+				$slug .= '-2';
+				// check if there are duplicates
+				$another_slug_service_id = $this->Service->getServiceIdBySlug($slug);
+				// check if there is a result
+				if (is_numeric($another_slug_service_id)) {
+					// if there is a duplicate we need to increment again
+					$slugified = explode('-',$slug);
+					$lastSlug = $slugified[count($slugified)-1];
+					$increment = $lastSlug+1;
+					$slug = str_replace($lastSlug, '', $slug);
+					$slug .= $increment;
+					// check for duplicates
+					$another_slug_service_id = $this->Service->getServiceIdBySlug($slug);
+					if(!is_numeric($another_slug_service_id)){
+						// return slug if there are no duplicates
+						return $slug;
+					}
+				} else {
+					// return the slug if there is no duplicate
+					return $slug;
+				}
+			}
+
+			$this->increment_slug($slug,$service_id);
+		}
+
+
+	}
 	
 	function admin_add_services($vendor_id=null,$service_id=null){
 		$this->loadModel('ServiceManager.ServiceType');
@@ -749,11 +807,20 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['created_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['status']=1;
 				$this->request->data['Service']['vendor_id']=$vendor_id;
+				// derive the slug from the title
+				$slug = str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
+				$slug = $this->increment_slug($slug, $service_id);
+
+
+				$this->request->data['Service']['slug'] =  $slug;
 				$this->request->data['Service']['youtube_url']=serialize($this->request->data['Service']['youtube_url']);
 				$savemsg="added";
 			}else{
 				$this->request->data['Service']['updated_at']=date('Y-m-d H:i:s');
 				$this->request->data['Service']['vendor_id']=$vendor_id;
+				$slug = str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
+				$slug = $this->increment_slug($slug, $service_id);
+				$this->request->data['Service']['slug'] =  $slug;
 				$this->request->data['Service']['youtube_url']=serialize(array_filter($this->request->data['Service']['youtube_url']));
 				$savemsg="updated";
 			}
