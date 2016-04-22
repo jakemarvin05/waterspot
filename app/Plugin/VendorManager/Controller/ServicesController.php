@@ -751,7 +751,7 @@ Class ServicesController extends VendorManagerAppController{
 				// if it is a number increment it
 				$increment = $lastSlug+1;
 				$slug = str_replace($lastSlug,'', $slug);
-				$slug.='-'.$increment;
+				$slug.=($increment!=''?'-'.$increment:'');
 				// check if there are duplicates
 				$another_slug_service_id = $this->Service->getServiceIdBySlug($slug);
 				if (!is_numeric($another_slug_service_id)) {
