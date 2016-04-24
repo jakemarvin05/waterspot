@@ -28,7 +28,7 @@ var activitiesBlockMaker = {
         
         html += '    <div class="activitiesOverlayOuter">';
         html += '        <div class="activitiesOverlayInner"><a href="'+eachContent.urlPath+'">';
-        html += '            <img class="activitiesFeaturedImg" src="' + eachContent.imagePath + '">';
+        html += '            <img class="activitiesFeaturedImg" alt="'+eachContent.title+'" src="' + eachContent.imagePath + '">';
         html += '            <div class="activitiesTable">';
         
         html += '                <div class="activitiesCell">';
