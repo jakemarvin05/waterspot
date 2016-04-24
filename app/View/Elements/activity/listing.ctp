@@ -9,7 +9,7 @@ $i = $this->paginator->counter('{:start}');
 		<div class="contentvisible contentselector">
 			<div class="tile">
 				<? $path=WWW_ROOT.'img'.DS.'service_images'.DS;
-				$imgArr = array('source_path'=>$path,'img_name'=>$search_service_list['image'],'width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
+				$imgArr = array('source_path'=>$path,'alt'=>$search_service_list['Service']['service_title'],'img_name'=>$search_service_list['image'],'width'=>600,'height'=>450,'noimg'=>$setting['site']['site_noimage']);
 				$resizedImg = $this->ImageResize->ResizeImage($imgArr);
 				echo urldecode($this->Html->image($resizedImg,array('border'=>'0','alt'=>$search_service_list['Service']['service_title'])) ); ?>
 				<div class="price">From $<?= number_format($search_service_list['Service']['service_price'],2)?></div>
