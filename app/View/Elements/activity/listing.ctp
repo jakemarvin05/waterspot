@@ -24,7 +24,7 @@ $i = $this->paginator->counter('{:start}');
 			</div>
 
 			<div class="tile-info">
-				<h4><a href="/activity/index/<?=$search_service_list['Service']['id']?>"><?php echo $search_service_list['Service']['service_title'];?></a></h4>
+				<h4><a href="/activity/details/<?php echo ($search_service_list['slug']?$search_service_list['slug']:$search_service_list['Service']['id']);?>"><?php echo $search_service_list['Service']['service_title'];?></a></h4>
 				<div class="clearfix"></div>
 			</div>
 
