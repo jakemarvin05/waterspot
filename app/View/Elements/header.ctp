@@ -62,8 +62,8 @@
 
         <a href="/">
             <div id="logoWrapper" xmlns="http://www.w3.org/1999/html">
-                <img id="whiteLogo" src="/img/logo-white.png">
-                <img id="coloredLogo" src="/img/logo-colored.png">
+                <img id="whiteLogo" alt="Waterspot" src="/img/logo-white.png">
+                <img id="coloredLogo" alt="Waterspot" src="/img/logo-colored.png">
             </div>
         </a>
         <nav>

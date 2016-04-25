@@ -20,19 +20,19 @@
                     <div id="footerSocialRow">
                         <?php
                             if ($setting['social']['facebook'] != '') {
-                                echo '<a class="smIcons" href="' . $setting['social']['facebook'] . '"><img src="/img/sm-icons/facebook.png"><img src="/img/sm-icons/facebook.png"></a>';
+                                echo '<a class="smIcons" href="' . $setting['social']['facebook'] . '"><img alt="facebook" src="/img/sm-icons/facebook.png"><img alt="facebook" src="/img/sm-icons/facebook.png"></a>';
                             }
                             if ($setting['social']['instagram'] != '') {
-                                echo '<a class="smIcons" href="' . $setting['social']['instagram'] . '"><img src="/img/sm-icons/instagram.png"><img src="/img/sm-icons/instagram.png"></a>';
+                                echo '<a class="smIcons" href="' . $setting['social']['instagram'] . '"><img alt="instagram" src="/img/sm-icons/instagram.png"><img alt="instagram" src="/img/sm-icons/instagram.png"></a>';
                             }
                             if ($setting['social']['twitter'] != '') {
-                                echo '<a class="smIcons" href="' . $setting['social']['twitter'] . '"><img src="/img/sm-icons/twitter.png"><img src="/img/sm-icons/twitter.png"></a>';
+                                echo '<a class="smIcons" href="' . $setting['social']['twitter'] . '"><img alt="twitter" src="/img/sm-icons/twitter.png"><img alt="twitter" src="/img/sm-icons/twitter.png"></a>';
                             }
                             if ($setting['social']['google_plus'] != '') {
-                                echo '<a class="smIcons" href="' . $setting['social']['google_plus'] . '"><img src="/img/sm-icons/googleplus.png"><img src="/img/sm-icons/googleplus.png"></a>';
+                                echo '<a class="smIcons" href="' . $setting['social']['google_plus'] . '"><img alt="google plus" src="/img/sm-icons/googleplus.png"><img alt="google plus" src="/img/sm-icons/googleplus.png"></a>';
                             }
                             if ($setting['social']['linkedin'] != '') {
-                                echo '<a class="smIcons" href="' . $setting['social']['linkedin'] . '"><img src="/img/sm-icons/linkedin.png"><img src="/img/sm-icons/linkedin.png"></a>';
+                                echo '<a class="smIcons" href="' . $setting['social']['linkedin'] . '"><img alt="linkedin" g src="/img/sm-icons/linkedin.png"><img alt="linkedin" src="/img/sm-icons/linkedin.png"></a>';
                             }
                         ?>
                     </div>
@@ -98,7 +98,7 @@
                 <p><a href="/terms">Terms & Conditions</a> / <a href="privacypolicy">Privacy Policy</a>
             </div>
             <div id="paymentLogoCont" class="col-sm-6">
-                <img src="/img/footer-payment.png">
+                <img alt="payment gateways" src="/img/footer-payment.png">
             </div>
         </div>
     </div>
