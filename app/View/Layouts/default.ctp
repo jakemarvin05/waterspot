@@ -108,6 +108,19 @@ foreach($cssBlocks as $cssBlock) {
         */
     </script>
     <!--End of Zopim Live Chat Script-->
+
+
+    <!-- Google Analytics Tracking Code -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-76875259-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </head>
 
 
@@ -425,16 +438,5 @@ foreach($cssBlocks as $cssBlock) {
   <div data-id="VV3wwCCN_B" class="livechat_button"><a href="https://www.livechatinc.com/customer-service-software/?partner=lc_7227401&amp;utm_source=chat_button">customer service software</a></div>
   </div>
 
-  <!-- Google Analytics Tracking Code -->
-  <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-76875259-1', 'auto');
-      ga('send', 'pageview');
-
-  </script>
 </body>
 </html>
