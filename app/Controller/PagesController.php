@@ -140,9 +140,9 @@ class PagesController extends AppController {
 			Cache::write('cake_service_list',$service_type_list);
 		}
 		$this->set('service_type_list',$service_type_list);
-		$this->title_for_layout = $page['Page']['page_title'];
-		$this->metakeyword = $page['Page']['page_metakeyword'];
-		$this->metadescription = $page['Page']['page_metadescription'];
+		$this->set('title_for_layout',$this->setting['site']['site_name']);
+		$this->set('metakeyword',$this->setting['site']['site_metakeyword']);
+		$this->set('metadescription','Waterspot Activities');
 		$this->set('page',$page);
 		$this->set('about_us',$about_us);
 		$this->set('service_reviews',$service_reviews);
