@@ -732,6 +732,34 @@ Class ServicesController extends VendorManagerAppController{
 		$this->set('city_list',$city_list);	
 	}
 
+	function slugify($text)
+	{
+		// replace non letter or digits by -
+		$text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+		// transliterate
+		$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+		// remove unwanted characters
+		$text = preg_replace('~[^-\w]+~', '', $text);
+
+		// trim
+		$text = trim($text, '-');
+
+		// remove duplicate -
+		$text = preg_replace('~-+~', '-', $text);
+
+		// lowercase
+		$text = strtolower($text);
+
+		if (empty($text))
+		{
+			return 'n-a';
+		}
+
+		return $text;
+	}
+
 	function increment_slug($slug,$service_id){
 
 		// check if slug exist on the table
@@ -808,7 +836,11 @@ Class ServicesController extends VendorManagerAppController{
 				$this->request->data['Service']['status']=1;
 				$this->request->data['Service']['vendor_id']=$vendor_id;
 				// derive the slug from the title
-				$slug = str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
+				//$slug = str_replace(' ','-',strtolower($this->request->data['Service']['service_title']));
+
+
+				$slug = $this->slugify($this->request->data['Service']['service_title']);
+
 				$slug = $this->increment_slug($slug, $service_id);
 
 
