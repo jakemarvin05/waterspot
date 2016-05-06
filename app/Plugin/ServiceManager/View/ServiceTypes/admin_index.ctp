@@ -178,7 +178,7 @@ Search:
                             <tr>
                                 <td width="5%"><?php echo $this->Form->checkbox('ServiceType.id.'.$i, array('value' => $service['ServiceType']['id'])); ?></td>
                                 <td width="5%"><?php echo $i++; ?></td>
-                                <td width="35%"><?php echo $service['ServiceType']['name']; ?></td>
+                                <td width="35%"><?php echo $service['ServiceType']['page-title']; ?></td>
                                 <td width="30%"><? 
 								$imgArr = array('source_path'=>Configure::read('Image.SourcePath'),'img_name'=>$service['ServiceType']['image'],'width'=>110,'height'=>80,'noimg'=>$setting['site']['site_noimage']);
 								$resizedImg = $this->ImageResize->ResizeImage($imgArr);
