@@ -343,7 +343,7 @@ class ServiceTypesController extends ServiceManagerAppController {
                 $this->layout = '';
                 $this->Render('ajax_service_type_detail');
         }
-		$this->title_for_layout .= ": ". $service_type_details['ServiceType']['name'];
+		$this->title_for_layout = $service_type_details['ServiceType']['name']." | ".$this->title_for_layout;
 		$this->metakeyword = $service_type_details['ServiceType']['description'];
 		$this->metadescription = $service_type_details['ServiceType']['description'];
 	}

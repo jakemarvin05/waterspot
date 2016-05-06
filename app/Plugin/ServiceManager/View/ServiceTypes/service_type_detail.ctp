@@ -15,7 +15,7 @@
 <div class="search-listing-header">
 	<header class="page-header">
 		<p class="beforeHeader">Ready to enjoy exciting adventures?</p>
-		<h1 class=" headerAlt" style="float: left;"> <?=$service_type_details['ServiceType']['name'] ?></h1>
+		<h1 class=" headerAlt" style="float: left;"> <?=$service_type_details['ServiceType']['page-title'] ?></h1>
 		<br>
 	</header>
 

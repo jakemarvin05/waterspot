@@ -30,13 +30,22 @@ function saveform()
      <?=$this->Form->hidden('status'); ?>
     <fieldset>
         <dl>
-			 
+
             <dt>
                 <label>Name<span style="color:red;">*</span></label>
             </dt>
             <dd>
+                <?=$this->Form->text('page-title',array('class'=> 'small','size'=>'45','required'=>false)); ?>
+            </dd>
+			 
+            <dt>
+                <label>Title<span style="color:red;">*</span></label>
+            </dt>
+            <dd>
 				<?=$this->Form->text('name',array('class'=> 'small','size'=>'45','required'=>false)); ?>                 
             </dd>
+
+
            
             <dt>
                 <label>Image <span style="color:red;">*</span></label>
