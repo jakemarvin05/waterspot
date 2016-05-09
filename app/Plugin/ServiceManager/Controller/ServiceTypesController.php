@@ -474,4 +474,3 @@ class ServiceTypesController extends ServiceManagerAppController {
     	return $this->redirect(Controller::referer());
     }
 }
-?>
