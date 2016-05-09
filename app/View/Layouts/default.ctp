@@ -284,14 +284,14 @@ foreach($cssBlocks as $cssBlock) {
 
 	  <script>
         var frontPageActivities = activitiesBlockMaker.init($('#activitiesContainer'), [
-            { title: 'wakeboarding',urlPath:'/service-type-details/32', imagePath: '/img/activities/wakeboarding.jpg', blockSize: '2x1'},
-            { title: 'diving',urlPath:'/service-type-details/27', imagePath: '/img/activities/diving.jpg'},
-            { title: 'kayaking',urlPath:'/service-type-details/41', imagePath: '/img/activities/kayaking.jpg'},
-            { title: 'fishing',urlPath:'/service-type-details/25', imagePath: '/img/activities/fishing.jpg'},
-            { title: 'kitesurfing',urlPath:'/service-type-details/42', imagePath: '/img/activities/kitesurfing.jpg'},
-            { title: 'Yacht Chartering',urlPath:'/service-type-details/26', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
-            { title: 'sailing',urlPath:'/service-type-details/44', imagePath: '/img/activities/sailing.jpg'},
-            { title: 'Stand up Paddling',urlPath:'/service-type-details/39', imagePath: '/img/activities/stand-up-paddle.jpg'}
+            { title: 'wakeboarding',urlPath:'/service-type-details/wakeboarding', imagePath: '/img/activities/wakeboarding.jpg', blockSize: '2x1'},
+            { title: 'diving',urlPath:'/service-type-details/diving', imagePath: '/img/activities/diving.jpg'},
+            { title: 'kayaking',urlPath:'/service-type-details/kayaking', imagePath: '/img/activities/kayaking.jpg'},
+            { title: 'fishing',urlPath:'/service-type-details/fishing', imagePath: '/img/activities/fishing.jpg'},
+            { title: 'kitesurfing',urlPath:'/service-type-details/kitesurfing', imagePath: '/img/activities/kitesurfing.jpg'},
+            { title: 'Yacht Chartering',urlPath:'/service-type-details/yacht-chartering', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
+            { title: 'sailing',urlPath:'/service-type-details/sailing', imagePath: '/img/activities/sailing.jpg'},
+            { title: 'Stand up Paddling',urlPath:'/service-type-details/stand-up-paddling', imagePath: '/img/activities/stand-up-paddle.jpg'}
         ]);
 
         </script>

@@ -94,6 +94,105 @@ class ServiceTypesController extends ServiceManagerAppController {
 		$this->set('url',Controller::referer());
 	}
 
+
+	function slugify($text)
+	{
+		// replace non letter or digits by -
+		$text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+		// transliterate
+		$text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+		// remove unwanted characters
+		$text = preg_replace('~[^-\w]+~', '', $text);
+
+		// trim
+		$text = trim($text, '-');
+
+		// remove duplicate -
+		$text = preg_replace('~-+~', '-', $text);
+
+		// lowercase
+		$text = strtolower($text);
+
+		if (empty($text))
+		{
+			return 'n-a';
+		}
+
+		return $text;
+	}
+
+	function increment_slug($slug,$service_id){
+
+		// check if slug exist on the table
+		$slug_service_id = $this->ServiceType->getServiceTypeIdBySlug($slug);
+		// check if the id is the same with the current service
+
+		if($slug_service_id==$service_id || $slug_service_id==null){
+			return $slug;
+
+		}
+		else{
+			// explode the slug
+			$slugified = explode('-',$slug);
+			// get the last slug
+			$lastSlug = $slugified[count($slugified)-1];
+
+
+			// check if the last slug is a number
+			if(is_numeric($lastSlug)){
+				// if it is a number increment it
+				$increment = $lastSlug+1;
+				$slug = str_replace($lastSlug,'', $slug);
+				$slug = substr_replace($slug,'',-1);
+				$slug.=($increment!=''?'-'.$increment:'');
+				// check if there are duplicates
+				$another_slug_service_id = $this->ServiceType->getServiceTypeIdBySlug($slug);
+				if (!is_numeric($another_slug_service_id)) {
+					// if none return the slug
+					return $slug;
+				}
+			}
+			else {
+
+				// if not a number it might be the same title with another 1 so add an increment -2
+				$slug .= '-2';
+				// check if there are duplicates
+				$another_slug_service_id = $this->ServiceType->getServiceTypeIdBySlug($slug);
+				// check if there is a result
+				if (is_numeric($another_slug_service_id)) {
+
+					// if there is a duplicate we need to increment again
+					$slugified = explode('-',$slug);
+					$lastSlug = $slugified[count($slugified)-1];
+					$increment = $lastSlug+1;
+					$slug = str_replace($lastSlug, '', $slug);
+					$slug .= $increment;
+					// check for duplicates
+					$another_slug_service_id = $this->ServiceType->getServiceTypeIdBySlug($slug);
+
+					if(!is_numeric($another_slug_service_id)){
+						// return slug if there are no duplicates
+						$slug = str_replace('--', '-', $slug);
+						return $slug;
+					}
+					else{
+
+						$this->increment_slug($slug,$service_id);
+					}
+				} else {
+					// return the slug if there is no duplicate
+					return $slug;
+				}
+			}
+
+			$this->increment_slug($slug,$service_id);
+		}
+
+
+	}
+
 	function admin_add($id=null){
 		$this->breadcrumbs[] = array(
 		'url'=>Router::url('/admin/home'),
@@ -127,7 +226,10 @@ class ServiceTypesController extends ServiceManagerAppController {
 			// if (strlen(trim($this->request->data['ServiceType']['youtube_url'])) == 0) {
 			// 	$this->request->data['ServiceType']['youtube_url'] = '#';
 			// }
-			$this->request->data['ServiceType']['image'] = $image_name;		
+			$this->request->data['ServiceType']['image'] = $image_name;
+			$slug = $this->slugify($this->request->data['ServiceType']['page-title']);
+			$slug = $this->increment_slug($slug,$this->request->data['ServiceType']['id']);
+			$this->request->data['ServiceType']['slug'] = $slug;
 			$this->ServiceType->create();
 			$this->ServiceType->save($this->request->data,array('validate' => false));
 		 	if ($this->request->data['ServiceType']['id']) {
@@ -262,7 +364,10 @@ class ServiceTypesController extends ServiceManagerAppController {
         return $thumb_name;
     }
     
-    function service_type_detail($service_type_id=null){
+    function service_type_detail($slug=null){
+
+
+
 		$this->loadModel('VendorManager.Service');
 		$this->loadModel('VendorManager.Vendor');
 		$this->loadModel('VendorManager.ServiceImage');
@@ -271,8 +376,16 @@ class ServiceTypesController extends ServiceManagerAppController {
 		array_push(self::$css_for_layout,array($this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css'));
 		array_push(self::$css_for_layout,'pages.css');
 		// searching list
-		if (!$service_type_id) {
-			throw new NotFoundException('Could not find service type id');
+		if ($slug) {
+			if(is_numeric($slug)){
+				$service_type_id = $slug;
+			}
+			else{
+				$service_type_id = $this->ServiceType->getServiceTypeIdBySlug($slug);
+			}
+		}
+		else{
+			throw new NotFoundException('Could not find service type id or slug');
 		}
 		$service_name='';
 		$conditions=array();
@@ -285,7 +398,7 @@ class ServiceTypesController extends ServiceManagerAppController {
 		$conditions[]=array('AND'=>array('Vendor.active'=>1,'Service.status'=>1),'OR'=>array('Vendor.payment_status'=>1 ,'Vendor.account_type'=>0));
 		$this->paginate = array();
 		$subQuery = "(SELECT AVG(ifnull((`ServiceReview`.`rating`), 0)) FROM service_reviews AS `ServiceReview` WHERE `ServiceReview`.`service_id` = `Service`.`id` and `ServiceReview`.`status` = 1 GROUP BY `ServiceReview`.`service_id`) AS \"rating\" ";
-		$this->paginate['fields'] = array('Service.id','Service.service_title','Service.service_price','Service.description',$subQuery);
+		$this->paginate['fields'] = array('Service.id','Service.slug','Service.service_title','Service.service_price','Service.description',$subQuery);
 		$this->paginate['joins'] = array(
 						array( 
 							'table' => 'vendors',
@@ -317,6 +430,7 @@ class ServiceTypesController extends ServiceManagerAppController {
 		foreach($activity_service_list as $key=>$service_list) {
 			$service_list['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($service_list['Service']['id']);
 			$service_list['rating']= (round($service_list[0]['rating']));
+			$service_list['slug'] = $service_list['Service']['slug'];
 			$new_activity_service_list[$key]=$service_list;
 		}
 		//all service type listing.
@@ -337,7 +451,7 @@ class ServiceTypesController extends ServiceManagerAppController {
 		);
 		//set variable
 		$this->set('service_type_details',$service_type_details); 
-		$this->set('service_type_id',$service_type_id); 
+		$this->set('service_type_id',$service_type_id);
 		$this->set('activity_service_list',$new_activity_service_list); 
 		if($this->request->is('ajax')){
                 $this->layout = '';

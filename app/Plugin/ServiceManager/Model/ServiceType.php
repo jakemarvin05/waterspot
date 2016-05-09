@@ -121,6 +121,12 @@ class ServiceType extends ServiceManagerAppModel {
 		$service_lists=$this->find('first',array('fields'=>array('*'),'conditions'=>array('ServiceType.status'=>1,'ServiceType.id'=>$service_id)));
 		return $service_lists;
 	}
+	function getServiceTypeIdBySlug($slug){
+		$service_lists=array();
+		$service_lists=$this->find('first',array('fields'=>array('ServiceType.id'),'conditions'=>array('ServiceType.status'=>1,'ServiceType.slug'=>$slug)));
+		return (!empty($service_lists))?$service_lists['ServiceType']['id']:null;
+
+	}
 	function getServiceTypeNameById($service_type_id=null) {
 		$service_lists=array();
 		$criteria['joins']=array(
