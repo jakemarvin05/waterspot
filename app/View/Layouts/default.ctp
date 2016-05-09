@@ -288,7 +288,7 @@ foreach($cssBlocks as $cssBlock) {
             { title: 'diving',urlPath:'/service-type-details/diving', imagePath: '/img/activities/diving.jpg'},
             { title: 'kayaking',urlPath:'/service-type-details/kayaking', imagePath: '/img/activities/kayaking.jpg'},
             { title: 'fishing',urlPath:'/service-type-details/fishing', imagePath: '/img/activities/fishing.jpg'},
-            { title: 'kitesurfing',urlPath:'/service-type-details/kitesurfing', imagePath: '/img/activities/kitesurfing.jpg'},
+            { title: 'kitesurfing',urlPath:'/service-type-details/kiteboarding', imagePath: '/img/activities/kitesurfing.jpg'},
             { title: 'Yacht Chartering',urlPath:'/service-type-details/yacht-chartering', imagePath: '/img/activities/boatcharter.jpg', blockSize: '2x2'},
             { title: 'sailing',urlPath:'/service-type-details/sailing', imagePath: '/img/activities/sailing.jpg'},
             { title: 'Stand up Paddling',urlPath:'/service-type-details/stand-up-paddling', imagePath: '/img/activities/stand-up-paddle.jpg'}
