@@ -5,7 +5,7 @@
 		<div class="dt">
 			<div class="dates"><?=$service_slots['start_date']; ?></div>
 				<? if(!empty($service_slots['slotindex'] ))	{
-					foreach($service_slots['slotindex'] as $slotkey=>$slot) { 
+					foreach($service_slots['slotindex'] as $slotkey=>$slot) {
 						//slot date,service_id,service_time
 						if ($slot->fire_sales_day_margin && $slot->fire_sales_price) {
 							$slot_price = (strtotime($service_slots['start_date']) > (time() + ((60*60*24)*$slot->fire_sales_day_margin))) ? $slot->price : $slot->fire_sales_price;
@@ -14,8 +14,8 @@
 						}
 						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot->start_time."_".$slot->end_time."_".$slot_price;
 						?>
-						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
-						echo $this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time);
+						<div class="check"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value, 'disabled'=>($slot->booked?'disabled':'false'),'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
+						echo "<span ".($slot->booked?"class='strike'":"").">".$this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time)."</span>";
 						?></label>
 						<?php echo '<br/>Price : $'.$slot_price . '&nbsp;&nbsp;&nbsp;';
 							if ($service_details['no_person'] > 1) {

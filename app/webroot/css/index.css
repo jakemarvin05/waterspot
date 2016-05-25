@@ -289,3 +289,7 @@
     text-align: center;
     padding: 15px;
 }
+/* strike through texts */
+.strike {
+    text-decoration: line-through;
+}

@@ -107,21 +107,20 @@ Class ActivityController extends AppController
         $this->loadModel('VendorManager.Service');
         array_push(self::$css_for_layout, 'activity/activity.css');
 
-        if(is_numeric($slug)){
+        if (is_numeric($slug)) {
             $service_id = $slug;
-        }
-        else{
-            $service_id=$this->Service->getServiceIdBySlug($slug);
-            if(!$service_id){
+        } else {
+            $service_id = $this->Service->getServiceIdBySlug($slug);
+            if (!$service_id) {
                 throw new NotFoundException('This service does not exist.');
             }
         }
 
         //test
-        $thisDate = isset($this->request->query['date'])? $this->request->query['date']: "now";
-        $this->set('date',$thisDate);
-        $this->set('recommendedActivities',$this->getRecommendedActivities($service_id,$thisDate));
-        $this->set('currentDateIndex',$this->getCurrentDateIndex($service_id,$thisDate));
+        $thisDate = isset($this->request->query['date']) ? $this->request->query['date'] : "now";
+        $this->set('date', $thisDate);
+        $this->set('recommendedActivities', $this->getRecommendedActivities($service_id, $thisDate));
+        $this->set('currentDateIndex', $this->getCurrentDateIndex($service_id, $thisDate));
 
         //load model
         $this->loadModel('VendorManager.Vendor');
@@ -135,15 +134,15 @@ Class ActivityController extends AppController
         $this->loadModel('Cart');
         $this->loadModel('ServiceManager.ServiceType');
         // check service
-        $no_of_booking_days=0;
-        $service_status=$this->Service->CheckServiceId($service_id);
-        if($service_status==0){
+        $no_of_booking_days = 0;
+        $service_status = $this->Service->CheckServiceId($service_id);
+        if ($service_status == 0) {
             throw new NotFoundException('This service is deactivated.');
         }
         // check cart valid
-        if(!empty($cart_id)) {
-            $cart_id_status=$this->Cart->CheckCartId($cart_id,$this->Session->id());
-            if($cart_id_status==0){
+        if (!empty($cart_id)) {
+            $cart_id_status = $this->Cart->CheckCartId($cart_id, $this->Session->id());
+            if ($cart_id_status == 0) {
                 throw new NotFoundException('Cart is empty or deactivated.');
             }
         }
@@ -152,16 +151,16 @@ Class ActivityController extends AppController
         $this->sessionKey = MemberAuthComponent::$sessionKey;
         $this->member_data = $this->Session->read($this->sessionKey);
         // Load java script and css
-        array_push(self::$script_for_layout,'login.js','jquery.tools.min.js','jquery.mousewheel.js','jquery.jscrollpane.min.js','fotorama.js','https://code.jquery.com/ui/1.10.3/jquery-ui.js','jquery.fancybox.js','responsive-tabs.js',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.js','http://w.sharethis.com/button/buttons.js');
-        array_push(self::$css_for_layout,'activity.css','jquery.jscrollpane.css','fotorama.css','https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css','responsive-tabs.css',$this->setting['site']['jquery_plugin_url'].'ratings/jquery.rating.css');
-        array_push(self::$css_for_layout,'pages.css');
-        self::$scriptBlocks[]='
+        array_push(self::$script_for_layout, 'login.js', 'jquery.tools.min.js', 'jquery.mousewheel.js', 'jquery.jscrollpane.min.js', 'fotorama.js', 'https://code.jquery.com/ui/1.10.3/jquery-ui.js', 'jquery.fancybox.js', 'responsive-tabs.js', $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js', 'http://w.sharethis.com/button/buttons.js');
+        array_push(self::$css_for_layout, 'activity.css', 'jquery.jscrollpane.css', 'fotorama.css', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css', 'responsive-tabs.css', $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.css');
+        array_push(self::$css_for_layout, 'pages.css');
+        self::$scriptBlocks[] = '
 		$( document ).ready(function() {
 			 get_service_availability();
 			});
 		$(function() {
 		$( "#startdatepicker" ).datepicker({
-		dateFormat: "'.Configure::read('Calender_format').'",
+		dateFormat: "' . Configure::read('Calender_format') . '",
 			minDate: 0,
 			onSelect:function(selectedDate){
 			$( "#ActivityStartDate" ).val(selectedDate);
@@ -172,7 +171,7 @@ Class ActivityController extends AppController
 		}
 		);
 		$( "#enddatepicker" ).datepicker({
-			dateFormat: "'.Configure::read('Calender_format').'",
+			dateFormat: "' . Configure::read('Calender_format') . '",
 			minDate: 0,
 			onSelect:function(selectedDate){
 			$( "#ActivityEndDate" ).val(selectedDate);
@@ -198,46 +197,46 @@ Class ActivityController extends AppController
 		$(document).ready(function() {
 			$(\'.fancybox\').fancybox();
 		});
-		stLight.options({publisher: "5d0165c7-537f-40b4-8ecd-7ef5d49cceb2"});' ;
+		stLight.options({publisher: "5d0165c7-537f-40b4-8ecd-7ef5d49cceb2"});';
         $service_detail = array();
-        $service_detail=$this->Service->servieDetailByService_id($service_id);
+        $service_detail = $this->Service->servieDetailByService_id($service_id);
 
         // get vendor service details
 
-        if(!empty($service_detail)){
+        if (!empty($service_detail)) {
 
-            $vendor_details=$this->Vendor->vendorDetailId($service_detail['Service']['vendor_id']);
+            $vendor_details = $this->Vendor->vendorDetailId($service_detail['Service']['vendor_id']);
             $vendor_details['Vendor']['rating'] = $this->ServiceReview->getVendorRatings($service_detail['Service']['vendor_id']);
             //get services
 
-            $vendor_details['Service']=$this->Service->serviceListVendorById($vendor_details['Vendor']['id']);
+            $vendor_details['Service'] = $this->Service->serviceListVendorById($vendor_details['Vendor']['id']);
             // get related similar service
 
-            if(!empty($service_detail['Service']['vendor_id'])){
-                $related_services=array();
-                $related_services=$this->Service->findRelatedServiceByVendor($service_detail['Service']['vendor_id'],$service_detail['Service']['id']);
-                if(!empty($related_services)){
-                    foreach($related_services as $related_service){
-                        $related_service['Service']['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($related_service['Service']['id']);
-                        $service_detail['VendorService'][]=$related_service;
+            if (!empty($service_detail['Service']['vendor_id'])) {
+                $related_services = array();
+                $related_services = $this->Service->findRelatedServiceByVendor($service_detail['Service']['vendor_id'], $service_detail['Service']['id']);
+                if (!empty($related_services)) {
+                    foreach ($related_services as $related_service) {
+                        $related_service['Service']['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($related_service['Service']['id']);
+                        $service_detail['VendorService'][] = $related_service;
                     }
                 }
             }
         }
         // get service review
-        $service_detail['Review']=$this->ServiceReview->getServiceReviewByservice_id($service_id);
-        $service_detail['Rating']=$this->ServiceReview->getServiceRatings($service_id);
-        $service_detail['image']=$this->ServiceImage->getServiceImageByservice_id($service_id);
-        $service_detail['location_name']= $this->City->getLocationListCityID($service_detail['Service']['location_id']);
-        $service_detail['service_type']= $this->ServiceType->getServiceTypeNameById($service_detail['Service']['service_type_id']);
+        $service_detail['Review'] = $this->ServiceReview->getServiceReviewByservice_id($service_id);
+        $service_detail['Rating'] = $this->ServiceReview->getServiceRatings($service_id);
+        $service_detail['image'] = $this->ServiceImage->getServiceImageByservice_id($service_id);
+        $service_detail['location_name'] = $this->City->getLocationListCityID($service_detail['Service']['location_id']);
+        $service_detail['service_type'] = $this->ServiceType->getServiceTypeNameById($service_detail['Service']['service_type_id']);
         $booking_count = $this->Cart->CountBookingByServiceId($service_id);
         $this->set('booking_count', $booking_count);
         // invite friend after add card table
-        $cart_details=array();
-        $cart_slots=array();
-        if(!empty($cart_id)) {
+        $cart_details = array();
+        $cart_slots = array();
+        if (!empty($cart_id)) {
             $criteria = array();
-            $criteria['fields']= array('Cart.*','Service.service_title');
+            $criteria['fields'] = array('Cart.*', 'Service.service_title');
             $criteria['joins'] = array(
                 array(
                     'table' => 'services',
@@ -246,65 +245,65 @@ Class ActivityController extends AppController
                     'conditions' => array('Service.id = Cart.service_id')
                 )
             );
-            $criteria['conditions'] =array('Cart.session_id'=>$this->Session->id(),'Cart.id'=>$cart_id);
-            $criteria['order'] =array('Cart.id DESC');
-            $cart_details=$this->Cart->find('first', $criteria);
-            $cart_details['Cart']['image']=$this->ServiceImage->getOneimageServiceImageByservice_id($cart_details['Cart']['service_id']);
-            $cart_slots=json_decode($cart_details['Cart']['slots'],true);
-            if(!empty($cart_slots)){
-                $cart_details['Cart']['slots']=$cart_slots['Slot'];
+            $criteria['conditions'] = array('Cart.session_id' => $this->Session->id(), 'Cart.id' => $cart_id);
+            $criteria['order'] = array('Cart.id DESC');
+            $cart_details = $this->Cart->find('first', $criteria);
+            $cart_details['Cart']['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($cart_details['Cart']['service_id']);
+            $cart_slots = json_decode($cart_details['Cart']['slots'], true);
+            if (!empty($cart_slots)) {
+                $cart_details['Cart']['slots'] = $cart_slots['Slot'];
             }
             // get Value added Service
-            $value_added_services=array();
-            if(!empty($cart_details['Cart']['service_id'])) {
-                $value_added_services=$this->ValueAddedService->getValueaddedServiceByservice_id($cart_details['Cart']['service_id']);
+            $value_added_services = array();
+            if (!empty($cart_details['Cart']['service_id'])) {
+                $value_added_services = $this->ValueAddedService->getValueaddedServiceByservice_id($cart_details['Cart']['service_id']);
             }
             // assign value added services
-            $cart_details['Cart']['value_added_services']=$value_added_services;
+            $cart_details['Cart']['value_added_services'] = $value_added_services;
             $diff = abs(strtotime($cart_details['Cart']['end_date']) - strtotime($cart_details['Cart']['start_date']));
-            $years = floor($diff / (365*60*60*24));
-            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-            $no_of_booking_days =(floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24)))+1;
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $no_of_booking_days = (floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24))) + 1;
         }
         // assign search value in input box
-        $search_detais=$this->Session->read('Activity');
-        if(!empty($search_detais)) {
-            $this->request->data['Activity']['start_date']=$this->Session->read('Activity.start_date');
-            $this->request->data['Activity']['end_date']=$this->Session->read('Activity.end_date');
-            $this->request->data['Activity']['no_participants']=$this->Session->read('Activity.no_participants');
+        $search_detais = $this->Session->read('Activity');
+        if (!empty($search_detais)) {
+            $this->request->data['Activity']['start_date'] = $this->Session->read('Activity.start_date');
+            $this->request->data['Activity']['end_date'] = $this->Session->read('Activity.end_date');
+            $this->request->data['Activity']['no_participants'] = $this->Session->read('Activity.no_participants');
         }
         $this->Session->delete('Activity');
         $this->breadcrumbs[] = array(
-            'url'=>Router::url('/'),
-            'name'=>'Home'
+            'url' => Router::url('/'),
+            'name' => 'Home'
         );
         $this->breadcrumbs[] = array(
-            'url'=>Router::url(array('controller'=>'activity','action'=>'activities','vendor_id',$service_detail['Service']['service_type_id'])),
-            'name'=>$service_detail['service_type']
+            'url' => Router::url(array('controller' => 'activity', 'action' => 'activities', 'vendor_id', $service_detail['Service']['service_type_id'])),
+            'name' => $service_detail['service_type']
         );
         $this->breadcrumbs[] = array(
-            'url'=>Router::url('/'),
-            'name'=>ucfirst($service_detail['Service']['service_title'])
+            'url' => Router::url('/'),
+            'name' => ucfirst($service_detail['Service']['service_title'])
         );
 
         // set page title and description
         $this->title_for_layout = ucfirst($service_detail['Service']['service_title']);
         //$this->metakeyword = ucfirst($service_detail['Service']['description']);
         $this->metadescription = ucfirst(strip_tags($service_detail['Service']['description']));
-        $this->set('no_of_booking_days',$no_of_booking_days);
-        $this->set('cart_id',$cart_id);
-        $this->set('service_id',$service_id);
-        $this->set('cart_details',$cart_details);
-        $this->set('vendor_details',$vendor_details);
-        $this->set('service_detail',$service_detail);
-        $this->set('member_id',$this->member_data['MemberAuth']['id']);
+        $this->set('no_of_booking_days', $no_of_booking_days);
+        $this->set('cart_id', $cart_id);
+        $this->set('service_id', $service_id);
+        $this->set('cart_details', $cart_details);
+        $this->set('vendor_details', $vendor_details);
+        $this->set('service_detail', $service_detail);
+        $this->set('member_id', $this->member_data['MemberAuth']['id']);
 
         $this->set('web_title', 'Waterspot Activity | ' . $this->title_for_layout);
         $this->set('web_type', 'website');
         $this->set('web_url', 'http://www.waterspot.com.sg' . $_SERVER['REQUEST_URI']);
         $this->set('web_image', $service_detail['image'][0]);
         $this->set('web_site_name', 'Waterspot Activity | ' . $this->title_for_layout);
-        $price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice'] ]);
+        $price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice']]);
         $this->set('max_price', $price_range[0]['maxprice']);
         $this->set('min_price', $price_range[0]['minprice']);
 
@@ -372,6 +371,7 @@ Class ActivityController extends AppController
             $this->set('service_details', $service_details);
             // print_r($service_details);die;
             $service = $this->VendorServiceAvailability->isDateAvailable($service_id, $selected_date);
+
             if (count($service) !== 0) {
                 $service = $service[0]['VendorServiceAvailability'];
 
@@ -379,6 +379,7 @@ Class ActivityController extends AppController
 
                 $new_service_slots = $this->VendorServiceAvailability->getSlotByServiceID($_POST);
                 $new_service_slots_now = [];
+
                 foreach ($new_service_slots as $key => $service_slot) {
                     $slot_index_new = [];
                     foreach ($service_slot['slotindex'] as $slotkey => $slot_index) {
@@ -397,6 +398,7 @@ Class ActivityController extends AppController
                         ];
                         $slot = $this->ServiceSlot->find('first', $criteria);
 
+
                         $new = new stdClass;
                         $new->id = $slot['ServiceSlot']['id'];
                         $new->service_id = $slot['ServiceSlot']['service_id'];
@@ -409,19 +411,31 @@ Class ActivityController extends AppController
                         $new->available_count = $service_details['no_person'] - $current_booked_count;
                         $new->current_booked_count = $current_booked_count;
 
-                        if ($service_details['is_private'] == 1 && $current_booked_count > 0) continue;
+                        // commented the line of code below to show booked slot
+                        //if ($service_details['is_private'] == 1 && $current_booked_count > 0) continue;
+
                         if ($capacity <= $new->available_count) {
-                            $slot_index_new[] = $new;
+                            // set a booked flag to false to be used in rendering
+                            $new->booked = false;
+                        } else {
+                            // set a booked flag to true to be used in rendering
+                            $new->booked = true;
+
                         }
+                        // assign the new properties
+                        $slot_index_new[] = $new;
                     }
+
                     $new_service_slots_now[$key]['service_id'] = $service_slot['service_id'];
                     $new_service_slots_now[$key]['start_date'] = $service_slot['start_date'];
                     $new_service_slots_now[$key]['end_date'] = $service_slot['end_date'];
                     $new_service_slots_now[$key]['slotindex'] = $slot_index_new;
+
                 }
 
                 if (!empty($new_service_slots)) {
                     $this->set('service_slots', $new_service_slots_now);
+
                 } else {
                     $dates = [];
                     $one_day = 60 * 60 * 24;
@@ -647,7 +661,7 @@ Class ActivityController extends AppController
         $conditions[] = array('AND' => array('Vendor.active' => 1, 'Service.status' => 1), 'OR' => array('Vendor.payment_status' => 1, 'Vendor.account_type' => 0));
         $this->paginate = array();
         $subQuery = "(SELECT AVG(ifnull((`ServiceReview`.`rating`), 0)) FROM service_reviews AS `ServiceReview` WHERE `ServiceReview`.`service_id` = `Service`.`id` and `ServiceReview`.`status` = 1 GROUP BY `ServiceReview`.`service_id`) AS \"rating\" ";
-        $this->paginate['fields'] = array('Service.id','Service.slug', 'Service.service_title', 'Service.service_price', 'Service.description', $subQuery);
+        $this->paginate['fields'] = array('Service.id', 'Service.slug', 'Service.service_title', 'Service.service_price', 'Service.description', $subQuery);
         $this->paginate['joins'] = array(
             array(
                 'table' => 'vendors',
