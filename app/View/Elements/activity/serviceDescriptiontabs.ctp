@@ -1,16 +1,7 @@
 <article class="activity-description">
-    <section class="activity-section">
-        <h3>Description</h3>
-        <?=$service_detail['Service']['description'] ?>
-    </section>
-    <section class="activity-section">
-        <hr>
-        <h3>Itinerary</h3>
-        <?=$service_detail['Service']['itinerary'] ?>
-    </section>
     <?php if ( (count($amenities) + count($included) + count($extra) + count($details)) > 0 ): ?>
         <section class="activity-section">
-            <hr>
+
             <h3>Details</h3>
 
             <?php
@@ -21,8 +12,8 @@
                 $container1 = '';
                 $container2 = '';
 
-                foreach ($data as $attr): 
-                    
+                foreach ($data as $attr):
+
                     if ($counter % 2 == 0):
                         $container1 .= createAttributesHTML($attr);
                     else:
@@ -50,19 +41,19 @@
                 $html .= '<br>';
 
                 return $html;
-            } 
+            }
 
-            ?>          
+            ?>
 
             <?php if (count($details) > 0): ?>
 
                 <div class="activities-attributes-column activities-attributes-column0">
                     <p class="activities-attributes-header">About this <?php echo $header ? $header : 'activity' ?></p>
                 </div>
-        
+
                 <?php echo splitContainers($details); ?>
 
-            
+
 
             <?php endif; ?>
 
@@ -75,7 +66,7 @@
                 <?php echo splitContainers($amenities); ?>
 
             <?php endif; ?>
-        
+
             <?php if (count($included) > 0): ?>
 
                 <hr>
@@ -86,7 +77,7 @@
 
             <?php endif; ?>
 
-            
+
             <?php if (count($extra) > 0): ?>
                 <hr>
                 <div class="activities-attributes-column activities-attributes-column0">
@@ -94,11 +85,20 @@
                 </div>
                 <?php echo splitContainers($extra); ?>
             <?php endif; ?>
-            
+
 
         </section>
     <?php endif; ?>
-
+    <section class="activity-section">
+        <hr>
+        <h3>Description</h3>
+        <?=$service_detail['Service']['description'] ?>
+    </section>
+    <section class="activity-section">
+        <hr>
+        <h3>Itinerary</h3>
+        <?=$service_detail['Service']['itinerary'] ?>
+    </section>
     <section class="activity-section">
         <hr>
         <h3>How to get There</h3>
