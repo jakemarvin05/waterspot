@@ -12,9 +12,12 @@
                 $container1 = '';
                 $container2 = '';
 
+                $dataLength = count($data);
+
+
                 foreach ($data as $attr):
 
-                    if ($counter % 2 == 0):
+                    if ($counter < $dataLength/2):
                         $container1 .= createAttributesHTML($attr);
                     else:
                         $container2 .= createAttributesHTML($attr);
@@ -80,6 +83,7 @@
 
             <?php if (count($extra) > 0): ?>
                 <hr>
+                <p style="color: #C8C8C8; font-weight: 100">*The extras listed below are not included in the price stated for this activity</p>
                 <div class="activities-attributes-column activities-attributes-column0">
                     <p class="activities-attributes-header">Extras</p>
                 </div>
