@@ -61,7 +61,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 		/* check slot time IF both are not equals Start */
 		$criteria=array();
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id,
-		'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
+		//'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
 		'ServiceSlot.slot_type'=>$this->data['ServiceSlot']['slot_type'],
 		'Or'=>array(
 				array('ServiceSlot.start_time BETWEEN ? AND ?'=>array($start_time,$end_time)),
