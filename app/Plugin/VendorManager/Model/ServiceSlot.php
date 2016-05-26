@@ -14,7 +14,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 						),
 						'if_already_exits'=>array(
 							'rule'=>array('checkslot'),
-							'message'=>'You have already added these slots. Please change time slots.'
+							'message'=>'Slots may have been already added or overlapping. Please change time slots.'
 						)	
 					),	  
 			'start_time' =>
