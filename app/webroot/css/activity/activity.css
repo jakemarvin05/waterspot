@@ -1,1 +1,5 @@
 /* Stylesheet for Activity Pages */
+
+section.activity-section.details {
+    padding-top: 30px;
+}

@@ -1,9 +1,6 @@
 <article class="activity-description">
     <?php if ( (count($amenities) + count($included) + count($extra) + count($details)) > 0 ): ?>
-        <section class="activity-section">
-
-            <h3>Details</h3>
-
+        <section class="activity-section details">
             <?php
 
             function splitContainers($data) {
@@ -83,7 +80,7 @@
 
             <?php if (count($extra) > 0): ?>
                 <hr>
-                <p style="color: #C8C8C8; font-weight: 100">*The extras listed below are not included in the price stated for this activity</p>
+                <p style="color: #FC9524; font-weight: 100">*The extras listed below are not included in the price stated for this activity</p>
                 <div class="activities-attributes-column activities-attributes-column0">
                     <p class="activities-attributes-header">Extras</p>
                 </div>
