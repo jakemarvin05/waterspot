@@ -53,6 +53,22 @@ Class ServiceSlot extends VendorManagerAppModel {
 		}
 		return true;
 	}
+
+	public function getAllAffectedSlots($start_time, $end_time){
+		$critria['conditions'] = array(
+				array('? BETWEEN ServiceSlot.start_time AND ServiceSlot.end_time '=>array($start_time)),
+				array('? BETWEEN ServiceSlot.start_time AND ServiceSlot.end_time '=>array($end_time)),
+			);
+
+		$affectedSlots = $this->find('all',$critria);
+
+		if(empty($affectedSlots)) {
+			return false;
+		}
+		return $affectedSlots;
+
+	}
+
 	function checkslot($service_id){
 		$service_id=$this->data['ServiceSlot']['service_id'];
 		$start_time=date('H:i:s', strtotime($this->data['ServiceSlot']['start_time']) +1);
@@ -61,7 +77,7 @@ Class ServiceSlot extends VendorManagerAppModel {
 		/* check slot time IF both are not equals Start */
 		$criteria=array();
 		$critria['conditions'] = array('ServiceSlot.service_id' => $service_id,
-		//'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
+		'ServiceSlot.price'=>$this->data['ServiceSlot']['price'],
 		'ServiceSlot.slot_type'=>$this->data['ServiceSlot']['slot_type'],
 		'Or'=>array(
 				array('ServiceSlot.start_time BETWEEN ? AND ?'=>array($start_time,$end_time)),
