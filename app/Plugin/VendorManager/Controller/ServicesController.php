@@ -625,7 +625,7 @@ Class ServicesController extends VendorManagerAppController{
         //save slots
         if(!empty($this->request->data) && $this->slot_validation()){
             $price_rules = $this->create_price_rule();
-            $this->redirect(array('action'=>'add_price_rule',$vendor_id,$service_id));
+            $this->redirect(array('action'=>'add_price_rules',$vendor_id,$service_id));
             if(!empty($price_rules)) {
                 $this->Session->setFlash(__('Price rule has been added successfully.'));
             }
