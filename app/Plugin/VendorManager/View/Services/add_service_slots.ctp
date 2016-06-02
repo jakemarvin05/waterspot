@@ -125,7 +125,7 @@
         </div>
 
         <div class="dashboard-form-row with-padding edit">
-            <h4>Tyoe</h4>
+            <h4>Type</h4>
             <?=$this->Form->input('slot_type',array('class'=>'selectpicker','type' =>'select','label'=>false,'div'=>false, 'options'=>$service_slot_types));?>
         </div>
 

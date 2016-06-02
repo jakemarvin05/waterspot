@@ -3,4 +3,3 @@ class MailManagerAppModel extends AppModel
 {
        
 }
- ?>

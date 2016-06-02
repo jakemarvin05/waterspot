@@ -438,6 +438,45 @@ Class ServicesController extends VendorManagerAppController{
 		return (int)($result['error'])?0:1;
 	}
 
+    function price_rule_validation(){
+        $this->loadModel('PriceManager.Price');
+        foreach($this->request->data['Price']['price_rule'] as $price_rule){
+            $price_rule['slot_type'] = $this->request->data['Price']['slot_type'];
+            $this->Price->set($price_rule);
+            $result = array();
+            if ($this->Price->validates()) {
+                $result['error'] = 0;
+            }else{
+                $result['error'] = 1;
+                break 1;
+            }
+
+        }
+        if($this->request->is('ajax')) {
+            $this->autoRender = false;
+            $result['errors'] = $this->Price->validationErrors;
+            $errors = array();
+            foreach($result['errors'] as $field => $data){
+                $errors['Price'.Inflector::camelize($field)] = array_pop($data);
+            }
+            $result['errors'] = $errors;
+            echo json_encode($result);
+            return;
+        }
+        return (int)($result['error'])?0:1;
+    }
+
+    function create_price_rule(){
+        $this->loadModel('PriceManager.Price');
+        $priceRules = $this->request->data['Price']['price_rule'];
+        foreach($priceRules as $index => $rule){
+             $rule['slot_type'] = $this->request->data['Price']['slot_type'];
+             $this->Price->create();
+             $this->Price->save($rule);
+        }
+        return;
+	}
+
 	function images_handle(){
 		$this->autoRender = false;
 		App::uses('ImageResizeHelper', 'View/Helper');
@@ -482,7 +521,8 @@ Class ServicesController extends VendorManagerAppController{
 	}
 
 	function add_service_slots($service_id=null) {
-            array_push(self::$css_for_layout,'vendor/vendor-panel.css');
+
+        array_push(self::$css_for_layout,'vendor/vendor-panel.css');
 		
 		$this->loadModel('VendorManager.ServiceSlot');
 		$this->loadModel('VendorManager.Service');
@@ -521,11 +561,12 @@ Class ServicesController extends VendorManagerAppController{
 			$order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 			$service_slots=$this->ServiceSlot->getService_slotByservice_id($service_id, $sort_by, $order);
 			$service_title=$this->Service->servieTitleByService_id($service_id);
-		} 
+		}
+
 		//save slots
 		if(!empty($this->request->data) && $this->slot_validation()){
 			
-			$this->ServiceSlot->create(); 
+			$this->ServiceSlot->create();
 			$this->ServiceSlot->save($this->request->data); 
 			$this->redirect(array('action'=>'add_service_slots',$service_id));
 			if(!empty($this->ServiceSlot->id)) {
@@ -561,7 +602,72 @@ Class ServicesController extends VendorManagerAppController{
 			2 => 'Weekend',
 			3 => 'Special',
 		]);
+
 	}
+
+    function admin_add_price_rules($vendor_id=null,$service_id=null){
+        // Load the models
+        $this->loadModel('VendorManager.ServiceSlot');
+        $this->loadModel('PriceManager.Price');
+
+        // checking vendor is login or not
+        // check service_id owner
+        if($this->Service->checkServiceById($vendor_id,$service_id)<=0) {
+            $this->Session->setFlash(__('Are you doing something wrong?', false));
+
+            $this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'index'));
+        }
+
+        if(!empty($service_id)) {
+            $price_rules =  $this->Price->getPriceRulesByServiceId($service_id);
+            $service_title= $this->Service->servieTitleByService_id($service_id);
+        }
+        //save slots
+        if(!empty($this->request->data) && $this->slot_validation()){
+            $price_rules = $this->create_price_rule();
+            $this->redirect(array('action'=>'add_price_rule',$vendor_id,$service_id));
+            if(!empty($price_rules)) {
+                $this->Session->setFlash(__('Price rule has been added successfully.'));
+            }
+            else{
+                $this->Session->setFlash(__('Price rule has been not added.', false));
+            }
+        }
+        $this->breadcrumbs[] = array(
+            'url'=>Router::url('/'),
+            'name'=>'Home'
+        );
+        $this->breadcrumbs[] = array(
+            'url'=>Router::url('/admin/home/'),
+            'name'=>'Home'
+        );
+        $this->breadcrumbs[] = array(
+            'url'=>Router::url('/admin/vendor_manager/vendors'),
+            'name'=>'Manage Vendor'
+        );
+        $this->breadcrumbs[] = array(
+            'url'=>Router::url('/admin/vendor_manager/services/servicelist/'.$vendor_id),
+            'name'=>$service_title
+        );
+        $this->breadcrumbs[] = array(
+            'url'=>Router::url('/services/add_slots/'),
+            'name'=>'Add Price Rules'
+        );
+        $service = $this->Service->find('first',['conditions'=>['id'=>$service_id]]);
+        $default_service_price = $service['Service']['service_price'];
+        $this->set('default_service_price',$default_service_price);
+        $this->set('service_id',$service_id);
+        $this->set('vendor_id',$vendor_id);
+        $this->set('service_title',$service_title);
+        $this->set('price_rules',$price_rules);
+
+        $this->set('price_rule_types', [
+            1 => 'Weekday',
+            2 => 'Weekend',
+            3 => 'Special',
+        ]);
+
+    }
 
 	// admin
 	function admin_add_service_slots($vendor_id=null,$service_id=null) {

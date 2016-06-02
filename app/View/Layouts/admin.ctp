@@ -64,6 +64,8 @@
         <script src="/js/iaStickySidebar.js"></script>
         <script src="/js/lib.js"></script>
 
+	<!-- Other Library style sheets -->
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
 
 </head>
 
