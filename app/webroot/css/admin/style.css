@@ -1933,3 +1933,6 @@ p.error {
 	padding: 10px 0px;
 	color: red;
 }
+#priceRuleTable{
+	display: none;
+}

@@ -15,38 +15,72 @@ class Price extends PriceManagerAppModel
                 'message'=>'Slot type is out of index.'
             )
         ),
-        'price' => array(
+        'service_id' => array(
+            'if_not_empty'=>array(
             'rule' => 'notEmpty',
-            'message' => 'Please set price.'
+            'message' => 'Service ID is not set.'
+            ),
+            'if_valid'=>array(
+                'rule'=>array('is_int'),
+                'message'=>'Service ID needs to be an integer.'
+            )
         ),
-        'max_pax' => array(
+        'rule_type' => array(
+            'if_not_empty'=>array(
+                'rule' => 'notEmpty',
+                'message' => 'Rule type is not set.'
+            ),
+            'if_valid'=>array(
+                'rule'=>array('is_string'),
+                'message'=>'Rule type needs to be a string.'
+            )
+        ),
+        'rule_key' => array(
             'rule' => 'notEmpty',
-            'message' => 'Some rule have no Maximum no. of Pax set.'
+            'message' => 'Please set the key',
+            'required' => true
         ),
-        'min_pax' => array(
+        'rule_value' => array(
             'rule' => 'notEmpty',
-            'message' => 'Some rule have no Minimum no. of Pax set.'
-        ),
-        'price_per_pax' => array(
-            'rule' => 'notEmpty',
-            'message' => 'Some rule have no Price per Pax set.'
-        ),
-        'price_per_add_hour' => array(
-            'rule' => 'notEmpty',
-            'message' => 'Some rule have no Price per addional hour set.'
-        ),
-        'max_add_hour' => array(
-            'rule' => 'notEmpty',
-            'message' => 'Some rule have no Maximum additional hour set'
-        ),
-
+            'message' => "Some field doesn't have a value.",
+            'required' => true
+        )
 
     );
 
-    function is_out_of_index()
-    {
+    function is_out_of_index(){
         $slot_type = $this->data['Price']['slot_type'];
-        if ($slot_type > 3) {
+        if (is_int($slot_type)) {
+            return false;
+        }
+        return true;
+    }
+
+    function getAllRules($service_id){
+        $criteria['conditions'] = array('Price.service_id' => $service_id);
+        // Find all the rules table
+        $rules = $this->find('all',$criteria);
+
+        if(!empty($rules)){
+            return $rules;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    function is_int(){
+        $service_id = $this->data['Price']['service_id'];
+        if (is_int($service_id)) {
+            return false;
+        }
+        return true;
+    }
+
+    function is_string(){
+        $rule_type = $this->data['Price']['rule_type'];
+        if (!is_string($rule_type)) {
             return false;
         }
         return true;
@@ -92,6 +126,25 @@ class Price extends PriceManagerAppModel
         return false;
     }
 
+    public function checkIfKeyOfRuleExist($service_id,$slot_type,$rule_type,$key){
+        $criteria['conditions'] = array('Price.service_id' => $service_id,'Price.slot_type'=>$slot_type,'Price.rule_key'=>$key,'Price.rule_type'=>$rule_type);
+        $count = $this->find('count', $criteria);
+        if ($count>0) {
+            return true;
+        }
+        return false;
+    }
+    public function checkIfAllRuleAreListed($service_id,$slot_type,$rule_type){
+        $criteria['conditions'] = array('Price.service_id' => $service_id,'Price.slot_type'=>$slot_type,'Price.rule_type'=>$rule_type);
+        $count = $this->find('count', $criteria);
+        if ($count>0) {
+            return $count;
+        }
+        return false;
+    }
+
+
+
     public function getPaxRangePerSlot($slot_id)
     {
         $criteria['conditions'] = array('Price.slot_id' => $slot_id);
@@ -122,19 +175,20 @@ class Price extends PriceManagerAppModel
         return false;
     }
 
-    public function getPricePerHourRangePerSlot($slot_id)
-    {
-        $criteria['conditions'] = array('Price.slot_id' => $slot_id);
-        $price_rules = $this->find('all', $criteria);
-        if (!empty($price_rules)) {
-            $price_array = [];
-            foreach ($price_rules as $price_rule) {
-                $price_array[] = $price_rule['Price']['price_per_add_hour'];
-            }
-            $price_range = min($price_array) . ' - ' . max($price_array);
-            return $price_range;
+    public function checkIfRuleExist($service_id,$slot_type,$rule_type,$rule_key){
+        $criteria['conditions'] = array(
+            'Price.service_id' => $service_id,
+            'Price.slot_type' => $slot_type,
+            'Price.rule_type' => $rule_type,
+            'Price.rule_key' => $rule_key,
+
+            );
+        $rule_count = $this->find('count', $criteria);
+        if ($rule_count>0) {
+            return true;
         }
         return false;
+
     }
 
     public function getMaxAddHourRangePerSlot($slot_id)
