@@ -682,6 +682,17 @@ Class ServicesController extends VendorManagerAppController
         return;
 
     }
+    function admin_price_rule_delete($service_id = null, $slot_type = null, $rule_type = null){
+        // refrain from rendering
+        $this->autoRender = false;
+        $this->loadModel('PriceManager.Price');
+        // delete all records that matches the conditions
+        $this->Price->deleteAll(array('Price.service_id'=>$service_id,'Price.slot_type'=>$slot_type, 'Price.rule_type'=> $rule_type), false);
+        $this->Session->setFlash(__('Rule has been deleted successfully'));
+        // Go back to the referrer
+        $this->redirect($this->referer());
+
+    }
 
     function admin_add_price_rules($vendor_id = null, $service_id = null)
     {

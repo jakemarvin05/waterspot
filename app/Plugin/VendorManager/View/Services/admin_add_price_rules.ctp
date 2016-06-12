@@ -48,6 +48,9 @@
             $table_weekdays_data = [];
             $table_weekends_data = [];
             $table_special_data = [];
+            $weekdays_rule_type_id = '';
+            $weekends_rule_type_id = '';
+            $special_rule_type_id = '';
 
             $table_weekdays .= '<td>'.ucfirst($price_rule_name).'</td><td>';
             $table_weekends .= '<td>'.ucfirst($price_rule_name).'</td><td>';
@@ -58,16 +61,19 @@
                 if($price_rule_name == $data['Price']['rule_type']){
                     switch($data['Price']['slot_type']){
                         case 1:
+                            $weekdays_rule_type_id = $data['Price']['rule_type'];
                             $table_weekdays .= ucfirst($data['Price']['rule_key']).': '.$data['Price']['rule_value'].'</br>';
                             $table_weekdays_data[] = $data['Price']['rule_key'];
                             $table_weekdays_has_no_data = false;
                             break;
                         case 2:
+                            $weekends_rule_type_id = $data['Price']['rule_type'];
                             $table_weekends .= ucfirst($data['Price']['rule_key']).': '.$data['Price']['rule_value'].'</br>';
                             $table_weekends_data[] = $data['Price']['rule_key'];
                             $table_weekends_has_no_data = false;
                             break;
                         case 3:
+                            $special_rule_type_id = $data['Price']['rule_type'];
                             $table_special .= ucfirst($data['Price']['rule_key']).': '.$data['Price']['rule_value'].'</br>';
                             $table_special_data[] = $data['Price']['rule_key'];
                             $table_special_has_no_data = false;
@@ -87,22 +93,22 @@
             // check for rule data and show if there are some
             if (count($table_weekdays_data) > 0) {
                 // append the table data with the closing table row tag
-                $table_weekdays .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $table_weekdays .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 1, $weekdays_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
                 $weekdays .= $table_weekdays . '</tr>';
             }
             else {
-                if ($table_weekdays_has_no_data && $rule_ctr == 0) {
+                if ($table_weekdays_has_no_data && $rule_ctr > 0) {
                     $weekdays .= '<td colspan="4">No rule data to display</td></tr>';
                 }
             }
             // check for rule data and show if there are some
             if(count($table_weekends_data)>0) {
                 // append the table data with the closing table row tag
-                $table_weekends .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $table_weekends .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 2, $weekends_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
                 $weekends .= $table_weekends . '</tr>';
             }
             else{
-                if($table_weekends_has_no_data && $rule_ctr == 0) {
+                if($table_weekends_has_no_data && $rule_ctr > 0) {
                     $weekends .= '<td colspan="4">No rule data to display</td></tr>';
                 }
             }
@@ -110,11 +116,11 @@
             // check for rule data and show if there are some
             if(count($table_special_data)>0) {
                 // append the table data with the closing table row tag
-                $table_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $table_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 3, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
                 $special .= $table_special . '</tr>';
             }
             else {
-                if ($table_special_has_no_data && $rule_ctr == 0) {
+                if ($table_special_has_no_data && $rule_ctr > 0) {
                     $special .= '<td colspan="4">No rule data to display</td></tr>';
                 }
             }
@@ -271,6 +277,7 @@
 </div>
 <script type="text/javascript">
     <?php $path = $this->Html->webroot; ?>
+    $('table tr:empty').remove();
 
     var price_rules = JSON.parse('<?php echo $price_rule_json; ?>');
     $(document).ready(function () {
