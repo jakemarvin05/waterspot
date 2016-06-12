@@ -221,16 +221,24 @@
                                 <div class="slot-booking-form">
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
-                                    <?php if (!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1): ?>
+                                    <?php if (  (!preg_match('/yacht/i', $service_detail['service_type']) &&  !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
                                     <div class="select-participant">
                                         <h4 class="select-participant-txt">Select No. of Pax</h4>
                                         <?
+                                        if (preg_match('/yacht/i', $service_detail['service_type'])):
+                                            $no_participants = array();
+                                            // get the maximum allowable number of pax per person
+                                            for($x = 1; $x <= $rule_object['max_pax']; $x++){
+                                                $no_participants[$x] = $x;
+                                            }
+                                        else:
                                         $no_participants = array();
                                         foreach (range(1, $service_detail['Service']['no_person']) as $r) {
                                             $no_participants[$r] = $r;
                                         }
+                                        endif;
                                         ?>
-                                        <?= $this->Form->input('no_participants', array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
+                                        <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type'])?'no_participants':'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
                                     </div>
                                     <?php echo $this->element('message'); ?>
                                     <?php else: ?>
@@ -565,6 +573,7 @@
 
 <script type="text/javascript">
     $('#ActivityNoParticipants').selectpicker().hide();
+    $('#ActivityNoOfPax').selectpicker().hide();
 
 
     $('#ActivityNoParticipants').val('1');

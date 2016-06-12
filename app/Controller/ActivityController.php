@@ -128,6 +128,7 @@ Class ActivityController extends AppController
         $this->loadModel('VendorManager.ServiceSlot');
         $this->loadModel('VendorManager.ServiceReview');
         $this->loadModel('VendorManager.Attribute');
+        $this->loadModel('PriceManager.Price');
         $this->loadModel('VendorManager.ServiceAttribute');
         $this->loadModel('VendorManager.ValueAddedService');
         $this->loadModel('LocationManager.City');
@@ -341,12 +342,46 @@ Class ActivityController extends AppController
                 $details[] = $attr;
             }
         }
+        $rules_of_service = $this->Price->getAllRules($service_id);
+        $rule_object = array();
+        $pax = [];
+        $weekday_rules = array();
+        $weekend_rules = array();
+        $special_rules = array();
+        foreach ($rules_of_service as $rule) {
+            // extract the max pax
+            if ($rule['Price']['rule_key'] == 'max pax') {
+                $pax[] = $rule['Price']['rule_value'];
+
+            }
+            switch ($rule['Price']['slot_type']) {
+                case 1:
+                    $weekday_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                    break;
+                case 2:
+                    $weekend_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                    break;
+                case 3:
+                    $special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        $rule_object['max_pax'] = $pax ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
+        $rule_object['rules']['weekday_rules'] = $weekday_rules;
+        $rule_object['rules']['weekend_rules'] = $weekend_rules;
+        $rule_object['rules']['special_rules'] = $special_rules;
+
         $header = $this->ServiceType->find('first', ['conditions' => ['id' => $service_detail['Service']['service_type_id']]]);
         $this->set('header', $header['ServiceType']['header']);
         $this->set('amenities', $amenities);
         $this->set('included', $included);
         $this->set('extra', $extra);
         $this->set('details', $details);
+        $this->set('rule_object', $rule_object);
         //end of calling the attributes
     }
 
@@ -386,7 +421,8 @@ Class ActivityController extends AppController
                         // filter already passed time
                         $current_time = time() + 60 * 60; // with 1hr margin
                         $check_time = strtotime($service_slot['start_date'] . ' ' . $slot_index->start_time);
-                        if ($current_time > $check_time) continue;
+                        if ($current_time > $check_time)
+                            continue;
 
                         $criteria = [
                             'conditions' => [
@@ -516,12 +552,18 @@ Class ActivityController extends AppController
                     // slot attributes
                     $slot_booking_detail = array();
                     foreach ($slot_booking_details as $slot_key => $slot_attb) {
-                        if ($slot_key == 0) $slot_booking_type = 'slot_date';
-                        if ($slot_key == 1) $slot_booking_type = 'service_id';
-                        if ($slot_key == 2) $slot_booking_type = 'slot_id';
-                        if ($slot_key == 3) $slot_booking_type = 'start_time';
-                        if ($slot_key == 4) $slot_booking_type = 'end_time';
-                        if ($slot_key == 5) $slot_booking_type = 'price';
+                        if ($slot_key == 0)
+                            $slot_booking_type = 'slot_date';
+                        if ($slot_key == 1)
+                            $slot_booking_type = 'service_id';
+                        if ($slot_key == 2)
+                            $slot_booking_type = 'slot_id';
+                        if ($slot_key == 3)
+                            $slot_booking_type = 'start_time';
+                        if ($slot_key == 4)
+                            $slot_booking_type = 'end_time';
+                        if ($slot_key == 5)
+                            $slot_booking_type = 'price';
                         //
                         $slot_booking_detail[$slot_booking_type] = $slot_attb;
                     }
