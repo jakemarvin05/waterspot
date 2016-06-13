@@ -414,9 +414,52 @@
         });
     }
 </script>
-
 <script>
     <?php $path = $this->Html->webroot; ?>
+
+    var $rule_object_json = (<?php echo $rule_object_json; ?>).rules;
+
+    $('#slots_form ').on('change','input[type=checkbox]',
+        function(){
+            console.log('slot selected');
+            console.log('we need to process the value of ' + $(this).val());
+            console.log('the slot has a slot_type of ' + $(this).data('slot'));
+
+            var oldVal = $(this).val();
+            var slotIndex =  $(this).data('slot');
+            var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
+            var paxSelected = $('#ActivityNoOfPax').val();
+            var valProcessed =  oldVal.split('_');
+            var oldPrice = valProcessed[(valProcessed.length)-1];
+            var additionalPax =  paxSelected - paxIncluded;
+            var pricePerPax = 0;
+            console.log($rule_object_json.weekday_rules['price per pax']);
+            switch (slotIndex){
+                case 1:
+                    pricePerPax = $rule_object_json.weekday_rules['price per pax']?$rule_object_json.weekday_rules['price per pax']:0;
+                    break;
+                case 2:
+                    pricePerPax = $rule_object_json.weekend_rules['price per pax']?$rule_object_json.weekend_rules['price per pax']:0;
+                    break;
+                case 3:
+                    pricePerPax = $rule_object_json.special_rules['price per pax']?$rule_object_json.special_rules['price per pax']:0;
+                    break;
+                default:
+                    break;
+            }
+            var newPrice = oldPrice;
+            if( additionalPax > 0 ){
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax*(additionalPax))
+            }
+            valProcessed.pop();
+            valProcessed.push(newPrice);
+            var newVal =  valProcessed.join('_');
+            console.log(newVal);
+            $(this).val(newVal);
+
+        }
+    );
+
     $(document).ready(function () {
         // for price update
         $('#add_services').submit(function () {

@@ -152,8 +152,8 @@ Class ActivityController extends AppController
         $this->sessionKey = MemberAuthComponent::$sessionKey;
         $this->member_data = $this->Session->read($this->sessionKey);
         // Load java script and css
-        array_push(self::$script_for_layout, 'login.js', 'jquery.tools.min.js', 'jquery.mousewheel.js', 'jquery.jscrollpane.min.js', 'fotorama.js', 'https://code.jquery.com/ui/1.10.3/jquery-ui.js', 'jquery.fancybox.js', 'responsive-tabs.js', $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js', 'http://w.sharethis.com/button/buttons.js');
-        array_push(self::$css_for_layout, 'activity.css', 'jquery.jscrollpane.css', 'fotorama.css', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css', 'responsive-tabs.css', $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.css');
+        array_push(self::$script_for_layout, 'login.js', 'jquery.tools.min.js', 'jquery.mousewheel.js', 'jquery.jscrollpane.min.js', 'fotorama.js', 'https://code.jquery.com/ui/1.10.3/jquery-ui.js', 'jquery.fancybox.js', 'responsive-tabs.js', /*, $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js',*/ 'http://w.sharethis.com/button/buttons.js');
+        array_push(self::$css_for_layout, 'activity.css', 'jquery.jscrollpane.css', 'fotorama.css', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css', 'responsive-tabs.css'/*, $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.css'*/);
         array_push(self::$css_for_layout, 'pages.css');
         self::$scriptBlocks[] = '
 		$( document ).ready(function() {
@@ -370,6 +370,7 @@ Class ActivityController extends AppController
 
         }
 
+
         $rule_object['max_pax'] = $pax ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
         $rule_object['rules']['weekday_rules'] = $weekday_rules;
         $rule_object['rules']['weekend_rules'] = $weekend_rules;
@@ -382,6 +383,7 @@ Class ActivityController extends AppController
         $this->set('extra', $extra);
         $this->set('details', $details);
         $this->set('rule_object', $rule_object);
+        $this->set('rule_object_json', json_encode($rule_object));
         //end of calling the attributes
     }
 
@@ -440,6 +442,7 @@ Class ActivityController extends AppController
                         $new->service_id = $slot['ServiceSlot']['service_id'];
                         $new->start_time = $slot['ServiceSlot']['start_time'];
                         $new->end_time = $slot['ServiceSlot']['end_time'];
+                        $new->slot_type = $slot['ServiceSlot']['slot_type'];
                         $new->price = $slot['ServiceSlot']['price'];
                         $new->fire_sales_price = isset($slot['ServiceSlot']['fire_sales_price']) ? $slot['ServiceSlot']['fire_sales_price'] : null;
                         $new->fire_sales_day_margin = isset($slot['ServiceSlot']['fire_sales_day_margin']) ? $slot['ServiceSlot']['fire_sales_day_margin'] : null;
@@ -570,7 +573,7 @@ Class ActivityController extends AppController
                     // check slot booking
                     $slotdata = array();
                     $slotdata = $slot_booking_detail;
-                    $slotdata['no_participants'] = $this->request->data['Activity']['no_participants'];
+                    $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants'])?$this->request->data['Activity']['no_participants']:1;
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
                     if (empty($booking_status)) {
                         $this->Session->setFlash('Some slots have been booked. Please select another slots.', 'default', '', 'error');

@@ -1,6 +1,7 @@
 <h3>Available slots on chosen dates</h3>
 
 <? if(!empty($service_slots)) {?>
+
 	<?php foreach($service_slots as $service_slots) { ?>
 		<div class="dt">
 			<div class="dates"><?=$service_slots['start_date']; ?></div>
@@ -14,7 +15,7 @@
 						}
 						$slotkey_value=strtotime($service_slots['start_date'])."_".$service_slots['service_id']."_".$slotkey."_".$slot->start_time."_".$slot->end_time."_".$slot_price;
 						?>
-						<div class="check <?php echo ($slot->booked?"booked":"") ?>"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value, 'disabled'=>($slot->booked?'disabled':'false'),'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
+						<div class="check <?php echo ($slot->booked?"booked":"") ?>"> <?=$this->Form->checkbox('Activity.slots.',array('value'=>$slotkey_value,'data-slot'=>$slot->slot_type, 'disabled'=>($slot->booked?'disabled':'false'),'id'=>$slotkey,'class'=>'check-box','label'=>false,'div'=>false));?><label for="<?=$slotkey?>" class="checkbox-label"><?
 						echo "<span ".($slot->booked?"class='strike'":"").">".$this->Time->meridian_format($slot->start_time). " To ".$this->Time->end_meridian_format($slot->end_time)."</span>";
 						?></label>
 						<?php echo '<br/>Price : $'.$slot_price . '&nbsp;&nbsp;&nbsp;';

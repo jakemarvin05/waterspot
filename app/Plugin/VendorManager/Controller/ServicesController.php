@@ -18,7 +18,7 @@ Class ServicesController extends VendorManagerAppController
             'price per hour'
             ),
         'price per pax' => array(
-                'price per Pax',
+                'price per pax',
                 'max pax'
         ));
 
