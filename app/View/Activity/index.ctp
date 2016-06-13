@@ -264,6 +264,9 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
+                                    <div class="calculator-output">
+                                        <p>Sub-total: <span id="sub-total">$0</span></p>
+                                    </div>
                                     <div class="check-terms">
                                         <label>
                                             <p>
@@ -419,21 +422,24 @@
 
     var $rule_object_json = (<?php echo $rule_object_json; ?>).rules;
 
+    var oldVal = "";
+    var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
+    var oldPrice = 0;
+    var pricePerPax = 0;
+    var newPrice = oldPrice;
+    var valProcessed = [];
+    var selectedSlot;
+
     $('#slots_form ').on('change','input[type=checkbox]',
         function(){
-            console.log('slot selected');
-            console.log('we need to process the value of ' + $(this).val());
-            console.log('the slot has a slot_type of ' + $(this).data('slot'));
-
-            var oldVal = $(this).val();
+            selectedSlot = $(this);
+            oldVal = $(this).val();
             var slotIndex =  $(this).data('slot');
-            var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
             var paxSelected = $('#ActivityNoOfPax').val();
-            var valProcessed =  oldVal.split('_');
-            var oldPrice = valProcessed[(valProcessed.length)-1];
+            valProcessed =  oldVal.split('_');
+            oldPrice = valProcessed[(valProcessed.length)-1];
             var additionalPax =  paxSelected - paxIncluded;
-            var pricePerPax = 0;
-            console.log($rule_object_json.weekday_rules['price per pax']);
+
             switch (slotIndex){
                 case 1:
                     pricePerPax = $rule_object_json.weekday_rules['price per pax']?$rule_object_json.weekday_rules['price per pax']:0;
@@ -447,16 +453,46 @@
                 default:
                     break;
             }
-            var newPrice = oldPrice;
+            var additionalPax =  paxSelected - paxIncluded;
+            console.log(oldPrice);
+            console.log(pricePerPax);
+            console.log(additionalPax);
             if( additionalPax > 0 ){
                 newPrice = parseInt(oldPrice) + parseInt(pricePerPax*(additionalPax))
             }
+            else {
+                newPrice = oldPrice;
+            }
             valProcessed.pop();
             valProcessed.push(newPrice);
+            console.log('new price is '+newPrice);
+            $('#sub-total').html('$'+newPrice);
             var newVal =  valProcessed.join('_');
-            console.log(newVal);
             $(this).val(newVal);
 
+        }
+    );
+
+    $('#ActivityNoOfPax').change(
+        function(){
+            var paxSelected =  $(this).val();
+            var additionalPax =  paxSelected - paxIncluded;
+            console.log('num of pax change detected...');
+            console.log(oldPrice);
+            console.log(pricePerPax);
+            console.log(additionalPax);
+            if( additionalPax > 0 ){
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax*(additionalPax))
+            }
+            else {
+                newPrice = oldPrice;
+            }
+            valProcessed.pop();
+            valProcessed.push(newPrice);
+            console.log('new price is '+newPrice);
+            $('#sub-total').html('$'+newPrice);
+            var newVal =  valProcessed.join('_');
+            selectedSlot.val(newVal);
         }
     );
 

@@ -22,6 +22,8 @@
 							if ($service_details['no_person'] > 1) {
 								echo "(" . $slot->available_count . " slots remaining)";
 							}
+							if ($service_details['is_private']){
+								echo "<br><br>(Price includes " . $service_details['num_pax_included'] . " pax)";							}
 						?>
 						<?php if ($service_details['min_participants'] > 1): ?>
 						<div class="progressinfo" style="color:#777;width:100%;">

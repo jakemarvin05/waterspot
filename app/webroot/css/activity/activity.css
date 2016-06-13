@@ -3,3 +3,17 @@
 section.activity-section.details {
     padding-top: 30px;
 }
+.calculator-output {
+    padding: 13px;
+    background: #949494;
+    margin: 10px 0px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0px 1px 1px #464646 inset;
+    border-radius: 3px;
+    text-shadow: 0px 1px 0px #353535;
+}
+
+.calculator-output p {
+    margin: 0;
+}
