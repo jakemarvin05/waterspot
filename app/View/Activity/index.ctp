@@ -1,11 +1,12 @@
 <section id="activityPanorama" class="topResponsivePadding">
-    <?php 
-        $isPanoramaImageExist = isset($service_detail['Service']['panorama_image']) && $service_detail['Service']['panorama_image'] != '';
+    <?php
+    $isPanoramaImageExist = isset($service_detail['Service']['panorama_image']) && $service_detail['Service']['panorama_image'] != '';
 
-        if ($panoramaImage = $isPanoramaImageExist ? $service_detail['Service']['panorama_image'] : 'default-panorama.jpg');
+    if ($panoramaImage = $isPanoramaImageExist ? $service_detail['Service']['panorama_image'] : 'default-panorama.jpg')
+        ;
     ?>
     <img src="/img/service_images/<?php echo $panoramaImage; ?>">
-       
+
 </section>
 
 <script>
@@ -64,7 +65,7 @@
                     'top': '-' + heightToCrop / 2 + 'px',
                     'right': ''
                 });
-                
+
 
             } else {
                 // wide image, set height to 100% and crop width
@@ -141,26 +142,26 @@
                 <aside class="sidebar-inner">
                     <div class="sidebar-inner-wrapper">
                         <div class="activity-price-info">
-                            <?php if($min_price==$max_price): ?>
-                            <div style="height: 100%; width: 100%;">
+                            <?php if ($min_price == $max_price): ?>
+                                <div style="height: 100%; width: 100%;">
                                 <span
-                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price?$min_price:$service_detail['Service']['service_price'], 2); ?>
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format($min_price ? $min_price : $service_detail['Service']['service_price'], 2); ?>
                                     </span>
                                     <?php
-                                        if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
-                                            echo '<span class="unit">PER PAX</span>';
-                                        }
+                                    if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
+                                        echo '<span class="unit">PER PAX</span>';
+                                    }
                                     ?>
-                            </div>
+                                </div>
                             <?php else: ?>
                                 <div style="height: 100%; width: 100%;">
                                 <span
-                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format(isset($min_price)?$min_price:$service_detail['Service']['service_price'], 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format(isset($max_price)?$max_price:$service_detail['Service']['service_price'], 2); ?></span>
+                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format(isset($min_price) ? $min_price : $service_detail['Service']['service_price'], 2); ?>
+                                    - <?= Configure::read('currency'); ?><?= number_format(isset($max_price) ? $max_price : $service_detail['Service']['service_price'], 2); ?></span>
                                     <?php
-                                        if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
-                                            echo '<span class="unit">PER PAX</span>';
-                                        }
+                                    if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
+                                        echo '<span class="unit">PER PAX</span>';
+                                    }
                                     ?>
                                 </div>
                             <?php endif; ?>
@@ -186,7 +187,7 @@
                                 </div>
                                 <script type="text/javascript">
                                     $(document).ready(function () {
-                                        var rate = <?php echo (isset($service_detail['Rating'])?$service_detail['Rating']:0); ?>;
+                                        var rate = <?php echo(isset($service_detail['Rating']) ? $service_detail['Rating'] : 0); ?>;
                                         var crate = rate + 1;
                                         while (crate <= 5) {
                                             $('#rate-' + crate).html('<img src="/img/social-feed-logo-bw.jpg">');
@@ -203,17 +204,18 @@
                                 $minimumParticipants = $service_detail['Service']['min_participants'];
                                 if ($minimumParticipants > 1):
 
-                                ?>
+                                    ?>
 
                                     <p class="info">
-                                        We need <?php echo $minimumParticipants; ?> participants for this event to start.
+                                        We need <?php echo $minimumParticipants; ?> participants for this event to
+                                        start.
                                     </p>
 
                                     <div class="clearfix"></div>
 
                                 <?php endif; ?>
 
-                                
+
                             </div>
                             <!-- /#ratings -->
 
@@ -221,26 +223,26 @@
                                 <div class="slot-booking-form">
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
-                                    <?php if (  (!preg_match('/yacht/i', $service_detail['service_type']) &&  !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
-                                    <div class="select-participant">
-                                        <h4 class="select-participant-txt">Select No. of Pax</h4>
-                                        <?
-                                        if (preg_match('/yacht/i', $service_detail['service_type'])):
-                                            $no_participants = array();
-                                            // get the maximum allowable number of pax per person
-                                            for($x = 1; $x <= $rule_object['max_pax']; $x++){
-                                                $no_participants[$x] = $x;
-                                            }
-                                        else:
-                                        $no_participants = array();
-                                        foreach (range(1, $service_detail['Service']['no_person']) as $r) {
-                                            $no_participants[$r] = $r;
-                                        }
-                                        endif;
-                                        ?>
-                                        <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type'])?'no_participants':'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
-                                    </div>
-                                    <?php echo $this->element('message'); ?>
+                                    <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
+                                        <div class="select-participant">
+                                            <h4 class="select-participant-txt">Select No. of Pax</h4>
+                                            <?
+                                            if (preg_match('/yacht/i', $service_detail['service_type'])):
+                                                $no_participants = array();
+                                                // get the maximum allowable number of pax per person
+                                                for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
+                                                    $no_participants[$x] = $x;
+                                                }
+                                            else:
+                                                $no_participants = array();
+                                                foreach (range(1, $service_detail['Service']['no_person']) as $r) {
+                                                    $no_participants[$r] = $r;
+                                                }
+                                            endif;
+                                            ?>
+                                            <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
+                                        </div>
+                                        <?php echo $this->element('message'); ?>
                                     <?php else: ?>
                                         <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
                                     <?php endif; ?>
@@ -264,13 +266,16 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
-                                    <div class="calculator-output">
-                                        <p>Sub-total: <span id="sub-total">$0</span></p>
-                                    </div>
+                                    <?php if (preg_match('/yacht/i', $service_detail['service_type'])): ?>
+                                        <div class="calculator-output">
+                                            <p>Subtotal: <span id="sub-total">$0</span></p>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="check-terms">
                                         <label>
                                             <p>
-                                                <input name="terms_and_condition" type="checkbox"/> I agree with the <a href="/terms" target="_blank"> Terms & Conditions</a>
+                                                <input name="terms_and_condition" type="checkbox"/> I agree with the <a
+                                                    href="/terms" target="_blank"> Terms & Conditions</a>
                                             </p>
                                         </label>
                                     </div>
@@ -311,10 +316,11 @@
 <div class="clear"></div>
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
-<?php if(!empty($cart_id)) echo $this->element('activity/cart_booking_invite'); ?>
+<?php if (!empty($cart_id))
+    echo $this->element('activity/cart_booking_invite'); ?>
 <?php $path = $this->Html->webroot; ?>
 
-<? if(!empty($cart_id)): ?>
+<? if (!empty($cart_id)): ?>
     <script>
         $(document).ready(function () {
             $("#add_invite input[type=checkbox]").click(function (event) {
@@ -430,68 +436,68 @@
     var valProcessed = [];
     var selectedSlot;
 
-    $('#slots_form ').on('change','input[type=checkbox]',
-        function(){
+    $('#slots_form ').on('change', 'input[type=checkbox]',
+        function () {
             selectedSlot = $(this);
             oldVal = $(this).val();
-            var slotIndex =  $(this).data('slot');
+            var slotIndex = $(this).data('slot');
             var paxSelected = $('#ActivityNoOfPax').val();
-            valProcessed =  oldVal.split('_');
-            oldPrice = valProcessed[(valProcessed.length)-1];
-            var additionalPax =  paxSelected - paxIncluded;
+            valProcessed = oldVal.split('_');
+            oldPrice = valProcessed[(valProcessed.length) - 1];
+            var additionalPax = paxSelected - paxIncluded;
 
-            switch (slotIndex){
+            switch (slotIndex) {
                 case 1:
-                    pricePerPax = $rule_object_json.weekday_rules['price per pax']?$rule_object_json.weekday_rules['price per pax']:0;
+                    pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
                     break;
                 case 2:
-                    pricePerPax = $rule_object_json.weekend_rules['price per pax']?$rule_object_json.weekend_rules['price per pax']:0;
+                    pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
                     break;
                 case 3:
-                    pricePerPax = $rule_object_json.special_rules['price per pax']?$rule_object_json.special_rules['price per pax']:0;
+                    pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
                     break;
                 default:
                     break;
             }
-            var additionalPax =  paxSelected - paxIncluded;
+            var additionalPax = paxSelected - paxIncluded;
             console.log(oldPrice);
             console.log(pricePerPax);
             console.log(additionalPax);
-            if( additionalPax > 0 ){
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax*(additionalPax))
+            if (additionalPax > 0) {
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
             }
             else {
                 newPrice = oldPrice;
             }
             valProcessed.pop();
             valProcessed.push(newPrice);
-            console.log('new price is '+newPrice);
-            $('#sub-total').html('$'+newPrice);
-            var newVal =  valProcessed.join('_');
+            console.log('new price is ' + newPrice);
+            $('#sub-total').html('$' + newPrice);
+            var newVal = valProcessed.join('_');
             $(this).val(newVal);
 
         }
     );
 
     $('#ActivityNoOfPax').change(
-        function(){
-            var paxSelected =  $(this).val();
-            var additionalPax =  paxSelected - paxIncluded;
+        function () {
+            var paxSelected = $(this).val();
+            var additionalPax = paxSelected - paxIncluded;
             console.log('num of pax change detected...');
             console.log(oldPrice);
             console.log(pricePerPax);
             console.log(additionalPax);
-            if( additionalPax > 0 ){
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax*(additionalPax))
+            if (additionalPax > 0) {
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
             }
             else {
                 newPrice = oldPrice;
             }
             valProcessed.pop();
             valProcessed.push(newPrice);
-            console.log('new price is '+newPrice);
-            $('#sub-total').html('$'+newPrice);
-            var newVal =  valProcessed.join('_');
+            console.log('new price is ' + newPrice);
+            $('#sub-total').html('$' + newPrice);
+            var newVal = valProcessed.join('_');
             selectedSlot.val(newVal);
         }
     );
@@ -607,14 +613,14 @@
             scrollThrough: ['.left-section']
         });
         $('[name=terms_and_condition]').attr('checked', false);
-        $('#loginButton').prop('disabled',true);
+        $('#loginButton').prop('disabled', true);
 
-        $('[name=terms_and_condition]').change(function(){
-            if($(this).is(":checked")){
+        $('[name=terms_and_condition]').change(function () {
+            if ($(this).is(":checked")) {
                 $('#loginButton').removeAttr('disabled')
             }
-            else{
-                $('#loginButton').attr('disabled','disabled');
+            else {
+                $('#loginButton').attr('disabled', 'disabled');
             }
         });
 
