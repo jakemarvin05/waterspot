@@ -352,6 +352,10 @@ Class ServiceFilterComponent extends Component{
 		if($start_date_str<$current_time){
 			$booking_status=false;
 		}
+
+		if($slotdata['no_of_pax']>0){
+			$booking_status = true;
+		}
 		return $booking_status;
 	}
 	 

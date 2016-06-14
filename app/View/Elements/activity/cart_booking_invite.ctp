@@ -96,7 +96,7 @@
 						<table class="cart-payment-desc" border="1" cellspacing="10px">
 							<tr>
 								<th width="70%">Total No. of Participants:</th>
-								<td width="27%"><?=$cart_details['Cart']['no_participants'];?></td>
+								<td width="27%"><?php echo ($cart_details['Cart']['no_participants']?$cart_details['Cart']['no_participants']:$cart_details['Cart']['no_of_pax']);?></td>
 							</tr>
 							<?php if($no_of_booking_days>1) { ?>
 								<tr>

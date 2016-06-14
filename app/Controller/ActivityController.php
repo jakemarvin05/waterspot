@@ -570,11 +570,14 @@ Class ActivityController extends AppController
                         //
                         $slot_booking_detail[$slot_booking_type] = $slot_attb;
                     }
+
                     // check slot booking
                     $slotdata = array();
                     $slotdata = $slot_booking_detail;
                     $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants'])?$this->request->data['Activity']['no_participants']:1;
+                    $slotdata['no_of_pax'] = $this->request->data['Activity']['no_of_pax'];
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
+
                     if (empty($booking_status)) {
                         $this->Session->setFlash('Some slots have been booked. Please select another slots.', 'default', '', 'error');
                         $this->redirect($this->referer());
@@ -612,6 +615,9 @@ Class ActivityController extends AppController
             $siteurl = $this->setting['site']['site_url'];
             $imgArr = array('source_path' => $path, 'img_name' => $service_image, 'width' => 80, 'height' => 80);
             $image_name = $siteurl . "/img/" . $ImageComponent->ResizeImage($imgArr);
+            if(isset($this->request->data['Activity']['no_of_pax'])){
+                $data['Cart']['no_of_pax'] = $this->request->data['Activity']['no_of_pax'];
+            }
             $data['Cart']['booking_date'] = date('Y-m-d H:i:s');
             $data['Cart']['price'] = $service_price;
             $data['Cart']['total_amount'] = $total_slot_price;
