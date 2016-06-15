@@ -76,6 +76,30 @@
                     <?= $this->Form->error('no_person', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </dd>
             </div>
+            <div class="for-private">
+                <dt>
+                    <label>Number of Pax Included:<span style="color:red;">*</span></label>
+                </dt>
+                <dd>
+                    <?= $this->Form->input('num_pax_included', array('placeholder' => 'Number of pax included per slot', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
+                    <div id="service_price"></div>
+                    <?= $this->Form->error('num_pax_included', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </dd>
+            </div>
+            <script type="text/javascript">
+                if ($('[name="data[Service][is_private]"]').is(':checked')) {
+
+                    $('.to-hide').hide();
+                    $('.for-private').show();
+
+                }
+                else {
+                    $('.to-hide').show();
+                    $('.for-private').hide();
+                    $('[name="data[Service][num_pax_included]"]').val(0);
+                }
+
+            </script>
             <dt>
                 <label>Price Per Slot:<span style="color:red;">*</span></label>
             </dt>
@@ -84,14 +108,7 @@
                 <div id="service_price"></div>
                 <?= $this->Form->error('service_price', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
             </dd>
-            <dt>
-                <label>Number of Pax Included:<span style="color:red;">*</span></label>
-            </dt>
-            <dd>
-                <?= $this->Form->input('num_pax_included', array('placeholder' => 'Number of pax included per slot', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
-                <div id="service_price"></div>
-                <?= $this->Form->error('num_pax_included', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
-            </dd>
+
 
             <dt>
                 <label>Add videos by Youtube URL:<span style="color:red;">*</span></label>
@@ -445,6 +462,9 @@
         $('.left-area').height($('.right-area').height() + 610);
 
         var fieldCTR = <?php echo(isset($count) ? $count : "0"); ?>;
+        var numPaxVal = 0;
+
+        numPaxVal = $('#ServiceNumPaxIncluded').val();
 
         $('.video-urls').on('click', '#add-video', function (e) {
             $(this).remove();
@@ -465,6 +485,7 @@
         $('[name="data[Service][is_private]"]').change(function () {
             if (!$('[name="data[Service][is_private]').is(':checked')) {
                 $('[name="data[Service][no_person]"]').val("1");
+                numPaxVal = $('#ServiceNumPaxIncluded').val();
                 $('.to-hide').animate({
                     opacity: 1,
                     height: "toggle",
@@ -473,15 +494,33 @@
                     // Animation complete.
                     $('this').hide()
                 });
+                $('.for-private').animate({
+                    opacity: 0,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function () {
+                    // Animation complete.
+                    $('#ServiceNumPaxIncluded').val(0);
+                    $('this').hide()
+                });
             }
             else {
                 $('.to-hide').animate({
                     "opacity": 0,
                     "height": "toggle",
-                    "padding-bottom": 19
+                    "padding-bottom": 0
                 }, 600, function () {
                     // Animation complete
+                    $('this').hide();
+                });
 
+                $('.for-private').animate({
+                    opacity: 1,
+                    height: "toggle",
+                    "padding-bottom": 0
+                }, 600, function () {
+                    // Animation complete.
+                    $('#ServiceNumPaxIncluded').val(numPaxVal);
                 });
             }
         });
@@ -496,23 +535,15 @@
 
                 $('select[name="data[Service][min_participants]"]').val(prevValue - 1);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text(prevValue);
-                $('[data-id="ServiceMinParticipants"]').attr("disabled", false);
+                $('[name="data[Service][min_participants]"]').attr("disabled", false);
                 $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("2");
-                $('.minimum-participants').animate(
-                    {
-                        height: "toggle"
-                    },
-                    400,
-                    function () {
-                        //done
-                    }
-                );
+
             }
             else {
                 $('#ServiceMinParticipants').val(0);
                 $('[data-id="ServiceMinParticipants"] .filter-option').text("1");
-                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
+                $('[name="data[Service][min_participants]"]').attr("disabled", true);
                 $('.minimum-participants').animate(
                     {
                         height: "toggle"
@@ -531,39 +562,16 @@
     });
 
     $(window).load(function () {
-            if (!$('[name="data[Service][is_minimum_to_go]').is(':checked')) {
+            if ($('[name="data[Service][is_minimum_to_go]').is(':checked')) {
 
-                $('[data-id="ServiceMinParticipants"]').attr("disabled", true);
-                $('.minimum-participants').animate(
-                    {
-                        height: "toggle"
-                    },
-                    400,
-                    function () {
-                        //done
-                    }
-                );
+                $('[name="data[Service][min_participants]"]').attr("disabled", false);
+
             }
-            else {
-                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
+        else {
+                $('[name="data[Service][min_participants]"]').attr("disabled", true);
             }
 
 
-            if ($('[name="data[Service][is_private]"]').is(':checked')) {
-
-                $('.to-hide').animate(
-                    {
-                        height: "toggle"
-                    },
-                    400,
-                    function () {
-                        //done
-                    }
-                );
-            }
-            else {
-                $('.minimum-participants ul.dropdown-menu li[data-original-index="0"]').remove();
-            }
 
 
         }
