@@ -191,6 +191,7 @@
 
 									<li>
                                         <a href="/activity/index/<?=$vendor_service['Service']['id'] ?>" target="_blank" class="view fancybox" title="View" rel="tooltip">view</a>
+                                  	<li><?php echo $this->Html->link('Add Price Rules', array('controller' => 'services', 'action' => 'add_price_rules',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-price-rule', 'title' => 'Add Price Rules', 'rel' => 'tooltip')); ?></li>
                                   	<li><?php echo $this->Html->link('Add Slot', array('controller' => 'services', 'action' => 'add_service_slots',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-slot', 'title' => 'Edit Service Slot', 'rel' => 'tooltip')); ?></li>
 									<li><?php echo $this->Html->link('Service Availability', array('controller' => 'vendor_service_availabilities', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-avail', 'title' => 'Edit Service Availability', 'rel' => 'tooltip')); ?></li>
 									

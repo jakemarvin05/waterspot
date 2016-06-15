@@ -1550,6 +1550,7 @@ table .actions .add-slot { background:url('../../img/admin/icons/add-slot.gif');
 table .actions .add-avail { background:url('../../img/admin/icons/add-avail.png'); width:16px;height:16px;background-size: cover;} 
 
 table .actions .add-review { background:url('../../img/admin/icons/add-review.png'); width:16px;height:16px;background-size: cover;} 
+table .actions .add-price-rule { background:url('../../img/admin/icons/price-tag.png'); width:16px;height:16px;background-size: cover;}
 
 /*  Table Mini Actions  */
 .toggle-table-switch {
