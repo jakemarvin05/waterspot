@@ -85,6 +85,14 @@
                     <div id="service_price"></div>
                     <?= $this->Form->error('num_pax_included', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
                 </dd>
+                <dt>
+                    <label>Duration per Slot:<span style="color:red;">*</span></label>
+                </dt>
+                <dd>
+                    <?= $this->Form->input('duration', array('placeholder' => 'Time duration per slot', 'type' => 'text', 'label' => false, 'div' => false, 'class' => 'add-service edit')); ?>
+                    <div id="service_price"></div>
+                    <?= $this->Form->error('duration', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
+                </dd>
             </div>
             <script type="text/javascript">
                 if ($('[name="data[Service][is_private]"]').is(':checked')) {
@@ -97,6 +105,7 @@
                     $('.to-hide').show();
                     $('.for-private').hide();
                     $('[name="data[Service][num_pax_included]"]').val(0);
+                    $('[name="data[Service][duration]"]').val(0);
                 }
 
             </script>
@@ -463,8 +472,10 @@
 
         var fieldCTR = <?php echo(isset($count) ? $count : "0"); ?>;
         var numPaxVal = 0;
+        var durationVal = 0;
 
-        numPaxVal = $('#ServiceNumPaxIncluded').val();
+        numPaxVal = $('[name="data[Service][num_pax_included]"]').val();
+        numPaxVal = $('[name="data[Service][duration]"]').val();
 
         $('.video-urls').on('click', '#add-video', function (e) {
             $(this).remove();
@@ -485,7 +496,8 @@
         $('[name="data[Service][is_private]"]').change(function () {
             if (!$('[name="data[Service][is_private]').is(':checked')) {
                 $('[name="data[Service][no_person]"]').val("1");
-                numPaxVal = $('#ServiceNumPaxIncluded').val();
+                numPaxVal = $('[name="data[Service][num_pax_included]"]').val();
+                durationVal = $('[name="data[Service][duration]"]').val();
                 $('.to-hide').animate({
                     opacity: 1,
                     height: "toggle",
@@ -500,11 +512,15 @@
                     "padding-bottom": 0
                 }, 600, function () {
                     // Animation complete.
-                    $('#ServiceNumPaxIncluded').val(0);
+                    $('[name="data[Service][num_pax_included]"]').val(0);
+                    $('[name="data[Service][duration]"]').val(0);
                     $('this').hide()
                 });
             }
             else {
+
+                $('[name="data[Service][num_pax_included]"]').val(numPaxVal);
+                $('[name="data[Service][duration]"]').val(durationVal);
                 $('.to-hide').animate({
                     "opacity": 0,
                     "height": "toggle",
@@ -520,7 +536,6 @@
                     "padding-bottom": 0
                 }, 600, function () {
                     // Animation complete.
-                    $('#ServiceNumPaxIncluded').val(numPaxVal);
                 });
             }
         });
