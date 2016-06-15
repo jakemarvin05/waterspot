@@ -152,7 +152,8 @@ Class ActivityController extends AppController
         $this->sessionKey = MemberAuthComponent::$sessionKey;
         $this->member_data = $this->Session->read($this->sessionKey);
         // Load java script and css
-        array_push(self::$script_for_layout, 'login.js', 'jquery.tools.min.js', 'jquery.mousewheel.js', 'jquery.jscrollpane.min.js', 'fotorama.js', 'https://code.jquery.com/ui/1.10.3/jquery-ui.js', 'jquery.fancybox.js', 'responsive-tabs.js', /*, $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js',*/ 'http://w.sharethis.com/button/buttons.js');
+        array_push(self::$script_for_layout, 'login.js', 'jquery.tools.min.js', 'jquery.mousewheel.js', 'jquery.jscrollpane.min.js', 'fotorama.js', 'https://code.jquery.com/ui/1.10.3/jquery-ui.js', 'jquery.fancybox.js', 'responsive-tabs.js', /*, $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js',*/
+            'http://w.sharethis.com/button/buttons.js');
         array_push(self::$css_for_layout, 'activity.css', 'jquery.jscrollpane.css', 'fotorama.css', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css', 'responsive-tabs.css'/*, $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.css'*/);
         array_push(self::$css_for_layout, 'pages.css');
         self::$scriptBlocks[] = '
@@ -405,7 +406,7 @@ Class ActivityController extends AppController
         if (!empty($_POST)) {
             //Inputs
             $selected_date = date("Y-m-d", strtotime($_POST['start_date']));
-            $capacity = $_POST['no_participants'];
+            $capacity = isset($_POST['no_participants']) ? $_POST['no_participants'] : 1;
             $service_id = $_POST['service_id'];
 
             $this->set('service_price', $this->Service->find('first', ['conditions' => ['Service.id' => $service_id]])['Service']['service_price']);
@@ -580,8 +581,8 @@ Class ActivityController extends AppController
                     $slotdata = array();
                     $slotdata = $slot_booking_detail;
 
-                    $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants'])?$this->request->data['Activity']['no_participants']:$this->request->data['Activity']['no_of_pax'];
-                    $slotdata['no_of_pax'] = (isset($this->request->data['Activity']['no_of_pax'])?$this->request->data['Activity']['no_of_pax']:null);
+                    $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants']) ? $this->request->data['Activity']['no_participants'] : $this->request->data['Activity']['no_of_pax'];
+                    $slotdata['no_of_pax'] = (isset($this->request->data['Activity']['no_of_pax']) ? $this->request->data['Activity']['no_of_pax'] : null);
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
 
                     if (empty($booking_status)) {
@@ -623,7 +624,7 @@ Class ActivityController extends AppController
             $siteurl = $this->setting['site']['site_url'];
             $imgArr = array('source_path' => $path, 'img_name' => $service_image, 'width' => 80, 'height' => 80);
             $image_name = $siteurl . "/img/" . $ImageComponent->ResizeImage($imgArr);
-            if(isset($this->request->data['Activity']['no_of_pax'])){
+            if (isset($this->request->data['Activity']['no_of_pax'])) {
                 $data['Cart']['no_of_pax'] = $this->request->data['Activity']['no_of_pax'];
                 $data['Cart']['no_participants'] = $this->request->data['Activity']['no_of_pax'];
 

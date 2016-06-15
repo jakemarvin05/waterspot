@@ -463,9 +463,7 @@
                     break;
             }
             var additionalPax = paxSelected - paxIncluded;
-            console.log(oldPrice);
-            console.log(pricePerPax);
-            console.log(additionalPax);
+
             if (additionalPax > 0) {
                 newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
             }
@@ -474,7 +472,7 @@
             }
             valProcessed.pop();
             valProcessed.push(newPrice);
-            console.log('new price is ' + newPrice);
+
             $('#sub-total').html('$' + newPrice);
             var newVal = valProcessed.join('_');
             $(this).val(newVal);
@@ -486,10 +484,6 @@
         function () {
             var paxSelected = $(this).val();
             var additionalPax = paxSelected - paxIncluded;
-            console.log('num of pax change detected...');
-            console.log(oldPrice);
-            console.log(pricePerPax);
-            console.log(additionalPax);
             if (additionalPax > 0) {
                 newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
             }
@@ -498,10 +492,11 @@
             }
             valProcessed.pop();
             valProcessed.push(newPrice);
-            console.log('new price is ' + newPrice);
             $('#sub-total').html('$' + newPrice);
             var newVal = valProcessed.join('_');
-            selectedSlot.val(newVal);
+            if (selectedSlot) {
+                selectedSlot.val(newVal);
+            }
         }
     );
 
