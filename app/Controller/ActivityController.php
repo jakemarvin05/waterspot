@@ -249,6 +249,8 @@ Class ActivityController extends AppController
             $criteria['conditions'] = array('Cart.session_id' => $this->Session->id(), 'Cart.id' => $cart_id);
             $criteria['order'] = array('Cart.id DESC');
             $cart_details = $this->Cart->find('first', $criteria);
+
+
             $cart_details['Cart']['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($cart_details['Cart']['service_id']);
             $cart_slots = json_decode($cart_details['Cart']['slots'], true);
             if (!empty($cart_slots)) {
@@ -259,12 +261,14 @@ Class ActivityController extends AppController
             if (!empty($cart_details['Cart']['service_id'])) {
                 $value_added_services = $this->ValueAddedService->getValueaddedServiceByservice_id($cart_details['Cart']['service_id']);
             }
+
             // assign value added services
             $cart_details['Cart']['value_added_services'] = $value_added_services;
             $diff = abs(strtotime($cart_details['Cart']['end_date']) - strtotime($cart_details['Cart']['start_date']));
             $years = floor($diff / (365 * 60 * 60 * 24));
             $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
             $no_of_booking_days = (floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24))) + 1;
+
         }
         // assign search value in input box
         $search_detais = $this->Session->read('Activity');
@@ -307,6 +311,7 @@ Class ActivityController extends AppController
         $price_range = $this->ServiceSlot->find('first', ['conditions' => ['service_id' => $service_id], 'fields' => ['MAX(price) as maxprice', 'MIN(price) as minprice']]);
         $this->set('max_price', $price_range[0]['maxprice']);
         $this->set('min_price', $price_range[0]['minprice']);
+
 
         // attributes
         // this is how we call the attributes
@@ -574,8 +579,9 @@ Class ActivityController extends AppController
                     // check slot booking
                     $slotdata = array();
                     $slotdata = $slot_booking_detail;
-                    $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants'])?$this->request->data['Activity']['no_participants']:1;
-                    $slotdata['no_of_pax'] = $this->request->data['Activity']['no_of_pax'];
+
+                    $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants'])?$this->request->data['Activity']['no_participants']:$this->request->data['Activity']['no_of_pax'];
+                    $slotdata['no_of_pax'] = (isset($this->request->data['Activity']['no_of_pax'])?$this->request->data['Activity']['no_of_pax']:null);
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
 
                     if (empty($booking_status)) {
@@ -589,6 +595,7 @@ Class ActivityController extends AppController
                 $no_of_slots = count($slot_data['Slot']);
                 // $total_slot_price=($no_of_slots >0 &&  $service_price>0)?$service_price*$no_of_slots:0;
                 $total_slot_price = 0;
+
                 foreach ($slot_data['Slot'] as $slot) {
                     $total_slot_price = $total_slot_price + $slot['price'];
                 }
@@ -607,6 +614,7 @@ Class ActivityController extends AppController
             if (!empty($this->member_data['MemberAuth']['id'])) {
                 $data['Cart']['member_id'] = $this->member_data['MemberAuth']['id'];
             }
+
             // service image by service id
             $service_image = $this->ServiceImage->getOneimageServiceImageByservice_id($data['Cart']['service_id']);
             App::uses('ImageResizeHelper', 'View/Helper');
@@ -617,7 +625,10 @@ Class ActivityController extends AppController
             $image_name = $siteurl . "/img/" . $ImageComponent->ResizeImage($imgArr);
             if(isset($this->request->data['Activity']['no_of_pax'])){
                 $data['Cart']['no_of_pax'] = $this->request->data['Activity']['no_of_pax'];
+                $data['Cart']['no_participants'] = $this->request->data['Activity']['no_of_pax'];
+
             }
+
             $data['Cart']['booking_date'] = date('Y-m-d H:i:s');
             $data['Cart']['price'] = $service_price;
             $data['Cart']['total_amount'] = $total_slot_price;
@@ -642,8 +653,11 @@ Class ActivityController extends AppController
             if (!empty($slot_data)) {
                 $data['Cart']['slots'] = json_encode($slot_data);
             }
+
             $this->Cart->create();
             $this->Cart->save($data);
+
+
             $cart_id = $this->Cart->id;
             //$this->Session->setFlash(__('Activity has been added successfully'));
             $this->redirect(array('plugin' => false, 'controller' => 'activity', 'action' => 'book', $data['Cart']['slug'], $cart_id));

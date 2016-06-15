@@ -361,7 +361,10 @@
 
             if (invite_p_status == 1) {
                 var no_of_participant = $('#CartNoParticipants').val();
-                total = total * no_of_participant;
+                var is_private = $('#CartIsPrivate').val();
+                if(is_private==false){
+                    total = total * no_of_participant;
+                }
 
             } else {
                 var no_of_participant = 1;

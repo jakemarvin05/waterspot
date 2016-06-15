@@ -103,11 +103,11 @@
                                             <div class="checkout-activity-row">
                                                 <div class="checkout-activity-left">Service Price(
                                                     $<?= number_format($total_price, 2); ?>
-                                                    x <?= ($cart_detail['Cart']['invite_payment_status'] == 1) ? $cart_detail['Cart']['no_participants'] : 1 ?>
+                                                    x <?= ($cart_detail['Cart']['invite_payment_status'] == 1) ? ($cart_detail['Cart']['no_of_pax']?1:$cart_detail['Cart']['no_participants']) : 1 ?>
                                                     <?= $interval_msg; ?>)
                                                 </div>
                                                 <div class="checkout-activity-right">
-                                                    $<?= number_format(($total_price * (($cart_detail['Cart']['invite_payment_status'] == 1) ? $cart_detail['Cart']['no_participants'] : 1)), 2); ?></div>
+                                                    $<?= number_format(($total_price * (($cart_detail['Cart']['invite_payment_status'] == 1) ? ($cart_detail['Cart']['no_of_pax']?1:$cart_detail['Cart']['no_participants']) : 1)), 2); ?></div>
                                             </div>
                                         <? } ?>
                                         <div class="checkout-activity-row checkout-activity-row-subtotal">

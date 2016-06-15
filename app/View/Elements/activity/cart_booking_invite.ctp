@@ -17,6 +17,8 @@
 		<div class="book-my-cart-content">
 			<?=$this->Form->create('Cart',array('url'=>array('plugin'=>false,'controller'=>'carts','action'=>'add_invite',$service_id,$cart_id),'id'=>'add_invite','novalidate' => true));
 			echo $this->Form->hidden('no_participants',array('value'=>$cart_details['Cart']['no_participants']));
+			echo $this->Form->hidden('no_of_pax',array('value'=>$cart_details['Cart']['no_of_pax']));
+			echo $this->Form->hidden('is_private',array('value'=>($cart_details['Cart']['no_of_pax']>0?'true':'false')));
 			?>
 				<? if($cart_details['Cart']['no_participants']>1){
 					$cart_css="";
@@ -117,6 +119,8 @@
 								<td><span id='Vas_total'></span></td>
 							</tr> -->
 							<tr>
+
+
 								<th>Total:</th>
 								<td><span id='sub_total'> $<?=number_format($cart_details['Cart']['total_amount'],2);?></span></td>
 							</tr>
@@ -168,14 +172,17 @@
 						function email_inputs(){
 							var participants = <?php echo $cart_details['Cart']['no_participants'] - 1; ?>;
 							count = $('#participants_count').val()*1;
+							var is_private = $('#CartIsPrivate').val();
 							var texts = '';
 							for(i = count; i < participants; i++) {
 								texts += '<input name="data[Cart][email][]" placeholder="Enter email address" type="text" ><br />';
 							}
 							$('#email_inputs').html(texts);
 							var current_total = <?php echo $cart_details['Cart']['total_amount']; ?>;
-							$('#sub_total').html( '$' + (current_total * (count+1)) );
-						}
+							if(is_private==false) {
+								$('#sub_total').html('$' + (current_total * (count + 1)));
+							}
+							}
 
 						$('#participants_count').change(function(){email_inputs();});
 

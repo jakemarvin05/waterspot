@@ -47,7 +47,7 @@ Class CartsController extends AppController
             $check_guest_status = 1;
             // Assign cart details if member is login
             $this->request->data['Cart']['fname'] = $this->member_data['MemberAuth']['first_name'];
-          //  $this->request->data['Cart']['lname'] = $this->member_data['MemberAuth']['last_name'];
+            //  $this->request->data['Cart']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $this->request->data['Cart']['email'] = $this->member_data['MemberAuth']['email_id'];
             $this->request->data['Cart']['phone'] = $this->member_data['MemberAuth']['phone'];
 
@@ -131,7 +131,7 @@ Class CartsController extends AppController
 
             if ($this->Session->read($this->sessionKey)) {
 
-                $query = "UPDATE carts SET status = 1, vendor_confirm = 1, member_id = '".$this->member_data['MemberAuth']['id']."'  WHERE session_id='" . $this->Session->id()."'";
+                $query = "UPDATE carts SET status = 1, vendor_confirm = 1, member_id = '" . $this->member_data['MemberAuth']['id'] . "'  WHERE session_id='" . $this->Session->id() . "'";
                 $this->Cart->query($query);
             } else {
                 $query = "UPDATE carts SET status = 1, vendor_confirm = 1 WHERE session_id='" . $this->Session->id() . "'";
@@ -175,7 +175,7 @@ Class CartsController extends AppController
                     $body = str_replace('{PRICE}', $val['Cart']['total_amount'], $body);
 
                     $email = new CakeEmail();
-                    
+
 
                     $email->to($val['Cart']['vendor_email'], $mail['Mail']['mail_from']);
                     $email->subject($mail['Mail']['mail_subject']);
@@ -183,9 +183,8 @@ Class CartsController extends AppController
                     $email->emailFormat('html');
                     $email->template('default');
                     $email->viewVars(array('data' => $body, 'logo' => $this->setting['site']['logo'], 'url' => $this->setting['site']['site_url']));
-                   // $email->send();
+                    // $email->send();
                     // do not send!
-
 
 
                     $booking_id = $this->add_order($val['Cart']['id'], $val['Cart']['service_id']);
@@ -197,8 +196,8 @@ Class CartsController extends AppController
 
                 $booking_id = $this->Booking->find('first', array('fields' => array('id'), 'conditions' => array('Booking.session_id' => $this->Session->id())));
 
-               // $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id['Booking']['id']));
-               // $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'bookings', 'action' => 'accept_request', $cart_value[0]['Cart']['id']));
+                // $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id['Booking']['id']));
+                // $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'bookings', 'action' => 'accept_request', $cart_value[0]['Cart']['id']));
             }
         }
         //$this->Session->setFlash('Sorry! Please fill data to proceed','default','','error');
@@ -218,12 +217,11 @@ Class CartsController extends AppController
         //pr($cart_data);exit;
 
 
-        if(!empty($this->member_data)){
+        if (!empty($this->member_data)) {
             $email = $this->member_data['MemberAuth']['email_id'];
             $fname = $this->member_data['MemberAuth']['first_name'];
             $phone = $this->member_data['MemberAuth']['phone'];
-        }
-        else{
+        } else {
             $email = $cart_data['Cart']['guest_email'];
             $phone = $this->request->data['Cart']['phone'];
             $fname = $this->request->data['Cart']['fname'];
@@ -244,7 +242,7 @@ Class CartsController extends AppController
             $data['Booking']['ip_address'] = $_SERVER['REMOTE_ADDR'];
 
             $data['Booking']['fname'] = $fname;
-          //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
+            //  $data['Booking']['lname'] = $this->member_data['MemberAuth']['last_name'];
             $data['Booking']['email'] = $email;
             $data['Booking']['phone'] = $phone;
 
@@ -252,11 +250,11 @@ Class CartsController extends AppController
             $this->Booking->save($data);
 
 
-//            $cart['Cart']['id'] = $cart_data['Cart']['id'];
-//            $cart['Cart']['status'] = 1;
-//            $cart['Cart']['session_id'] = $this->Session->id();
-//            $this->Cart->create();
-//            $this->Cart->save($cart);
+            //            $cart['Cart']['id'] = $cart_data['Cart']['id'];
+            //            $cart['Cart']['status'] = 1;
+            //            $cart['Cart']['session_id'] = $this->Session->id();
+            //            $this->Cart->create();
+            //            $this->Cart->save($cart);
 
 
             if (!empty($this->Booking->id)) {
@@ -329,9 +327,18 @@ Class CartsController extends AppController
         //for Want your friends to pay their individual share
         if ($this->request->data['Cart']['invite_payment_status'] == 1) {
             if ($this->request->data['Cart']['no_participants'] > 0) {
+
                 $total_amount = ($service_price['Cart']['total_amount'] * $service_price['Cart']['no_participants']) + ($total_value_added_amount * $service_price['Cart']['no_participants']);
+
+
+                if (isset($this->request->data['Cart']['no_of_pax'])) {
+
+                    $total_amount = ($service_price['Cart']['total_amount']) + ($total_value_added_amount);
+                }
+
             }
         } else {
+
             $total_amount = ($service_price['Cart']['total_amount'] + $total_value_added_amount);
         }
         $data['Cart']['invite_payment_status'] = $this->request->data['Cart']['invite_payment_status'];
@@ -480,55 +487,56 @@ Class CartsController extends AppController
         $custom_variable = "member_id=" . $this->member_data['MemberAuth']['id'] . '&booking_id=' . $booking_id . '&session_id=' . $this->Session->id();
         // save data before payment
         self::_before_booking_data_save($custom_variable);
-         $this->redirect(array('plugin'=>'payment_manager','controller'=>'payments','action'=>'index',$booking_id));
+        $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id));
     }
 
-    private function before_saving_booking_slot($slots=null,$ref_no=null,$service_id=null,$no_participants=null){
-        if(!empty($slots['Slot'])){
-            foreach($slots['Slot'] as $key=>$slot) {
-                $data_booking_slot['BookingSlot']['booking_order_id']=$this->booking_order_id;
-                $data_booking_slot['BookingSlot']['slot_id']=$slot['slot_id'];
-                $data_booking_slot['BookingSlot']['service_id']=$service_id;
-                $data_booking_slot['BookingSlot']['ref_no']=$ref_no;
-                $data_booking_slot['BookingSlot']['no_participants']=$no_participants;
-                $data_booking_slot['BookingSlot']['start_time']= DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d',$slot['slot_date'])." ".$slot['start_time']));
-                $data_booking_slot['BookingSlot']['end_time']= DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d',$slot['slot_date'])." ".$slot['end_time'])+1);
+    private function before_saving_booking_slot($slots = null, $ref_no = null, $service_id = null, $no_participants = null)
+    {
+        if (!empty($slots['Slot'])) {
+            foreach ($slots['Slot'] as $key => $slot) {
+                $data_booking_slot['BookingSlot']['booking_order_id'] = $this->booking_order_id;
+                $data_booking_slot['BookingSlot']['slot_id'] = $slot['slot_id'];
+                $data_booking_slot['BookingSlot']['service_id'] = $service_id;
+                $data_booking_slot['BookingSlot']['ref_no'] = $ref_no;
+                $data_booking_slot['BookingSlot']['no_participants'] = $no_participants;
+                $data_booking_slot['BookingSlot']['start_time'] = DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d', $slot['slot_date']) . " " . $slot['start_time']));
+                $data_booking_slot['BookingSlot']['end_time'] = DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d', $slot['slot_date']) . " " . $slot['end_time']) + 1);
                 $this->BookingSlot->create();
-                $this->BookingSlot->save($data_booking_slot,array('validate' => false));
+                $this->BookingSlot->save($data_booking_slot, array('validate' => false));
             }
         }
     }
 
 
-    private function before_sent_invite_save($cart_detail=null,$total_cart_price=null,$booking_detail=null) {
+    private function before_sent_invite_save($cart_detail = null, $total_cart_price = null, $booking_detail = null)
+    {
         $this->loadModel('BookingParticipate');
-        $booking_participates=array();
-        $booking_participates_mails=array();
-        $emails=json_decode($cart_detail['Cart']['invite_friend_email'],true);
-        if(!empty($emails)) {
-            foreach($emails as $key=>$email) {
-                $booking_participates['BookingParticipate']['id']='';
-                $booking_participates['BookingParticipate']['booking_order_id']=$this->booking_order_id;;
-                $booking_participates['BookingParticipate']['member_id']=$booking_detail['Booking']['member_id'];
-                $booking_participates['BookingParticipate']['ref_no']=$booking_detail['Booking']['ref_no'];
-                $booking_participates['BookingParticipate']['invite_email']=$booking_detail['Booking']['email'];
-                $booking_participates['BookingParticipate']['email']=$email;
-                $booking_participates['BookingParticipate']['amount']=$total_cart_price;
+        $booking_participates = array();
+        $booking_participates_mails = array();
+        $emails = json_decode($cart_detail['Cart']['invite_friend_email'], true);
+        if (!empty($emails)) {
+            foreach ($emails as $key => $email) {
+                $booking_participates['BookingParticipate']['id'] = '';
+                $booking_participates['BookingParticipate']['booking_order_id'] = $this->booking_order_id;;
+                $booking_participates['BookingParticipate']['member_id'] = $booking_detail['Booking']['member_id'];
+                $booking_participates['BookingParticipate']['ref_no'] = $booking_detail['Booking']['ref_no'];
+                $booking_participates['BookingParticipate']['invite_email'] = $booking_detail['Booking']['email'];
+                $booking_participates['BookingParticipate']['email'] = $email;
+                $booking_participates['BookingParticipate']['amount'] = $total_cart_price;
                 // status set if paymet pay by invitor
-                $booking_participates['BookingParticipate']['status']=($cart_detail['Cart']['invite_payment_status']==1)?5:4;
+                $booking_participates['BookingParticipate']['status'] = ($cart_detail['Cart']['invite_payment_status'] == 1) ? 5 : 4;
                 // save invite friends
-                if(!empty($booking_participates)){
+                if (!empty($booking_participates)) {
                     $this->BookingParticipate->create();
-                    $this->BookingParticipate->save($booking_participates,array('validate' => false));
+                    $this->BookingParticipate->save($booking_participates, array('validate' => false));
                 }
-                $booking_participates['BookingParticipate']['id']=$this->BookingParticipate->id;
-                $booking_participates['BookingParticipate']['service_title']=$cart_detail['Service']['service_title'];
-                $booking_participates['BookingParticipate']['start_end_date']=date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['start_date']))." To ".date(Configure::read('Calender_format_php'),strtotime($cart_detail['Cart']['end_date']));
-                $booking_participates_mails[]=$booking_participates;
+                $booking_participates['BookingParticipate']['id'] = $this->BookingParticipate->id;
+                $booking_participates['BookingParticipate']['service_title'] = $cart_detail['Service']['service_title'];
+                $booking_participates['BookingParticipate']['start_end_date'] = date(Configure::read('Calender_format_php'), strtotime($cart_detail['Cart']['start_date'])) . " To " . date(Configure::read('Calender_format_php'), strtotime($cart_detail['Cart']['end_date']));
+                $booking_participates_mails[] = $booking_participates;
             }
         }
     }
-
 
 
     private function _before_booking_data_save($booking_custom_data)
@@ -580,7 +588,7 @@ Class CartsController extends AppController
                     $this->loadModel('BookingCoupon');
                     $coupon_data = [
                         'booking_id' => $custom_variable['booking_id'],
-                        'coupon_id'  => $this->Session->read('coupon_id'),
+                        'coupon_id' => $this->Session->read('coupon_id'),
                         'created_date' => date('Y-m-d H:i:s')
                     ];
                     $this->BookingCoupon->create();
@@ -635,13 +643,13 @@ Class CartsController extends AppController
 
         // store name and phone
         if (!empty($this->request->data['fname'])) {
-            
+
         }
         if (!empty($this->request->data['fname'])) {
-            
+
         }
 
-        
+
         return 'true';
     }
 }
