@@ -449,41 +449,69 @@ echo $this->element('activity/cart_booking_invite'); ?>
     var oldVal = "";
     var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
     var oldPrice = 0;
+    var oldPriceStored = 0;
     var pricePerPax = 0;
+    var pricePerHour = 0;
     var newPrice = oldPrice;
     var valProcessed = [];
     var selectedSlot;
+    var clickCtr = 0;
 
     $('#slots_form ').on('change', 'input[type=checkbox]',
         function () {
+
+            console.log('Old price is '+oldPriceStored);
+
             selectedSlot = $(this);
             oldVal = $(this).val();
             var slotIndex = $(this).data('slot');
             var paxSelected = $('#ActivityNoOfPax').val();
             valProcessed = oldVal.split('_');
             oldPrice = valProcessed[(valProcessed.length) - 1];
+            if(clickCtr==0){
+               oldPriceStored =  valProcessed[(valProcessed.length) - 1];
+            }
+            else {
+                oldPrice = oldPriceStored;
+            }
             var additionalPax = paxSelected - paxIncluded;
+            var priceForAddHour = 0;
 
             switch (slotIndex) {
                 case 1:
                     pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
+                    pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
                     break;
                 case 2:
                     pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
+                    pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
                     break;
                 case 3:
                     pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
+                    pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
                     break;
                 default:
                     break;
             }
+
+
             var additionalPax = paxSelected - paxIncluded;
 
+            if($(this).is(':checked')){
+
+            if($('[name="data[Activity][add_hour]"]').val() > 0){
+                 priceForAddHour = parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour);
+            }
+
             if (additionalPax > 0) {
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
+                console.log((parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour)));
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax));
+                newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
+
             }
             else {
                 newPrice = oldPrice;
+                newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
             }
             valProcessed.pop();
             valProcessed.push(newPrice);
@@ -492,6 +520,17 @@ echo $this->element('activity/cart_booking_invite'); ?>
             var newVal = valProcessed.join('_');
             $(this).val(newVal);
 
+
+            }
+            else {
+                valProcessed.pop();
+                valProcessed.push(0);
+
+                $('#sub-total').html('$0');
+                var newVal = valProcessed.join('_');
+                $(this).val(newVal);
+            }
+            clickCtr++;
         }
     );
 
@@ -500,7 +539,7 @@ echo $this->element('activity/cart_booking_invite'); ?>
             var paxSelected = $(this).val();
             var additionalPax = paxSelected - paxIncluded;
             if (additionalPax > 0) {
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax))
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax)) + (parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour));
             }
             else {
                 newPrice = oldPrice;
