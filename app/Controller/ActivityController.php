@@ -105,6 +105,8 @@ Class ActivityController extends AppController
     {
 
         $this->loadModel('VendorManager.Service');
+        $this->loadModel('PriceManager.Price');
+
         array_push(self::$css_for_layout, 'activity/activity.css');
 
         if (is_numeric($slug)) {
@@ -351,6 +353,7 @@ Class ActivityController extends AppController
         $rules_of_service = $this->Price->getAllRules($service_id);
         $rule_object = array();
         $pax = [];
+        $hour = [];
         $weekday_rules = array();
         $weekend_rules = array();
         $special_rules = array();
@@ -359,6 +362,9 @@ Class ActivityController extends AppController
             if ($rule['Price']['rule_key'] == 'max pax') {
                 $pax[] = $rule['Price']['rule_value'];
 
+            }
+            if($rule['Price']['rule_key'] == 'max additional hour'){
+                $hour[] = $rule['Price']['rule_value'];
             }
             switch ($rule['Price']['slot_type']) {
                 case 1:
@@ -377,6 +383,7 @@ Class ActivityController extends AppController
         }
 
 
+        $rule_object['max_add_hour'] = $hour ? max($hour) : 0;
         $rule_object['max_pax'] = $pax ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
         $rule_object['rules']['weekday_rules'] = $weekday_rules;
         $rule_object['rules']['weekend_rules'] = $weekend_rules;
@@ -390,6 +397,7 @@ Class ActivityController extends AppController
         $this->set('details', $details);
         $this->set('rule_object', $rule_object);
         $this->set('rule_object_json', json_encode($rule_object));
+
         //end of calling the attributes
     }
 

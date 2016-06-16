@@ -224,15 +224,23 @@
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
                                     <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
-                                        <div class="select-participant">
-                                            <h4 class="select-participant-txt">Select No. of Pax</h4>
-                                            <?
-                                            if (preg_match('/yacht/i', $service_detail['service_type'])):
-                                                $no_participants = array();
-                                                // get the maximum allowable number of pax per person
-                                                for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
-                                                    $no_participants[$x] = $x;
-                                                }
+                                    <div class="select-participant">
+                                        <h4 class="select-participant-txt">Select No. of Pax</h4>
+                                        <?
+
+                                        $no_participants = array();
+                                        $max_add_hour = array();
+                                        if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']):
+
+                                            // get the maximum allowable number of pax per person
+                                            for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
+                                                $no_participants[$x] = $x;
+                                            }
+
+                                            for ($x = 0; $x <= $rule_object['max_add_hour']; $x++) {
+                                                $max_add_hour[$x] = $x;
+                                            }
+
                                             else:
                                                 $no_participants = array();
                                                 foreach (range(1, $service_detail['Service']['no_person']) as $r) {
@@ -240,15 +248,15 @@
                                                 }
                                             endif;
                                             ?>
-                                            <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
-                                        </div>
-                                        <?php echo $this->element('message'); ?>
+                                        <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
+                                    </div>
+                                    <?php echo $this->element('message'); ?>
                                     <?php else: ?>
                                         <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
                                     <?php endif; ?>
 
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
-                                    <br>
+                                <br>
 
                                     <div class="startDate">
                                         <div class="start-date">
@@ -266,23 +274,30 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
-                                    <?php if (preg_match('/yacht/i', $service_detail['service_type'])): ?>
-                                        <div class="calculator-output">
-                                            <p>Subtotal: <span id="sub-total">$0</span></p>
-                                        </div>
+                                    <?php if (preg_match('/yacht/i', $service_detail['service_type'])  || $service_detail['is_private']): ?>
+
+                                    <div class="select-add-hour">
+                                        <h4 class="select-participant-txt">Additional Hour</h4>
+                                        <?= $this->Form->input('add_hour', array('type' => 'select', 'options' => $max_add_hour, 'div' => false, 'label' => false)); ?>
+                                    </div>
+                                    <div class="calculator-output">
+                                        <p>Subtotal: <span id="sub-total">$0</span></p>
+                                    </div>
                                     <?php endif; ?>
-                                    <div class="check-terms">
-                                        <label>
-                                            <p>
-                                                <input name="terms_and_condition" type="checkbox"/> I agree with the <a
-                                                    href="/terms" target="_blank"> Terms & Conditions</a>
-                                            </p>
-                                        </label>
-                                    </div>
-                                    <div class="cart-btn">
-                                        <input type="submit" value="Book A Spot"
-                                               class="addtocart-button btn btnDefaults btnFillOrange" id="loginButton"/>
-                                    </div>
+                                        <div class="check-terms">
+                                            <label>
+                                                <p>
+                                                    <input name="terms_and_condition" type="checkbox"/> I agree with the
+                                                    <a
+                                                        href="/terms" target="_blank"> Terms & Conditions</a>
+                                                </p>
+                                            </label>
+                                        </div>
+                                        <div class="cart-btn">
+                                            <input type="submit" value="Book A Spot"
+                                                   class="addtocart-button btn btnDefaults btnFillOrange"
+                                                   id="loginButton"/>
+                                        </div>
                                     <?= $this->Form->end(); ?>
                                 </div>
                             </div>
@@ -293,7 +308,7 @@
 
                                 <div class="socialicons">
                                     <a id="shareFB"
-                                       href="https://www.facebook.com/sharer/sharer.php?app_id=1725992164290232&sdk=joey&u=<?php echo(isset($web_url) ? urlencode($web_url) : urlencode('http://www.waterspot.com.sg')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
+                                       href="https://www.facebook.com/sharer/sharer.php?app_id=1725992164290232&sdk=joey&u=<?php echo (isset($web_url) ? urlencode($web_url) : urlencode('http://www.waterspot.com.sg')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -317,72 +332,72 @@
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
 <?php if (!empty($cart_id))
-    echo $this->element('activity/cart_booking_invite'); ?>
+echo $this->element('activity/cart_booking_invite'); ?>
 <?php $path = $this->Html->webroot; ?>
 
 <? if (!empty($cart_id)): ?>
-    <script>
-        $(document).ready(function () {
-            $("#add_invite input[type=checkbox]").click(function (event) {
-                updateTotal();
-            });
-            $("#add_invite input[type=radio]").click(function (event) {
-                updateTotal();
-            });
+<script>
+    $(document).ready(function () {
+        $("#add_invite input[type=checkbox]").click(function (event) {
+            updateTotal();
+        });
+        $("#add_invite input[type=radio]").click(function (event) {
+            updateTotal();
+        });
+    });
+
+
+    function updateTotal() {
+        var value_added_service = 0;
+        var no_of_booking_msg = '';
+        var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
+        var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
+        // no of booking date or slot
+        var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
+        if (no_of_interval == 1) {
+            // overight no_of_interval
+            var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
+            if (no_of_slots == 1) {
+                no_of_booking_msg = no_of_slots + " Slot";
+            } else {
+                no_of_booking_msg = no_of_slots + " Slots";
+            }
+
+        } else {
+            no_of_booking_msg = no_of_interval + " Days";
+        }
+
+        var invite_p_status = $(".cart-payment-method input:radio:checked").val();
+        $("#add_invite input:checkbox:checked").each(function () {
+            total += parseFloat(this.value);
+            value_added_service += parseFloat(this.value);
         });
 
 
-        function updateTotal() {
-            var value_added_service = 0;
-            var no_of_booking_msg = '';
-            var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
-            var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
-            // no of booking date or slot
-            var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
-            if (no_of_interval == 1) {
-                // overight no_of_interval
-                var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
-                if (no_of_slots == 1) {
-                    no_of_booking_msg = no_of_slots + " Slot";
-                } else {
-                    no_of_booking_msg = no_of_slots + " Slots";
-                }
-
-            } else {
-                no_of_booking_msg = no_of_interval + " Days";
+        if (invite_p_status == 1) {
+            var no_of_participant = $('#CartNoParticipants').val();
+            var is_private = $('#CartIsPrivate').val();
+            if (is_private == false) {
+                total = total * no_of_participant;
             }
 
-            var invite_p_status = $(".cart-payment-method input:radio:checked").val();
-            $("#add_invite input:checkbox:checked").each(function () {
-                total += parseFloat(this.value);
-                value_added_service += parseFloat(this.value);
-            });
-
-
-            if (invite_p_status == 1) {
-                var no_of_participant = $('#CartNoParticipants').val();
-                var is_private = $('#CartIsPrivate').val();
-                if(is_private==false){
-                    total = total * no_of_participant;
-                }
-
-            } else {
-                var no_of_participant = 1;
-            }
-
-            var value_added_total = (value_added_service * no_of_participant).toFixed(2);
-            $('.subtotal').show();
-            $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
-            $('#Vas_total').html("$" + value_added_total);
-            $('#no_of_booking_days').html(no_of_booking_msg);
-            $('#Vas_total').html("$" + value_added_total);
-            $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
-            $('#total_participate').html(no_of_participant);
-            $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
-            $('#sub_total').html("$" + total.toFixed(2));
-
+        } else {
+            var no_of_participant = 1;
         }
-    </script>
+
+        var value_added_total = (value_added_service * no_of_participant).toFixed(2);
+        $('.subtotal').show();
+        $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
+        $('#Vas_total').html("$" + value_added_total);
+        $('#no_of_booking_days').html(no_of_booking_msg);
+        $('#Vas_total').html("$" + value_added_total);
+        $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
+        $('#total_participate').html(no_of_participant);
+        $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
+        $('#sub_total').html("$" + total.toFixed(2));
+
+    }
+</script>
 <? endif; ?>
 <script>
     function get_service_availability() {
@@ -657,6 +672,7 @@
 <script type="text/javascript">
     $('#ActivityNoParticipants').selectpicker().hide();
     $('#ActivityNoOfPax').selectpicker().hide();
+    $('#ActivityAddHour').selectpicker().hide();
 
 
     $('#ActivityNoParticipants').val('1');
