@@ -225,30 +225,22 @@
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
                                     <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
                                         <div class="select-participant">
-                                            <h4 class="select-participant-txt">Select No. of Pax</h4>
-                                            <?
+                                            <h4 class="select-participant-txt">No. of Pax</h4>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default btn-number" data-type="minus"
+                                                          data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class'=> 'form-control input-number', 'value' => $service_detail['Service']['num_pax_included'], 'max'=> $rule_object['max_pax'], 'min'=>1, 'div' => false, 'label' => false)); ?>
+                                                <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                          <span class="glyphicon glyphicon-plus"></span>
+                                                      </button>
+                                                </span>
+                                            </div>
 
-                                            $no_participants = array();
-                                            $max_add_hour = array();
-                                            if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']):
-
-                                                // get the maximum allowable number of pax per person
-                                                for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
-                                                    $no_participants[$x] = $x;
-                                                }
-
-                                                for ($x = 0; $x <= $rule_object['max_add_hour']; $x++) {
-                                                    $max_add_hour[$x] = $x;
-                                                }
-
-                                            else:
-                                                $no_participants = array();
-                                                foreach (range(1, $service_detail['Service']['no_person']) as $r) {
-                                                    $no_participants[$r] = $r;
-                                                }
-                                            endif;
-                                            ?>
-                                            <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
                                         </div>
                                         <?php echo $this->element('message'); ?>
                                     <?php else: ?>
@@ -278,7 +270,20 @@
 
                                         <div class="select-add-hour">
                                             <h4 class="select-participant-txt">Additional Hour</h4>
-                                            <?= $this->Form->input('add_hour', array('type' => 'select', 'options' => $max_add_hour, 'div' => false, 'label' => false)); ?>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"
+                                                            data-field="data[Activity][add_hour]">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <?= $this->Form->input('add_hour', array('type' => 'text', 'class'=> 'form-control input-number', 'value' => 0, 'max'=> $rule_object['max_add_hour'], 'min'=>0, 'div' => false, 'label' => false)); ?>
+                                                <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="data[Activity][add_hour]">
+                                                          <span class="glyphicon glyphicon-plus"></span>
+                                                      </button>
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="calculator-output">
                                             <p>Subtotal: <span id="sub-total">$0</span></p>
@@ -399,6 +404,84 @@
         }
     </script>
 <? endif; ?>
+
+<script type="text/javascript">
+    //plugin bootstrap minus and plus
+    //http://jsfiddle.net/laelitenetwork/puJ6G/
+    $('.btn-number').click(function(e){
+        e.preventDefault();
+
+        fieldName = $(this).attr('data-field');
+        type      = $(this).attr('data-type');
+        var input = $("input[name='"+fieldName+"']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if(type == 'minus') {
+
+                if(currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
+                }
+
+            } else if(type == 'plus') {
+
+                if(currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
+        }
+    });
+    $('.input-number').focusin(function(){
+        $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function() {
+
+        minValue =  parseInt($(this).attr('min'));
+        maxValue =  parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+
+        name = $(this).attr('name');
+        if(valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if(valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+
+
+    });
+    $(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+</script>
+
 <script>
     function get_service_availability() {
 
@@ -586,7 +669,7 @@
     $('.select-add-hour ').on('change', 'select[name="data[Activity][add_hour]"]',
         function () {
             var val = $(this).val();
-            addHourSelected =  val;
+            addHourSelected = val;
             console.log(val);
             var priceForAddHour = 0;
             priceForAddHour = val * parseInt(pricePerHour);
@@ -605,11 +688,11 @@
         function () {
             var paxSelected = $(this).val();
             var additionalPax = paxSelected - paxIncluded;
-            console.log('oldPrice: '+ oldPrice);
-            console.log('pricePerPax: '+ pricePerPax);
-            console.log('additionalPax: '+ additionalPax);
-            console.log('addHourSelected: '+ addHourSelected);
-            console.log('pricePerHour: '+ pricePerHour);
+            console.log('oldPrice: ' + oldPrice);
+            console.log('pricePerPax: ' + pricePerPax);
+            console.log('additionalPax: ' + additionalPax);
+            console.log('addHourSelected: ' + addHourSelected);
+            console.log('pricePerHour: ' + pricePerHour);
             if (additionalPax > 0) {
                 newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax)) + (parseInt(addHourSelected) * parseInt(pricePerHour));
                 oldAddHourValue = (parseInt(addHourSelected) * parseInt(pricePerHour));
@@ -617,7 +700,7 @@
             else {
                 newPrice = parseInt(oldPrice) + (parseInt(addHourSelected) * parseInt(pricePerHour));
             }
-            console.log('newPrice: '+ newPrice);
+            console.log('newPrice: ' + newPrice);
             valProcessed.pop();
             valProcessed.push(newPrice);
 
@@ -785,8 +868,6 @@
 
 <script type="text/javascript">
     $('#ActivityNoParticipants').selectpicker().hide();
-    $('#ActivityNoOfPax').selectpicker().hide();
-    $('#ActivityAddHour').selectpicker().hide();
 
 
     $('#ActivityNoParticipants').val('1');

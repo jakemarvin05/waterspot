@@ -21,3 +21,25 @@ section.activity-section.details {
 #errorMessage {
     font-size: 14px;
 }
+.center{
+    width: 150px;
+    margin: 40px auto;
+
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    width: 50%;
+}
+
+
+.input-group .btn-number{
+    background: #feab32;
+    color: #fff;
+    box-shadow: inset 0px -2px 0px  #d69c48;
+}
+.input-group input{
+    text-align: center;
+}
