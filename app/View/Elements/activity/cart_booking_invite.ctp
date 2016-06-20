@@ -19,6 +19,7 @@
 			echo $this->Form->hidden('no_participants',array('value'=>$cart_details['Cart']['no_participants']));
 			echo $this->Form->hidden('no_of_pax',array('value'=>$cart_details['Cart']['no_of_pax']));
 			echo $this->Form->hidden('is_private',array('value'=>($cart_details['Cart']['no_of_pax']>0?'true':'false')));
+			echo $this->Form->hidden('additional_hour',array('value'=>($cart_details['Cart']['additional_hour']>0?$cart_details['Cart']['additional_hour']:0)));
 			?>
 				<? if($cart_details['Cart']['no_participants']>1){
 					$cart_css="";

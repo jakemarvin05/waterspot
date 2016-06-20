@@ -594,6 +594,8 @@
 
             valProcessed.pop();
             valProcessed.push(newPriceForAddHour);
+            var newVal = valProcessed.join('_');
+            selectedSlot.val(newVal);
 
             $('#sub-total').html('$' + newPriceForAddHour);
 

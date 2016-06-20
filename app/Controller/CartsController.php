@@ -490,10 +490,65 @@ Class CartsController extends AppController
         $this->redirect(array('plugin' => 'payment_manager', 'controller' => 'payments', 'action' => 'index', $booking_id));
     }
 
-    private function before_saving_booking_slot($slots = null, $ref_no = null, $service_id = null, $no_participants = null)
+    private  function get_affected_slot($service_id,$end_time,$additional_hour){
+        $this->loadModel('VendorManager.ServiceSlot');
+        $start_time = $end_time;
+        // add the additional hour and check if slot has been booked
+        $end_time_str = explode(':', $end_time);
+        $end_time_str[0] = intval($end_time_str[0]) + $additional_hour;
+        $end_time = join(':', $end_time_str);
+
+
+        $criteria['conditions'] = array(
+            'ServiceSlot.service_id' => $service_id,
+            'AND'=> array(
+                'OR' => array('ServiceSlot.start_time BETWEEN ? AND ?' => array($start_time, $end_time)),
+                'OR' => array('ServiceSlot.end_time BETWEEN ? AND ?' => array($start_time, $end_time)),
+                'OR' => array('? BETWEEN ServiceSlot.start_time AND ServiceSlot.end_time' => array($start_time)),
+                'OR' => array('? BETWEEN ServiceSlot.start_time AND ServiceSlot.end_time' => array($end_time)),
+            )
+        );
+
+        $affectedSlots = $this->ServiceSlot->find('all',$criteria);
+
+        if(empty($affectedSlots)) {
+            return false;
+        }
+        return $affectedSlots;
+    }
+
+    private function before_saving_booking_slot($slots = null, $ref_no = null, $service_id = null, $no_participants = null, $additional_hour = null)
     {
+        $this->loadModel('PriceManager.Price');
+
+
+        // check if additional hour is set
+
+        // @TODO: Book the affected slot with the status of 2
+
         if (!empty($slots['Slot'])) {
             foreach ($slots['Slot'] as $key => $slot) {
+                if(isset($additional_hour)){
+                    $affected_slots = self::get_affected_slot($service_id,$slot['end_time'],$additional_hour);
+
+                    foreach($affected_slots as $affected_slot){
+
+                        //die();
+                        $affected_slot_booking_data = array();
+                        $affected_slot_booking_data['BookingSlot']['status'] = 2;
+                        $affected_slot_booking_data['BookingSlot']['booking_order_id'] = $this->booking_order_id;
+                        $affected_slot_booking_data['BookingSlot']['slot_id'] = $slot['slot_id'];
+                        $affected_slot_booking_data['BookingSlot']['service_id'] = $service_id;
+                        $affected_slot_booking_data['BookingSlot']['ref_no'] = $ref_no;
+                        $affected_slot_booking_data['BookingSlot']['no_participants'] = $no_participants;
+                        $affected_slot_booking_data['BookingSlot']['start_time'] = DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d', $slot['slot_date']) . " " . $affected_slot['ServiceSlot']['start_time']));
+                        $affected_slot_booking_data['BookingSlot']['end_time'] = DATE("Y-m-d H:i:s", STRTOTIME(date('Y-m-d', $slot['slot_date']) . " " . $affected_slot['ServiceSlot']['end_time']));
+
+                        $this->BookingSlot->create();
+                        $this->BookingSlot->save($affected_slot_booking_data, array('validate' => false));
+                    }
+                }
+
                 $data_booking_slot['BookingSlot']['booking_order_id'] = $this->booking_order_id;
                 $data_booking_slot['BookingSlot']['slot_id'] = $slot['slot_id'];
                 $data_booking_slot['BookingSlot']['service_id'] = $service_id;
@@ -571,6 +626,7 @@ Class CartsController extends AppController
             $cart_details = $this->Cart->find('all', $criteria);
             $row = '';
             $booking_detail = $this->Booking->getBookingDetailsByBooking_id($custom_variable['booking_id']);
+
             $service_slot_details = '';
             $total_cart_price = 0;
             $slots = '';
@@ -606,13 +662,14 @@ Class CartsController extends AppController
                     if ($this->Session->check('coupon_id')) {
                         $newData['BookingOrder']['coupon_id'] = $this->Session->read('coupon_id');
                     }
+
                     //
                     $this->BookingOrder->create();
                     $this->BookingOrder->save($newData, array('validate' => false));
                     $slots = json_decode($newData['BookingOrder']['slots'], true);
                     $this->booking_order_id = $this->BookingOrder->id;
                     //save booking slots
-                    self::before_saving_booking_slot($slots, $booking_detail['Booking']['ref_no'], $newData['BookingOrder']['service_id'], $newData['BookingOrder']['no_participants']);
+                    self::before_saving_booking_slot($slots, $booking_detail['Booking']['ref_no'], $newData['BookingOrder']['service_id'], $newData['BookingOrder']['no_participants'], $cart_detail['Cart']['additional_hour']);
                     // save invite save data
                     $total_cart_price = $cart_detail['Cart']['total_amount'];
                     self::before_sent_invite_save($cart_detail, $total_cart_price, $booking_detail);

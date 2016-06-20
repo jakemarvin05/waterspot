@@ -363,7 +363,7 @@ Class ActivityController extends AppController
                 $pax[] = $rule['Price']['rule_value'];
 
             }
-            if($rule['Price']['rule_key'] == 'max additional hour'){
+            if ($rule['Price']['rule_key'] == 'max additional hour') {
                 $hour[] = $rule['Price']['rule_value'];
             }
             switch ($rule['Price']['slot_type']) {
@@ -591,6 +591,7 @@ Class ActivityController extends AppController
 
                     $slotdata['no_participants'] = isset($this->request->data['Activity']['no_participants']) ? $this->request->data['Activity']['no_participants'] : $this->request->data['Activity']['no_of_pax'];
                     $slotdata['no_of_pax'] = (isset($this->request->data['Activity']['no_of_pax']) ? $this->request->data['Activity']['no_of_pax'] : null);
+                    $slotdata['add_hour'] = (isset($this->request->data['Activity']['add_hour']) ? $this->request->data['Activity']['add_hour'] : null);
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
 
                     if (empty($booking_status)) {
@@ -637,7 +638,7 @@ Class ActivityController extends AppController
                 $data['Cart']['no_participants'] = $this->request->data['Activity']['no_of_pax'];
 
             }
-
+            $data['Cart']['additional_hour'] = isset($this->request->data['Activity']['add_hour']) ? $this->request->data['Activity']['add_hour'] : null;
             $data['Cart']['booking_date'] = date('Y-m-d H:i:s');
             $data['Cart']['price'] = $service_price;
             $data['Cart']['total_amount'] = $total_slot_price;
