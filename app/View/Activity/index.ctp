@@ -224,22 +224,22 @@
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
                                     <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
-                                    <div class="select-participant">
-                                        <h4 class="select-participant-txt">Select No. of Pax</h4>
-                                        <?
+                                        <div class="select-participant">
+                                            <h4 class="select-participant-txt">Select No. of Pax</h4>
+                                            <?
 
-                                        $no_participants = array();
-                                        $max_add_hour = array();
-                                        if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']):
+                                            $no_participants = array();
+                                            $max_add_hour = array();
+                                            if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']):
 
-                                            // get the maximum allowable number of pax per person
-                                            for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
-                                                $no_participants[$x] = $x;
-                                            }
+                                                // get the maximum allowable number of pax per person
+                                                for ($x = 1; $x <= $rule_object['max_pax']; $x++) {
+                                                    $no_participants[$x] = $x;
+                                                }
 
-                                            for ($x = 0; $x <= $rule_object['max_add_hour']; $x++) {
-                                                $max_add_hour[$x] = $x;
-                                            }
+                                                for ($x = 0; $x <= $rule_object['max_add_hour']; $x++) {
+                                                    $max_add_hour[$x] = $x;
+                                                }
 
                                             else:
                                                 $no_participants = array();
@@ -248,15 +248,15 @@
                                                 }
                                             endif;
                                             ?>
-                                        <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
-                                    </div>
-                                    <?php echo $this->element('message'); ?>
+                                            <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'select', 'options' => $no_participants, 'div' => false, 'label' => false)); ?>
+                                        </div>
+                                        <?php echo $this->element('message'); ?>
                                     <?php else: ?>
                                         <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
                                     <?php endif; ?>
 
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
-                                <br>
+                                    <br>
 
                                     <div class="startDate">
                                         <div class="start-date">
@@ -274,30 +274,30 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
-                                    <?php if (preg_match('/yacht/i', $service_detail['service_type'])  || $service_detail['is_private']): ?>
+                                    <?php if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']): ?>
 
-                                    <div class="select-add-hour">
-                                        <h4 class="select-participant-txt">Additional Hour</h4>
-                                        <?= $this->Form->input('add_hour', array('type' => 'select', 'options' => $max_add_hour, 'div' => false, 'label' => false)); ?>
-                                    </div>
-                                    <div class="calculator-output">
-                                        <p>Subtotal: <span id="sub-total">$0</span></p>
-                                    </div>
+                                        <div class="select-add-hour">
+                                            <h4 class="select-participant-txt">Additional Hour</h4>
+                                            <?= $this->Form->input('add_hour', array('type' => 'select', 'options' => $max_add_hour, 'div' => false, 'label' => false)); ?>
+                                        </div>
+                                        <div class="calculator-output">
+                                            <p>Subtotal: <span id="sub-total">$0</span></p>
+                                        </div>
                                     <?php endif; ?>
-                                        <div class="check-terms">
-                                            <label>
-                                                <p>
-                                                    <input name="terms_and_condition" type="checkbox"/> I agree with the
-                                                    <a
-                                                        href="/terms" target="_blank"> Terms & Conditions</a>
-                                                </p>
-                                            </label>
-                                        </div>
-                                        <div class="cart-btn">
-                                            <input type="submit" value="Book A Spot"
-                                                   class="addtocart-button btn btnDefaults btnFillOrange"
-                                                   id="loginButton"/>
-                                        </div>
+                                    <div class="check-terms">
+                                        <label>
+                                            <p>
+                                                <input name="terms_and_condition" type="checkbox"/> I agree with the
+                                                <a
+                                                    href="/terms" target="_blank"> Terms & Conditions</a>
+                                            </p>
+                                        </label>
+                                    </div>
+                                    <div class="cart-btn">
+                                        <input type="submit" value="Book A Spot"
+                                               class="addtocart-button btn btnDefaults btnFillOrange"
+                                               id="loginButton"/>
+                                    </div>
                                     <?= $this->Form->end(); ?>
                                 </div>
                             </div>
@@ -308,7 +308,7 @@
 
                                 <div class="socialicons">
                                     <a id="shareFB"
-                                       href="https://www.facebook.com/sharer/sharer.php?app_id=1725992164290232&sdk=joey&u=<?php echo (isset($web_url) ? urlencode($web_url) : urlencode('http://www.waterspot.com.sg')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
+                                       href="https://www.facebook.com/sharer/sharer.php?app_id=1725992164290232&sdk=joey&u=<?php echo(isset($web_url) ? urlencode($web_url) : urlencode('http://www.waterspot.com.sg')); ?>&display=popup&ref=plugin&src=share_button">facebook</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -332,72 +332,72 @@
 
 <!-- NEW DESIGN FOR CART MODEL BOX BEGINS -->
 <?php if (!empty($cart_id))
-echo $this->element('activity/cart_booking_invite'); ?>
+    echo $this->element('activity/cart_booking_invite'); ?>
 <?php $path = $this->Html->webroot; ?>
 
 <? if (!empty($cart_id)): ?>
-<script>
-    $(document).ready(function () {
-        $("#add_invite input[type=checkbox]").click(function (event) {
-            updateTotal();
+    <script>
+        $(document).ready(function () {
+            $("#add_invite input[type=checkbox]").click(function (event) {
+                updateTotal();
+            });
+            $("#add_invite input[type=radio]").click(function (event) {
+                updateTotal();
+            });
         });
-        $("#add_invite input[type=radio]").click(function (event) {
-            updateTotal();
-        });
-    });
 
 
-    function updateTotal() {
-        var value_added_service = 0;
-        var no_of_booking_msg = '';
-        var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
-        var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
-        // no of booking date or slot
-        var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
-        if (no_of_interval == 1) {
-            // overight no_of_interval
-            var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
-            if (no_of_slots == 1) {
-                no_of_booking_msg = no_of_slots + " Slot";
+        function updateTotal() {
+            var value_added_service = 0;
+            var no_of_booking_msg = '';
+            var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
+            var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
+            // no of booking date or slot
+            var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
+            if (no_of_interval == 1) {
+                // overight no_of_interval
+                var no_of_slots = no_of_interval = parseInt(<?=count($cart_details['Cart']['slots']); ?>);
+                if (no_of_slots == 1) {
+                    no_of_booking_msg = no_of_slots + " Slot";
+                } else {
+                    no_of_booking_msg = no_of_slots + " Slots";
+                }
+
             } else {
-                no_of_booking_msg = no_of_slots + " Slots";
+                no_of_booking_msg = no_of_interval + " Days";
             }
 
-        } else {
-            no_of_booking_msg = no_of_interval + " Days";
-        }
-
-        var invite_p_status = $(".cart-payment-method input:radio:checked").val();
-        $("#add_invite input:checkbox:checked").each(function () {
-            total += parseFloat(this.value);
-            value_added_service += parseFloat(this.value);
-        });
+            var invite_p_status = $(".cart-payment-method input:radio:checked").val();
+            $("#add_invite input:checkbox:checked").each(function () {
+                total += parseFloat(this.value);
+                value_added_service += parseFloat(this.value);
+            });
 
 
-        if (invite_p_status == 1) {
-            var no_of_participant = $('#CartNoParticipants').val();
-            var is_private = $('#CartIsPrivate').val();
-            if (is_private == false) {
-                total = total * no_of_participant;
+            if (invite_p_status == 1) {
+                var no_of_participant = $('#CartNoParticipants').val();
+                var is_private = $('#CartIsPrivate').val();
+                if (is_private == false) {
+                    total = total * no_of_participant;
+                }
+
+            } else {
+                var no_of_participant = 1;
             }
 
-        } else {
-            var no_of_participant = 1;
+            var value_added_total = (value_added_service * no_of_participant).toFixed(2);
+            $('.subtotal').show();
+            $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
+            $('#Vas_total').html("$" + value_added_total);
+            $('#no_of_booking_days').html(no_of_booking_msg);
+            $('#Vas_total').html("$" + value_added_total);
+            $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
+            $('#total_participate').html(no_of_participant);
+            $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
+            $('#sub_total').html("$" + total.toFixed(2));
+
         }
-
-        var value_added_total = (value_added_service * no_of_participant).toFixed(2);
-        $('.subtotal').show();
-        $('#Vas_detail').html("( $" + value_added_service.toFixed(2) + 'x' + no_of_participant + ")");
-        $('#Vas_total').html("$" + value_added_total);
-        $('#no_of_booking_days').html(no_of_booking_msg);
-        $('#Vas_total').html("$" + value_added_total);
-        $('#total_amount').html("$" + (no_of_participant * service_amount).toFixed(2));
-        $('#total_participate').html(no_of_participant);
-        $('#total_participate_amount').html((no_of_participant * service_amount * no_of_interval).toFixed(2));
-        $('#sub_total').html("$" + total.toFixed(2));
-
-    }
-</script>
+    </script>
 <? endif; ?>
 <script>
     function get_service_availability() {
@@ -444,51 +444,65 @@ echo $this->element('activity/cart_booking_invite'); ?>
 <script>
     <?php $path = $this->Html->webroot; ?>
 
-    var $rule_object_json = (<?php echo $rule_object_json; ?>).rules;
 
+    // initialize preliminary variables
+    var $rule_object_json = (<?php echo $rule_object_json; ?>).rules;
     var oldVal = "";
     var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
     var oldPrice = 0;
     var oldPriceStored = 0;
+    var slotIdentity = "";
+    var newPriceStored = 0;
     var pricePerPax = 0;
     var pricePerHour = 0;
     var newPrice = oldPrice;
     var valProcessed = [];
+    var maxAddHourAllowed = 0;
     var selectedSlot;
-    var clickCtr = 0;
+    var priceForAddHour = 0;
+    var priceArray = [];
+    var addHourSelected = 0;
+    var oldAddHourValue = 0;
 
+    // detect the slot check action
     $('#slots_form ').on('change', 'input[type=checkbox]',
         function () {
 
-            console.log('Old price is '+oldPriceStored);
 
             selectedSlot = $(this);
             oldVal = $(this).val();
             var slotIndex = $(this).data('slot');
             var paxSelected = $('#ActivityNoOfPax').val();
             valProcessed = oldVal.split('_');
+            var newslotIdentity = valProcessed[0] + valProcessed[1] + valProcessed[2] + valProcessed[3] + valProcessed[4];
             oldPrice = valProcessed[(valProcessed.length) - 1];
-            if(clickCtr==0){
-               oldPriceStored =  valProcessed[(valProcessed.length) - 1];
+            if (slotIdentity != newslotIdentity) {
+                oldPriceStored = valProcessed[(valProcessed.length) - 1];
+                slotIdentity = newslotIdentity;
             }
             else {
                 oldPrice = oldPriceStored;
             }
             var additionalPax = paxSelected - paxIncluded;
-            var priceForAddHour = 0;
+
 
             switch (slotIndex) {
                 case 1:
                     pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
                     pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
+                    maxAddHourAllowed = $rule_object_json.weekday_rules['max additional hour'] ? $rule_object_json.weekday_rules['max additional hour'] : 0;
                     break;
                 case 2:
                     pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
                     pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
+                    maxAddHourAllowed = $rule_object_json.weekend_rules['max additional hour'] ? $rule_object_json.weekend_rules['max additional hour'] : 0;
+
                     break;
                 case 3:
                     pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
                     pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
+                    maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
+
                     break;
                 default:
                     break;
@@ -497,55 +511,116 @@ echo $this->element('activity/cart_booking_invite'); ?>
 
             var additionalPax = paxSelected - paxIncluded;
 
-            if($(this).is(':checked')){
+            if ($(this).is(':checked')) {
 
-            if($('[name="data[Activity][add_hour]"]').val() > 0){
-                 priceForAddHour = parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour);
-            }
+                if ($('[name="data[Activity][add_hour]"]').val() > 0) {
+                    priceForAddHour = parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour);
+                }
 
-            if (additionalPax > 0) {
-                console.log((parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour)));
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax));
-                newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
+                if (additionalPax > 0) {
+                    newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax));
+                    newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
 
-            }
-            else {
-                newPrice = oldPrice;
-                newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
-            }
-            valProcessed.pop();
-            valProcessed.push(newPrice);
+                }
+                else {
+                    newPrice = oldPrice;
+                    newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
 
-            $('#sub-total').html('$' + newPrice);
-            var newVal = valProcessed.join('_');
-            $(this).val(newVal);
+                }
+                valProcessed.pop();
+                valProcessed.push(newPrice);
 
+                if (slotIdentity != newslotIdentity) {
+                    newPriceStored = newPrice;
+
+                }
+
+                priceArray[valProcessed[2]] = newPrice;
+
+                var newVal = valProcessed.join('_');
+
+                var finalPrice = 0;
+
+                for (var x in priceArray) {
+                    finalPrice += parseInt(priceArray[x]);
+                }
+                $('#sub-total').html('$' + finalPrice);
+
+                $(this).val(newVal);
+
+                // Update the select option
+                var newOptions = {};
+
+                for (var x = 0; x <= maxAddHourAllowed; x++) {
+                    newOptions[x] = x;
+                }
+
+                var $selectElement = $('[name="data[Activity][add_hour]"]');
+                $selectElement.empty(); // remove old options
+                $.each(newOptions, function (value, key) {
+                    $selectElement.append($("<option></option>")
+                        .attr("value", value).text(key));
+                });
+
+                $selectElement.selectpicker('refresh');
 
             }
             else {
                 valProcessed.pop();
                 valProcessed.push(0);
+                priceArray.splice((valProcessed[2]), 1);
+                var finalPrice = 0;
 
-                $('#sub-total').html('$0');
+                for (var x in priceArray) {
+                    finalPrice += parseInt(priceArray[x]);
+                }
+                $('#sub-total').html('$' + finalPrice);
                 var newVal = valProcessed.join('_');
                 $(this).val(newVal);
             }
-            clickCtr++;
+
         }
     );
+
+    // detect the changing of the addional option to do recalculation
+    $('.select-add-hour ').on('change', 'select[name="data[Activity][add_hour]"]',
+        function () {
+            var val = $(this).val();
+            addHourSelected =  val;
+            var priceForAddHour = 0;
+            priceForAddHour = val * parseInt(pricePerHour);
+            var newPriceForAddHour = parseInt(newPrice) - oldAddHourValue + parseInt(priceForAddHour);
+
+            valProcessed.pop();
+            valProcessed.push(newPriceForAddHour);
+
+            $('#sub-total').html('$' + newPriceForAddHour);
+
+            var newVal = valProcessed.join('_');
+
+            $(this).val(newVal);
+        });
 
     $('#ActivityNoOfPax').change(
         function () {
             var paxSelected = $(this).val();
             var additionalPax = paxSelected - paxIncluded;
+            console.log('oldPrice: '+ oldPrice);
+            console.log('pricePerPax: '+ pricePerPax);
+            console.log('additionalPax: '+ additionalPax);
+            console.log('addHourSelected: '+ addHourSelected);
+            console.log('pricePerHour: '+ pricePerHour);
             if (additionalPax > 0) {
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax)) + (parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour));
+                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax)) + (parseInt(addHourSelected) * parseInt(pricePerHour));
+                oldAddHourValue = (parseInt(addHourSelected) * parseInt(pricePerHour));
             }
             else {
-                newPrice = oldPrice;
+                newPrice = parseInt(oldPrice) + (parseInt(addHourSelected) * parseInt(pricePerHour));
             }
+            console.log('newPrice: '+ newPrice);
             valProcessed.pop();
             valProcessed.push(newPrice);
+
             $('#sub-total').html('$' + newPrice);
             var newVal = valProcessed.join('_');
             if (selectedSlot) {
