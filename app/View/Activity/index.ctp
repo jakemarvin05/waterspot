@@ -587,6 +587,7 @@
         function () {
             var val = $(this).val();
             addHourSelected =  val;
+            console.log(val);
             var priceForAddHour = 0;
             priceForAddHour = val * parseInt(pricePerHour);
             var newPriceForAddHour = parseInt(newPrice) - oldAddHourValue + parseInt(priceForAddHour);
@@ -596,9 +597,6 @@
 
             $('#sub-total').html('$' + newPriceForAddHour);
 
-            var newVal = valProcessed.join('_');
-
-            $(this).val(newVal);
         });
 
     $('#ActivityNoOfPax').change(
