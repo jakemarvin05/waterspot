@@ -321,7 +321,7 @@ Class ServiceFilterComponent extends Component
     }
 
 
-    public function checkBookSlots($start_time, $end_time, $service_id, $additional_hour){
+    public function checkBookSlots($date, $start_time, $end_time, $service_id, $additional_hour){
 
 
         $ServiceSlot = ClassRegistry::init('BookingSlot');
@@ -332,13 +332,13 @@ Class ServiceFilterComponent extends Component
 
 
         $criteria['conditions'] = array(
-            'BookingSlot.service_id' => $service_id, 'BookingSlot.status' => 1,
-            'OR' => array(
-                array('BookingSlot.start_time BETWEEN ? AND ?' => array($start_time, $end_time)),
-                array('BookingSlot.end_time BETWEEN ? AND ?' => array($start_time, $end_time)),
-                array('? BETWEEN BookingSlot.start_time AND BookingSlot.end_time' => array($start_time)),
-                array('? BETWEEN BookingSlot.start_time AND BookingSlot.end_time' => array($end_time)),
-            ),
+            'BookingSlot.service_id' => $service_id,
+            'Or' => array(
+                array('BookingSlot.start_time BETWEEN ? AND ?' => array("$date $start_time", "$date $end_time")),
+                array('BookingSlot.end_time BETWEEN ? AND ?' => array("$date $start_time", "$date $end_time")),
+                array('? BETWEEN BookingSlot.start_time AND BookingSlot.end_time' => array("$date $start_time")),
+                array('? BETWEEN BookingSlot.start_time AND BookingSlot.end_time' => array("$date $end_time")),
+            )
         );
 
         $bookedSlots = $ServiceSlot->find('all',$criteria);
@@ -416,7 +416,8 @@ Class ServiceFilterComponent extends Component
 
         if ($slotdata['add_hour'] && $slotdata['add_hour'] > 0) {
             // check and book affected slot here
-            $bookedSlot =  self::checkBookSlots($slotdata['start_time'],$slotdata['end_time'],$slotdata['service_id'],$slotdata['add_hour']);
+            $bookedSlot =  self::checkBookSlots(date('Y-m-d',$slotdata['slot_date']), $slotdata['start_time'],$slotdata['end_time'],$slotdata['service_id'],$slotdata['add_hour']);
+
             if(!$bookedSlot){
                 $booking_status = true;
             }

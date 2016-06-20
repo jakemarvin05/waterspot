@@ -17,3 +17,7 @@ section.activity-section.details {
 .calculator-output p {
     margin: 0;
 }
+
+#errorMessage {
+    font-size: 14px;
+}

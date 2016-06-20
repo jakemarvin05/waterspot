@@ -595,9 +595,9 @@ Class ActivityController extends AppController
                     $booking_status = $this->ServiceFilter->slot_filter($slotdata);
 
                     if (empty($booking_status)) {
-                        $this->Session->setFlash('Some slots have been booked. Please select another slots.', 'default', '', 'error');
+                        $this->Session->setFlash('Some slots have been booked already. Please select another slot and check your additional hours.', 'default', '', 'error');
                         $this->redirect($this->referer());
-                        throw new NotFoundException('Some slots have been booked. Please select another slots.');
+                        throw new NotFoundException('Some slots have been booked already. Please select another slot and check your additional hours.');
                     }
                     $slot_data['Slot'][$key] = $slot_booking_detail;
                 }

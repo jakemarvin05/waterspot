@@ -31,14 +31,19 @@ Class BookingSlot extends VendorManagerAppModel {
 
 	public function usedSlotCount($service_id, $date, $start_time, $end_time)
 	{
-		$end_time = date('H:i:s', strtotime($end_time) + 1);
+		$end_time1 = date('H:i:s', strtotime($end_time) + 1);
+		$end_time2 = date('H:i:s', strtotime($end_time) );
 		$end_date = strtotime($start_time) > strtotime($end_time) ? date('Y-m-d', strtotime($date) + 60*60*24) : $date;
+
 		$count = 0;
 		$booking_slots = $this->find('all', array(
 			'conditions' => array(
 				'BookingSlot.service_id'=>$service_id,
 				'BookingSlot.start_time'=>"$date $start_time",
-				'BookingSlot.end_time'=>"$end_date $end_time",
+				'Or'=> array(
+					'BookingSlot.end_time'=>"$end_date $end_time1",
+					'Or' => array('BookingSlot.end_time'=>"$end_date $end_time2")
+					)
 				),
 			'fields' => array(
 				'SUM(BookingSlot.no_participants) as count',
