@@ -59,17 +59,19 @@
                                                     <div class="checkout-activity-left">
                                                         Slot <?php echo $this->Time->meridian_format($slot_time['start_time']) . " To " . $this->Time->end_meridian_format($slot_time['end_time']); ?> </div>
                                                     <div
-                                                        class="checkout-activity-right"><?= "$" . number_format($slot_time['price'], 2) ?></div>
+                                                        class="checkout-activity-right"><?= "$" . number_format($slot_time['slot_price'], 2) ?></div>
                                                 </div>
                                                 <?php $total_price += $slot_time['price']; ?>
                                             <?php } ?>
                                         <? } ?>
-
+                                        <?php if ($cart_detail['Cart']['no_of_booking_days'] > 1){ ?>
                                         <div class="checkout-activity-row">
                                             <div class="checkout-activity-left">No. of Days</div>
                                             <div
                                                 class="checkout-activity-right"><?= $cart_detail['Cart']['no_of_booking_days']; ?></div>
                                         </div>
+                                    <?php } ?>
+
                                         <div class="checkout-activity-row">
                                             <div
                                                 class="checkout-activity-left"><?= $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email'])) ?>
@@ -78,6 +80,24 @@
                                             <div
                                                 class="checkout-activity-right"><?= $cart_detail['Cart']['no_participants'] - count(json_decode($cart_detail['Cart']['invite_friend_email'])) ?></div>
                                         </div>
+
+
+                                        <?php if ($slot_time['additional_hour'] > 0){ ?>
+                                            <div class="checkout-activity-row">
+                                                <div class="checkout-activity-left">Additional Hour (<?="$".number_format($slot_time['price_per_hour'],2)?> x <?=$slot_time['additional_hour']?> hour)</div>
+                                                <div
+                                                    class="checkout-activity-right"><?="$".number_format((intval($slot_time['price_per_hour']) * intval($slot_time['additional_hour'])),2); ?></div>
+                                            </div>
+                                        <?php } ?>
+
+                                        <?php if ($slot_time['additional_pax'] > 0){ ?>
+                                            <div class="checkout-activity-row">
+                                                <div class="checkout-activity-left">Additional Pax (<?="$".number_format($slot_time['price_per_pax'],2)?> x <?=$slot_time['additional_pax']?> hour)</div>
+                                                <div
+                                                    class="checkout-activity-right"><?="$".number_format((intval($slot_time['price_per_pax']) * intval($slot_time['additional_pax'])),2); ?></div>
+                                            </div>
+                                        <?php } ?>
+
                                         <? if (!empty($cart_detail['Cart']['value_added_price'])) { ?>
                                             <div class="checkout-activity-row">
                                                 <div class="checkout-activity-left">Value Added Total(
