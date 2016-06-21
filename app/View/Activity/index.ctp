@@ -595,6 +595,8 @@
             var additionalPax = paxSelected - paxIncluded;
 
             if ($(this).is(':checked')) {
+                $('.check-box').prop('checked', false);
+                $(this).prop('checked',true);
 
                 if ($('[name="data[Activity][add_hour]"]').val() > 0) {
                     priceForAddHour = parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour);
@@ -610,13 +612,14 @@
                     newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
 
                 }
-                valProcessed.pop();
-                valProcessed.push(newPrice);
 
                 if (slotIdentity != newslotIdentity) {
                     newPriceStored = newPrice;
 
                 }
+
+                valProcessed.pop();
+                valProcessed.push(newPrice);
 
                 priceArray[valProcessed[2]] = newPrice;
 
@@ -662,7 +665,6 @@
             priceForAddHour = val * parseInt(pricePerHour);
             var newPriceForAddHour = parseInt(newPrice) - oldAddHourValue + parseInt(priceForAddHour);
 
-            valProcessed.pop();
             valProcessed.push(newPriceForAddHour);
             var newVal = valProcessed.join('_');
             selectedSlot.val(newVal);
