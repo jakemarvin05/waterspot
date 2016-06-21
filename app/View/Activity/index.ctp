@@ -530,126 +530,92 @@
 
     // initialize preliminary variables
     var $rule_object_json = (<?php echo $rule_object_json; ?>).rules;
-    var oldVal = "";
     var paxIncluded = <?php echo $service_detail['Service']['num_pax_included']?>;
-    var oldPrice = 0;
-    var oldPriceStored = 0;
-    var slotIdentity = "";
-    var newPriceStored = 0;
-    var pricePerPax = 0;
-    var pricePerHour = 0;
-    var newPrice = oldPrice;
-    var valProcessed = [];
-    var maxAddHourAllowed = 0;
-    var selectedSlot;
-    var priceForAddHour = 0;
-    var priceArray = [];
-    var addHourSelected = 0;
-    var oldAddHourValue = 0;
+
+    // Define the rule
+    var Rule = {
+        slotPrice: 0,
+        pricePerPax: 0,
+        pricePerHour: 0,
+        additionalPax: 0,
+        additionalHour: 0,
+        maxAddHourAllowed: 0,
+        slotInputVal:'',
+        selectedSlot: $(),
+        updatePrice:  function(){
+            var newPrice = 0;
+            // calculate the new price if slotPrice is set
+            if(this.slotPrice>0) {
+                newPrice = parseInt(this.slotPrice) + (parseInt(this.pricePerHour) * parseInt(this.additionalHour)) + (parseInt(this.additionalPax) * parseInt(this.pricePerPax));
+            }
+                // set the slot input value
+            var newValChucks = this.slotInputVal.split('_');
+            // delete the price object
+            newValChucks.pop();
+            // change it with new value
+            newValChucks.push(newPrice);
+            // rejoin the chuncks
+            var newVal = newValChucks.join('_');
+            // set the newVal to the selected slot input
+            this.selectedSlot.val(newVal);
+            // change the calculator subtotal value
+            $('#sub-total').html('$' + newPrice);
+
+        }
+    };
+
+    var rule = Rule;
+
 
     // detect the slot check action
     $('#slots_form ').on('change', 'input[type=checkbox]',
         function () {
-
-
-            selectedSlot = $(this);
-            oldVal = $(this).val();
-            var slotIndex = $(this).data('slot');
-            var paxSelected = $('#ActivityNoOfPax').val();
-            valProcessed = oldVal.split('_');
-            var newslotIdentity = valProcessed[0] + valProcessed[1] + valProcessed[2] + valProcessed[3] + valProcessed[4];
-            oldPrice = valProcessed[(valProcessed.length) - 1];
-            if (slotIdentity != newslotIdentity) {
-                oldPriceStored = valProcessed[(valProcessed.length) - 1];
-                slotIdentity = newslotIdentity;
-            }
-            else {
-                oldPrice = oldPriceStored;
-            }
-            var additionalPax = paxSelected - paxIncluded;
-
-
-            switch (slotIndex) {
-                case 1:
-                    pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
-                    pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
-                    maxAddHourAllowed = $rule_object_json.weekday_rules['max additional hour'] ? $rule_object_json.weekday_rules['max additional hour'] : 0;
-                    break;
-                case 2:
-                    pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
-                    pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
-                    maxAddHourAllowed = $rule_object_json.weekend_rules['max additional hour'] ? $rule_object_json.weekend_rules['max additional hour'] : 0;
-
-                    break;
-                case 3:
-                    pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
-                    pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
-                    maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
-
-                    break;
-                default:
-                    break;
-            }
-
-
-            var additionalPax = paxSelected - paxIncluded;
-
             if ($(this).is(':checked')) {
+                // Make the checkbox function like a radio button
                 $('.check-box').prop('checked', false);
                 $(this).prop('checked',true);
+                // Set the rule parameters
+                rule.selectedSlot =  $(this);
+                rule.slotPrice = $(this).data('price');
+                rule.slotInputVal = $(this).val();
 
-                if ($('[name="data[Activity][add_hour]"]').val() > 0) {
-                    priceForAddHour = parseInt($('[name="data[Activity][add_hour]"]').val()) * parseInt(pricePerHour);
+                // get the slotindex
+                var slotIndex = $(this).data('slot');
+
+                // Check the slot index and set the rule parameters from it
+                switch (slotIndex) {
+                    case 1:
+                        rule.pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
+                        rule.pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
+                        rule.maxAddHourAllowed = $rule_object_json.weekday_rules['max additional hour'] ? $rule_object_json.weekday_rules['max additional hour'] : 0;
+                        break;
+                    case 2:
+                        rule.pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
+                        rule.pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
+                        rule.maxAddHourAllowed = $rule_object_json.weekend_rules['max additional hour'] ? $rule_object_json.weekend_rules['max additional hour'] : 0;
+
+                        break;
+                    case 3:
+                        rule.pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
+                        rule.pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
+                        rule.maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
+
+                        break;
+                    default:
+                        break;
                 }
-
-                if (additionalPax > 0) {
-                    newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax));
-                    newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
-
-                }
-                else {
-                    newPrice = oldPrice;
-                    newPrice = parseInt(newPrice) + parseInt(priceForAddHour);
-
-                }
-
-                if (slotIdentity != newslotIdentity) {
-                    newPriceStored = newPrice;
-
-                }
-
-                valProcessed.pop();
-                valProcessed.push(newPrice);
-
-                priceArray[valProcessed[2]] = newPrice;
-
-                var newVal = valProcessed.join('_');
-
-                var finalPrice = 0;
-
-                for (var x in priceArray) {
-                    finalPrice += parseInt(priceArray[x]);
-                }
-                $('#sub-total').html('$' + finalPrice);
-
-                $(this).val(newVal);
+                // Update the rule Price
+                rule.updatePrice();
 
                 // Update the add_hour max value
-                $('[name="data[Activity][add_hour]"]').attr('max',maxAddHourAllowed);
+                $('[name="data[Activity][add_hour]"]').attr('max',rule.maxAddHourAllowed);
 
             }
             else {
-                valProcessed.pop();
-                valProcessed.push(0);
-                priceArray.splice((valProcessed[2]), 1);
-                var finalPrice = 0;
-
-                for (var x in priceArray) {
-                    finalPrice += parseInt(priceArray[x]);
-                }
-                $('#sub-total').html('$' + finalPrice);
-                var newVal = valProcessed.join('_');
-                $(this).val(newVal);
+                // set slot price to 0
+                rule.slotPrice = 0;
+                // Update the rule Price
+                rule.updatePrice();
             }
 
         }
@@ -658,46 +624,22 @@
     // detect the changing of the addional option to do recalculation
     $('.select-add-hour ').on('change', '[name="data[Activity][add_hour]"]',
         function () {
-            var val = $(this).val();
-            addHourSelected = val;
-            console.log(val);
-            var priceForAddHour = 0;
-            priceForAddHour = val * parseInt(pricePerHour);
-            var newPriceForAddHour = parseInt(newPrice) - oldAddHourValue + parseInt(priceForAddHour);
-
-            valProcessed.push(newPriceForAddHour);
-            var newVal = valProcessed.join('_');
-            selectedSlot.val(newVal);
-
-            $('#sub-total').html('$' + newPriceForAddHour);
+            // update rule.additionalHour
+            rule.additionalHour = $(this).val();
+            // update rule Price
+            rule.updatePrice();
 
         });
+
 
     $('#ActivityNoOfPax').change(
         function () {
             var paxSelected = $(this).val();
+            // calculate additional hour
             var additionalPax = paxSelected - paxIncluded;
-            console.log('oldPrice: ' + oldPrice);
-            console.log('pricePerPax: ' + pricePerPax);
-            console.log('additionalPax: ' + additionalPax);
-            console.log('addHourSelected: ' + addHourSelected);
-            console.log('pricePerHour: ' + pricePerHour);
-            if (additionalPax > 0) {
-                newPrice = parseInt(oldPrice) + parseInt(pricePerPax * (additionalPax)) + (parseInt(addHourSelected) * parseInt(pricePerHour));
-                oldAddHourValue = (parseInt(addHourSelected) * parseInt(pricePerHour));
-            }
-            else {
-                newPrice = parseInt(oldPrice) + (parseInt(addHourSelected) * parseInt(pricePerHour));
-            }
-            console.log('newPrice: ' + newPrice);
-            valProcessed.pop();
-            valProcessed.push(newPrice);
-
-            $('#sub-total').html('$' + newPrice);
-            var newVal = valProcessed.join('_');
-            if (selectedSlot) {
-                selectedSlot.val(newVal);
-            }
+            // update rule Price
+            rule.additionalPax = additionalPax;
+            rule.updatePrice();
         }
     );
 

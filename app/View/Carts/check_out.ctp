@@ -23,6 +23,9 @@
 
                     <div class="row">
                         <? if (!empty($cart_details)) {
+//                            echo '<pre>';
+//                            var_dump($cart_details);
+//                            echo '</pre>';
                             $sub_total = 0;
                             foreach ($cart_details as $key => $cart_detail) {
                                 $slot_price = 0;
