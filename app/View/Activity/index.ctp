@@ -631,21 +631,8 @@
 
                 $(this).val(newVal);
 
-                // Update the select option
-                var newOptions = {};
-
-                for (var x = 0; x <= maxAddHourAllowed; x++) {
-                    newOptions[x] = x;
-                }
-
-                var $selectElement = $('[name="data[Activity][add_hour]"]');
-                $selectElement.empty(); // remove old options
-                $.each(newOptions, function (value, key) {
-                    $selectElement.append($("<option></option>")
-                        .attr("value", value).text(key));
-                });
-
-                $selectElement.selectpicker('refresh');
+                // Update the add_hour max value
+                $('[name="data[Activity][add_hour]"]').attr('max',maxAddHourAllowed);
 
             }
             else {
@@ -666,7 +653,7 @@
     );
 
     // detect the changing of the addional option to do recalculation
-    $('.select-add-hour ').on('change', 'select[name="data[Activity][add_hour]"]',
+    $('.select-add-hour ').on('change', '[name="data[Activity][add_hour]"]',
         function () {
             var val = $(this).val();
             addHourSelected = val;

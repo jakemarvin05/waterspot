@@ -42,4 +42,5 @@ section.activity-section.details {
 }
 .input-group input{
     text-align: center;
+    box-shadow: inset 0px 2px 1px #ececec;
 }
