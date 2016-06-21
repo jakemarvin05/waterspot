@@ -111,8 +111,20 @@
 								<? foreach($cart_details['Cart']['slots'] as $slot_key=>$slot_time) {?>
 									<tr>
 										<th>Slot <?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']);?> : </th>
-										<td><?="$".number_format($slot_time['price'],2)?></td>
+										<td><?="$".number_format($slot_time['slot_price'],2)?></td>
 									</tr>
+									<?php if($slot_time['additional_pax']){ ?>
+									<tr>
+										<th>Additional Pax &nbsp;&nbsp;&nbsp;( <?php echo $slot_time['additional_pax']; ?> x <?php echo "$".number_format($slot_time['price_per_pax'],2); ?> ) : </th>
+										<td><?="$".number_format((intval($slot_time['price_per_pax']) * intval($slot_time['additional_pax'])),2)?></td>
+									</tr>
+									<?php } ?>
+									<?php if($slot_time['additional_hour']){ ?>
+										<tr>
+											<th>Additional Hour &nbsp;&nbsp;&nbsp;( <?php echo $slot_time['additional_hour']; ?> x <?php echo "$".number_format($slot_time['price_per_hour'],2); ?> ) : </th>
+											<td><?="$".number_format((intval($slot_time['price_per_hour']) * intval($slot_time['additional_hour'])),2)?></td>
+										</tr>
+									<?php } ?>
 								<?php } ?>	
 							<? } ?>
 							<!-- <tr>
@@ -179,7 +191,7 @@
 								texts += '<input name="data[Cart][email][]" placeholder="Enter email address" type="text" ><br />';
 							}
 							$('#email_inputs').html(texts);
-							var current_total = <?php echo $cart_details['Cart']['total_amount']; ?>;
+							var current_total = <?php echo number_format($cart_details['Cart']['total_amount'],2); ?>;
 							if(is_private==false) {
 								$('#sub_total').html('$' + (current_total * (count + 1)));
 							}

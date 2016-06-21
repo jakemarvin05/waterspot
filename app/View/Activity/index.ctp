@@ -356,7 +356,7 @@
             var value_added_service = 0;
             var no_of_booking_msg = '';
             var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
-            var total = parseFloat(<?=$cart_details['Cart']['total_amount'];?>);
+            var total = <?= number_format($cart_details['Cart']['total_amount'],2);?>;
             // no of booking date or slot
             var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
             if (no_of_interval == 1) {
@@ -554,6 +554,12 @@
             newValChucks.pop();
             // change it with new value
             newValChucks.push(newPrice);
+            // add all the necessary parameters
+            newValChucks.push(this.slotPrice);
+            newValChucks.push(this.pricePerPax);
+            newValChucks.push(this.pricePerHour);
+            newValChucks.push(this.additionalPax);
+            newValChucks.push(this.additionalHour);
             // rejoin the chuncks
             var newVal = newValChucks.join('_');
             // set the newVal to the selected slot input

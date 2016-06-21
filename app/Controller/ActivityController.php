@@ -566,6 +566,7 @@ Class ActivityController extends AppController
                         continue;
                     }
                     $slot_booking_details = explode('_', $slot);
+
                     // slot attributes
                     $slot_booking_detail = array();
                     foreach ($slot_booking_details as $slot_key => $slot_attb) {
@@ -581,9 +582,20 @@ Class ActivityController extends AppController
                             $slot_booking_type = 'end_time';
                         if ($slot_key == 5)
                             $slot_booking_type = 'price';
+                        if ($slot_key == 6)
+                            $slot_booking_type = 'slot_price';
+                        if ($slot_key == 7)
+                            $slot_booking_type = 'price_per_pax';
+                        if ($slot_key == 8)
+                            $slot_booking_type = 'price_per_hour';
+                        if ($slot_key == 9)
+                            $slot_booking_type = 'additional_pax';
+                        if ($slot_key == 10)
+                            $slot_booking_type = 'additional_hour';
                         //
                         $slot_booking_detail[$slot_booking_type] = $slot_attb;
                     }
+
 
                     // check slot booking
                     $slotdata = array();
