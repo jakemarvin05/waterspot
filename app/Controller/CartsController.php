@@ -153,9 +153,21 @@ Class CartsController extends AppController
             $this->loadModel('MailManager.Mail');
 
 
+
+
             if (!empty($cart_value)) {
 
                 foreach ($cart_value as $val) {
+
+                    // Extract the slots object
+                    $slots = json_decode($val['Cart']['slots'])->Slot;
+                    $slotHtml = '';
+                    // encode the slots' html
+                    foreach($slots as $slot){
+                        $slotHtml.= 'Time: ' . $slot->start_time . ' - ' . $slot->end_time .'<br>';
+                        $slotHtml.= 'Additional Hour: ' . $slot->additional_hour . '<br>';
+                        $slotHtml.= 'Additional Pax: ' . $slot->additional_pax . '<br><br>';
+                    }
 
                     $mail = $this->Mail->read(null, 27);
                     $activity = ($val['Cart']['full_day_status'] == 0) ? 'Slote' : 'Full Day';
@@ -173,6 +185,7 @@ Class CartsController extends AppController
                     $body = str_replace('{PARTICIPANT}', $val['Cart']['no_participants'], $body);
                     $body = str_replace('{VAS}', $vas, $body);
                     $body = str_replace('{PRICE}', $val['Cart']['total_amount'], $body);
+                    $body = str_replace('{SLOTS}', $slotHtml, $body);
 
                     $email = new CakeEmail();
 

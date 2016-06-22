@@ -177,13 +177,22 @@ Search:
                 <?php
                  $i = $this->paginator->counter('{:start}');
                     //$i = 0;
-                    foreach ($mails as $mail) {
+
+                function mailIdAscSort($item1,$item2)
+                {
+                    if ($item1['Mail']['id'] == $item2['Mail']['id']) return 0;
+                    return ($item1['Mail']['id'] > $item2['Mail']['id']) ? 1 : -1;
+                }
+
+                usort($mails,'mailIdAscSort');
+
+                foreach ($mails as $mail) {
                 ?>
                     <li id="sort_<?= $mail['Mail']['id'] ?>"  style="cursor:move" >
                         <table width="100%">
                             <tr>
                                 <td width="5%"><?php echo $this->Form->checkbox('Mail.id.'.$i, array('value' => $mail['Mail']['id'])); ?></td>
-                                <td width="6%"><?php echo $i++; ?></td>
+                                <td width="6%"><?php echo $mail['Mail']['id']; ?></td>
                                 <td width="65%"><?php echo $mail['Mail']['mail_title']; ?></td>
                                 <td width="10%">
                                 <?php
