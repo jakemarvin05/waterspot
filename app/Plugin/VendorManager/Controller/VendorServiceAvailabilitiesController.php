@@ -128,8 +128,10 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 		if($this->Service->checkServiceById($vendor_id,$service_id)<=0) {
 			$this->Session->setFlash(__('Are you doing something wrong?', false));
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'vendors', 'action' => 'index'));	 
-		} 
-		
+		}
+
+		$service_title = $this->Service->servieTitleByService_id($service_id);
+
 		if(!empty($this->request->data) && $this->validation()){
 			if(empty($id)){
 				$this->request->data['VendorServiceAvailability']['created_at']=date('Y-m-d H:i:s');
@@ -198,22 +200,28 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 		}
 		// listing recent availability
 		$service_availabity_details=$this->VendorServiceAvailability->find('all',array('conditions'=>array('VendorServiceAvailability.service_id'=>$service_id,'Or'=>array(array('VendorServiceAvailability.p_date >='=>date('Y-m-d')),array('VendorServiceAvailability.end_date >='=>date('Y-m-d'))))));
+
 		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/'),
-			'name'=>'Home'
-			);
-		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/admin/home/'),
-			'name'=>'Home'
+			'url' => Router::url('/'),
+			'name' => 'Home'
 		);
 		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/admin/vendor_manager/services/servicelist/'.$vendor_id),
-			'name'=>'Manage Vendor'
+			'url' => Router::url('/admin/home/'),
+			'name' => 'Home'
 		);
 		$this->breadcrumbs[] = array(
-			'url'=>Router::url('/admin/vendor_manager/vendor_service_availabilities/index/'.$vendor_id.'/'.$service_id),
-			'name'=>'Service Availability'
-		);		   
+			'url' => Router::url('/admin/vendor_manager/vendors'),
+			'name' => 'Manage Vendor'
+		);
+		$this->breadcrumbs[] = array(
+			'url' => Router::url('/admin/vendor_manager/services/servicelist/' . $vendor_id),
+			'name' => $service_title
+		);
+		$this->breadcrumbs[] = array(
+			'url' => Router::url('/services/add_slots/'),
+			'name' => 'Add Slots'
+		);
+
 		$service_slots=$this->ServiceSlot->getSlotByServiceID($service_id);
 		$this->set('service_availabity_details',$service_availabity_details);
 		$this->set('service_slots',$service_slots);
