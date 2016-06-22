@@ -556,7 +556,6 @@
             if (this.slotPrice > 0) {
                 // consider the rules when it is set
                 if(this.hasRule){
-                    alert('hey');
                     newPrice = parseInt(this.slotPrice) + (parseInt(this.pricePerHour) * parseInt(this.additionalHour)) + (parseInt(this.additionalPax) * parseInt(this.pricePerPax));
                 }
                 else {
