@@ -550,7 +550,6 @@
         slotInputVal: '',
         selectedSlot: $(),
         updatePrice: function () {
-               console.log(this);
             var newPrice = 0;
             // calculate the new price if slotPrice is set
             if (this.slotPrice > 0) {
@@ -686,8 +685,10 @@
             var paxSelected = $(this).val();
             // calculate additional hour
             var additionalPax = paxSelected - paxIncluded;
-            // update rule Price
-            rule.additionalPax = additionalPax;
+            // update rule Price if additional pax is positive
+            if(additionalPax>-1) {
+                rule.additionalPax = additionalPax;
+            }
             rule.updatePrice();
         }
     );
