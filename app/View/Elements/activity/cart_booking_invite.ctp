@@ -191,7 +191,7 @@
 								texts += '<input name="data[Cart][email][]" placeholder="Enter email address" type="text" ><br />';
 							}
 							$('#email_inputs').html(texts);
-							var current_total = <?php echo number_format($cart_details['Cart']['total_amount'],2); ?>;
+							var current_total = '<?php echo number_format($cart_details['Cart']['total_amount'],2); ?>';
 							if(is_private==false) {
 								$('#sub_total').html('$' + (current_total * (count + 1)));
 							}
