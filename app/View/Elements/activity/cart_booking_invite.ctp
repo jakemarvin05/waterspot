@@ -113,13 +113,13 @@
 										<th>Slot <?php echo $this->Time->meridian_format($slot_time['start_time']). " To ".$this->Time->end_meridian_format($slot_time['end_time']);?> : </th>
 										<td><?="$".number_format($slot_time['slot_price'],2)?></td>
 									</tr>
-									<?php if($slot_time['additional_pax']){ ?>
+									<?php if($slot_time['additional_pax'] > 0 && $slot_time['price_per_pax'] > 0){ ?>
 									<tr>
 										<th>Additional Pax &nbsp;&nbsp;&nbsp;( <?php echo $slot_time['additional_pax']; ?> x <?php echo "$".number_format($slot_time['price_per_pax'],2); ?> ) : </th>
 										<td><?="$".number_format((intval($slot_time['price_per_pax']) * intval($slot_time['additional_pax'])),2)?></td>
 									</tr>
 									<?php } ?>
-									<?php if($slot_time['additional_hour']){ ?>
+									<?php if($slot_time['additional_hour'] > 0 && $slot_time['price_per_hour'] > 0){ ?>
 										<tr>
 											<th>Additional Hour &nbsp;&nbsp;&nbsp;( <?php echo $slot_time['additional_hour']; ?> x <?php echo "$".number_format($slot_time['price_per_hour'],2); ?> ) : </th>
 											<td><?="$".number_format((intval($slot_time['price_per_hour']) * intval($slot_time['additional_hour'])),2)?></td>

@@ -37,13 +37,11 @@ class Price extends PriceManagerAppModel
         ),
         'rule_key' => array(
             'rule' => 'notEmpty',
-            'message' => 'Please set the key',
-            'required' => true
+            'message' => 'A parameter was missed.'
         ),
         'rule_value' => array(
             'rule' => 'notEmpty',
-            'message' => "Some field doesn't have a value.",
-            'required' => true
+            'message' => "Please fill up all the fields."
         )
 
     );

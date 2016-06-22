@@ -247,14 +247,17 @@
                                             <h4 class="select-participant-txt">No. of Pax</h4>
                                             <div class="input-group">
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default btn-number" data-type="minus"
-                                                            data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                    <button type="button" class="btn btn-default btn-number"
+                                                            data-type="minus"
+                                                            data-field="<?php echo(!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
                                                 </span>
-                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class'=> 'form-control input-number', 'value' => ($service_detail['Service']['num_pax_included']>1?$service_detail['Service']['num_pax_included']:0), 'max'=> ($rule_object['max_pax']>0?$rule_object['max_pax']:50), 'min'=>1, 'div' => false, 'label' => false)); ?>
+                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class' => 'form-control input-number', 'value' => ($service_detail['Service']['num_pax_included'] > 1 ? $service_detail['Service']['num_pax_included'] : 0), 'max' => ($rule_object['max_pax'] > 0 ? $rule_object['max_pax'] : 50), 'min' => 1, 'div' => false, 'label' => false)); ?>
                                                 <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                      <button type="button" class="btn btn-default btn-number"
+                                                              data-type="plus"
+                                                              data-field="<?php echo(!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
                                                           <span class="glyphicon glyphicon-plus"></span>
                                                       </button>
                                                 </span>
@@ -272,23 +275,25 @@
                                             <h4 class="select-participant-txt">Additional Hour</h4>
                                             <div class="input-group">
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus"
+                                                    <button type="button" class="btn btn-default btn-number"
+                                                            disabled="disabled" data-type="minus"
                                                             data-field="data[Activity][add_hour]">
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
                                                 </span>
-                                                <?= $this->Form->input('add_hour', array('type' => 'text', 'class'=> 'form-control input-number', 'value' => 0, 'max'=> $rule_object['max_add_hour'], 'min'=>0, 'div' => false, 'label' => false)); ?>
+                                                <?= $this->Form->input('add_hour', array('type' => 'text', 'class' => 'form-control input-number', 'value' => 0, 'max' => $rule_object['max_add_hour'], 'min' => 0, 'div' => false, 'label' => false)); ?>
                                                 <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="data[Activity][add_hour]">
+                                                      <button type="button" class="btn btn-default btn-number"
+                                                              data-type="plus" data-field="data[Activity][add_hour]">
                                                           <span class="glyphicon glyphicon-plus"></span>
                                                       </button>
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="calculator-output">
-                                            <p>Subtotal: <span id="sub-total">$0</span></p>
-                                        </div>
                                     <?php endif; ?>
+                                    <div class="calculator-output">
+                                        <p>Subtotal: <span id="sub-total">$0</span></p>
+                                    </div>
                                     <div class="check-terms">
                                         <label>
                                             <p>
@@ -356,7 +361,7 @@
             var value_added_service = 0;
             var no_of_booking_msg = '';
             var service_amount = parseFloat(<?=$cart_details['Cart']['price'];?>);
-            var total = <?= number_format($cart_details['Cart']['total_amount'],2);?>;
+            var total = <?= number_format($cart_details['Cart']['total_amount'], 2);?>;
             // no of booking date or slot
             var no_of_interval = parseInt(<?=$no_of_booking_days;?>);
             if (no_of_interval == 1) {
@@ -408,29 +413,29 @@
 <script type="text/javascript">
     //plugin bootstrap minus and plus
     //http://jsfiddle.net/laelitenetwork/puJ6G/
-    $('.btn-number').click(function(e){
+    $('.btn-number').click(function (e) {
         e.preventDefault();
 
         fieldName = $(this).attr('data-field');
-        type      = $(this).attr('data-type');
-        var input = $("input[name='"+fieldName+"']");
+        type = $(this).attr('data-type');
+        var input = $("input[name='" + fieldName + "']");
         var currentVal = parseInt(input.val());
         if (!isNaN(currentVal)) {
-            if(type == 'minus') {
+            if (type == 'minus') {
 
-                if(currentVal > input.attr('min')) {
+                if (currentVal > input.attr('min')) {
                     input.val(currentVal - 1).change();
                 }
-                if(parseInt(input.val()) == input.attr('min')) {
+                if (parseInt(input.val()) == input.attr('min')) {
                     $(this).attr('disabled', true);
                 }
 
-            } else if(type == 'plus') {
+            } else if (type == 'plus') {
 
-                if(currentVal < input.attr('max')) {
+                if (currentVal < input.attr('max')) {
                     input.val(currentVal + 1).change();
                 }
-                if(parseInt(input.val()) == input.attr('max')) {
+                if (parseInt(input.val()) == input.attr('max')) {
                     $(this).attr('disabled', true);
                 }
 
@@ -439,24 +444,24 @@
             input.val(0);
         }
     });
-    $('.input-number').focusin(function(){
+    $('.input-number').focusin(function () {
         $(this).data('oldValue', $(this).val());
     });
-    $('.input-number').change(function() {
+    $('.input-number').change(function () {
 
-        minValue =  parseInt($(this).attr('min'));
-        maxValue =  parseInt($(this).attr('max'));
+        minValue = parseInt($(this).attr('min'));
+        maxValue = parseInt($(this).attr('max'));
         valueCurrent = parseInt($(this).val());
 
         name = $(this).attr('name');
-        if(valueCurrent >= minValue) {
-            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        if (valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
         } else {
             alert('Sorry, the minimum value was reached');
             $(this).val($(this).data('oldValue'));
         }
-        if(valueCurrent <= maxValue) {
-            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        if (valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
         } else {
             alert('Sorry, the maximum value was reached');
             $(this).val($(this).data('oldValue'));
@@ -535,20 +540,30 @@
     // Define the rule
     var Rule = {
         slotPrice: 0,
+        slotIdentity: '',
+        hasRule: false,
         pricePerPax: 0,
         pricePerHour: 0,
         additionalPax: 0,
         additionalHour: 0,
         maxAddHourAllowed: 0,
-        slotInputVal:'',
+        slotInputVal: '',
         selectedSlot: $(),
-        updatePrice:  function(){
+        updatePrice: function () {
+               console.log(this);
             var newPrice = 0;
             // calculate the new price if slotPrice is set
-            if(this.slotPrice>0) {
-                newPrice = parseInt(this.slotPrice) + (parseInt(this.pricePerHour) * parseInt(this.additionalHour)) + (parseInt(this.additionalPax) * parseInt(this.pricePerPax));
+            if (this.slotPrice > 0) {
+                // consider the rules when it is set
+                if(this.hasRule){
+                    alert('hey');
+                    newPrice = parseInt(this.slotPrice) + (parseInt(this.pricePerHour) * parseInt(this.additionalHour)) + (parseInt(this.additionalPax) * parseInt(this.pricePerPax));
+                }
+                else {
+                    newPrice =  parseInt(this.slotPrice) * parseInt(this.additionalPax);
+                }
             }
-                // set the slot input value
+            // set the slot input value
             var newValChucks = this.slotInputVal.split('_');
             // delete the price object
             newValChucks.pop();
@@ -579,33 +594,62 @@
             if ($(this).is(':checked')) {
                 // Make the checkbox function like a radio button
                 $('.check-box').prop('checked', false);
-                $(this).prop('checked',true);
+                $(this).prop('checked', true);
                 // Set the rule parameters
-                rule.selectedSlot =  $(this);
+                rule.selectedSlot = $(this);
                 rule.slotPrice = $(this).data('price');
-                rule.slotInputVal = $(this).val();
+
+                // get the slot identity
+                var thisVal =  $(this).val();
+                var valProcessed = thisVal.split('_');
+                var slotIdentity = valProcessed[0] + valProcessed[1] + valProcessed[2] + valProcessed[3] + valProcessed[4];
+                if (rule.slotIdentity != slotIdentity) {
+                    rule.slotIdentity = slotIdentity;
+                    rule.slotInputVal = $(this).val();
+                }
+
 
                 // get the slotindex
                 var slotIndex = $(this).data('slot');
 
+
                 // Check the slot index and set the rule parameters from it
                 switch (slotIndex) {
                     case 1:
-                        rule.pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
-                        rule.pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
-                        rule.maxAddHourAllowed = $rule_object_json.weekday_rules['max additional hour'] ? $rule_object_json.weekday_rules['max additional hour'] : 0;
+                        // check for rules and assign
+                        if (!$.isEmptyObject($rule_object_json.weekday_rules)) {
+                            rule.pricePerPax = $rule_object_json.weekday_rules['price per pax'] ? $rule_object_json.weekday_rules['price per pax'] : 0;
+                            rule.pricePerHour = $rule_object_json.weekday_rules['price per hour'] ? $rule_object_json.weekday_rules['price per hour'] : 0;
+                            rule.maxAddHourAllowed = $rule_object_json.weekday_rules['max additional hour'] ? $rule_object_json.weekday_rules['max additional hour'] : 0;
+                            rule.hasRule = true;
+                        }
+                        else {
+                            rule.hasRule = false;
+                        }
                         break;
                     case 2:
-                        rule.pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
-                        rule.pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
-                        rule.maxAddHourAllowed = $rule_object_json.weekend_rules['max additional hour'] ? $rule_object_json.weekend_rules['max additional hour'] : 0;
-
+                        // check for rules and assign
+                        if (!$.isEmptyObject($rule_object_json.weekend_rules)) {
+                            rule.pricePerPax = $rule_object_json.weekend_rules['price per pax'] ? $rule_object_json.weekend_rules['price per pax'] : 0;
+                            rule.pricePerHour = $rule_object_json.weekend_rules['price per hour'] ? $rule_object_json.weekend_rules['price per hour'] : 0;
+                            rule.maxAddHourAllowed = $rule_object_json.weekend_rules['max additional hour'] ? $rule_object_json.weekend_rules['max additional hour'] : 0;
+                            rule.hasRule = true;
+                        }
+                        else {
+                            rule.hasRule = false;
+                        }
                         break;
                     case 3:
-                        rule.pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
-                        rule.pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
-                        rule.maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
-
+                        // check for rules and assign
+                        if (!$.isEmptyObject($rule_object_json.special_rules)) {
+                            rule.pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
+                            rule.pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
+                            rule.maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
+                            rule.hasRule = true;
+                        }
+                        else {
+                            rule.hasRule = false;
+                        }
                         break;
                     default:
                         break;
@@ -614,7 +658,7 @@
                 rule.updatePrice();
 
                 // Update the add_hour max value
-                $('[name="data[Activity][add_hour]"]').attr('max',rule.maxAddHourAllowed);
+                $('[name="data[Activity][add_hour]"]').attr('max', rule.maxAddHourAllowed);
 
             }
             else {
@@ -639,6 +683,17 @@
 
 
     $('#ActivityNoOfPax').change(
+        function () {
+            var paxSelected = $(this).val();
+            // calculate additional hour
+            var additionalPax = paxSelected - paxIncluded;
+            // update rule Price
+            rule.additionalPax = additionalPax;
+            rule.updatePrice();
+        }
+    );
+
+    $('#ActivityNoParticipants').change(
         function () {
             var paxSelected = $(this).val();
             // calculate additional hour

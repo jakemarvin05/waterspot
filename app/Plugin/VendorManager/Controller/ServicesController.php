@@ -19,7 +19,7 @@ Class ServicesController extends VendorManagerAppController
             ),
         'price per pax' => array(
                 'price per pax',
-                'max pax'
+                'max additional pax'
         ));
 
 
@@ -468,21 +468,20 @@ Class ServicesController extends VendorManagerAppController
     function price_rule_validation()
     {
         $this->loadModel('PriceManager.Price');
+
+
+
         foreach ($this->request->data['Price']['rule'] as $price_rule) {
             $price_rule['slot_type'] = $this->request->data['Price']['slot_type'];
             $price_rule['service_id'] = $this->request->data['Price']['service_id'];
             $price_rule['rule_type'] = $this->request->data['Price']['rule_type'];
-            if($price_rule['rule_value'] &&  $price_rule['rule_value']!='') {
 
-                $this->Price->set($price_rule);
-                $result = array();
-
-                if ($this->Price->validates()) {
-                    $result['error'] = 0;
-                } else {
-                    $result['error'] = 1;
-                    break 1;
-                }
+            $this->Price->set($price_rule);
+            if ($this->Price->validates()) {
+                $result['error'] = 0;
+            } else {
+                $result['error'] = 1;
+                break 1;
             }
 
         }

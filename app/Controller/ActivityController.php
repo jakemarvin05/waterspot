@@ -253,7 +253,6 @@ Class ActivityController extends AppController
             $criteria['order'] = array('Cart.id DESC');
             $cart_details = $this->Cart->find('first', $criteria);
 
-
             $cart_details['Cart']['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($cart_details['Cart']['service_id']);
             $cart_slots = json_decode($cart_details['Cart']['slots'], true);
             if (!empty($cart_slots)) {
@@ -359,8 +358,8 @@ Class ActivityController extends AppController
         $special_rules = array();
         if(!empty($rules_of_service)) {
             foreach ($rules_of_service as $rule) {
-                // extract the max pax
-                if ($rule['Price']['rule_key'] == 'max pax') {
+                // extract the max additional pax
+                if ($rule['Price']['rule_key'] == 'max additional pax') {
                     $pax[] = $rule['Price']['rule_value'];
 
                 }
@@ -557,6 +556,7 @@ Class ActivityController extends AppController
             $guest_email = $this->Session->read('Guest_email');
 
             $data['Cart'] = $this->request->data['Activity'];
+
             $slot_data = array();
             //get price of service  by id
             $service_detail = $this->Service->servieDetailByService_id($data['Cart']['service_id']);
