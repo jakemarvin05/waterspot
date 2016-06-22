@@ -223,30 +223,6 @@
                                 <div class="slot-booking-form">
                                     <?php $step = 1; ?>
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
-                                    <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !($service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
-                                        <div class="select-participant">
-                                            <h4 class="select-participant-txt">No. of Pax</h4>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default btn-number" data-type="minus"
-                                                          data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
-                                                        <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                </span>
-                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class'=> 'form-control input-number', 'value' => $service_detail['Service']['num_pax_included'], 'max'=> $rule_object['max_pax'], 'min'=>1, 'div' => false, 'label' => false)); ?>
-                                                <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
-                                                          <span class="glyphicon glyphicon-plus"></span>
-                                                      </button>
-                                                </span>
-                                            </div>
-
-                                        </div>
-                                        <?php echo $this->element('message'); ?>
-                                    <?php else: ?>
-                                        <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
-                                    <?php endif; ?>
-
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
                                     <br>
 
@@ -266,8 +242,32 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
-                                    <?php if (preg_match('/yacht/i', $service_detail['service_type']) || $service_detail['is_private']): ?>
+                                    <?php if ((!preg_match('/yacht/i', $service_detail['service_type']) && !(isset($service_detail['Service']['is_private']) && $service_detail['Service']['is_private'] == 1) && $service_detail['Service']['no_person'] > 1) || preg_match('/yacht/i', $service_detail['service_type'])): ?>
+                                        <div class="select-participant">
+                                            <h4 class="select-participant-txt">No. of Pax</h4>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default btn-number" data-type="minus"
+                                                            data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class'=> 'form-control input-number', 'value' => ($service_detail['Service']['num_pax_included']>1?$service_detail['Service']['num_pax_included']:0), 'max'=> ($rule_object['max_pax']>0?$rule_object['max_pax']:50), 'min'=>1, 'div' => false, 'label' => false)); ?>
+                                                <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="<?php echo (!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
+                                                          <span class="glyphicon glyphicon-plus"></span>
+                                                      </button>
+                                                </span>
+                                            </div>
 
+                                        </div>
+                                        <?php echo $this->element('message'); ?>
+                                    <?php else: ?>
+                                        <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
+                                    <?php endif; ?>
+
+                                    <?php if (preg_match('/yacht/i', $service_detail['service_type']) || (isset($service_detail['is_private']) && $service_detail['is_private'])): ?>
+                                        <br>
                                         <div class="select-add-hour">
                                             <h4 class="select-participant-txt">Additional Hour</h4>
                                             <div class="input-group">
@@ -804,9 +804,6 @@
 </script>
 
 <script type="text/javascript">
-    $('#ActivityNoParticipants').selectpicker().hide();
-
-
     $('#ActivityNoParticipants').val('1');
     $('#ActivityStartDate').val('<?php echo date("Y-m-d"); ?>');
 

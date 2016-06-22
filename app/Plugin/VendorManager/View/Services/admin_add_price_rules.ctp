@@ -187,8 +187,8 @@
         <tbody style="vertical-align: top">
         <tr>
             <td align="left"
-                style="width: 105px;text-align: left;vertical-align: top;padding-top: 10px;padding-left: 20px;padding-right: 20px;">
-                Type:
+                style="width: 150px;text-align: left;vertical-align: top;padding-top: 10px;padding-left: 20px;padding-right: 20px;">
+                Slot Type:
                 <?= $this->Form->input('slot_type', array('type' => 'select', 'style' => 'height:30px', 'label' => false, 'div' => false, 'options' => $price_rule_slot_types)); ?>
                 <?= $this->Form->error('slot_type', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
             </td>

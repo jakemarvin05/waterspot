@@ -357,29 +357,31 @@ Class ActivityController extends AppController
         $weekday_rules = array();
         $weekend_rules = array();
         $special_rules = array();
-        foreach ($rules_of_service as $rule) {
-            // extract the max pax
-            if ($rule['Price']['rule_key'] == 'max pax') {
-                $pax[] = $rule['Price']['rule_value'];
+        if(!empty($rules_of_service)) {
+            foreach ($rules_of_service as $rule) {
+                // extract the max pax
+                if ($rule['Price']['rule_key'] == 'max pax') {
+                    $pax[] = $rule['Price']['rule_value'];
+
+                }
+                if ($rule['Price']['rule_key'] == 'max additional hour') {
+                    $hour[] = $rule['Price']['rule_value'];
+                }
+                switch ($rule['Price']['slot_type']) {
+                    case 1:
+                        $weekday_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                        break;
+                    case 2:
+                        $weekend_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                        break;
+                    case 3:
+                        $special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                        break;
+                    default:
+                        break;
+                }
 
             }
-            if ($rule['Price']['rule_key'] == 'max additional hour') {
-                $hour[] = $rule['Price']['rule_value'];
-            }
-            switch ($rule['Price']['slot_type']) {
-                case 1:
-                    $weekday_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
-                    break;
-                case 2:
-                    $weekend_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
-                    break;
-                case 3:
-                    $special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
-                    break;
-                default:
-                    break;
-            }
-
         }
 
 
