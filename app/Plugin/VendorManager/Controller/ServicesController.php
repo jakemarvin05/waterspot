@@ -812,6 +812,90 @@ Class ServicesController extends VendorManagerAppController
 
     }
 
+
+    function admin_book_slot($vendor_id = null, $service_id = null){
+        $this->loadModel('VendorManager.ServiceSlot');
+        $this->loadModel('VendorManager.BookingSlot');
+        // checking vendor is login or not
+        // check service_id owner
+        if ($this->Service->checkServiceById($vendor_id, $service_id) <= 0) {
+            $this->Session->setFlash(__('Are you doing something wrong?', false));
+
+            $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'vendors', 'action' => 'index'));
+        }
+        $hours = range(0, 23);
+        $hours_format = array();
+        $end_hours_format = array();
+        $booked_slots = array();
+        foreach ($hours as $key => $hour) {
+            $hours_format[$key . ":00:00"] = DATE("g:i A", STRTOTIME($hour . ":" . "00"));
+            $hours_format[$key . ":30:00"] = DATE("g:i A", STRTOTIME('+30mins', strtotime($hour . ":" . "00")));
+        }
+        foreach ($hours as $key => $hour) {
+            if ($key == 0) {
+                $index = date('H:i:s', strtotime($key . ":00:00"));
+            } else {
+                $index = date('H:i:s', strtotime($key . ":00:00") - 1);
+            }
+            $end_hours_format[$index] = DATE("g:i A", STRTOTIME($hour . ":" . "00"));
+            $end_hours_format[$key . ":29:59"] = DATE("g:i A", STRTOTIME('+30mins', strtotime($hour . ":" . "00")));
+            if ($key == 23) {
+                $end_hours_format[$key . ":59:59"] = DATE("g:i A", strtotime($hour . ":" . "59"));
+            }
+        }
+        if (!empty($service_id)) {
+            $booked_slots = $this->BookingSlot->getBooked_slotByservice_id($service_id);
+            $service_title = $this->Service->servieTitleByService_id($service_id);
+        }
+        //save slots
+        if (!empty($this->request->data) && $this->slot_validation()) {
+            $this->ServiceSlot->create();
+            $this->ServiceSlot->save($this->request->data);
+            $this->redirect(array('action' => 'add_service_slots', $vendor_id, $service_id));
+            if (!empty($this->ServiceSlot->id)) {
+                $this->Session->setFlash(__('Service slots has been added successfully.'));
+            } else {
+                $this->Session->setFlash(__('Service slots has been not added.', false));
+            }
+        }
+        $this->breadcrumbs[] = array(
+            'url' => Router::url('/'),
+            'name' => 'Home'
+        );
+        $this->breadcrumbs[] = array(
+            'url' => Router::url('/admin/home/'),
+            'name' => 'Home'
+        );
+        $this->breadcrumbs[] = array(
+            'url' => Router::url('/admin/vendor_manager/vendors'),
+            'name' => 'Manage Vendor'
+        );
+        $this->breadcrumbs[] = array(
+            'url' => Router::url('/admin/vendor_manager/services/servicelist/' . $vendor_id),
+            'name' => $service_title
+        );
+        $this->breadcrumbs[] = array(
+            'url' => Router::url('/services/add_slots/'),
+            'name' => 'Add Slots'
+        );
+        $service = $this->Service->find('first', ['conditions' => ['id' => $service_id]]);
+        $default_service_price = $service['Service']['service_price'];
+        $this->set('default_service_price', $default_service_price);
+        $this->set('service_id', $service_id);
+        $this->set('vendor_id', $vendor_id);
+        $this->set('service_title', $service_title);
+        $this->set('hours_format', $hours_format);
+        $this->set('end_hours_format', $end_hours_format);
+        $this->set('booked_slots', $booked_slots);
+
+        $this->set('service_slot_types', [
+            1 => 'Weekday',
+            2 => 'Weekend',
+            3 => 'Special',
+        ]);
+
+    }
+
     // admin
     function admin_add_service_slots($vendor_id = null, $service_id = null)
     {

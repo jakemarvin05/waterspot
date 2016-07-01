@@ -29,6 +29,21 @@ Class BookingSlot extends VendorManagerAppModel {
 		return false;
 	}
 
+	function getBooked_slotByservice_id($service_id=null, $sort_by = 'start_time', $order = 'ASC') {
+		$criteria = array();
+		$sort_by = 'BookingSlot.'.$sort_by;
+		$criteria['conditions'] = array('BookingSlot.service_id' => $service_id);
+		$criteria['order'] = array("{$sort_by} $order");
+		$slots = $this->find('all', $criteria);
+		$booking_slots=array();
+		if(!empty($slots)) {
+			foreach($slots as $key=>$slot){
+				$booking_slots[$key]=$slot['BookingSlot'];
+			}
+		}
+		return $booking_slots;
+
+	}
 	public function usedSlotCount($service_id, $date, $start_time, $end_time)
 	{
 		$end_time1 = date('H:i:s', strtotime($end_time) + 1);
