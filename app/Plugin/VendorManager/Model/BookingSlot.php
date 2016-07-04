@@ -50,7 +50,7 @@ Class BookingSlot extends VendorManagerAppModel {
 		$criteria['conditions'] = array(
 			'BookingSlot.service_id' => $service_id,
 			'Or' => array(
-				'BookingSlot.status' => 4,
+				'BookingSlot.status' => 2,
 				'Or' => array('BookingSlot.status' => 3)
 				)
 		);

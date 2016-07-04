@@ -36,8 +36,8 @@ function saveform(){
     		$table_str = '<tr>';
     		$table_str .= '<td colspan="3">'.$book_slot['start_time'].'</td>';
     		$table_str .= '<td colspan="2">'.$book_slot['end_time'].'</td>';
-    		$table_str .= '<td colspan="2">'.($book_slot['status']==3?'Affected slot':$book_slot['remarks']).'</td>';
-			$table_str .= '<td>'.$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'booking_slot_delete',$vendor_id,$service_id,$book_slot['id']),array('escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")).'</td>';
+    		$table_str .= '<td colspan="2">'.($book_slot['status']==2?'Affected slot':$book_slot['remarks']).'</td>';
+			$table_str .= '<td>'.$this->Html->link($this->Html->image('del.png'),array('plugin'=>'vendor_manager','controller'=>'services','action'=>'booking_slot_delete',$vendor_id,$service_id,$book_slot['id']),array('class'=>($book_slot['status']==2?'disabled':''),'escape'=>false,"onclick"=>"return confirm('Are you sure you wish to delete this slot?')")).'</td>';
     		$table_str .= '</tr>';
 			$table .= $table_str;
 		}
@@ -67,7 +67,7 @@ function saveform(){
 
 	<?php echo $this->Form->create('BookingSlot',array('name'=>'slot','id'=>'book_slot','url'=>array('plugin'=>'vendor_manager','controller'=>'services','action'=>'book_slots',$vendor_id,$service_id),'onsubmit'=>'//return validatefields();','type'=>'file','novalidate' => true));?>
 	<?php echo $this->Form->hidden('service_id',array('value'=>$service_id));?>
-	<?php echo $this->Form->hidden('status',array('value'=>4)); ?>
+	<?php echo $this->Form->hidden('status',array('value'=>3)); ?>
 	<?php echo $this->Form->hidden('no_participants',array('value'=>1)); ?>
 
 	<div class="book-slot-forms">

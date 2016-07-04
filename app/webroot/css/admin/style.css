@@ -1548,6 +1548,7 @@ table .actions .Cancel { background:url('../../img/admin/icons/booking_cancel.pn
 table .actions .add-slot { background:url('../../img/admin/icons/add-slot.gif'); width:16px;height:16px;}
 
 table .actions .add-avail { background:url('../../img/admin/icons/add-avail.png'); width:16px;height:16px;background-size: cover;}
+table .actions .book-slots { background:url('../../img/admin/icons/book-slots.png'); width:16px;height:16px;background-size: cover;}
 
 table .actions .add-review { background:url('../../img/admin/icons/add-review.png'); width:16px;height:16px;background-size: cover;}
 table .actions .add-price-rule { background:url('../../img/admin/icons/price-tag.png'); width:16px;height:16px;background-size: cover;}
@@ -1978,4 +1979,8 @@ span.strike {
 	padding: 10px;
 	border-radius: 4px;
 	margin-bottom: 10px;
+}
+a.disabled {
+	opacity: .4;
+	pointer-events: none;
 }

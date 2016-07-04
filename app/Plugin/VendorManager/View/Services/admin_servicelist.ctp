@@ -157,8 +157,8 @@
 			<th width="25%">Title</th>
 			<th width="25%">Service Type</th>
 			<th width="11%">Price</th>
-			<th width="10%">Status</th>
-			<th width="20%">Action</th>
+			<th width="5%">Status</th>
+			<th width="25%">Action</th>
         </tr>
         <tr>
             <td colspan="9">
@@ -176,7 +176,7 @@
 							<td width="25%"><?=$vendor_service['Service']['service_title'];?></td>
 							<td width="25%"><?=$vendor_service['ServiceType']['name'];?></td>
 							<td width="11%"><?=$vendor_service['Service']['service_price'];?></td>
-							<td width="10%">
+							<td width="5%">
 							<?php if($vendor_service['Service']['status']=='1') 
 									echo $this->Html->image('admin/icons/icon_success.png', array());
                                 else
@@ -185,7 +185,7 @@
 						
 							</td>
 
-							<td width="20%">
+							<td width="25%">
 								<ul class="actions">
 									 <li><?php echo $this->Html->link('edit', array('controller' => 'services', 'action' => 'add_services',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'edit', 'title' => 'Edit Service', 'rel' => 'tooltip')); ?></li>
 
@@ -194,7 +194,8 @@
                                   	<li><?php echo $this->Html->link('Add Price Rules', array('controller' => 'services', 'action' => 'add_price_rules',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-price-rule', 'title' => 'Add Price Rules', 'rel' => 'tooltip')); ?></li>
                                   	<li><?php echo $this->Html->link('Add Slot', array('controller' => 'services', 'action' => 'add_service_slots',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id'] ), array('escape' => false, 'class' => 'add-slot', 'title' => 'Edit Service Slot', 'rel' => 'tooltip')); ?></li>
 									<li><?php echo $this->Html->link('Service Availability', array('controller' => 'vendor_service_availabilities', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-avail', 'title' => 'Edit Service Availability', 'rel' => 'tooltip')); ?></li>
-									
+									<li><?php echo $this->Html->link('Book Slots', array('controller' => 'services', 'action' => 'book_slots',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'book-slots', 'title' => 'Manually Book Slot', 'rel' => 'tooltip')); ?></li>
+
 									<li><?php echo $this->Html->link('Service Review', array('controller' => 'service_reviews', 'action' => 'index',$vendor_service['Service']['vendor_id'],$vendor_service['Service']['id']), array('escape' => false, 'class' => 'add-review', 'title' => 'Edit Service Review', 'rel' => 'tooltip')); ?></li>
 
                                     <li><?php echo $this->Html->link("Manage Attributes",array('plugin'=>'vendor_manager','controller'=>'service_attributes','action'=>'index',$vendor_service['Service']['id']),array('escape' => false,'class'=>'view-services','title'=>'Manage Attributes'));?></li>

@@ -469,7 +469,7 @@ Class ActivityController extends AppController
                         // commented the line of code below to show booked slot
                         //if ($service_details['is_private'] == 1 && $current_booked_count > 0) continue;
 
-                        if ($capacity <= $new->available_count && $slot_status <= 2 ) {
+                        if ($capacity <= $new->available_count && $slot_status <= 1 ) {
                             // set a booked flag to false to be used in rendering
                             $new->booked = false;
                         } else {
