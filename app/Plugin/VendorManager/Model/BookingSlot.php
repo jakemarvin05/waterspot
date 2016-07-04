@@ -44,6 +44,54 @@ Class BookingSlot extends VendorManagerAppModel {
 		return $booking_slots;
 
 	}
+	function getSpeciallyBooked_slotByservice_id($service_id=null, $sort_by = 'start_time', $order = 'ASC') {
+		$criteria = array();
+		$sort_by = 'BookingSlot.'.$sort_by;
+		$criteria['conditions'] = array(
+			'BookingSlot.service_id' => $service_id,
+			'Or' => array(
+				'BookingSlot.status' => 4,
+				'Or' => array('BookingSlot.status' => 3)
+				)
+		);
+		$criteria['order'] = array("{$sort_by} $order");
+		$slots = $this->find('all', $criteria);
+		$booking_slots=array();
+		if(!empty($slots)) {
+			foreach($slots as $key=>$slot){
+				$booking_slots[$key]=$slot['BookingSlot'];
+			}
+		}
+		return $booking_slots;
+
+	}
+
+	public function getSlotStatus($service_id, $date, $start_time, $end_time)
+	{
+		$end_time1 = date('H:i:s', strtotime($end_time) + 1);
+		$end_time2 = date('H:i:s', strtotime($end_time) );
+		$end_date = strtotime($start_time) > strtotime($end_time) ? date('Y-m-d', strtotime($date) + 60*60*24) : $date;
+
+		$booking_slots = $this->find('first', array(
+				'conditions' => array(
+					'BookingSlot.service_id'=>$service_id,
+					'BookingSlot.start_time'=>"$date $start_time",
+					'Or'=> array(
+						'BookingSlot.end_time'=>"$end_date $end_time1",
+						'Or' => array('BookingSlot.end_time'=>"$end_date $end_time2")
+					)
+				))
+		);
+		if(isset($booking_slots['BookingSlot'])){
+			return (int) $booking_slots['BookingSlot']['status'];
+		}
+		else{
+			return 0;
+		}
+
+	}
+
+
 	public function usedSlotCount($service_id, $date, $start_time, $end_time)
 	{
 		$end_time1 = date('H:i:s', strtotime($end_time) + 1);
@@ -65,7 +113,7 @@ Class BookingSlot extends VendorManagerAppModel {
 				'BookingSlot.ref_no'
 				),
 			'group' => 'BookingSlot.ref_no'
-			)
+				)
 		);
 		$count = $booking_slots?$booking_slots[0][0]['count']:0;
 		if ($count == 0) return 0;

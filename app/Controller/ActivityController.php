@@ -462,13 +462,14 @@ Class ActivityController extends AppController
                         $new->fire_sales_price = isset($slot['ServiceSlot']['fire_sales_price']) ? $slot['ServiceSlot']['fire_sales_price'] : null;
                         $new->fire_sales_day_margin = isset($slot['ServiceSlot']['fire_sales_day_margin']) ? $slot['ServiceSlot']['fire_sales_day_margin'] : null;
                         $current_booked_count = $this->BookingSlot->usedSlotCount($service_id, $selected_date, $new->start_time, $new->end_time);
+                        $slot_status = $this->BookingSlot->getSlotStatus($service_id, $selected_date, $new->start_time, $new->end_time);
                         $new->available_count = $service_details['no_person'] - $current_booked_count;
                         $new->current_booked_count = $current_booked_count;
 
                         // commented the line of code below to show booked slot
                         //if ($service_details['is_private'] == 1 && $current_booked_count > 0) continue;
 
-                        if ($capacity <= $new->available_count) {
+                        if ($capacity <= $new->available_count && $slot_status <= 2 ) {
                             // set a booked flag to false to be used in rendering
                             $new->booked = false;
                         } else {
@@ -624,6 +625,7 @@ Class ActivityController extends AppController
                     $total_slot_price = $total_slot_price + $slot['price'];
                 }
                 $full_day_status = 0;
+
             } else {
                 $diff = abs(strtotime($data['Cart']['end_date']) - strtotime($data['Cart']['start_date']));
                 $years = floor($diff / (365 * 60 * 60 * 24));

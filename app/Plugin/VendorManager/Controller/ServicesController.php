@@ -6,9 +6,10 @@ App::uses('FormHelper', 'View/Helper');
 Class ServicesController extends VendorManagerAppController
 {
     public $uses = array('VendorManager.Service');
-    public $components = array('Email');
     public $paginate = array();
     public $ajax_session_name = "Ajax_Files";
+    public $components = array('Email', 'VendorManager', 'MemberManager.MemberAuth', 'VendorManager.ServiceFilter');
+
     public $id = null;
 
     // define the rule types here
@@ -813,9 +814,11 @@ Class ServicesController extends VendorManagerAppController
     }
 
 
-    function admin_book_slot($vendor_id = null, $service_id = null){
+    function admin_book_slots($vendor_id = null, $service_id = null){
         $this->loadModel('VendorManager.ServiceSlot');
         $this->loadModel('VendorManager.BookingSlot');
+        $this->loadModel('VendorManager.Service');
+
         // checking vendor is login or not
         // check service_id owner
         if ($this->Service->checkServiceById($vendor_id, $service_id) <= 0) {
@@ -844,15 +847,88 @@ Class ServicesController extends VendorManagerAppController
             }
         }
         if (!empty($service_id)) {
-            $booked_slots = $this->BookingSlot->getBooked_slotByservice_id($service_id);
+            $booked_slots = $this->BookingSlot->getSpeciallyBooked_slotByservice_id($service_id);
             $service_title = $this->Service->servieTitleByService_id($service_id);
         }
         //save slots
         if (!empty($this->request->data) && $this->slot_validation()) {
-            $this->ServiceSlot->create();
-            $this->ServiceSlot->save($this->request->data);
-            $this->redirect(array('action' => 'add_service_slots', $vendor_id, $service_id));
-            if (!empty($this->ServiceSlot->id)) {
+            $booking_slot_data = $this->request->data['BookingSlot'];
+            echo '<pre>';
+
+            foreach ($this->request->data['Activity']['slots'] as $key => $slot) {
+                // if slot is not selected then contiue
+                if ($slot == 0) {
+                    continue;
+                }
+                $slot_booking_details = explode('_', $slot);
+
+                // slot attributes
+                $slot_booking_detail = array();
+                foreach ($slot_booking_details as $slot_key => $slot_attb) {
+                    if ($slot_key == 0)
+                        $slot_booking_type = 'slot_date';
+                    if ($slot_key == 1)
+                        $slot_booking_type = 'service_id';
+                    if ($slot_key == 2)
+                        $slot_booking_type = 'slot_id';
+                    if ($slot_key == 3)
+                        $slot_booking_type = 'start_time';
+                    if ($slot_key == 4)
+                        $slot_booking_type = 'end_time';
+                    if ($slot_key == 5)
+                        $slot_booking_type = 'price';
+                    if ($slot_key == 6)
+                        $slot_booking_type = 'slot_price';
+                    if ($slot_key == 7)
+                        $slot_booking_type = 'price_per_pax';
+                    if ($slot_key == 8)
+                        $slot_booking_type = 'price_per_hour';
+                    if ($slot_key == 9)
+                        $slot_booking_type = 'additional_pax';
+                    if ($slot_key == 10)
+                        $slot_booking_type = 'additional_hour';
+                    //
+                    $slot_booking_detail[$slot_booking_type] = $slot_attb;
+                }
+
+
+
+                // check slot booking
+                $slotdata = array();
+                $slotdata = $slot_booking_detail;
+
+                $slotdata['no_participants'] = (isset($this->request->data['BookingSlot']['no_of_pax']) ? $this->request->data['BookingSlot']['no_of_pax'] : null);
+                $slotdata['no_of_pax'] = (isset($this->request->data['BookingSlot']['no_of_pax']) ? $this->request->data['BookingSlot']['no_of_pax'] : null);
+                $slotdata['add_hour'] = (isset($this->request->data['Activity']['add_hour']) ? $this->request->data['Activity']['add_hour'] : null);
+
+                $booking_status = $this->ServiceFilter->slot_filter($slotdata);
+
+
+                if (empty($booking_status)) {
+                    $this->Session->setFlash('Some slots have been booked already. Please select another slot and check your additional hours.', 'default', '', 'error');
+                    $this->redirect($this->referer());
+                    throw new NotFoundException('Some slots have been booked already. Please select another slot and check your additional hours.');
+                }
+                $slot_data['Slot'][$key] = $slot_booking_detail;
+            }
+
+
+            $booked_slot_ids = [];
+            if(!empty($slot_data)){
+                foreach($slot_data['Slot'] as $slot){
+                    $booking_slot_data['start_time'] = date('Y-m-d',strtotime($booking_slot_data['start_date'])).' '.$slot['start_time'];
+                    $booking_slot_data['end_time'] = date('Y-m-d',strtotime($booking_slot_data['start_date'])).' '.$slot['end_time'];
+                    $booking_slot_data['slot_id'] = 0;
+                    $this->BookingSlot->create();
+                    $this->BookingSlot->save($booking_slot_data);
+                    $booked_slot_ids[] = $this->BookingSlot->id;
+
+                }
+
+            }
+
+            $this->redirect(array('action' => 'book_slots', $vendor_id, $service_id));
+            if (!empty($booked_slot_ids)) {
                 $this->Session->setFlash(__('Service slots has been added successfully.'));
             } else {
                 $this->Session->setFlash(__('Service slots has been not added.', false));
@@ -978,6 +1054,15 @@ Class ServicesController extends VendorManagerAppController
             3 => 'Special',
         ]);
 
+    }
+
+    function admin_booking_slot_delete($vendor_id = null,$service_id = null, $slot_id = null){
+
+        $this->loadModel('VendorManager.BookingSlot');
+        $this->autoRender = false;
+        $this->BookingSlot->delete($slot_id);
+        $this->Session->setFlash(__('Service slots has been deleted successfully'));
+        $this->redirect(array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'book_slots',$vendor_id, $service_id));
     }
 
     function slot_delete($service_id = null, $slot_id = null)

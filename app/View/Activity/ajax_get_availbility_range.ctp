@@ -4,7 +4,7 @@
 
 	<?php foreach($service_slots as $service_slots) { ?>
 		<div class="dt">
-			<div class="dates"><?=$service_slots['start_date']; ?></div>
+			<div class="dates"><?= date("F j, Y", strtotime($service_slots['start_date'])); ; ?></div>
 				<? if(!empty($service_slots['slotindex'] ))	{
 					foreach($service_slots['slotindex'] as $slotkey=>$slot) {
 						//slot date,service_id,service_time

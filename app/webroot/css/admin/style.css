@@ -190,7 +190,7 @@ section[role=navigation] header h1 {
 	height:21px;
 }
 #main-nav ul li a.portfolio {
-    background-image: url("../../img/admin/icons/portfolio.png");
+	background-image: url("../../img/admin/icons/portfolio.png");
 }
 
 #main-nav ul ul {
@@ -372,7 +372,7 @@ article { margin-bottom:2%;margin:10px 0; }
 article .article-container {
 	display:block;
 	overflow:hidden;
-	
+
 }
 article header {
 	height:27px;
@@ -419,7 +419,7 @@ article footer {
 }
 
 /*  Content Layout :: Main Content :: Block Layout */
-.half-block { 
+.half-block {
 	width:48%;
 	margin-right:2%;
 	float:left;
@@ -1044,14 +1044,14 @@ div.tab > img, div.tab > .image-frame img { margin-top:0; }
 	text-align:center;
 	height:35px;
 	border-bottom:3px solid;
-	
+
 }
 .wizard-steps li {
 	font-size:116%;
 	height:100%;
 	display:inline-block;
 	padding:0 15px;
-	
+
 }
 .ie7 .wizard-steps li {
 	display:block;
@@ -1088,65 +1088,65 @@ div.tab > img, div.tab > .image-frame img { margin-top:0; }
 
 /* Add Vendor Service Availability */
 .first-box {
-    float: left;
-    width: 96%;
-    margin: 0 2%;
+	float: left;
+	width: 96%;
+	margin: 0 2%;
 }
 .first-box h3 {
-    font-size: 20px;
+	font-size: 20px;
 }
 .first-box .select-slot, .first-box .add-slots {
-    float: left;
-    width: 100%;
-    margin-bottom: 18px;
+	float: left;
+	width: 100%;
+	margin-bottom: 18px;
 }
 .select-slot #VendorServiceAvailabilityStartDate, .select-slot #VendorServiceAvailabilityEndDate {
-    float: left;
+	float: left;
 }
 .select-slot .error-message {
-    float: left;
-    margin: 0 10px;
+	float: left;
+	margin: 0 10px;
 }
 .select-slot .mid-to {
-    float: left;
-    font-size: 16px;
-    line-height: 25px;
-    font-weight: bold;
-    margin: 0 10px;
+	float: left;
+	font-size: 16px;
+	line-height: 25px;
+	font-weight: bold;
+	margin: 0 10px;
 }
 .add-slots .error-message {
-    float: left;
-    width: 100%;
-    margin: 10px 0;
+	float: left;
+	width: 100%;
+	margin: 10px 0;
 }
 .add-slots .grey-box {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 .add-slots .grey-box span {
-    float: left;
-    margin-right: 25px;
+	float: left;
+	margin-right: 25px;
 }
 .add-slots .grey-box span .check-box {
-    float: left;
-    margin-right: 5px;
+	float: left;
+	margin-right: 5px;
 }
 .add-slots .grey-box span label {
-    float: left;
-    line-height: 12px;
+	float: left;
+	line-height: 12px;
 }
 .recent-service-slot-availability {
-    float: left;
-    width: 96%;
-    margin: 0 2%;
-    padding: 15px 0;
+	float: left;
+	width: 96%;
+	margin: 0 2%;
+	padding: 15px 0;
 }
 .recent-service-slot-availability h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
+	font-size: 20px;
+	margin-bottom: 15px;
 }
 table.range-table {
-    font-size: 15px;
+	font-size: 15px;
 }
 /*  Forms  */
 form {
@@ -1185,70 +1185,70 @@ form dd {
 	width:475px;
 }
 #ServiceSlotStartTime, #ServiceSlotEndTime {
-    width: 160px;
-    height: 30px;
+	width: 160px;
+	height: 30px;
 }
 form dd.vas-data .value-added-service {
-    float: left;
-    margin-right: 15px;
-    margin-bottom: 15px;
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
 }
 form dd.vas-data #ValueAddedServiceValueAddedPrice {
-    float: left;
-    margin-bottom: 15px;
+	float: left;
+	margin-bottom: 15px;
 }
 form dd.vas-data .add-value {
-    float: left;
-    width: auto;
-    margin-left: 15px;
+	float: left;
+	width: auto;
+	margin-left: 15px;
 }
 form dd.vas-data .add-value .vas-add-btn {
-    float: left;
-    width: 16px;
-    height: 16px;
-    margin: 4px 5px 0 0;
-    padding: 2px;
-    background: url(../../img/add-servces.png) no-repeat left center;
-    background-size: contain;
-    text-indent: -9999px;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 4px 5px 0 0;
+	padding: 2px;
+	background: url(../../img/add-servces.png) no-repeat left center;
+	background-size: contain;
+	text-indent: -9999px;
 }
 form dd.vas-data .add-value .vas-delete-btn {
-    float: left;
-    width: 16px;
-    height: 16px;
-    margin: 4px 5px 0 5px;
-    padding: 2px;
-    background: url(../../img/remove.png) no-repeat left center;
-    background-size: contain;
-    text-indent: -9999px;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 4px 5px 0 5px;
+	padding: 2px;
+	background: url(../../img/remove.png) no-repeat left center;
+	background-size: contain;
+	text-indent: -9999px;
 }
 form dd.vas-data #extender {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 form dd.vas-data #extender .add-values {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 form dd.vas-data #extender .add-values .vas-add-btn {
-    float: left;
-    width: 16px;
-    height: 16px;
-    margin: 4px 5px 0 15px;
-    padding: 2px;
-    background: url(../../img/add-servces.png) no-repeat left center;
-    background-size: contain;
-    text-indent: -9999px;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 4px 5px 0 15px;
+	padding: 2px;
+	background: url(../../img/add-servces.png) no-repeat left center;
+	background-size: contain;
+	text-indent: -9999px;
 }
 form dd.vas-data #extender .add-values .vas-delete-btn {
-    float: left;
-    width: 16px;
-    height: 16px;
-    margin: 4px 5px 0 15px;
-    padding: 2px;
-    background: url(../../img/remove.png) no-repeat left center;
-    background-size: contain;
-    text-indent: -9999px;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 4px 5px 0 15px;
+	padding: 2px;
+	background: url(../../img/remove.png) no-repeat left center;
+	background-size: contain;
+	text-indent: -9999px;
 }
 
 dd p {
@@ -1274,7 +1274,7 @@ input[type="checkbox"], input[type="radio"] {
 	border:none;
 }
 select.small {
-width:31%;
+	width:31%;
 }
 .ie7 input[type="checkbox"] { vertical-align:baseline; }
 .ie6 input { vertical-align:text-bottom; }
@@ -1398,7 +1398,7 @@ input.datepicker {
 }
 .htmlcalendar .week span, .htmlcalendar .week sup { padding-right:8px; }
 .htmlcalendar .day > div { min-height:110px; }
-.htmlcalendar .calendar-entry { 
+.htmlcalendar .calendar-entry {
 	padding:8px;
 	text-align:right;
 	font-size:131%;
@@ -1544,12 +1544,12 @@ table .actions .booking_list { background:url('../../img/admin/icons/booking_lis
 table .actions .manage_images { background:url('../../img/admin/icons/gallery.png') no-repeat 0 0; }
 table .actions .managehomeowner { background:url('../../img/admin/icons/supplier_icon.png'); }
 table .actions .Booking { background:url('../../img/admin/icons/booking_icon.png'); }
-table .actions .Cancel { background:url('../../img/admin/icons/booking_cancel.png'); width:16px;height:16px;} 
-table .actions .add-slot { background:url('../../img/admin/icons/add-slot.gif'); width:16px;height:16px;} 
+table .actions .Cancel { background:url('../../img/admin/icons/booking_cancel.png'); width:16px;height:16px;}
+table .actions .add-slot { background:url('../../img/admin/icons/add-slot.gif'); width:16px;height:16px;}
 
-table .actions .add-avail { background:url('../../img/admin/icons/add-avail.png'); width:16px;height:16px;background-size: cover;} 
+table .actions .add-avail { background:url('../../img/admin/icons/add-avail.png'); width:16px;height:16px;background-size: cover;}
 
-table .actions .add-review { background:url('../../img/admin/icons/add-review.png'); width:16px;height:16px;background-size: cover;} 
+table .actions .add-review { background:url('../../img/admin/icons/add-review.png'); width:16px;height:16px;background-size: cover;}
 table .actions .add-price-rule { background:url('../../img/admin/icons/price-tag.png'); width:16px;height:16px;background-size: cover;}
 
 /*  Table Mini Actions  */
@@ -1611,7 +1611,7 @@ table .actions .add-price-rule { background:url('../../img/admin/icons/price-tag
 	width:148px;
 	height:31px;
 	text-indent:-9999em;
-	
+
 }
 .login #login-box {
 	margin-top:25px;
@@ -1682,32 +1682,32 @@ table .actions .add-price-rule { background:url('../../img/admin/icons/price-tag
 }
 .error-message{
 	color: #FF0000;
-    display: block;
-    margin-bottom: -10px;
-    padding-top: 5px;
+	display: block;
+	margin-bottom: -10px;
+	padding-top: 5px;
 }
 .booking_result{
 	display: block;
-    left: 10px;
-    overflow: hidden;
-    padding: 5px 0;
-    position: relative;
-    top: 50px;
-    width: 300px;
+	left: 10px;
+	overflow: hidden;
+	padding: 5px 0;
+	position: relative;
+	top: 50px;
+	width: 300px;
 }
 .inner_result{
-	 display: inline-block;
-    float: left;
-    padding: 5px 0 0 20px;
+	display: inline-block;
+	float: left;
+	padding: 5px 0 0 20px;
 }
 ul.Main {
-        list-style-type: none; margin:0;
+	list-style-type: none; margin:0;
 }
 .ui-state-highlight { height: 30px; line-height: 25px; }
-    
-    
-    
-.pagination li a { 
+
+
+
+.pagination li a {
 	border-color:#b1b3b3 #a4a6a6 #929494;
 	background:-moz-linear-gradient(top, #f2f2f2, #ccc 5%, #abacac 100%);
 	background:-webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#abacac), color-stop(0.05,#ccc));
@@ -1755,47 +1755,47 @@ ul.Main {
 
 
 .admin-vendorservicelist img {
-    float: left;
-    margin-right: 10px;
-    margin-bottom: 10px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 .files-images img {
-float: left;
-border: 1px solid #CCC;
-box-shadow: 0 0 3px #CCC;
+	float: left;
+	border: 1px solid #CCC;
+	box-shadow: 0 0 3px #CCC;
 }
 .loader {
-background: url(../../img/loader.gif) no-repeat center center black;
-height: 83px;
-opacity: 0.5;
-position: absolute;
-width: 83px;
+	background: url(../../img/loader.gif) no-repeat center center black;
+	height: 83px;
+	opacity: 0.5;
+	position: absolute;
+	width: 83px;
 }
 .service-image {
-float: left;
-position:relative;
-margin-right: 15px;
-margin-bottom: 10px;
+	float: left;
+	position:relative;
+	margin-right: 15px;
+	margin-bottom: 10px;
 }
 .service-image .radio_button_status{
-    display: none;
-    position: absolute !important;
-    left: -4px !important;
-    bottom: -1px !important;
-    width: 16px !important;
-    height: 16px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: url(../../img/service-radio-unchecked.png) no-repeat left center;
-    transition: all 200ms ease-in-out;
-    -moz-transition: all 200ms ease-in-out;
-    -webkit-transition: all 200ms ease-in-out;
-    -ms-transition: all 200ms ease-in-out;
-    -o-transition: all 200ms ease-in-out;
+	display: none;
+	position: absolute !important;
+	left: -4px !important;
+	bottom: -1px !important;
+	width: 16px !important;
+	height: 16px !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	background: url(../../img/service-radio-unchecked.png) no-repeat left center;
+	transition: all 200ms ease-in-out;
+	-moz-transition: all 200ms ease-in-out;
+	-webkit-transition: all 200ms ease-in-out;
+	-ms-transition: all 200ms ease-in-out;
+	-o-transition: all 200ms ease-in-out;
 }
 .service-image .radio_button_status.selected, .service-image:hover .radio_button_status{
-    display: block !important;
-    background: url(../../img/service-radio-checked.png) no-repeat left center;
+	display: block !important;
+	background: url(../../img/service-radio-checked.png) no-repeat left center;
 }
 .service-image .radio_button {
 	visibility: hidden;
@@ -1833,87 +1833,87 @@ margin-bottom: 10px;
 }
 
 table.admin-content {
-    float: left;
-    width: 100%;
-    padding: 0;
-    margin: 0 0 15px 0;
-    background: none;
-    color: #787878;
-    font-family: Open Sans;
-    font-size: 12px;
-    line-height: 20px;
-    font-weight: normal;
-    text-align: center;
-    border: 0;
-    border-collapse: collapse;
-    border-bottom: solid 1px #E6E6E6;
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin: 0 0 15px 0;
+	background: none;
+	color: #787878;
+	font-family: Open Sans;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: normal;
+	text-align: center;
+	border: 0;
+	border-collapse: collapse;
+	border-bottom: solid 1px #E6E6E6;
 }
 table.admin-content tr {
-    background: #FAFAFA;
+	background: #FAFAFA;
 }
 table.admin-content th {
-    background: #F2F2F2;
-    border: 0;
-    border-bottom: solid 1px #E6E6E6;
-    color: #212121;
-    padding: 3px 5px;
-    text-align: center;
-    font-family: OpenSansSemibold;
+	background: #F2F2F2;
+	border: 0;
+	border-bottom: solid 1px #E6E6E6;
+	color: #212121;
+	padding: 3px 5px;
+	text-align: center;
+	font-family: OpenSansSemibold;
 }
 table.admin-content td {
-    border: 0;
-    border-bottom: solid 1px #E6E6E6;
-    color: #787878;
-    padding: 2px 5px;
-    text-align: center;
+	border: 0;
+	border-bottom: solid 1px #E6E6E6;
+	color: #787878;
+	padding: 2px 5px;
+	text-align: center;
 }
 table.admin-content table {
-    float: left;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    border-collapse: collapse;
-    background: none;
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-collapse: collapse;
+	background: none;
 }
 table.admin-content table tr {
-    background: none;
+	background: none;
 }
 table.admin-content table tr:nth-child(odd) {
-    background: none;
+	background: none;
 }
 table.admin-content table th {
-    background: none;
-    border: 0;
-    padding: 3px 5px;
-    font-weight: bold;
-    text-align: center;
+	background: none;
+	border: 0;
+	padding: 3px 5px;
+	font-weight: bold;
+	text-align: center;
 }
 table.admin-content table td {
-    border: 0;
-    text-align: center;
+	border: 0;
+	text-align: center;
 }
 table.admin-content tr.no-details {
-    text-align: center;
+	text-align: center;
 }
 table.admin-content tr.subtotal td {
-    font-weight: bold;
+	font-weight: bold;
 }
 table.admin-content tr .align-left {
-    text-align: left;
+	text-align: left;
 }
 table.admin-content tr .align-center {
-    text-align: center;
+	text-align: center;
 }
 table.admin-content tr .align-right {
-    text-align: right;
+	text-align: right;
 }
 
 
 
 a.fancybox {
-    display: inline-block;
-    min-height: 20px;
+	display: inline-block;
+	min-height: 20px;
 }
 
 i.edit-icon.fa.fa-edit {
@@ -1936,4 +1936,46 @@ p.error {
 }
 #priceRuleTable{
 	display: none;
+}
+.col-3{
+	width:33%;
+	display: inline-block;
+	vertical-align: top;
+}
+.col-3 textarea {
+	width: 80%;
+	max-width: 80%;
+}
+.col-3:nth-child(2) {
+	width: 30%;
+	margin-right: 3%;
+}
+.book-slot-forms h3 {
+	margin-bottom: 20px;
+}
+
+input.check-box {
+	margin-right: 10px;
+	top: -3px;
+	position: relative;
+}
+
+span.strike {
+	text-decoration: line-through;
+}
+
+.check.booked {
+	color: #9e9e9e;
+}
+
+.dates {
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #676767;
+}
+.check {
+	background: #f2f2f2;
+	padding: 10px;
+	border-radius: 4px;
+	margin-bottom: 10px;
 }
