@@ -756,8 +756,8 @@ class PaymentsController extends PaymentManagerAppController
                 $global_merge_vars .= ']';
 
 
-                $key = 'RcGToklPpGQ56uCAkEpY5A';
-                $template_name = 'user_invite_friend';
+                $key = Configure::read('Mandrill.key');
+                $template_name = 'user-invite-friend';
 
 
                 $data_string = '{
@@ -766,7 +766,7 @@ class PaymentsController extends PaymentManagerAppController
 		                "template_content": [
 		                        {
 		                                "name": "TITLE",
-		                                "content": "test test test"
+		                                "content": "User Invite Friend"
 		                        }
 		                ],
 		                "message": {
@@ -779,6 +779,7 @@ class PaymentsController extends PaymentManagerAppController
 		                                        "type": "to"
 		                                }
 		                        ],
+		                        "merge_language": "handlebars",
 		                        "global_merge_vars": ' . $global_merge_vars . '
 		                }
 		        }';
