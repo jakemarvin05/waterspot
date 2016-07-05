@@ -36,4 +36,6 @@ $config['Paypal']['test_email'] = 'admin-facilitator@waterspot.com.sg';
 $config['Paypal']['sandbox_mode'] = 1; // 1 = true, 0 = false
 $config['Paypal']['url'] = 'https://www.paypal.com/cgi-bin/webscr';
 $config['Paypal']['test_url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+
+$config['Mandrill']['key'] = 'aJZEctnhdEgpScmSRIzSVQ';
 ?>

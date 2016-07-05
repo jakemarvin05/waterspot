@@ -287,7 +287,7 @@ Class BookingsController extends VendorManagerAppController{
 
 
 	        $data_string = '{
-	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "key": '.Configure::read('Mandrill.key').',
 	                "template_name": "user-booking-confirmation",
 	                "template_content": [
 	                        {
@@ -395,7 +395,7 @@ Class BookingsController extends VendorManagerAppController{
 
 
 	        $data_string = '{
-	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "key": '.Configure::read('Mandrill.key').',
 	                "template_name": "booking-request-declined",
 	                "template_content": [
 	                        {
@@ -515,7 +515,7 @@ Class BookingsController extends VendorManagerAppController{
 			$global_merge_vars .= ']';
 
 	        $data_string = '{
-	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "key": '.Configure::read('Mandrill.key').',
 	                "template_name": "user-booking-confirmation",
 	                "template_content": [
 	                        {
@@ -627,7 +627,7 @@ Class BookingsController extends VendorManagerAppController{
 			$global_merge_vars .= ']';
 
 			$data_string = '{
-	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "key": '.Configure::read('Mandrill.key').',
 	                "template_name": "booking-request-declined",
 	                "template_content": [
 	                        {

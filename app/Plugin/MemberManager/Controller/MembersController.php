@@ -44,7 +44,7 @@ class MembersController extends MemberManagerAppController{
 					$this->loadModel('MailManager.Mail');
 					$mail=$this->Mail->read(null,$mail_id);
 
-					$key = 'RcGToklPpGQ56uCAkEpY5A';
+					$key = Configure::read('Mandrill.key');
 					$from = $this->setting['site']['site_contact_email'];
 					$from_name = $mail['Mail']['mail_from'];
 					$subject = 'Thank you for registering with us';
@@ -627,13 +627,13 @@ class MembersController extends MemberManagerAppController{
 		$this->loadModel('MailManager.Mail');
 		$mail=$this->Mail->read(null,$mail_id);
 
-		$key = 'RcGToklPpGQ56uCAkEpY5A';
+		$key = Configure::read('Mandrill.key');
 		$from = $this->setting['site']['site_contact_email'];
 		$from_name = $mail['Mail']['mail_from'];
 		$subject = 'Thank you for registration with us';
 		$to = $mail_data['Member']['email_id'];
 		$to_name = $mail_data['Member']['first_name'];
-		$template_name = 'user_sign_up';
+		$template_name = 'member-sign-up';
 
 		$global_merge_vars = '[';
         $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Member']['first_name'].'"},';
@@ -648,7 +648,7 @@ class MembersController extends MemberManagerAppController{
                 "template_content": [
                         {
                                 "name": "TITLE",
-                                "content": "test test test"
+                                "content": "Member Sign Up"
                         }
                 ],
                 "message": {
@@ -661,6 +661,7 @@ class MembersController extends MemberManagerAppController{
                                         "type": "to"
                                 }
                         ],
+                        "merge_language": "handlebars",
                         "global_merge_vars": '.$global_merge_vars.'
                 }
         }';
