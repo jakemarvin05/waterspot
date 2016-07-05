@@ -533,6 +533,7 @@ Class CartsController extends AppController
     private function before_saving_booking_slot($slots = null, $ref_no = null, $service_id = null, $no_participants = null, $additional_hour = null)
     {
         $this->loadModel('PriceManager.Price');
+        $this->loadModel('VendorManager.BookingSlot');
 
 
         // check if additional hour is set
@@ -563,6 +564,7 @@ Class CartsController extends AppController
                 }
 
                 $data_booking_slot['BookingSlot']['booking_order_id'] = $this->booking_order_id;
+                $data_booking_slot['BookingSlot']['add_hour'] = $additional_hour;
                 $data_booking_slot['BookingSlot']['slot_id'] = $slot['slot_id'];
                 $data_booking_slot['BookingSlot']['service_id'] = $service_id;
                 $data_booking_slot['BookingSlot']['ref_no'] = $ref_no;
