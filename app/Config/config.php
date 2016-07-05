@@ -33,7 +33,7 @@ $config['Payment']['secret_key'] = "809d76c6ecbe48a59ff268114ade471e";
 
 $config['Paypal']['email'] = 'admin@waterspot.com.sg';
 $config['Paypal']['test_email'] = 'admin-facilitator@waterspot.com.sg';
-$config['Paypal']['sandbox_mode'] = 1; // 1 = true, 0 = false
+$config['Paypal']['sandbox_mode'] = 0; // 1 = true, 0 = false
 $config['Paypal']['url'] = 'https://www.paypal.com/cgi-bin/webscr';
 $config['Paypal']['test_url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 ?>
