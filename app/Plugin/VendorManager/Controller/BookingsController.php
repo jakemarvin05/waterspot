@@ -374,28 +374,33 @@ Class BookingsController extends VendorManagerAppController{
 				$price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
 			}
 
-	        $global_merge_vars = '[';
+			$to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+			$payment_status = ['Not completed','Completed','Processing','Cancelled'];
+
+			$global_merge_vars = '[';
 	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+	        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$to.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
+	        $global_merge_vars .= '{"name": "PAYMENT_STATUS", "content": "'.$payment_status[$booking['Booking']['status']].'"},';
+	        $global_merge_vars .= '{"name": "TXN_ID", "content": "'.$booking['Booking']['transaction_id'].'"},';
 	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
+	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking['Booking']['phone'].'"},';
 	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
-	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
 
 	        $data_string = '{
-	                "key": "RcGToklPpGQ56uCAkEpY5A",
-	                "template_name": "booking_request_declined",
+	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "template_name": "booking-request-declined",
 	                "template_content": [
 	                        {
 	                                "name": "TITLE",
-	                                "content": "test test test"
+	                                "content": "Booking Request Declined"
 	                        }
 	                ],
 	                "message": {
@@ -409,6 +414,7 @@ Class BookingsController extends VendorManagerAppController{
 	                                        "type": "to"
 	                                }
 	                        ],
+	                        "merge_language": "handlebars",
 	                        "global_merge_vars": '.$global_merge_vars.'
 	                }
 	        }';
