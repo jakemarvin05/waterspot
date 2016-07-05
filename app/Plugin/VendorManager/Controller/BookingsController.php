@@ -483,28 +483,44 @@ Class BookingsController extends VendorManagerAppController{
 				$price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
 			}
 
-	        $global_merge_vars = '[';
-	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
-	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
-	        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
-	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
-	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
-	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
-	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking_order['BookingOrder']['vendor_phone'].'"},';
-	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
-	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
-	        $global_merge_vars .= ']';
+			$to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
 
-	        $to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
+			$value_added_services_array = [];
+
+			if($booking_order['BookingOrder']['value_added_services']){
+				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+					$value_added_services_array[] = $service;
+				}
+			}
+			$value_added_services = '';
+			$value_added_services .= implode(',', $value_added_services_array);
+
+
+			$global_merge_vars = '[';
+			$global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+			$global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
+			$global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+			$global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+			$global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+			$global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
+			$global_merge_vars .= '{"name": "PARTICIPANTS", "content": "'.$booking_order['BookingOrder']['participants'].'"},';
+			$global_merge_vars .= '{"name": "PRICE", "content": "'.$booking_order['BookingOrder']['price'].'"},';
+			$global_merge_vars .= '{"name": "TOTAL", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
+			$global_merge_vars .= '{"name": "SLOTS", "content": "'.$slot_string.'"},';
+			$global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
+			$global_merge_vars .= '{"name": "PHONE", "content": "'.$booking['Booking']['phone'].'"},';
+			$global_merge_vars .= '{"name": "EMAIL", "content": "'.$to.'"},';
+			$global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
+			$global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
+			$global_merge_vars .= ']';
 
 	        $data_string = '{
-	                "key": "RcGToklPpGQ56uCAkEpY5A",
-	                "template_name": "user_booking_confirmation",
+	                "key": "aJZEctnhdEgpScmSRIzSVQ",
+	                "template_name": "user-booking-confirmation",
 	                "template_content": [
 	                        {
 	                                "name": "TITLE",
-	                                "content": "test test test"
+	                                "content": "User Booking Confirmation"
 	                        }
 	                ],
 	                "message": {
@@ -518,6 +534,7 @@ Class BookingsController extends VendorManagerAppController{
 	                                        "type": "to"
 	                                }
 	                        ],
+	                        "merge_language": "handlebars",
 	                        "global_merge_vars": '.$global_merge_vars.'
 	                }
 	        }';
