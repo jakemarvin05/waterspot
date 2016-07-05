@@ -155,7 +155,7 @@ div.spacer {
 
     .activity-price-info .activity-price-price {
         float: left;
-        max-width: 55%;
+        max-width: 100%;
     }
 }
 
@@ -641,5 +641,3 @@ section#activityPanorama img {
         display: block;
     }
 }
-
-

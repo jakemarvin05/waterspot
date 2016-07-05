@@ -156,8 +156,10 @@
                             <?php else: ?>
                                 <div style="height: 100%; width: 100%;">
                                 <span
-                                    class="activity-price-price"><?= Configure::read('currency'); ?><?= number_format(isset($min_price) ? $min_price : $service_detail['Service']['service_price'], 2); ?>
-                                    - <?= Configure::read('currency'); ?><?= number_format(isset($max_price) ? $max_price : $service_detail['Service']['service_price'], 2); ?></span>
+                                    class="activity-price-price">
+                                    From <?= Configure::read('currency'); ?><?= number_format(isset($min_price) ? $min_price : $service_detail['Service']['service_price'], 2); ?>
+                                    <!-- - <?= Configure::read('currency'); ?><?= number_format(isset($max_price) ? $max_price : $service_detail['Service']['service_price'], 2); ?> -->
+                                </span>
                                     <?php
                                     if ($service_detail['Service']['is_private'] == 0 && !preg_match('/yacht/i', $service_detail['service_type'])) {
                                         echo '<span class="unit">PER PAX</span>';
