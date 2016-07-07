@@ -468,16 +468,16 @@ Class VendorsController extends VendorManagerAppController{
 			$this->loadModel('MailManager.Mail');
 			$mail=$this->Mail->read(null,$mail_id);
 
-			$key = 'RcGToklPpGQ56uCAkEpY5A';
+			$key = Configure::read('Mandrill.key');
 			$from = $this->setting['site']['site_contact_email'];
 			$from_name = $mail['Mail']['mail_from'];
 			$subject = 'Thank you for registering with us';
 			$to = $this->request->data['Vendor']['email'];
 			$to_name = $this->request->data['Vendor']['fname'];
-			$template_name = 'vendor_confirm_sign_up';
+			$template_name = 'vendor-sign-up-confirmation';
 
 			$global_merge_vars = '[';
-	        $global_merge_vars .= '{"name": "NAME", "content": "'.$this->request->data['Vendor']['fname'].'"},';
+	        $global_merge_vars .= '{"name": "VENDOR", "content": "'.$this->request->data['Vendor']['fname'].'"},';
 	        $global_merge_vars .= '{"name": "BNAME", "content": "'.$this->request->data['Vendor']['bname'].'"},';
 	        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$this->request->data['Vendor']['email'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$this->request->data['Vendor']['phone'].'"},';
@@ -491,7 +491,7 @@ Class VendorsController extends VendorManagerAppController{
 	                "template_content": [
 	                        {
 	                                "name": "TITLE",
-	                                "content": "test test test"
+	                                "content": "Thank you for registering with us"
 	                        }
 	                ],
 	                "message": {
@@ -504,6 +504,7 @@ Class VendorsController extends VendorManagerAppController{
 	                                        "type": "to"
 	                                }
 	                        ],
+	                        "merge_language": "handlebars",
 	                        "global_merge_vars": '.$global_merge_vars.'
 	                }
 	        }';
@@ -688,13 +689,13 @@ Class VendorsController extends VendorManagerAppController{
 		$this->loadModel('MailManager.Mail');
 		$mail=$this->Mail->read(null,$mail_id);
 
-		$key = 'RcGToklPpGQ56uCAkEpY5A';
+		$key = Configure::read('Mandrill.key');
 		$from = $this->setting['site']['site_contact_email'];
 		$from_name = $mail['Mail']['mail_from'];
-		$subject = 'Thank you for registration with us';
+		$subject = 'Thank you for registering with us';
 		$to = $mail_data['Vendor']['email'];
 		$to_name = $mail_data['Vendor']['fname'];
-		$template_name = 'vendor_sign_up';
+		$template_name = 'vendor-welcome-email-after-sign-up-confirmation';
 
 		$global_merge_vars = '[';
         $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Vendor']['fname'].'"},';
@@ -710,7 +711,7 @@ Class VendorsController extends VendorManagerAppController{
                 "template_content": [
                         {
                                 "name": "TITLE",
-                                "content": "test test test"
+                                "content": "Thank you for registering with us"
                         }
                 ],
                 "message": {
@@ -723,6 +724,7 @@ Class VendorsController extends VendorManagerAppController{
                                         "type": "to"
                                 }
                         ],
+                        "merge_language": "handlebars",
                         "global_merge_vars": '.$global_merge_vars.'
                 }
         }';
@@ -753,13 +755,13 @@ Class VendorsController extends VendorManagerAppController{
         $global_merge_vars .= ']';
 
 
-        $key = 'RcGToklPpGQ56uCAkEpY5A';
+        $key = Configure::read('Mandrill.key');
 		$from = $this->setting['site']['site_contact_email'];
 		$from_name = "Waterspot Admin";
 		$subject = 'Your vendor registration with WaterSpot has been approved';
 		$to = $vendordetail['Vendor']['email'];
 		$to_name = $vendordetail['Vendor']['fname'];
-		$template_name = 'vendor_sign_up';
+		$template_name = 'vendor-sign-up';
 
 
         $data_string = '{
@@ -768,7 +770,7 @@ Class VendorsController extends VendorManagerAppController{
                 "template_content": [
                         {
                                 "name": "TITLE",
-                                "content": "test test test"
+                                "content": "Your vendor registration with WaterSpot has been approved"
                         }
                 ],
                 "message": {
@@ -781,6 +783,7 @@ Class VendorsController extends VendorManagerAppController{
                                         "type": "to"
                                 }
                         ],
+                        "merge_language": "handlebars",
                         "global_merge_vars": '.$global_merge_vars.'
                 }
         }';

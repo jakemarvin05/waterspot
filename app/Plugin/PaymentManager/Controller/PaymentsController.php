@@ -253,6 +253,8 @@ class PaymentsController extends PaymentManagerAppController
         $this->loadModel('Cart');
         $this->loadModel('BookingSlot');
         $this->loadModel('ServiceManager.ServiceType');
+        $this->loadModel('Coupon');
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $flag = $this->SmoovPay->validateIpn($_POST);
             if ($flag == 1) {
@@ -295,6 +297,8 @@ class PaymentsController extends PaymentManagerAppController
                     array('BookingSlot.ref_no =' => $booking_ref_no)
                 );
 
+                $booking_order = $this->BookingOrder->find('first',  array('BookingSlot.ref_no =' => $booking_ref_no));
+
                 $service_slot_details = '';
                 $total_cart_price = 0;
                 // check payment status
@@ -316,19 +320,60 @@ class PaymentsController extends PaymentManagerAppController
 
                         }
 
+                        $slots = json_decode($booking_order['BookingOrder']['slots']);
+                        $slot_string = '';
+                        foreach ($slots as $slot_data) {
+                            foreach ($slot_data as $slot) {
+                                if ($slot_string !== '') $slot_string .= ', ';
+                                $slot_string .= date('Y-m-d', $slot->slot_date)
+                                    . ' (' . date('h:ia', strtotime($slot->start_time))
+                                    . ' - ' . date('h:ia', strtotime($slot->end_time))
+                                    . ')';
+                            }
+                        }
+                        if ($slot_string === '') {
+                            $slot_string = 'None';
+                        }
+
+                        $value_added_services_array = [];
+
+                        if($booking_order['BookingOrder']['value_added_services']){
+                            foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+                                $value_added_services_array[] = $service;
+                            }
+                        }
+
+                        $value_added_services = '';
+                        $value_added_services .= implode(',', $value_added_services_array);
+
+                        $discount = 0;
+                        $price_str = '$'.number_format($booking_order['BookingOrder']['total_amount'], 2);
+                        if ($booking_order['BookingOrder']['coupon_id']) {
+                            $coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
+                            $discount = $coupon['Coupon']['discount'];
+                            $price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
+                        }
+
+
                         // send to user mail
 
-                        $key = 'RcGToklPpGQ56uCAkEpY5A';
+                        $key = Configure::read('Mandrill.key');
                         $from = $this->setting['site']['site_contact_email'];
                         $subject = 'Thank you for booking with us';
                         $to = $booking_detail['Booking']['email'];
                         $template_name = 'user_pending_booking_confirmation';
 
                         $global_merge_vars = '[';
+                        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+                        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+                        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+                        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+                        $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
                         $global_merge_vars .= '{"name": "NAME", "content": "' . $booking_detail['Booking']['fname'] . " " . $booking_detail['Booking']['lname'] . '"},';
                         $global_merge_vars .= '{"name": "EMAIL", "content": "' . $booking_detail['Booking']['email'] . '"},';
                         $global_merge_vars .= '{"name": "PHONE", "content": "' . $booking_detail['Booking']['phone'] . '"},';
                         $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "' . str_replace(['"', "\n", "\t"], ['\'', "", ""], $service_slot_details) . '"}';
+                        $global_merge_vars .= '{"name": "TOTAL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
                         $global_merge_vars .= ']';
 
                         $data_string = '{
@@ -337,7 +382,7 @@ class PaymentsController extends PaymentManagerAppController
 				                "template_content": [
 				                        {
 				                                "name": "TITLE",
-				                                "content": "test test test"
+				                                "content": "Thank you for booking with us"
 				                        }
 				                ],
 				                "message": {
@@ -349,6 +394,7 @@ class PaymentsController extends PaymentManagerAppController
 				                                        "type": "to"
 				                                }
 				                        ],
+				                        "merge_language": "handlebars",
 				                        "global_merge_vars": ' . $global_merge_vars . '
 				                }
 				        }';
@@ -439,6 +485,31 @@ class PaymentsController extends PaymentManagerAppController
                 $this->loadModel('MailManager.Mail');
                 $mail = $this->Mail->read(null, 16);
 
+                $slots = json_decode($order['BookingOrder']['slots']);
+                $slot_string = '';
+                foreach ($slots as $slot_data) {
+                    foreach ($slot_data as $slot) {
+                        if ($slot_string !== '') $slot_string .= ', ';
+                        $slot_string .= date('Y-m-d', $slot->slot_date)
+                            . ' (' . date('h:ia', strtotime($slot->start_time))
+                            . ' - ' . date('h:ia', strtotime($slot->end_time))
+                            . ')';
+                    }
+                }
+                if ($slot_string === '') {
+                    $slot_string = 'None';
+                }
+
+                $value_added_services_array = [];
+
+                if($order['BookingOrder']['value_added_services']){
+                    foreach($order['BookingOrder']['value_added_services'] as $service){
+                        $value_added_services_array[] = $service;
+                    }
+                }
+
+                $value_added_services = '';
+                $value_added_services .= implode(',', $value_added_services_array);
 
                 $global_merge_vars = '[';
                 $global_merge_vars .= '{"name": "ORDERNO", "content": "' . $customer_detail['Booking']['ref_no'] . '"},';
@@ -450,20 +521,25 @@ class PaymentsController extends PaymentManagerAppController
                 }
                 $global_merge_vars .= '{"name": "EMAIL", "content": "' . $customer_detail['Booking']['email'] . '"},';
                 $global_merge_vars .= '{"name": "PHONE", "content": "' . $customer_detail['Booking']['phone'] . '"},';
+                $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "' . $order['BookingOrder']['service_title'] . '"},';
+                $global_merge_vars .= '{"name": "PAX", "content": "' . $order['BookingOrder']['no_participants'] . '"},';
+                $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($order['BookingOrder']['booking_date'])).'"},';
+                $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
                 $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "' . (!empty($customer_detail['Booking']['order_message'])) ? $customer_detail['Booking']['order_message'] : 'There are no comments.' . '"},';
+                $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
                 $global_merge_vars .= '{"name": "TOTAL", "content": "' . number_format($total_cart_price, 2) . '"},';
                 $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "' . Router::url('/vendor/booking_list') . '"},';
                 $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "' . str_replace(['"', "\n", "\t"], ['\'', "", ""], $booking_content) . '"}';
                 $global_merge_vars .= ']';
 
 
-                $key = 'RcGToklPpGQ56uCAkEpY5A';
+                $key = Configure::read('Mandrill.key');
                 $from = $customer_detail['Booking']['email'];
                 $from_name = $customer_detail['Booking']['fname'] . " " . $customer_detail['Booking']['lname'];
                 $subject = 'Booking has been received';
                 $to = $vendor_details['Vendor']['email'];
                 $to_name = $mail['Mail']['mail_from'];
-                $template_name = 'vendor_request_booking_confirmation';
+                $template_name = 'vendor-request-booking-confirmation-private';
 
 
                 $data_string = '{
@@ -472,7 +548,7 @@ class PaymentsController extends PaymentManagerAppController
 		                "template_content": [
 		                        {
 		                                "name": "TITLE",
-		                                "content": "test test test"
+		                                "content": "Booking has been received"
 		                        }
 		                ],
 		                "message": {
@@ -485,6 +561,7 @@ class PaymentsController extends PaymentManagerAppController
 		                                        "type": "to"
 		                                }
 		                        ],
+		                        "merge_laguage": "handlebars",
 		                        "global_merge_vars": ' . $global_merge_vars . ',
 		                        "bcc_address": "' . $this->setting['site']['site_contact_email'] . '"
 		                }
@@ -1177,11 +1254,12 @@ class PaymentsController extends PaymentManagerAppController
         $this->loadModel('VendorManager.Vendor');
         $this->loadModel('Service');
 
-        $key = 'RcGToklPpGQ56uCAkEpY5A';
+        $key = Configure::read('Mandrill.key');
         $from = $this->setting['site']['site_contact_email'];
         $subject = 'Thank you for booking with us';
         $to = $booking_detail['Booking']['email'];
-        $template_name = 'user_pending_booking_confirmation';
+        $template_name = 'user-booking-received-private';
+
         $memberinfo = $this->Member->read(null, $booking_detail['Booking']['member_id']);
         if (!empty($memberinfo)) {
             $member_name = (strlen(trim($memberinfo['Member']['first_name'] . ' ' . $memberinfo['Member']['last_name'])) > 0) ? $memberinfo['Member']['first_name'] . ' ' . $memberinfo['Member']['last_name'] : 'Member';
@@ -1191,9 +1269,48 @@ class PaymentsController extends PaymentManagerAppController
             $member_name = 'Member';
         }
 
+        $slots = json_decode($booking_order_detail['BookingOrder']['slots']);
+        $slot_string = '';
+        foreach ($slots as $slot_data) {
+            foreach ($slot_data as $slot) {
+                if ($slot_string !== '') $slot_string .= ', ';
+                $slot_string .= date('Y-m-d', $slot->slot_date)
+                    . ' (' . date('h:ia', strtotime($slot->start_time))
+                    . ' - ' . date('h:ia', strtotime($slot->end_time))
+                    . ')';
+            }
+        }
+        if ($slot_string === '') {
+            $slot_string = 'None';
+        }
+
+        $value_added_services_array = [];
+
+        if($booking_order_detail['BookingOrder']['value_added_services']){
+            foreach($booking_order_detail['BookingOrder']['value_added_services'] as $service){
+                $value_added_services_array[] = $service;
+            }
+        }
+
+        $value_added_services = '';
+        $value_added_services .= implode(',', $value_added_services_array);
+
+        $discount = 0;
+        $price_str = '$'.number_format($booking_order_detail['BookingOrder']['total_amount'], 2);
+        if ($booking_order_detail['BookingOrder']['coupon_id']) {
+            $coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order_detail['BookingOrder']['coupon_id']]]);
+            $discount = $coupon['Coupon']['discount'];
+            $price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order_detail['BookingOrder']['total_amount'] * (1 - $discount), 2);
+        }
 
         $global_merge_vars = '[';
         $global_merge_vars .= '{"name": "NAME", "content": "' . $member_name . '"},';
+        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order_detail['BookingOrder']['service_title'].'"},';
+        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order_detail['BookingOrder']['no_participants'].'"},';
+        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order_detail['BookingOrder']['booking_date'])).'"},';
+        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+        $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
+        $global_merge_vars .= '{"name": "TOTAL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
         $global_merge_vars .= '{"name": "EMAIL", "content": "' . $booking_detail['Booking']['email'] . '"},';
         $global_merge_vars .= '{"name": "PHONE", "content": "' . $booking_detail['Booking']['phone'] . '"},';
         $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "' . str_replace(['"', "\n", "\t"], ['\'', "", ""], $booking_content) . '"}';
@@ -1217,6 +1334,7 @@ class PaymentsController extends PaymentManagerAppController
                                         "type": "to"
                                 }
                         ],
+                        "merge_language": "handlebars",
                         "global_merge_vars": ' . $global_merge_vars . '
                 }
         }';
@@ -1622,6 +1740,9 @@ class PaymentsController extends PaymentManagerAppController
                     array('BookingSlot.ref_no =' => $booking_ref_no)
                 );
 
+
+                $booking_order =  $this->BookingOrder->find('first', ['conditions' => ['ref_no' => $booking_ref_no]]);
+
                 $service_slot_details = '
 				<tr><th style="min-width:200px"><span style="font-size:14px">Vendor</span></th></tr>
 				<tr><th><span style="font-size:14px">Service</span></th></tr>
@@ -1689,11 +1810,12 @@ class PaymentsController extends PaymentManagerAppController
                         $this->loadModel('VendorManager.Vendor');
                         $this->loadModel('Service');
 
-                        $key = 'RcGToklPpGQ56uCAkEpY5A';
+                        $key = Configure::read('Mandrill.key');
+
                         $from = $this->setting['site']['site_contact_email'];
                         $subject = 'Thank you for booking with us';
                         $to = $booking_detail['Booking']['email'];
-                        $template_name = 'user_pending_booking_confirmation';
+                        $template_name = 'user-booking-received-private';
                         $memberinfo = $this->Member->read(null, $booking_detail['Booking']['member_id']);
                         if (!empty($memberinfo)) {
                             $member_name = (strlen(trim($memberinfo['Member']['first_name'] . ' ' . $memberinfo['Member']['last_name'])) > 0) ? $memberinfo['Member']['first_name'] . ' ' . $memberinfo['Member']['last_name'] : 'Member';
@@ -1703,8 +1825,47 @@ class PaymentsController extends PaymentManagerAppController
                             $member_name = 'Member';
                         }
 
+                        $slots = json_decode($booking_order['BookingOrder']['slots']);
+                        $slot_string = '';
+                        foreach ($slots as $slot_data) {
+                            foreach ($slot_data as $slot) {
+                                if ($slot_string !== '') $slot_string .= ', ';
+                                $slot_string .= date('Y-m-d', $slot->slot_date)
+                                    . ' (' . date('h:ia', strtotime($slot->start_time))
+                                    . ' - ' . date('h:ia', strtotime($slot->end_time))
+                                    . ')';
+                            }
+                        }
+                        if ($slot_string === '') {
+                            $slot_string = 'None';
+                        }
+
+                        $value_added_services_array = [];
+
+                        if($booking_order['BookingOrder']['value_added_services']){
+                            foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+                                $value_added_services_array[] = $service;
+                            }
+                        }
+
+                        $value_added_services = '';
+                        $value_added_services .= implode(',', $value_added_services_array);
+
+                        $price_str = '$'.number_format($booking_order['BookingOrder']['total_amount'], 2);
+                        if ($booking_order['BookingOrder']['coupon_id']) {
+                            $coupon = $this->Coupon->find('first', ['conditions' => ['id' => $booking_order['BookingOrder']['coupon_id']]]);
+                            $discount = $coupon['Coupon']['discount'];
+                            $price_str = '<span style="text-decoration:line-through; color:#F00;">'.$price_str.'</span>$'. number_format($booking_order['BookingOrder']['total_amount'] * (1 - $discount), 2);
+                        }
+
 
                         $global_merge_vars = '[';
+                        $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
+                        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
+                        $global_merge_vars .= '{"name": "TOTAL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
+                        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
+                        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+                        $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
                         $global_merge_vars .= '{"name": "NAME", "content": "' . $member_name . '"},';
                         $global_merge_vars .= '{"name": "EMAIL", "content": "' . $booking_detail['Booking']['email'] . '"},';
                         $global_merge_vars .= '{"name": "PHONE", "content": "' . $booking_detail['Booking']['phone'] . '"},';
@@ -1717,7 +1878,7 @@ class PaymentsController extends PaymentManagerAppController
 				                "template_content": [
 				                        {
 				                                "name": "TITLE",
-				                                "content": "test test test"
+				                                "content": "Thank you for booking with us"
 				                        }
 				                ],
 				                "message": {
@@ -1729,6 +1890,7 @@ class PaymentsController extends PaymentManagerAppController
 				                                        "type": "to"
 				                                }
 				                        ],
+				                        "merge_language": "handlebars",
 				                        "global_merge_vars": ' . $global_merge_vars . '
 				                }
 				        }';
@@ -1776,25 +1938,37 @@ class PaymentsController extends PaymentManagerAppController
 
                     $slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
 
+                    $value_added_services_array = [];
+
+                    if($booking_order['BookingOrder']['value_added_services']){
+                        foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+                            $value_added_services_array[] = $service;
+                        }
+                    }
+
+                    $value_added_services = '';
+                    $value_added_services .= implode(',', $value_added_services_array);
+
                     $global_merge_vars = '[';
                     $global_merge_vars .= '{"name": "USER_NAME", "content": "' . $booking_order['vendor_name'] . '"},';
                     $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "' . $booking_order['service_title'] . '"},';
                     $global_merge_vars .= '{"name": "PAX", "content": "' . $booking_order['no_participants'] . '"},';
                     $global_merge_vars .= '{"name": "DATE", "content": "' . date('Y-m-d', strtotime($booking_order['booking_date'])) . '"},';
                     $global_merge_vars .= '{"name": "SLOT_DATE", "content": "' . $slot_time . '"},';
-                    $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "' . $booking_order['vendor_name'] . '"},';
+                    $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
+                    $global_merge_vars .= '{"name": "VENDOR", "content": "' . $booking_order['vendor_name'] . '"},';
                     $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "' . $booking_order['total_amount'] . '"},';
                     $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "' . $this->setting['site']['site_url'] . '/vendor/booking_list' . '"},';
                     $global_merge_vars .= '{"name": "PHONE", "content": "' . $booking_order['vendor_phone'] . '"}';
                     $global_merge_vars .= ']';
 
                     $data_string = '{
-			                "key": "RcGToklPpGQ56uCAkEpY5A",
-			                "template_name": "minimum_to_go_reached",
+			                "key": '.Configure::read('Mandrill.key').',
+			                "template_name": "vendor-min-to-go-reached",
 			                "template_content": [
 			                        {
 			                                "name": "TITLE",
-			                                "content": "test test test"
+			                                "content": "Mimimum to go reached"
 			                        }
 			                ],
 			                "message": {
@@ -1807,6 +1981,7 @@ class PaymentsController extends PaymentManagerAppController
 			                                        "type": "to"
 			                                }
 			                        ],
+			                        "merge_language": "handlebars",
 			                        "global_merge_vars": ' . $global_merge_vars . '
 			                }
 			        }';
@@ -1918,25 +2093,37 @@ class PaymentsController extends PaymentManagerAppController
 
                     $slot_time = date('H:ia', strtotime($bs['start_time'])) . ' - ' . date('H:ia', strtotime($bs['end_time']));
 
+                    $value_added_services_array = [];
+
+                    if($booking_order['BookingOrder']['value_added_services']){
+                        foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+                            $value_added_services_array[] = $service;
+                        }
+                    }
+
+                    $value_added_services = '';
+                    $value_added_services .= implode(',', $value_added_services_array);
+
                     $global_merge_vars = '[';
                     $global_merge_vars .= '{"name": "USER_NAME", "content": "' . $booking_order['vendor_name'] . '"},';
                     $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "' . $booking_order['service_title'] . '"},';
                     $global_merge_vars .= '{"name": "PAX", "content": "' . $booking_order['no_participants'] . '"},';
                     $global_merge_vars .= '{"name": "DATE", "content": "' . date('Y-m-d', strtotime($booking_order['booking_date'])) . '"},';
                     $global_merge_vars .= '{"name": "SLOT_DATE", "content": "' . $slot_time . '"},';
-                    $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "' . $booking_order['vendor_name'] . '"},';
-                    $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "' . $booking_order['total_amount'] . '"},';
+                    $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
+                    $global_merge_vars .= '{"name": "VENDOR", "content": "' . $booking_order['vendor_name'] . '"},';
+                    $global_merge_vars .= '{"name": "TOTAL", "content": "' . $booking_order['total_amount'] . '"},';
                     $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "' . $this->setting['site']['site_url'] . '/vendor/booking_list' . '"},';
                     $global_merge_vars .= '{"name": "PHONE", "content": "' . $booking_order['vendor_phone'] . '"}';
                     $global_merge_vars .= ']';
 
                     $data_string = '{
-			                "key": "RcGToklPpGQ56uCAkEpY5A",
-			                "template_name": "minimum_to_go_reached",
+			                "key": '.Configure::read('Mandrill.key').',
+			                "template_name": "vendor-min-to-go-reached",
 			                "template_content": [
 			                        {
 			                                "name": "TITLE",
-			                                "content": "test test test"
+			                                "content": "Mimimum to go reached"
 			                        }
 			                ],
 			                "message": {
@@ -1949,6 +2136,7 @@ class PaymentsController extends PaymentManagerAppController
 			                                        "type": "to"
 			                                }
 			                        ],
+			                        "merge_language": "handlebars",
 			                        "global_merge_vars": ' . $global_merge_vars . '
 			                }
 			        }';

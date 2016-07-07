@@ -50,7 +50,7 @@ class MembersController extends MemberManagerAppController{
 					$subject = 'Thank you for registering with us';
 					$to = $this->request->data['Member']['email_id'];
 					$to_name = $this->request->data['Member']['first_name'];
-					$template_name = 'user_confirm_sign_up';
+					$template_name = 'sign-up-confirmation';
 
 					$global_merge_vars = '[';
 			        $global_merge_vars .= '{"name": "NAME", "content": "'.$this->request->data['Member']['first_name'].'"},';
@@ -66,7 +66,7 @@ class MembersController extends MemberManagerAppController{
 			                "template_content": [
 			                        {
 			                                "name": "TITLE",
-			                                "content": "test test test"
+			                                "content": "Thank you for registering with us"
 			                        }
 			                ],
 			                "message": {
@@ -630,10 +630,10 @@ class MembersController extends MemberManagerAppController{
 		$key = Configure::read('Mandrill.key');
 		$from = $this->setting['site']['site_contact_email'];
 		$from_name = $mail['Mail']['mail_from'];
-		$subject = 'Thank you for registration with us';
+		$subject = 'Thank you for registering with us';
 		$to = $mail_data['Member']['email_id'];
 		$to_name = $mail_data['Member']['first_name'];
-		$template_name = 'member-sign-up';
+		$template_name = 'user-sign-up';
 
 		$global_merge_vars = '[';
         $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Member']['first_name'].'"},';

@@ -38,12 +38,12 @@ class MinToGoCheckTask extends Shell {
 			        $global_merge_vars .= ']';
 
 			        $data_string = '{
-			                "key": "RcGToklPpGQ56uCAkEpY5A",
-			                "template_name": "minimum_to_go_not_reached",
+			                "key": '.Configure::read('Mandrill.key').',
+			                "template_name": "vendor-min-to-go-not-reached",
 			                "template_content": [
 			                        {
 			                                "name": "TITLE",
-			                                "content": "test test test"
+			                                "content": "Mimimum to go not reached"
 			                        }
 			                ],
 			                "message": {
@@ -56,6 +56,7 @@ class MinToGoCheckTask extends Shell {
 			                                        "type": "to"
 			                                }
 			                        ],
+			                        "merge_language": "handlebars",
 			                        "global_merge_vars": '.$global_merge_vars.'
 			                }
 			        }';
@@ -96,12 +97,12 @@ class MinToGoCheckTask extends Shell {
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
-				                "key": "RcGToklPpGQ56uCAkEpY5A",
-				                "template_name": "minimum_to_go_not_reached",
+				                "key": '.Configure::read('Mandrill.key').',
+				                "template_name": "vendor-min-to-go-not-reached",
 				                "template_content": [
 				                        {
 				                                "name": "TITLE",
-				                                "content": "test test test"
+				                                "content": "Mimimum to go not reached"
 				                        }
 				                ],
 				                "message": {
@@ -114,6 +115,7 @@ class MinToGoCheckTask extends Shell {
 				                                        "type": "to"
 				                                }
 				                        ],
+				                        "merge_language": "handlebars",
 				                        "global_merge_vars": '.$global_merge_vars.'
 				                }
 				        }';
