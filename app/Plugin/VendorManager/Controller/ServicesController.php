@@ -925,13 +925,14 @@ Class ServicesController extends VendorManagerAppController
                 }
 
             }
+            if (!empty($booked_slot_ids)) {
+                $this->Session->setFlash(__('Slot has been manually booked successfully.'));
+            } else {
+                $this->Session->setFlash(__('Slot has not been manually booked.', false));
+            }
 
             $this->redirect($this->referer());
-            if (!empty($booked_slot_ids)) {
-                $this->Session->setFlash(__('Service slots has been added successfully.'));
-            } else {
-                $this->Session->setFlash(__('Service slots has been not added.', false));
-            }
+
         }
         $this->breadcrumbs[] = array(
             'url' => Router::url('/'),
