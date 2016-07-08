@@ -22,7 +22,7 @@
 							if ($service_details['no_person'] > 1) {
 								echo "(" . $slot->available_count . " slots remaining)";
 							}
-							if ($service_details['is_private'] && $service_details['num_pax_included'] > 0 && $service_details['duration'] > 0){
+							if ($service_details['is_private'] && $service_details['num_pax_included'] > 0 && $service_details['duration'] > 0 ){
 								echo "<br><br><span style='font-size: 12px;'>(Price includes " . $service_details['num_pax_included'] . " pax for a duration of ". $service_details['duration']." hrs)</span>";
 							}
 						?>

@@ -170,7 +170,12 @@ Class ActivityController extends AppController
 			$( "#ActivityStartDate" ).val(selectedDate);
 			$( "#ActivityEndDate" ).datepicker( "option", "minDate", selectedDate );
 			get_service_availability();
-			$(this).change();
+
+//			var date = selectedDate.split("-");
+//			var newFormat = date[1]+"-"+date[0]+"-"+date[2]
+//			var d = new Date(newFormat);
+//            var n = d.getUTCDay();
+
 			 }
 		}
 		);
@@ -384,8 +389,8 @@ Class ActivityController extends AppController
         }
 
 
-        $rule_object['max_add_hour'] = $hour ? max($hour) : 0;
-        $rule_object['max_pax'] = $pax ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
+        $rule_object['max_add_hour'] = $hour && count($hour) == 3 ? max($hour) : 0;
+        $rule_object['max_pax'] = $pax && count($pax) == 3 ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
         $rule_object['rules']['weekday_rules'] = $weekday_rules;
         $rule_object['rules']['weekend_rules'] = $weekend_rules;
         $rule_object['rules']['special_rules'] = $special_rules;
