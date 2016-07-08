@@ -275,13 +275,11 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PARTICIPANTS", "content": "'.$booking_order['BookingOrder']['participants'].'"},';
-	        $global_merge_vars .= '{"name": "PRICE", "content": "'.$booking_order['BookingOrder']['price'].'"},';
-	        $global_merge_vars .= '{"name": "TOTAL", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
 	        $global_merge_vars .= '{"name": "SLOTS", "content": "'.$slot_string.'"},';
 	        $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking['Booking']['phone'].'"},';
 	        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$to.'"},';
-	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
+	        $global_merge_vars .= '{"name": "TOTAL", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
 	        $global_merge_vars .= '{"name": "VENDORADDRESS", "content": "'.$booking_order['BookingOrder']['vendor_email'].'"}';
 	        $global_merge_vars .= ']';
 
@@ -377,8 +375,19 @@ Class BookingsController extends VendorManagerAppController{
 			$to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
 			$payment_status = ['Not completed','Completed','Processing','Cancelled'];
 
+			$value_added_services_array = [];
+
+			if($booking_order['BookingOrder']['value_added_services']){
+				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+					$value_added_services_array[] = $service;
+				}
+			}
+
+			$value_added_services = '';
+			$value_added_services .= implode(',', $value_added_services_array);
+
 			$global_merge_vars = '[';
-	        $global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+	        $global_merge_vars .= '{"name": "NAME", "content": "'.$full_name.'"},';
 	        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$to.'"},';
 	        $global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 	        $global_merge_vars .= '{"name": "PAYMENT_STATUS", "content": "'.$payment_status[$booking['Booking']['status']].'"},';
@@ -387,6 +396,7 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
+	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$value_added_services.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking['Booking']['phone'].'"},';
 	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
@@ -396,7 +406,7 @@ Class BookingsController extends VendorManagerAppController{
 
 	        $data_string = '{
 	                "key": '.Configure::read('Mandrill.key').',
-	                "template_name": "booking-request-declined",
+	                "template_name": "user-booking-failed",
 	                "template_content": [
 	                        {
 	                                "name": "TITLE",
@@ -640,7 +650,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			$data_string = '{
 	                "key": '.Configure::read('Mandrill.key').',
-	                "template_name": "booking-request-declined",
+	                "template_name": "user-booking-failed",
 	                "template_content": [
 	                        {
 	                                "name": "TITLE",

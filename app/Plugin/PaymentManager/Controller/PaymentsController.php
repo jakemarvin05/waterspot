@@ -361,7 +361,7 @@ class PaymentsController extends PaymentManagerAppController
                         $from = $this->setting['site']['site_contact_email'];
                         $subject = 'Thank you for booking with us';
                         $to = $booking_detail['Booking']['email'];
-                        $template_name = 'user_pending_booking_confirmation';
+                        $template_name = 'user-booking-received-private';
 
                         $global_merge_vars = '[';
                         $global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';

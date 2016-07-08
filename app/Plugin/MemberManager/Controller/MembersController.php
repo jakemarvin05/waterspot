@@ -83,7 +83,7 @@ class MembersController extends MemberManagerAppController{
 			                }
 			        }';
 
-			        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+			        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
 					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
