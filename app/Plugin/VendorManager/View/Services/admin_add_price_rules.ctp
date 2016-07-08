@@ -179,6 +179,7 @@
     <?php } ?>
 
     <h2 style="font-size: 155%; margin-top: 15px;">Add New Price Rule</h2>
+    <h6 style="color: #aaa; font-weight: normal;text-shadow: none">Please make sure that a Rule Type is set in each and every Slot Type to make it work</h6>
     <?php echo $this->Form->create('Price', array('name' => 'servicetype', 'id' => 'add_price_rules', 'url' => array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'add_price_rules', $vendor_id, $service_id), 'onsubmit' => '//return validatefields();', 'type' => 'file', 'novalidate' => true)); ?>
     <?php echo $this->Form->input('id'); ?>
     <?php echo $this->Form->hidden('service_id', array('value' => $service_id)); ?>
@@ -193,7 +194,7 @@
                 <?= $this->Form->error('slot_type', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
             </td>
             <td style="text-align: left;">
-                Rule:
+                Rule Type:
                 <span id="rule_type_selector">
                 <?= $this->Form->input('rule_type', array('type' => 'select', 'style' => 'height:30px', 'label' => false, 'div' => false, 'options' => $price_rule_types, 'empty' => 'Select rule type')); ?>
                 <?= $this->Form->error('rule_type', null, array('wrap' => 'div', 'class' => 'error-message')); ?>
