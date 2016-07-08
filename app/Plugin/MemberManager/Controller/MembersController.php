@@ -79,6 +79,7 @@ class MembersController extends MemberManagerAppController{
 			                                        "type": "to"
 			                                }
 			                        ],
+			                        "merge_language": "handlebars",
 			                        "global_merge_vars": '.$global_merge_vars.'
 			                }
 			        }';
@@ -178,6 +179,8 @@ class MembersController extends MemberManagerAppController{
 			$this->Session->setFlash(__('Sorry! Your link has already expired, the link lifetime is only for 60 days.'),'default',array(),'error');
 			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));
 		}
+
+		$realpassword = '';
 
 		// confirm the member
 		$this->Member->id = $member_id;
@@ -639,7 +642,8 @@ class MembersController extends MemberManagerAppController{
         $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Member']['first_name'].'"},';
         $global_merge_vars .= '{"name": "EMAIL", "content": "'.$mail_data['Member']['email_id'].'"},';
         $global_merge_vars .= '{"name": "PHONE", "content": "'.$mail_data['Member']['phone'].'"},';
-        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$password.'"}';
+        $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$password.'"},';
+        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].'"}';
         $global_merge_vars .= ']';
 
         $data_string = '{
@@ -676,6 +680,8 @@ class MembersController extends MemberManagerAppController{
 		);                                                                                                                   
 		                                                                                                                     
 		$result = curl_exec($ch);
+		$errmsg = curl_error($ch);
+		$cInfo = curl_getinfo($ch);
 	}
 	
 	function dashboard() { 

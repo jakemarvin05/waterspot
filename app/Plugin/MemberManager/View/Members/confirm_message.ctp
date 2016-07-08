@@ -1,5 +1,6 @@
   <div class="container-fluid wrapper vendors-page">
-  <header clas="page-header">
+
+  <header clas="page-header" style="margin-top: 60px">
   <p class="beforeHeader">Your request has been sent.</p>
   <h1 class="headerAlt" style="margin-top: 0">Thank you for registering</h1>
   </header>
