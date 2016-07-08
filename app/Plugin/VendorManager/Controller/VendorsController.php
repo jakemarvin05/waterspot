@@ -751,7 +751,9 @@ Class VendorsController extends VendorManagerAppController{
         $global_merge_vars .= '{"name": "NAME", "content": "'.$vendordetail['Vendor']['fname'].'"},';
         $global_merge_vars .= '{"name": "BNAME", "content": "'.$vendordetail['Vendor']['bname'].'"},';
         $global_merge_vars .= '{"name": "EMAIL", "content": "'.$vendordetail['Vendor']['email'].'"},';
-        $global_merge_vars .= '{"name": "PHONE", "content": "'.$vendordetail['Vendor']['phone'].'"}';
+        $global_merge_vars .= '{"name": "EMAIL", "content": "'.$vendordetail['Vendor']['email'].'"},';
+		$global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].'"},';
+		$global_merge_vars .= '{"name": "PHONE", "content": "'.$vendordetail['Vendor']['phone'].'"}';
         $global_merge_vars .= ']';
 
 
