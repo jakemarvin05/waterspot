@@ -322,7 +322,7 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="calculator-output">
-                                        <p>Subtotal: <span id="sub-total">$0</span></p>
+                                        <p><?php echo ($rule_object['max_add_hour'] > 0 && $service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0) || (!preg_match('/yacht/i', $service_detail['service_type']) && !$service_detail['Service']['is_private'] == 1) ? 'Subtotal:' : 'Total:';?> <span id="sub-total">$0</span></p>
                                     </div>
                                     <div class="check-terms">
                                         <label>
