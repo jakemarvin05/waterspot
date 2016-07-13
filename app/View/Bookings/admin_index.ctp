@@ -174,13 +174,16 @@ $(function() {
                                     <?=$this->Html->link('<img src="/img/admin/icons/icon_success.png" alt="Confirm Booking" title="Confirm Booking">',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'accept_paid',$booking_detail['Booking']['id']),array('escape' => false));?>
                                     <?=$this->Html->link('<img src="/img/admin/icons/icon_error.png" alt="Reject Booking" title="Reject Booking">',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false));?>
                                 <?php endif; ?>
-
-                                <?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 1): ?>
-                                    <img src="/img/admin/icons/icon_success.png" alt="Confirmed Booking" title="Confirmed Booking">
+                                <?php if ($booking_detail['Booking']['status'] == 5 && $booking_detail['Booking']['vendor_confirm'] == 3): ?>
+                                    <?=$this->Html->link('<img src="/img/admin/icons/icon_error.png" alt="Reject Booking" title="Reject Booking">',array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'cancel_paid',$booking_detail['Booking']['id']),array('escape' => false));?>
                                 <?php endif; ?>
 
-                                <?php if ($booking_detail['Booking']['status'] == 1 && $booking_detail['Booking']['vendor_confirm'] == 2): ?>
-                                    <img src="/img/admin/icons/icon_error.png" alt="Rejected Booking" title="Rejected Booking">
+                                <?php if ($booking_detail['Booking']['vendor_confirm'] == 1): ?>
+                                    <img src="/img/admin/icons/icon_success.png" class="read-only" alt="Confirmed Booking" title="Confirmed Booking">
+                                <?php endif; ?>
+
+                                <?php if ($booking_detail['Booking']['vendor_confirm'] == 2): ?>
+                                    <img src="/img/admin/icons/icon_error.png"  class="read-only" alt="Rejected Booking" title="Rejected Booking">
                                 <?php endif; ?>
 
 

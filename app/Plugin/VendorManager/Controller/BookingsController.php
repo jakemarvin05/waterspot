@@ -321,7 +321,7 @@ Class BookingsController extends VendorManagerAppController{
 			                                                                                                                     
 			$result = curl_exec($ch);
 
-			$this->Session->setFlash('Booking has been accepeted successfully.','','message');
+			$this->Session->setFlash('Booking has been accepted successfully.','','message');
 		}else{
 			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
 		}
@@ -376,9 +376,9 @@ Class BookingsController extends VendorManagerAppController{
 			$payment_status = ['Not completed','Completed','Processing','Cancelled'];
 
 			$value_added_services_array = [];
-
-			if($booking_order['BookingOrder']['value_added_services']){
-				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+			$value_added_services_array_from_json = json_decode($booking_order['BookingOrder']['value_added_services']);
+			if(!empty($value_added_services_array_from_json)){
+				foreach($value_added_services_array_from_json as $service){
 					$value_added_services_array[] = $service;
 				}
 			}
@@ -440,8 +440,15 @@ Class BookingsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
-			
-			$this->Session->setFlash('Booking has been decline successfully.','','message');
+			$error = curl_error($ch);
+			$info = curl_getinfo($ch);
+			if( $error != '' &&  json_decode($result)[0]->status == 'sent' ){
+				$this->Session->setFlash('Booking has been decline successfully.','','message');
+			}
+			else{
+				$this->Session->setFlash('Booking has been decline successfully.','','message');
+			}
+
 		}else{
 			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
 		}
@@ -589,13 +596,12 @@ Class BookingsController extends VendorManagerAppController{
 		$this->loadModel('VendorManager.Booking');
 		$this->loadModel('VendorManager.BookingOrder');
 		$this->loadModel('MailManager.Mail');
-		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
+		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id, 'Booking.vendor_confirm' =>3)));
 		
 		if(!empty($booking)){
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 2;
-			$this->Booking->save($update_booking);
-			
+
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
 			$this->loadModel('VendorManager.Vendor');
@@ -629,12 +635,13 @@ Class BookingsController extends VendorManagerAppController{
 			}
 
 			$to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
-			$payment_status = ['Not completed','Completed','Processing','Cancelled'];
+			$payment_status = ['Not completed','Completed','Processing','Cancelled','Processing','Payment Failed'];
 
 			$value_added_services_array = [];
 
-			if($booking_order['BookingOrder']['value_added_services']){
-				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+			$value_added_services_array_from_json = json_decode($booking_order['BookingOrder']['value_added_services']);
+			if(!empty($value_added_services_array_from_json)){
+				foreach($value_added_services_array_from_json as $service){
 					$value_added_services_array[] = $service;
 				}
 			}
@@ -660,7 +667,7 @@ Class BookingsController extends VendorManagerAppController{
 			$global_merge_vars .= ']';
 
 			$data_string = '{
-	                "key": '.Configure::read('Mandrill.key').',
+	                "key": "'.Configure::read('Mandrill.key').'",
 	                "template_name": "user-booking-failed",
 	                "template_content": [
 	                        {
@@ -670,8 +677,8 @@ Class BookingsController extends VendorManagerAppController{
 	                ],
 	                "message": {
 	                        "subject": "Booking Declined",
-	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
-	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "from_email": "admin@waterspot.com.sg",
+	                        "from_name": "Waterspot Admin",
 	                        "to": [
 	                                {
 	                                        "email": "'.$to.'",
@@ -695,8 +702,18 @@ Class BookingsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
-			
-			$this->Session->setFlash('Booking has been decline successfully.','','message');
+			$error = curl_error($ch);
+
+
+			if( $error=='' && json_decode($result)[0]->status == 'sent'){
+				$this->Booking->save($update_booking);
+
+				$this->Session->setFlash('Booking has been decline successfully.','','message');
+			}
+			else{
+				$this->Session->setFlash('Booking has not been declined, something went wrong.', 'default','msg','error');
+
+			}
 		}else{
 			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
 		}

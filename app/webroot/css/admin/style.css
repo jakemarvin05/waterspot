@@ -1995,3 +1995,7 @@ a.close-notification {
 	display: block;
 	margin-top: 6px;
 }
+
+img.read-only{
+	opacity: .5;
+}
