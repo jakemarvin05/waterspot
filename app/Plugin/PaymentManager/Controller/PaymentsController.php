@@ -1699,6 +1699,8 @@ class PaymentsController extends PaymentManagerAppController
                 $status_num = 4;
                 // $v .= "status_num = 4\n";
             }
+
+
             if ($payment_ref != null && ($status_num == 1 || $status_num == 4)) {
                 // $v .= "passed = $payment_ref \n";
                 $booking = $this->Booking->find('first', array('conditions' => array('Booking.payment_ref' => $payment_ref)));
@@ -1754,7 +1756,10 @@ class PaymentsController extends PaymentManagerAppController
 				<tr><th><span style="font-size:14px">Min. to go status</span></th></tr>';
                 $total_cart_price = 0;
                 // check payment status
+
                 if (!empty($cart_details)) {
+
+
                     // $v .= "with cart\n";
                     if ($booking_data['Booking']['status'] == 1 || $booking_data['Booking']['status'] == 4) {
                         foreach ($cart_details as $cart_detail) {

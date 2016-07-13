@@ -459,8 +459,7 @@ Class BookingsController extends VendorManagerAppController{
 		if(!empty($booking)){
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 1;
-			$this->Booking->save($update_booking);
-			
+
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
 			$this->loadModel('VendorManager.Vendor');
@@ -496,9 +495,10 @@ Class BookingsController extends VendorManagerAppController{
 			$to = $memberinfo ? $memberinfo['Member']['email_id'] : $booking_order['BookingOrder']['guest_email'];
 
 			$value_added_services_array = [];
+			$value_added_services_array_from_json = json_decode($booking_order['BookingOrder']['value_added_services']);
 
-			if($booking_order['BookingOrder']['value_added_services']){
-				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+			if(!empty($value_added_services_array_from_json)){
+				foreach($value_added_services_array_from_json as $service){
 					$value_added_services_array[] = $service;
 				}
 			}
@@ -507,13 +507,13 @@ Class BookingsController extends VendorManagerAppController{
 
 
 			$global_merge_vars = '[';
-			$global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+				$global_merge_vars .= '{"name": "NAME", "content": "'.$full_name.'"},';
 			$global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 			$global_merge_vars .= '{"name": "SERVICE_TITLE", "content": "'.$booking_order['BookingOrder']['service_title'].'"},';
 			$global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 			$global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 			$global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
-			$global_merge_vars .= '{"name": "PARTICIPANTS", "content": "'.$booking_order['BookingOrder']['participants'].'"},';
+			$global_merge_vars .= '{"name": "PARTICIPANTS", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 			$global_merge_vars .= '{"name": "PRICE", "content": "'.$booking_order['BookingOrder']['price'].'"},';
 			$global_merge_vars .= '{"name": "TOTAL", "content": "'.$booking_order['BookingOrder']['total_amount'].'"},';
 			$global_merge_vars .= '{"name": "SLOTS", "content": "'.$slot_string.'"},';
@@ -525,7 +525,7 @@ Class BookingsController extends VendorManagerAppController{
 			$global_merge_vars .= ']';
 
 	        $data_string = '{
-	                "key": '.Configure::read('Mandrill.key').',
+	                "key": "'.Configure::read('Mandrill.key').'",
 	                "template_name": "user-booking-confirmation-1",
 	                "template_content": [
 	                        {
@@ -535,8 +535,8 @@ Class BookingsController extends VendorManagerAppController{
 	                ],
 	                "message": {
 	                        "subject": "Booking Confirmation",
-	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
-	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "from_email": "admin@waterspot.com.sg",
+	                        "from_name": "Waterspot Admin",
 	                        "to": [
 	                                {
 	                                        "email": "'.$to.'",
@@ -560,8 +560,19 @@ Class BookingsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
+			$error = curl_error($ch);
+			$cInfo = curl_getinfo($ch);
+			curl_close($ch);
 
-			$this->Session->setFlash('Booking has been accepeted successfully.','','message');
+			if( $error=='' && json_decode($result)[0]->status == 'sent'){
+				$this->Booking->save($update_booking);
+				$this->Session->setFlash('Booking has been accepted successfully.','','message');
+			}
+			else{
+				$this->Session->setFlash('Booking has not been accepted, something went wrong.', 'default','msg','error');
+
+			}
+
 		}else{
 			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
 		}

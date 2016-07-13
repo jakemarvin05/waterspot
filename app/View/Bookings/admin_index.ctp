@@ -5,6 +5,9 @@ $search_type=array('ref_no'=>'Order id','transaction_id'=>'Transaction Id','phon
 $search_by_date_type=array('booking_date'=>'Booking Date','start_date'=>'Booked Date');
 
 ?>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
  <script type="text/javascript">
 
 $(function() {

@@ -352,7 +352,7 @@ section[role=navigation] header h1 {
 
 /*  Content Layout :: Nested Box  */
 .nested {
-	border:1px solid inset;
+	border:1px solid;
 	padding:15px;
 	overflow:hidden;
 	-moz-border-radius:3px;
@@ -1318,7 +1318,7 @@ form span.invalid-side-note { background-image:url(../../img/admin/icons/icon_er
 	border:none;
 	box-shadow:none;
 }
-.ie7 .checkbox., .ie8 .checkbox.], .ie9 .checkbox { top:-7px; }
+.ie7 .checkbox, .ie8 .checkbox, .ie9 .checkbox { top:-7px; }
 .ie7 .radio, .ie8 .radio, .ie9 .radio { top:-5px; }
 .ie7 td select {
 	position:relative;
@@ -1540,11 +1540,11 @@ table .actions .delete { background:url('../../img/admin/icons/icon_table_delete
 table .actions .edit1  { background:url('../../img/admin/icons/icon_nav_gallery.png') no-repeat 0 0; }
 table .actions .subcontent { background:url('../../img/admin/icons/manage_subcontent.png') no-repeat 0 0; }
 table .actions .manageimage { background:url('../../img/admin/icons/icon_nav_gallery.png') no-repeat 0 0; }
-table .actions .booking_list { background:url('../../img/admin/icons/booking_list.png') no-repeat 0 0; }
+/*table .actions .booking_list { background:url('../../img/admin/icons/booking_list.png') no-repeat 0 0; }
 table .actions .manage_images { background:url('../../img/admin/icons/gallery.png') no-repeat 0 0; }
 table .actions .managehomeowner { background:url('../../img/admin/icons/supplier_icon.png'); }
 table .actions .Booking { background:url('../../img/admin/icons/booking_icon.png'); }
-table .actions .Cancel { background:url('../../img/admin/icons/booking_cancel.png'); width:16px;height:16px;}
+table .actions .Cancel { background:url('../../img/admin/icons/booking_cancel.png'); width:16px;height:16px;} */
 table .actions .add-slot { background:url('../../img/admin/icons/add-slot.gif'); width:16px;height:16px;}
 
 table .actions .add-avail { background:url('../../img/admin/icons/add-avail.png'); width:16px;height:16px;background-size: cover;}
@@ -1920,7 +1920,7 @@ a.fancybox {
 i.edit-icon.fa.fa-edit {
 	background: rgba(131,224,49,1);
 	background: -moz-linear-gradient(top, rgba(131,224,49,1) 0%, rgba(63,130,0,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(131,224,49,1)), color-stop(100%, rgba(63,130,0,1)));
+	/*background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(131,224,49,1)), color-stop(100%, rgba(63,130,0,1))); */
 	background: -webkit-linear-gradient(top, rgba(131,224,49,1) 0%, rgba(63,130,0,1) 100%);
 	background: -o-linear-gradient(top, rgba(131,224,49,1) 0%, rgba(63,130,0,1) 100%);
 	background: -ms-linear-gradient(top, rgba(131,224,49,1) 0%, rgba(63,130,0,1) 100%);
@@ -1983,4 +1983,15 @@ span.strike {
 a.disabled {
 	opacity: .4;
 	pointer-events: none;
+}
+
+a.close-notification {
+	width: 12px;
+	height: 13px;
+	border: 1px solid;
+	border-radius: 30px;
+	padding: 1px 3px 8px 7px;
+	background: rgba(0, 0, 0, 0.08);
+	display: block;
+	margin-top: 6px;
 }
