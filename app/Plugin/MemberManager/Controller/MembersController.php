@@ -162,7 +162,7 @@ class MembersController extends MemberManagerAppController{
 		// check if the account is already active
 		if ($member['active'] == 1) {
 			$this->Session->setFlash(__('Your account has already been activated, please continue to login.'),'default',array(),'error');
-			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'registration'));
+			$this->redirect(array('plugin'=>'member_manager','controller'=>'members', 'action' => 'log_in'));
 		}
 
 		// checks validity of the link, checks for attackers
@@ -500,7 +500,7 @@ class MembersController extends MemberManagerAppController{
 			$this->Member->create();
 			$this->Member->save($this->request->data);
 			if(!empty($this->Member->id) && (empty($id))){
-				$this->__mail_send(11,$this->request->data,$memberPass);	
+				$this->__mail_send(11,$this->request->data,$memberPass);
 			}
 			if ($this->request->data['Member']['id']) {
 				$this->Session->setFlash(__('Member has been updated successfully'));
@@ -636,14 +636,19 @@ class MembersController extends MemberManagerAppController{
 		$subject = 'Thank you for registering with us';
 		$to = $mail_data['Member']['email_id'];
 		$to_name = $mail_data['Member']['first_name'];
-		$template_name = 'user-sign-up';
+		$template_name = 'sign-up-confirmation';
+
+		$time = time();
+		$hash = md5($this->request->data['Member']['email_id'] . $time);
+		$confirm_url = $this->setting['site']['site_url'] . '/member_manager/members/confirm_registration/' . $this->Member->id . '/' . $hash . '/' . $time;
+
 
 		$global_merge_vars = '[';
         $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Member']['first_name'].'"},';
         $global_merge_vars .= '{"name": "EMAIL", "content": "'.$mail_data['Member']['email_id'].'"},';
         $global_merge_vars .= '{"name": "PHONE", "content": "'.$mail_data['Member']['phone'].'"},';
         $global_merge_vars .= '{"name": "PASSWORD", "content": "'.$password.'"},';
-        $global_merge_vars .= '{"name": "URL", "content": "'.$this->setting['site']['site_url'].'"}';
+        $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "'.$confirm_url.'"}';
         $global_merge_vars .= ']';
 
         $data_string = '{

@@ -220,8 +220,7 @@ Class BookingsController extends VendorManagerAppController{
 		if(!empty($booking)){
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 1;
-			$this->Booking->save($update_booking);
-			
+
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
 			$this->loadModel('VendorManager.Vendor');
@@ -258,8 +257,9 @@ Class BookingsController extends VendorManagerAppController{
 
 			$value_added_services_array = [];
 
-			if($booking_order['BookingOrder']['value_added_services']){
-				foreach($booking_order['BookingOrder']['value_added_services'] as $service){
+			$value_added_services_array_from_json = json_decode($booking_order['BookingOrder']['value_added_services']);
+			if(!empty($value_added_services_array_from_json)){
+				foreach($value_added_services_array_from_json as $service){
 					$value_added_services_array[] = $service;
 				}
 			}
@@ -285,7 +285,7 @@ Class BookingsController extends VendorManagerAppController{
 
 
 	        $data_string = '{
-	                "key": '.Configure::read('Mandrill.key').',
+	                "key": "'.Configure::read('Mandrill.key').'",
 	                "template_name": "user-booking-confirmation-1",
 	                "template_content": [
 	                        {
@@ -295,8 +295,8 @@ Class BookingsController extends VendorManagerAppController{
 	                ],
 	                "message": {
 	                        "subject": "Booking Confirmation",
-	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
-	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "from_email": "admin@waterspot.com.sg",
+	                        "from_name": "Waterspot Admin",
 	                        "to": [
 	                                {
 	                                        "email": "'.$to.'",
@@ -320,8 +320,18 @@ Class BookingsController extends VendorManagerAppController{
 			);                                                                                                                   
 			                                                                                                                     
 			$result = curl_exec($ch);
+			$error = curl_error($ch);
 
-			$this->Session->setFlash('Booking has been accepted successfully.','','message');
+			if(json_decode($result)[0]->status == 'sent' && $error != ''){
+				$this->Booking->save($update_booking);
+				$this->Session->setFlash('Booking has been accepted successfully.','','message');
+			}
+			else{
+				$this->Session->setFlash('Booking has not been accepted, something went wrong.', 'default','msg','error');
+
+			}
+
+
 		}else{
 			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
 		}
@@ -446,7 +456,7 @@ Class BookingsController extends VendorManagerAppController{
 				$this->Session->setFlash('Booking has been decline successfully.','','message');
 			}
 			else{
-				$this->Session->setFlash('Booking has been decline successfully.','','message');
+				$this->Session->setFlash('Booking has not been declined, something went wrong.', 'default','msg','error');
 			}
 
 		}else{
@@ -581,7 +591,7 @@ Class BookingsController extends VendorManagerAppController{
 			}
 
 		}else{
-			$this->Session->setFlash('Sorry! Booking id was not found.','','error');
+			$this->Session->setFlash('Sorry! Booking id was not found.', 'default','msg','error');
 		}
 		$ref = Controller::referer();
 		if ($ref != '/') {
@@ -715,7 +725,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			}
 		}else{
-			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
+			$this->Session->setFlash('Sorry! Booking id does not found.', 'default','msg','error');
 		}
 		$ref = Controller::referer();
 		if ($ref != '/') {
@@ -769,7 +779,8 @@ Class BookingsController extends VendorManagerAppController{
 			$this->Session->setFlash(__('Booking has been decline successfully.'));
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_request'));
 		}else{
-			$this->Session->setFlash('Sorry! Booking id does not found.','','error');
+			$this->Session->setFlash('Sorry! Booking id does not found.', 'default','msg','error');
+
 			$this->redirect(array('plugin'=>'vendor_manager','controller'=>'bookings','action'=>'booking_request'));
 		}
 		

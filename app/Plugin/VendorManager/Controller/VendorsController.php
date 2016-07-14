@@ -203,6 +203,7 @@ Class VendorsController extends VendorManagerAppController{
 	}
 	
 	function admin_add($id=null){
+
 		$this->breadcrumbs[] = array(
 		'url'=>Router::url('/admin/home'),
 		'name'=>'Home');
@@ -698,7 +699,7 @@ Class VendorsController extends VendorManagerAppController{
 		$template_name = 'vendor-welcome-email-after-sign-up-confirmation';
 
 		$global_merge_vars = '[';
-        $global_merge_vars .= '{"name": "NAME", "content": "'.$mail_data['Vendor']['fname'].'"},';
+        $global_merge_vars .= '{"name": "VENDOR", "content": "'.$mail_data['Vendor']['fname'].'"},';
         $global_merge_vars .= '{"name": "BNAME", "content": "'.$mail_data['Vendor']['bname'].'"},';
         $global_merge_vars .= '{"name": "EMAIL", "content": "'.$mail_data['Vendor']['email'].'"},';
         $global_merge_vars .= '{"name": "PHONE", "content": "'.$mail_data['Vendor']['phone'].'"},';
