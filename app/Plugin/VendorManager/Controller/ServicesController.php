@@ -853,7 +853,6 @@ Class ServicesController extends VendorManagerAppController
         //save slots
         if (!empty($this->request->data) && $this->slot_validation()) {
             $booking_slot_data = $this->request->data['BookingSlot'];
-            echo '<pre>';
 
             foreach ($this->request->data['Activity']['slots'] as $key => $slot) {
                 // if slot is not selected then contiue
@@ -926,13 +925,14 @@ Class ServicesController extends VendorManagerAppController
                 }
 
             }
-
-            $this->redirect(array('action' => 'book_slots', $vendor_id, $service_id));
             if (!empty($booked_slot_ids)) {
-                $this->Session->setFlash(__('Service slots has been added successfully.'));
+                $this->Session->setFlash(__('Slot has been manually booked successfully.'));
             } else {
-                $this->Session->setFlash(__('Service slots has been not added.', false));
+                $this->Session->setFlash(__('Slot has not been manually booked.', false));
             }
+
+            $this->redirect($this->referer());
+
         }
         $this->breadcrumbs[] = array(
             'url' => Router::url('/'),
