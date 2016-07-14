@@ -80,6 +80,7 @@ class PaymentsController extends PaymentManagerAppController
         // new secured checkout
         $this->autoRender = false;
         $urldata = self::_paypal_url_data($payment_data, $cart_details);
+        die($urldata);
         $this->redirect($urldata);
     }
 
@@ -250,6 +251,7 @@ class PaymentsController extends PaymentManagerAppController
     {
         $this->loadModel('Booking');
         $this->loadModel('BookingOrder');
+        $this->loadModel('BookingParticipate');
         $this->loadModel('Cart');
         $this->loadModel('BookingSlot');
         $this->loadModel('ServiceManager.ServiceType');
@@ -528,14 +530,14 @@ class PaymentsController extends PaymentManagerAppController
                 $global_merge_vars .= '{"name": "ORDER_COMMENT", "content": "' . (!empty($customer_detail['Booking']['order_message'])) ? $customer_detail['Booking']['order_message'] : 'There are no comments.' . '"},';
                 $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
                 $global_merge_vars .= '{"name": "TOTAL", "content": "' . number_format($total_cart_price, 2) . '"},';
-                $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "' . Router::url('/vendor/booking_list') . '"},';
+                $global_merge_vars .= '{"name": "CONFIRM_LINK", "content": "' . $this->setting['site']['site_url'].'/vendor/booking_list' . '"},';
                 $global_merge_vars .= '{"name": "BOOKING_DETAIL", "content": "' . str_replace(['"', "\n", "\t"], ['\'', "", ""], $booking_content) . '"}';
                 $global_merge_vars .= ']';
 
 
                 $key = Configure::read('Mandrill.key');
-                $from = $customer_detail['Booking']['email'];
-                $from_name = $customer_detail['Booking']['fname'] . " " . $customer_detail['Booking']['lname'];
+                $from = 'admin@waterspot.com.sg';
+                $from_name = 'Waterspot Admin';
                 $subject = 'Booking has been received';
                 $to = $vendor_details['Vendor']['email'];
                 $to_name = $mail['Mail']['mail_from'];
@@ -561,7 +563,7 @@ class PaymentsController extends PaymentManagerAppController
 		                                        "type": "to"
 		                                }
 		                        ],
-		                        "merge_laguage": "handlebars",
+		                        "merge_language": "handlebars",
 		                        "global_merge_vars": ' . $global_merge_vars . ',
 		                        "bcc_address": "' . $this->setting['site']['site_contact_email'] . '"
 		                }
@@ -577,7 +579,20 @@ class PaymentsController extends PaymentManagerAppController
                 );
 
                 $result = curl_exec($ch);
+                $error = curl_error($ch);
                 curl_close($ch);
+
+                if($error==''){
+                    if(json_decode($result)[0]->status == 'sent'){
+                        die('done');
+                    }
+                    else{
+                        echo '<pre>';
+                        var_dump(json_decode($result)[0]);
+                        die();
+                    }
+                }
+
             }
         }
         return true;
@@ -848,8 +863,8 @@ class PaymentsController extends PaymentManagerAppController
 		                ],
 		                "message": {
 		                        "subject": "' . trim($mail['Mail']['mail_subject']) . " " . $booking_detail['Booking']['fname'] . '",
-		                        "from_email": "' . $booking_detail['Booking']['email'] . '",
-		                        "from_name": "' . $mail['Mail']['mail_from'] . '",
+		                        "from_email": "admin@waterspot.com.sg",
+		                        "from_name": "Waterspot Admin",
 		                        "to": [
 		                                {
 		                                        "email": "' . $booking_participates_mail['BookingParticipate']['email'] . '",
@@ -1968,7 +1983,7 @@ class PaymentsController extends PaymentManagerAppController
                     $global_merge_vars .= ']';
 
                     $data_string = '{
-			                "key": '.Configure::read('Mandrill.key').',
+			                "key": "'.Configure::read('Mandrill.key').'",
 			                "template_name": "vendor-min-to-go-reached",
 			                "template_content": [
 			                        {
@@ -2123,7 +2138,7 @@ class PaymentsController extends PaymentManagerAppController
                     $global_merge_vars .= ']';
 
                     $data_string = '{
-			                "key": '.Configure::read('Mandrill.key').',
+			                "key": "'.Configure::read('Mandrill.key').'",
 			                "template_name": "vendor-min-to-go-reached",
 			                "template_content": [
 			                        {

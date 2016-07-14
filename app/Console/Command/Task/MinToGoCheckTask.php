@@ -38,7 +38,7 @@ class MinToGoCheckTask extends Shell {
 			        $global_merge_vars .= ']';
 
 			        $data_string = '{
-			                "key": '.Configure::read('Mandrill.key').',
+			                "key": "'.Configure::read('Mandrill.key').'",
 			                "template_name": "vendor-min-to-go-not-reached",
 			                "template_content": [
 			                        {
@@ -97,7 +97,7 @@ class MinToGoCheckTask extends Shell {
 				        $global_merge_vars .= ']';
 
 				        $data_string = '{
-				                "key": '.Configure::read('Mandrill.key').',
+				                "key": "'.Configure::read('Mandrill.key').'",
 				                "template_name": "vendor-min-to-go-not-reached",
 				                "template_content": [
 				                        {
