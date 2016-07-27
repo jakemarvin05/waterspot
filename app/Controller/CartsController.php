@@ -100,7 +100,10 @@ Class CartsController extends AppController
         // for coupon data
         if ($this->Session->check('coupon_id')) {
             $this->loadModel('Coupon');
-            $this->set('coupon', $this->Coupon->find('first', ['conditions' => ['id' => $this->Session->read('coupon_id')]]));
+            $coupon = $this->Coupon->find('first', ['conditions' => ['id' => $this->Session->read('coupon_id')]]);
+            $this->set('coupon', $coupon);
+            $discount_percent = $coupon['Coupon']['discount']*100;
+            $this->Cart->updateAll(array('Cart.discount_percent' => $discount_percent));
         }
     }
 

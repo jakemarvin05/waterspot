@@ -28,7 +28,7 @@ class PaymentsController extends PaymentManagerAppController
         $this->loadModel('Cart');
         $this->loadModel('Booking');
         $criteria = array();
-        $criteria['fields'] = array('Cart.price', 'Cart.value_added_price','Cart.no_of_pax', 'Cart.no_participants', 'Cart.start_date', 'Cart.end_date', 'Service.service_title', 'Service.description', 'Cart.total_amount', 'Cart.slots', 'Cart.invite_friend_email');
+        $criteria['fields'] = array('Cart.price', 'Cart.value_added_price','Cart.no_of_pax', 'Cart.no_participants', 'Cart.start_date', 'Cart.end_date', 'Service.service_title', 'Service.description', 'Cart.total_amount', 'Cart.slots','Cart.discount_percent', 'Cart.invite_friend_email');
         $criteria['joins'] = array(
             array(
                 'table' => 'services',
@@ -80,7 +80,6 @@ class PaymentsController extends PaymentManagerAppController
         // new secured checkout
         $this->autoRender = false;
         $urldata = self::_paypal_url_data($payment_data, $cart_details);
-        die($urldata);
         $this->redirect($urldata);
     }
 
@@ -1640,6 +1639,8 @@ class PaymentsController extends PaymentManagerAppController
             $ud['currency_code'] = 'SGD';
             $html .= 'cmd=_cart&upload=1&business=' . $paypal_email . '&currency_code=SGD';
             if (!empty($cartData)) {
+
+
                 foreach ($cartData as $cart_detail) {
                     $diff = abs(strtotime($cart_detail['Cart']['end_date']) - strtotime($cart_detail['Cart']['start_date']));
                     $years = floor($diff / (365 * 60 * 60 * 24));
@@ -1664,6 +1665,7 @@ class PaymentsController extends PaymentManagerAppController
 
 
                         $ud["amount_$i"] = $itemprice;
+                        $ud["discount_rate$i"] = $cart_detail['Cart']['discount_percent'];
                         $html .= "&item_name_{$i}={$itemname}%20($desc)&quantity_{$i}=$participants&amount_{$i}=$itemprice";
                         $i++;
                     }
