@@ -7,7 +7,11 @@
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">call us</p>
 
-                    <p class="footerContactAfterHeader">+65 8299 2678</p>
+                    <p class="footerContactAfterHeader">
+                        +65 8299 2678
+                        <br>
+                        +65 8742 7242
+                    </p>
                 </div>
                 <div class="footerContactBlock">
                     <p class="footerContactSmallHeader">send an enquiry</p>
