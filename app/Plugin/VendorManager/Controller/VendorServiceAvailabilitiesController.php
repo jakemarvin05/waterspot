@@ -232,6 +232,8 @@ Class VendorServiceAvailabilitiesController extends VendorManagerAppController{
 			1 => 'Weekday',
 			2 => 'Weekend',
 			3 => 'Special',
+			4 => 'Weekday Special',
+			5 => 'Weekend Special',
 		]);
 	}
 		

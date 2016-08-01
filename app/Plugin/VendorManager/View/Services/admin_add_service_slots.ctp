@@ -30,6 +30,8 @@ function saveform(){
 	    	$weekdays = '';
 			$weekends = '';
 			$special  = '';
+			$weekendspecial  = '';
+			$weekdayspecial  = '';
 	    ?>
 
     	<?php foreach($service_slots as $service_slot) {
@@ -44,8 +46,12 @@ function saveform(){
 				$weekdays .= $table_str;
 			} else if ($service_slot['slot_type'] == 2) {
 				$weekends .= $table_str;
-			} else {
+			} else if ($service_slot['slot_type'] == 3) {
 				$special .= $table_str;
+			} else if ($service_slot['slot_type'] == 4) {
+				$weekdayspecial .= $table_str;
+			} else if ($service_slot['slot_type'] == 5) {
+				$weekendspecial .= $table_str;
 			}
 		}
 		?>
@@ -100,6 +106,39 @@ function saveform(){
 				}
 			?>
 		</table>
+			<h4>Weekday Special</h4>
+			<table width="100%" style="margin-bottom:10px;">
+				<tr>
+					<td colspan="3"><strong>Start Time</strong></td>
+					<td colspan="2"><strong>End Time</strong></td>
+					<td colspan="2"><strong>Price</strong></td>
+					<td><strong>Cancel</strong></td>
+				</tr>
+				<?php
+				if (strlen($weekdayspecial)) {
+					echo $weekdayspecial;
+				} else {
+					echo '<tr><td colspan="8">No slots defined</td></tr>';
+				}
+				?>
+			</table>
+
+			<h4>Weekend Special</h4>
+			<table width="100%" style="margin-bottom:10px;">
+				<tr>
+					<td colspan="3"><strong>Start Time</strong></td>
+					<td colspan="2"><strong>End Time</strong></td>
+					<td colspan="2"><strong>Price</strong></td>
+					<td><strong>Cancel</strong></td>
+				</tr>
+				<?php
+				if (strlen($weekendspecial)) {
+					echo $weekendspecial;
+				} else {
+					echo '<tr><td colspan="8">No slots defined</td></tr>';
+				}
+				?>
+			</table>
 	<?php }else{ ?>
 		<div class="no-record">No slot is available here</div>
 	<?php } ?>
