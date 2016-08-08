@@ -106,6 +106,8 @@ Class ActivityController extends AppController
 
         $this->loadModel('VendorManager.Service');
         $this->loadModel('PriceManager.Price');
+        $this->loadModel('VendorManager.Attribute');
+        $this->loadModel('VendorManager.ServiceAttribute');
 
         array_push(self::$css_for_layout, 'activity/activity.css');
 
@@ -733,6 +735,9 @@ Class ActivityController extends AppController
         $this->loadModel('VendorManager.Vendor');
         $this->loadModel('VendorManager.ServiceImage');
         $this->loadModel('VendorManager.ServiceReview');
+        $this->loadModel('VendorManager.Attribute');
+        $this->loadModel('VendorManager.ServiceAttribute');
+
         array_push(self::$script_for_layout, array('jquery.contenthover.min.js', $this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.js'));
         array_push(self::$css_for_layout, array($this->setting['site']['jquery_plugin_url'] . 'ratings/jquery.rating.css'));
         // searching list
@@ -797,8 +802,39 @@ Class ActivityController extends AppController
             $service_list['image'] = $this->ServiceImage->getOneimageServiceImageByservice_id($service_list['Service']['id']);
             $service_list['rating'] = (round($service_list[0]['rating']));
             $service_list['slug'] = $service_list['Service']['slug'];
+            // attributes
+            $attribute_list = $this->ServiceAttribute->find('all', ['conditions' => ['service_id' => $service_list['Service']['id']]]);
+            $attributes = [];
+            foreach ($attribute_list as $attr) {
+                $attribute = [];
+                $attribute_detail = $this->Attribute->find('first', ['conditions' => ['id' => $attr['ServiceAttribute']['attribute_id']]]);
+                if (!$attribute_detail) {
+                    $remove_id = $this->ServiceAttribute->find('first', ['conditions' => ['service_id' => $service_list['Service']['id'], 'attribute_id' => $attr['ServiceAttribute']['attribute_id']]]);
+                    $this->ServiceAttribute->delete($remove_id['ServiceAttribute']['id']);
+                    continue;
+                }
+                if($attribute_detail['Attribute']['name']!='Capacity' && $attribute_detail['Attribute']['name']!='Best for'){
+                    continue;
+                }
+                $attribute['name'] = $attribute_detail['Attribute']['name'];
+                $attribute['type'] = $attribute_detail['Attribute']['type'] == 1 ? 'Amenity' : ($attribute_detail['Attribute']['type'] == 2 ? 'Included' : ($attribute_detail['Attribute']['type'] == 3 ? 'Extra' : 'Detail'));
+                $attribute['has_input'] = $attribute_detail['Attribute']['has_input'];
+                $attribute['icon_class'] = $attribute_detail['Attribute']['icon_class'] ? $attribute_detail['Attribute']['icon_class'] : 'fa fa-check';
+                $attribute['value'] = $attr['ServiceAttribute']['value'];
+                $attributes[] = $attribute;
+
+                $service_list['attributes'] = $attributes;
+            }
+
+            if (!empty($service_list['attributes'])) usort($service_list['attributes'],
+                function($a, $b)
+                {
+                    return $a['name'] > $b['name'];
+                }
+                );
             $new_activity_service_list[$key] = $service_list;
         }
+
         //pr($new_activity_service_list);
         //all service type listing.
         $service_type_list = Cache::read('cake_service_list');
@@ -807,6 +843,7 @@ Class ActivityController extends AppController
             $service_type_list = $this->ServiceType->find('list', array('fields' => array('ServiceType.id', 'ServiceType.name'), 'conditions' => array('ServiceType.status' => 1), 'order' => array('ServiceType.reorder ASC')));
             Cache::write('cake_service_list', $service_type_list);
         }
+
         // all vendor list
         $vendor_list = $this->Vendor->vendorList();
         $this->set('service_type_list', $service_type_list);

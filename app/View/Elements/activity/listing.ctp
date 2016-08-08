@@ -25,6 +25,18 @@ $i = $this->paginator->counter('{:start}');
 			<div class="tile-info">
 				<h4><a href="/activity/details/<?php echo ($search_service_list['slug']?$search_service_list['slug']:$search_service_list['Service']['id']);?>"><?php echo $search_service_list['Service']['service_title'];?></a></h4>
 				<div class="clearfix"></div>
+				<div class="icons">
+					<?php
+					// Check if attributes is not empty then render
+					if(!empty($search_service_list['attributes'])){
+						// loop through each attributes
+						foreach($search_service_list['attributes'] as $attribute){
+							echo '<span class="attr-icon"><i class="'.$attribute['icon_class'].'" aria-hidden="true"></i> <strong>'.$attribute['name'].':</strong> '.$attribute['value'];
+							echo '<br>';
+						}
+					}
+					?>
+					</div>
 			</div>
 
 			<div class="activity-rating-wrapper" style="display:none!important;">
