@@ -82,7 +82,7 @@
             </div>
 
             <script>
-                $(document).ready(function () {
+                $(window).load(function () {
 
                     // Store the heights into a variable
                     var heights = $(".activities-listing").map(function () {
