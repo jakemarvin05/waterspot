@@ -342,6 +342,7 @@ Class BookingsController extends VendorManagerAppController{
 	{
 		$this->loadModel('VendorManager.Booking');
 		$this->loadModel('VendorManager.BookingOrder');
+		$this->loadModel('VendorManager.BookingSlot');
 		$this->loadModel('MailManager.Mail');
 		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id,'Booking.status' => 1,'Booking.vendor_confirm' =>3)));
 		
@@ -349,7 +350,10 @@ Class BookingsController extends VendorManagerAppController{
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 2;
 			$this->Booking->save($update_booking);
-			
+
+			// Delete the slots from booking
+			$this->BookingSlot->deleteAll(array('BookingSlot.ref_no' => $booking['Booking']['ref_no']), false);
+
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
 			$this->loadModel('VendorManager.Vendor');
@@ -606,11 +610,16 @@ Class BookingsController extends VendorManagerAppController{
 		$this->loadModel('VendorManager.Booking');
 		$this->loadModel('VendorManager.BookingOrder');
 		$this->loadModel('MailManager.Mail');
+		$this->loadModel('VendorManager.BookingSlot');
+
 		$booking = $this->Booking->find('first', array('conditions' => array('Booking.id' => $booking_id, 'Booking.vendor_confirm' =>3)));
 		
 		if(!empty($booking)){
 			$update_booking['Booking']['id'] = $booking['Booking']['id'];
 			$update_booking['Booking']['vendor_confirm'] = 2;
+
+			// Delete the slots from booking
+			$this->BookingSlot->deleteAll(array('BookingSlot.ref_no' => $booking['Booking']['ref_no']), false);
 
 			//send mail to the member
 			$this->loadModel('MemberManager.Member');
