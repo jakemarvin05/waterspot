@@ -80,50 +80,12 @@
 
                 </div>
             </div>
-
-            <script>
-                $(window).load(function () {
-
-                    // Store the heights into a variable
-                    var heights = $(".activities-listing").map(function () {
-                        return $(this).height();
-                    }).get();
-                    // Get the max heights into a variable
-                    var maxHeight = Math.max.apply(null, heights);
-                    // Set the max heights into a variable
-                    $('.activities-listing').height(maxHeight);
-
-                    // trigger reassigning at resize
-                    $(window).resize(function () {
-
-                        if ($(window).width() < 480) {
-                            // disable the height style if in mobile
-                            $('.activities-listing').height('auto');
-
-                        }
-                        else {
-                            // refresh heights
-                            $('.activities-listing').height('auto');
-                            // Store the heights into a variable
-                            var heights = $(".activities-listing").map(function () {
-                                return $(this).height();
-                            }).get();
-                            // Get the max heights into a variable
-                            var maxHeight = Math.max.apply(null, heights);
-                            // Set the max heights into a variable
-                            $('.activities-listing').height(maxHeight);
-                        }
-                    });
-
-                });
-            </script>
             <div class="middle-area listing-body">
                 <div id='sort_by_price' class="ajax-loder"
                      style="float:left; width: 100%; text-align: center; padding: 20px 0; display:none">
                     <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                 </div>
-                <div class="activities">
-                    <div class="row">
+                <div class="activities row">
                         <? if (!empty($activity_service_list)) { ?>
                             <?php echo $this->element('activity/listing', array('search_service_lists' => $activity_service_list)); ?>
                         <? } else { ?>
@@ -134,7 +96,6 @@
                             <div class="sun-text no-record"> There are no record found.</div>
                         <? } ?>
                         <div class="clearfix"></div>
-                    </div>
 
                 </div>
                 <div class="load-more-listings">
@@ -236,7 +197,7 @@
                                 success: function (data) {
                                     loading_start = 0;
                                     $('#loader-image').hide();
-                                    $('.activities-listing:last').after(data);
+                                    $('.activities').append(data);
                                     $('.tile').contenthover({
                                         overlay_background: '#000',
                                         overlay_opacity: 1
