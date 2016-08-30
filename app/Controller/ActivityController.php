@@ -383,6 +383,12 @@ Class ActivityController extends AppController
                     case 3:
                         $special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
                         break;
+                    case 4:
+                        $weekday_special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                        break;
+                    case 5:
+                        $weekend_special_rules[$rule['Price']['rule_key']] = $rule['Price']['rule_value'];
+                        break;
                     default:
                         break;
                 }
@@ -391,11 +397,13 @@ Class ActivityController extends AppController
         }
 
 
-        $rule_object['max_add_hour'] = $hour && count($hour) == 3 ? max($hour) : 0;
-        $rule_object['max_pax'] = $pax && count($pax) == 3 ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
+        $rule_object['max_add_hour'] = $hour && count($hour) == 5 ? max($hour) : 0;
+        $rule_object['max_pax'] = $pax && count($pax) == 5 ? (max($pax) + $service_detail['Service']['num_pax_included']) : 0;
         $rule_object['rules']['weekday_rules'] = $weekday_rules;
         $rule_object['rules']['weekend_rules'] = $weekend_rules;
         $rule_object['rules']['special_rules'] = $special_rules;
+        $rule_object['rules']['weekday_special_rules'] = $weekday_special_rules;
+        $rule_object['rules']['weekend_special_rules'] = $weekend_special_rules;
 
         $header = $this->ServiceType->find('first', ['conditions' => ['id' => $service_detail['Service']['service_type_id']]]);
         $this->set('header', $header['ServiceType']['header']);

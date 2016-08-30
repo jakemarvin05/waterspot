@@ -227,11 +227,11 @@
                                     <?= $this->Form->create('Activity', array('url' => array('controller' => 'activity', 'action' => 'add_to_card'), 'name' => 'add_services', 'class' => 'quick-contacts5', 'id' => 'add_services', 'novalidate' => true)); ?>
                                     <?= $this->Form->text('service_id', array('type' => 'hidden', 'value' => $service_detail['Service']['id'])); ?>
                                     <br>
-                                    <?php if(!preg_match('/yacht/i', $service_detail['service_type']) && !$service_detail['Service']['is_private'] == 1){ ?>
-                                    <div class="select-participant"
-                                         style="display:block">
-                                        <h4 class="select-participant-txt">No. of Pax</h4>
-                                        <div class="input-group">
+                                    <?php if (!preg_match('/yacht/i', $service_detail['service_type']) && !$service_detail['Service']['is_private'] == 1) { ?>
+                                        <div class="select-participant"
+                                             style="display:block">
+                                            <h4 class="select-participant-txt">No. of Pax</h4>
+                                            <div class="input-group">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-default btn-number"
                                                             data-type="minus"
@@ -239,18 +239,18 @@
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
                                                 </span>
-                                            <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class' => 'form-control input-number', 'value' => ($service_detail['Service']['num_pax_included'] > 1 ? $service_detail['Service']['num_pax_included'] : 0), 'max' => ($rule_object['max_pax'] > 0 ? $rule_object['max_pax'] : 50), 'min' => 1, 'div' => false, 'label' => false)); ?>
-                                            <span class="input-group-btn">
+                                                <?= $this->Form->input((!preg_match('/yacht/i', $service_detail['service_type']) ? 'no_participants' : 'no_of_pax'), array('type' => 'text', 'class' => 'form-control input-number', 'value' => ($service_detail['Service']['num_pax_included'] > 1 ? $service_detail['Service']['num_pax_included'] : 0), 'max' => ($rule_object['max_pax'] > 0 ? $rule_object['max_pax'] : 50), 'min' => 1, 'div' => false, 'label' => false)); ?>
+                                                <span class="input-group-btn">
                                                       <button type="button" class="btn btn-default btn-number"
                                                               data-type="plus"
                                                               data-field="<?php echo(!preg_match('/yacht/i', $service_detail['service_type']) ? 'data[Activity][no_participants]' : 'data[Activity][no_of_pax]'); ?>">
                                                           <span class="glyphicon glyphicon-plus"></span>
                                                       </button>
                                                 </span>
-                                        </div>
+                                            </div>
 
-                                    </div>
-                                    <?php echo $this->element('message'); ?>
+                                        </div>
+                                        <?php echo $this->element('message'); ?>
 
                                     <?php } ?>
 
@@ -270,7 +270,7 @@
                                         <?php echo $this->Html->image('loader-2.gif', array('alt' => 'loading..')); ?>
                                     </div>
                                     <div id='slots_form' style="display:none"></div>
-                                    <?php if (preg_match('/yacht/i', $service_detail['service_type']) && ($service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0 )){ ?>
+                                    <?php if (preg_match('/yacht/i', $service_detail['service_type']) && ($service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0)) { ?>
                                         <div class="select-participant"
                                              style="display:<?php echo($service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0 ? 'block' : 'none') ?>;">
                                             <h4 class="select-participant-txt">No. of Pax</h4>
@@ -294,7 +294,7 @@
 
                                         </div>
                                         <?php echo $this->element('message'); ?>
-                                        <?php }else{ ?>
+                                    <?php } else { ?>
 
                                         <?= $this->Form->input('no_participants', array('type' => 'hidden', 'div' => false, 'label' => false, 'value' => 1)); ?>
                                     <?php } ?>
@@ -323,7 +323,8 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="calculator-output">
-                                        <p><?php echo ($rule_object['max_add_hour'] > 0 && $service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0) || (!preg_match('/yacht/i', $service_detail['service_type']) && !$service_detail['Service']['is_private'] == 1) ? 'Subtotal:' : 'Total:';?> <span id="sub-total">$0</span></p>
+                                        <p><?php echo ($rule_object['max_add_hour'] > 0 && $service_detail['Service']['num_pax_included'] > 0 && $rule_object['max_pax'] > 0) || (!preg_match('/yacht/i', $service_detail['service_type']) && !$service_detail['Service']['is_private'] == 1) ? 'Subtotal:' : 'Total:'; ?>
+                                            <span id="sub-total">$0</span></p>
                                     </div>
                                     <div class="check-terms">
                                         <label>
@@ -590,7 +591,7 @@
                     newPrice = parseInt(this.slotPrice) + (parseInt(this.pricePerHour) * parseInt(this.additionalHour)) + (parseInt(this.additionalPax) * parseInt(this.pricePerPax));
                 }
                 else {
-                    if(this.selectedPax > 0) {
+                    if (this.selectedPax > 0) {
                         newPrice = parseInt(this.slotPrice) * parseInt(this.selectedPax);
                     }
                     else {
@@ -681,6 +682,30 @@
                             rule.pricePerPax = $rule_object_json.special_rules['price per pax'] ? $rule_object_json.special_rules['price per pax'] : 0;
                             rule.pricePerHour = $rule_object_json.special_rules['price per hour'] ? $rule_object_json.special_rules['price per hour'] : 0;
                             rule.maxAddHourAllowed = $rule_object_json.special_rules['max additional hour'] ? $rule_object_json.special_rules['max additional hour'] : 0;
+                            rule.hasRule = true;
+                        }
+                        else {
+                            rule.hasRule = false;
+                        }
+                        break;
+                    case 4:
+                        // check for rules and assign
+                        if (!$.isEmptyObject($rule_object_json.weekday_special_rules)) {
+                            rule.pricePerPax = $rule_object_json.weekday_special_rules['price per pax'] ? $rule_object_json.weekday_special_rules['price per pax'] : 0;
+                            rule.pricePerHour = $rule_object_json.weekday_special_rules['price per hour'] ? $rule_object_json.weekday_special_rules['price per hour'] : 0;
+                            rule.maxAddHourAllowed = $rule_object_json.weekday_special_rules['max additional hour'] ? $rule_object_json.weekday_special_rules['max additional hour'] : 0;
+                            rule.hasRule = true;
+                        }
+                        else {
+                            rule.hasRule = false;
+                        }
+                        break;
+                    case 5:
+                        // check for rules and assign
+                        if (!$.isEmptyObject($rule_object_json.weekend_special_rules)) {
+                            rule.pricePerPax = $rule_object_json.weekend_special_rules['price per pax'] ? $rule_object_json.weekend_special_rules['price per pax'] : 0;
+                            rule.pricePerHour = $rule_object_json.weekend_special_rules['price per hour'] ? $rule_object_json.weekend_special_rules['price per hour'] : 0;
+                            rule.maxAddHourAllowed = $rule_object_json.weekend_special_rules['max additional hour'] ? $rule_object_json.weekend_special_rules['max additional hour'] : 0;
                             rule.hasRule = true;
                         }
                         else {

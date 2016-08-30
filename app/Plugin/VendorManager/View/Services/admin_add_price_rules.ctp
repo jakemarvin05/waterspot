@@ -31,10 +31,14 @@
         $weekdays = '';
         $weekends = '';
         $special = '';
+        $weekdaySpecial = '';
+        $weekendSpecial = '';
 
         $table_weekdays_has_no_data = true;
         $table_weekends_has_no_data = true;
         $table_special_has_no_data = true;
+        $table_weekday_special_has_no_data = true;
+        $table_weekend_special_has_no_data = true;
         $rule_ctr = 0;
 
         // Loop through the set of rules
@@ -42,19 +46,29 @@
             $weekdays .= '<tr>';
             $weekends .= '<tr>';
             $special .= '<tr>';
+            $weekdaySpecial .= '<tr>';
+            $weekendSpecial .= '<tr>';
             $table_weekdays = '';
             $table_weekends = '';
             $table_special = '';
+            $table_weekday_special = '';
+            $table_weekend_special = '';
             $table_weekdays_data = [];
             $table_weekends_data = [];
             $table_special_data = [];
+            $table_weekday_special_data = [];
+            $table_weekend_special_data = [];
             $weekdays_rule_type_id = '';
             $weekends_rule_type_id = '';
             $special_rule_type_id = '';
+            $weekday_special_rule_type_id = '';
+            $weekend_special_rule_type_id = '';
 
             $table_weekdays .= '<td>' . ucfirst($price_rule_name) . '</td><td>';
             $table_weekends .= '<td>' . ucfirst($price_rule_name) . '</td><td>';
             $table_special .= '<td>' . ucfirst($price_rule_name) . '</td><td>';
+            $table_weekday_special .= '<td>' . ucfirst($price_rule_name) . '</td><td>';
+            $table_weekend_special .= '<td>' . ucfirst($price_rule_name) . '</td><td>';
 
             foreach ($price_rule_data as $data) {
                 // check if params is in the current rule
@@ -78,6 +92,18 @@
                             $table_special_data[] = $data['Price']['rule_key'];
                             $table_special_has_no_data = false;
                             break;
+                        case 4:
+                            $weekday_special_rule_type_id = $data['Price']['rule_type'];
+                            $table_weekday_special .= ucfirst($data['Price']['rule_key']) . ': ' . $data['Price']['rule_value'] . '</br>';
+                            $table_weekday_special_data[] = $data['Price']['rule_key'];
+                            $table_weekday_special_has_no_data = false;
+                            break;
+                        case 5:
+                            $weekend_special_rule_type_id = $data['Price']['rule_type'];
+                            $table_weekend_special .= ucfirst($data['Price']['rule_key']) . ': ' . $data['Price']['rule_value'] . '</br>';
+                            $table_weekend_special_data[] = $data['Price']['rule_key'];
+                            $table_weekend_special_has_no_data = false;
+                            break;
                         default:
                             break;
                     }
@@ -89,6 +115,8 @@
             $table_weekdays .= '</td>';
             $table_weekends .= '</td>';
             $table_special .= '</td>';
+            $table_weekday_special .= '</td>';
+            $table_weekend_special .= '</td>';
 
             // check for rule data and show if there are some
             if (count($table_weekdays_data) > 0) {
@@ -119,6 +147,28 @@
             } else {
                 if ($table_special_has_no_data && $rule_ctr > 0) {
                     $special .= '<td colspan="4">No rule data to display</td></tr>';
+                }
+            }
+
+            // check for rule data and show if there are some
+            if (count($table_weekday_special_data) > 0) {
+                // append the table data with the closing table row tag
+                $table_weekday_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 3, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $weekdaySpecial .= $table_weekday_special . '</tr>';
+            } else {
+                if ($table_weekday_special_has_no_data && $rule_ctr > 0) {
+                    $weekdaySpecial .= '<td colspan="4">No rule data to display</td></tr>';
+                }
+            }
+
+            // check for rule data and show if there are some
+            if (count($table_weekend_special_data) > 0) {
+                // append the table data with the closing table row tag
+                $table_weekend_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 3, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $weekendSpecial .= $table_weekend_special . '</tr>';
+            } else {
+                if ($table_weekend_special_has_no_data && $rule_ctr > 0) {
+                    $weekendSpecial .= '<td colspan="4">No rule data to display</td></tr>';
                 }
             }
 
@@ -174,8 +224,43 @@
             }
             ?>
         </table>
+
+        <h4>Weekday Special</h4>
+        <table width="100%" style="margin-bottom:10px;">
+            <tr>
+                <td width="40%"><strong>Rule Name</strong></td>
+                <td width="40%"><strong>Rules</strong></td>
+                <td width="20%"><strong>Cancel</strong></td>
+            </tr>
+            <?php
+            if (strlen($weekdaySpecial)) {
+                echo $weekdaySpecial;
+            } else {
+                echo '<tr><td colspan="9">No slots defined</td></tr>';
+            }
+            ?>
+        </table>
+
+
+        <h4>Weekend Special</h4>
+        <table width="100%" style="margin-bottom:10px;">
+            <tr>
+                <td width="40%"><strong>Rule Name</strong></td>
+                <td width="40%"><strong>Rules</strong></td>
+                <td width="20%"><strong>Cancel</strong></td>
+            </tr>
+            <?php
+            if (strlen($weekendSpecial)) {
+                echo $weekendSpecial;
+            } else {
+                echo '<tr><td colspan="9">No slots defined</td></tr>';
+            }
+            ?>
+        </table>
+
+
     <?php } else { ?>
-        <div class="no-record">No slot is available here</div>
+        <div class="no-record">No Price Rule is available here</div>
     <?php } ?>
 
     <h2 style="font-size: 155%; margin-top: 15px;">Add New Price Rule</h2>
