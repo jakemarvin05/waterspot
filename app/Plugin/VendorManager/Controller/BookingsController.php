@@ -410,7 +410,7 @@ Class BookingsController extends VendorManagerAppController{
 	        $global_merge_vars .= '{"name": "PAX", "content": "'.$booking_order['BookingOrder']['no_participants'].'"},';
 	        $global_merge_vars .= '{"name": "DATE", "content": "'.date('Y-m-d',strtotime($booking_order['BookingOrder']['booking_date'])).'"},';
 	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$slot_string.'"},';
-	        $global_merge_vars .= '{"name": "SLOT_DATE", "content": "'.$value_added_services.'"},';
+	        $global_merge_vars .= '{"name": "VAS", "content": "'.$value_added_services.'"},';
 	        $global_merge_vars .= '{"name": "VENDOR_NAME", "content": "'.$booking_order['BookingOrder']['vendor_name'].'"},';
 	        $global_merge_vars .= '{"name": "PHONE", "content": "'.$booking['Booking']['phone'].'"},';
 	        $global_merge_vars .= '{"name": "TOTAL_PRICE", "content": "'.str_replace(['"', "\n", "\t"],['\'', "", ""],$price_str).'"},';
@@ -443,8 +443,33 @@ Class BookingsController extends VendorManagerAppController{
 	                }
 	        }';
 
+			$data_string2 = '{
+	                "key": '.Configure::read('Mandrill.key').',
+	                "template_name": "vendor-booking-failed",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "Booking Request Declined Successfully"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "Booking Declined",
+	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
+	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                        "to": [
+	                                {
+	                                        "email": "'.$booking_order['BookingOrder']['vendor_name'].'",
+	                                        "name": "Admin",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "merge_language": "handlebars",
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
 
-	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+
+			$ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -456,7 +481,23 @@ Class BookingsController extends VendorManagerAppController{
 			$result = curl_exec($ch);
 			$error = curl_error($ch);
 			$info = curl_getinfo($ch);
-			if( $error != '' &&  json_decode($result)[0]->status == 'sent' ){
+
+			$ch2 = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
+			curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch2, CURLOPT_POSTFIELDS, $data_string2);
+			curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch2, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($data_string))
+			);
+
+			$result2 = curl_exec($ch2);
+			$error2 = curl_error($ch2);
+			$info2 = curl_getinfo($ch2);
+
+
+
+			if( $error != '' && $error2 != '' &&  json_decode($result)[0]->status == 'sent' && json_decode($result2)[0]->status == 'sent' ){
 				$this->Session->setFlash('Booking has been decline successfully.','','message');
 			}
 			else{
@@ -578,8 +619,8 @@ Class BookingsController extends VendorManagerAppController{
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
 			    'Content-Type: application/json',                                                                                
 			    'Content-Length: ' . strlen($data_string))                                                                       
-			);                                                                                                                   
-			                                                                                                                     
+			);
+
 			$result = curl_exec($ch);
 			$error = curl_error($ch);
 			$cInfo = curl_getinfo($ch);
