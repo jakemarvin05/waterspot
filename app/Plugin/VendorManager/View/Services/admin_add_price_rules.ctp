@@ -153,7 +153,7 @@
             // check for rule data and show if there are some
             if (count($table_weekday_special_data) > 0) {
                 // append the table data with the closing table row tag
-                $table_weekday_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 3, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $table_weekday_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 4, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
                 $weekdaySpecial .= $table_weekday_special . '</tr>';
             } else {
                 if ($table_weekday_special_has_no_data && $rule_ctr > 0) {
@@ -164,7 +164,7 @@
             // check for rule data and show if there are some
             if (count($table_weekend_special_data) > 0) {
                 // append the table data with the closing table row tag
-                $table_weekend_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 3, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
+                $table_weekend_special .= '<td>' . $this->Html->link($this->Html->image('del.png'), array('plugin' => 'vendor_manager', 'controller' => 'services', 'action' => 'price_rule_delete', $service_id, 5, $special_rule_type_id), array('escape' => false, "onclick" => "return confirm('Are you sure you wish to delete this slot?')")) . '</td>';
                 $weekendSpecial .= $table_weekend_special . '</tr>';
             } else {
                 if ($table_weekend_special_has_no_data && $rule_ctr > 0) {
