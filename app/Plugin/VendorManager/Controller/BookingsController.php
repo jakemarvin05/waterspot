@@ -443,31 +443,6 @@ Class BookingsController extends VendorManagerAppController{
 	                }
 	        }';
 
-			$data_string2 = '{
-	                "key": '.Configure::read('Mandrill.key').',
-	                "template_name": "vendor-booking-failed",
-	                "template_content": [
-	                        {
-	                                "name": "TITLE",
-	                                "content": "Booking Request Declined Successfully"
-	                        }
-	                ],
-	                "message": {
-	                        "subject": "Booking Declined",
-	                        "from_email": "'.$booking_order['BookingOrder']['vendor_email'].'",
-	                        "from_name": "'.$booking_order['BookingOrder']['vendor_name'].'",
-	                        "to": [
-	                                {
-	                                        "email": "'.$booking_order['BookingOrder']['vendor_name'].'",
-	                                        "name": "Admin",
-	                                        "type": "to"
-	                                }
-	                        ],
-	                        "merge_language": "handlebars",
-	                        "global_merge_vars": '.$global_merge_vars.'
-	                }
-	        }';
-
 
 			$ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
@@ -481,23 +456,9 @@ Class BookingsController extends VendorManagerAppController{
 			$result = curl_exec($ch);
 			$error = curl_error($ch);
 			$info = curl_getinfo($ch);
+			curl_close($ch);
 
-			$ch2 = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
-			curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($ch2, CURLOPT_POSTFIELDS, $data_string2);
-			curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch2, CURLOPT_HTTPHEADER, array(
-					'Content-Type: application/json',
-					'Content-Length: ' . strlen($data_string))
-			);
-
-			$result2 = curl_exec($ch2);
-			$error2 = curl_error($ch2);
-			$info2 = curl_getinfo($ch2);
-
-
-
-			if( $error != '' && $error2 != '' &&  json_decode($result)[0]->status == 'sent' && json_decode($result2)[0]->status == 'sent' ){
+			if( $error != '' &&  json_decode($result)[0]->status == 'sent' ){
 				$this->Session->setFlash('Booking has been decline successfully.','','message');
 			}
 			else{
@@ -711,6 +672,7 @@ Class BookingsController extends VendorManagerAppController{
 
 			$global_merge_vars = '[';
 			$global_merge_vars .= '{"name": "USER_NAME", "content": "'.$full_name.'"},';
+			$global_merge_vars .= '{"name": "ADMIN_NAME", "content": "Admin"},';
 			$global_merge_vars .= '{"name": "EMAIL", "content": "'.$to.'"},';
 			$global_merge_vars .= '{"name": "ORDERNO", "content": "'.$booking_order['BookingOrder']['ref_no'].'"},';
 			$global_merge_vars .= '{"name": "PAYMENT_STATUS", "content": "'.$payment_status[$booking['Booking']['status']].'"},';
@@ -751,8 +713,35 @@ Class BookingsController extends VendorManagerAppController{
 	                }
 	        }';
 
+			$data_string2 = '{
+	                "key": "'.Configure::read('Mandrill.key').'",
+	                "template_name": "vendor-booking-failed",
+	                "template_content": [
+	                        {
+	                                "name": "TITLE",
+	                                "content": "Booking Request Declined Successfully"
+	                        }
+	                ],
+	                "message": {
+	                        "subject": "Booking Declined",
+	                        "from_email": "admin@waterspot.com.sg",
+	                        "from_name": "Waterspot",
+	                        "to": [
+	                                {
+	                                        "email": "admin@waterspot.com.sg",
+	                                        "name": "Admin",
+	                                        "type": "to"
+	                                }
+	                        ],
+	                        "merge_language": "handlebars",
+	                        "global_merge_vars": '.$global_merge_vars.'
+	                }
+	        }';
 
-	        $ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');                                                                      
+
+
+
+			$ch = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -763,10 +752,23 @@ Class BookingsController extends VendorManagerAppController{
 			                                                                                                                     
 			$result = curl_exec($ch);
 			$error = curl_error($ch);
+			curl_close($ch);
 
+			$ch2 = curl_init('https://mandrillapp.com/api/1.0/messages/send-template.json');
+			curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch2, CURLOPT_POSTFIELDS, $data_string2);
+			curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch2, CURLOPT_HTTPHEADER, array(
+					'Content-Type: application/json',
+					'Content-Length: ' . strlen($data_string2))
+			);
+
+			$result2 = curl_exec($ch2);
+			$error2 = curl_error($ch2);
+			curl_close($ch2);
 
 			if( $error=='' && json_decode($result)[0]->status == 'sent'){
-				$this->Booking->save($update_booking);
+				//$this->Booking->save($update_booking);
 
 				$this->Session->setFlash('Booking has been decline successfully.','','message');
 			}
